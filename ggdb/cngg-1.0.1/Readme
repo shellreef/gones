@@ -1,0 +1,17 @@
+NES Game Genie Codec Utility
+
+Included within this package:
+
+README              Read me
+ChangeLog           Change log
+
+gg.pl               The NES Game Genie codec utility
+Convert\NES\GG.pm   Game Genie conversion module, used by gg.pl 
+pod.html            HTML documentation created by pod2html from GG.pm
+
+optimize.txt        Info on optimizing multiple codes into one
+nespar.txt          Info on the extremely rare NES Pro Action Replay
+nesfaq.txt          Short FAQ for the NES PAR, a device similar to the GG
+
+Run gg.pl using Perl for an example.
+

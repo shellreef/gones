@@ -1,0 +1,105 @@
+Optimizing Game Genie Codes              XII-12-2000
+
+
+** MUTATING CLOSE OPCODES
+
+Suppose you have these program instructions, and you want to null out the 1st:
+
+    ; From Tetris, in case you're curious
+    00148B A5 41                    LDA $41
+    00148D 0A                       ASL A
+
+
+You could, of course, insert NOP's (EA) over the entire first instruction:
+
+    00148B EA                       NOP
+    00148C EA                       NOP
+    00148D 0A                       ASL A
+
+    Game Genie codes to do this:
+
+        148B:EA (XVAOLK)
+        148C:EA (XVAOGK)
+
+But there's a slight problem with using these codes -- there's two of them.
+One NES Game Genie device can only apply up to 3 codes. So users of your
+two codes can only use one other code. Certainly we can do better. Best case
+is only one code; one byte modification.
+
+Look carefully at the sequence again:
+
+    00148B A5 41                    LDA $41
+    00148D 0A                       ASL A
+
+Aha! 41 is the opcode for EOR with indirect addressing via X, and it takes
+one byte after it. So if we use the Game Genie code 148B:EA, the instructions
+will become:
+
+    00148B EA                       NOP
+    00148C 41 0A                    EOR ($0A,X)
+
+That's good -- we effectively nulled out the LDA $41 instruction, although
+it sort of transformed into another one thanks to it's neighbors. The EOR
+operation may or may not affect the game in a noticable way. The lack of a
+small ASL instruction might not be important either. The only way to find
+out is to try (either that, or careful analyst of the instruction flow).
+
+In fact, the Game Genie code 148B:EA (XVAOLK) does work with Tetris, it
+makes pieces overlap.
+
+Codes can be mutated into other codes in other ways, too. For example,
+an opcode that takes a two-byte operand could be placed at 148B. This
+opcode would suck up bytes at 148C and 148D, nulling them out. The SKB and
+SKW opcodes are suitable for this purpose.
+
+** USING THE UNDOCUMENTED SKB (DOP) AND SKW (TOP) OPCODES
+
+From http://nesdev.parodius.com/undocumented_opcodes.txt:
+
+ DOP (NOP) [SKB]
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ No operation (double NOP). The argument has no signifi-cance. Status
+ flags: -
+ 
+ Addressing  |Mnemonics  |Opc|Sz | n
+ ------------|-----------|---|---|---
+ Zero Page   |DOP arg    |$04| 2 | 3
+ Zero Page,X |DOP arg,X  |$14| 2 | 4
+ Zero Page,X |DOP arg,X  |$34| 2 | 4
+ Zero Page   |DOP arg    |$44| 2 | 3
+ Zero Page,X |DOP arg,X  |$54| 2 | 4
+ Zero Page   |DOP arg    |$64| 2 | 3
+ Zero Page,X |DOP arg,X  |$74| 2 | 4
+ Immediate   |DOP #arg   |$80| 2 | 2
+ Immediate   |DOP #arg   |$82| 2 | 2
+ Immediate   |DOP #arg   |$89| 2 | 2
+ Immediate   |DOP #arg   |$C2| 2 | 2
+ Zero Page,X |DOP arg,X  |$D4| 2 | 4
+ Immediate   |DOP #arg   |$E2| 2 | 2
+ Zero Page,X |DOP arg,X  |$F4| 2 | 4
+
+ TOP (NOP) [SKW]
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ No operation (tripple NOP). The argument has no signifi-cance. Status
+ flags: -
+ 
+ Addressing  |Mnemonics  |Opc|Sz | n
+ ------------|-----------|---|---|---
+ Absolute    |TOP arg    |$0C| 3 | 4
+ Absolute,X  |TOP arg,X  |$1C| 3 | 4 *
+ Absolute,X  |TOP arg,X  |$3C| 3 | 4 *
+ Absolute,X  |TOP arg,X  |$5C| 3 | 4 *
+ Absolute,X  |TOP arg,X  |$7C| 3 | 4 *
+ Absolute,X  |TOP arg,X  |$DC| 3 | 4 *
+ Absolute,X  |TOP arg,X  |$FC| 3 | 4 *
+
+The important field here is the instruction size (Sz), which is the length of
+the opcode (1) and the length of it's operands. SKB will slurp up one byte
+after it, SKW will take two. The major benefit from using these opcodes is
+there is no ill side effects -- they do nothing, unlike EOR from the last
+section.
+
+If you want to null out two bytes, simply place a SKW opcode right before
+them. Note that some NES emulators do not support unofficial opcodes, so
+you might have to try your codes on a real NES. (FCE Ultra supports undoc
+opcodes)

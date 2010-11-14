@@ -1,8 +1,8 @@
 COMPILER = 6g
 LINKER = 6l
 
-EXE = hello
-SRCS = hello.go
+EXE = 6502
+SRCS = 6502.go
 OBJS = ${SRCS:.go=.6}
 
 .SUFFIXES: .go .6

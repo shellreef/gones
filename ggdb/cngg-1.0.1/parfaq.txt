@@ -1,0 +1,69 @@
+NES Pro Action Replay FAQ           04/01/01 Jeff
+
+Q: How rare is the NES PAR?
+
+According to http://www.freespeech.org/smackdown/info/rare/pro/, the
+NES Pro Action Replay is the rarest NES peripheral ever made.
+
+Q: What does PAR's code format look like?
+
+The first two hex digits specify the type, the remaining six digits are used
+differently depending on the code type.
+
+00rrrrvv    Lock RAM address RRRR to VV
+01vv????    VV=value, ????=unknown (ROM modification?)
+7Errrrvv    Lock RAM address RRRR to VV (not clear how this is diff from 00)
+
+Q: Where can I find PAR codes?
+
+http://nesworld.parodius.com/parcodes.htm has a few PAR codes, mostly for
+infinite items. PAR codes are not as rare as the peripheral itself because
+they are nothing more than plain RAM addresses with a value. There's also
+some at my web site, http://apollo.spaceports.com/~jeff/consoles/, under
+"Known memory addresses" under the game's name.
+
+The emulators Nesten and fwNES support creation of RAM codes that you can
+use on a PAR. 
+
+Q: Can PAR modify the ROM, like Game Genie?
+
+According to
+http://www.vgstrategies.about.com/games/vgstrategies/library/misc/blgamegenie.htm
+it can:
+
+    Note: The Action Replay has the added ability to modify RAM addresses,
+    in addition to ROM addresses. It accomplishes this by inserting a sub-
+    routine which is activated on the "vertical blanking" interrupt of the
+    screen display.
+
+Q: How can I convert Game Genie codes to PAR codes?
+
+Tricky, until the format for PAR ROM codes is discovered. Nonetheless, it's
+possible.
+
+Disassemble the ROM using a 6502 disassembler, such as D816. Example:
+
+C:\>d816 foobar.nes
+D816 - 65816 disassembler v1.20 - (c) 1992 The Voice Over
+*cpu 6502
+*hedr 10
+*org 8000
+*fout foobar 8000 ffff     (or higher depending on how big the PRG is)
+...
+
+Using a Game Genie decoding program, decode the GG code. You should have
+an absolute address and a value. If your decoding program only gives you
+a relative address, a value, and a key, better get a better program,
+such as my gg.pl: http://apollo.spaceports.com/~jeff/consoles/
+
+Find the relative address in foobar.txt. Note that it may refer to the middle
+of an opcode, so try searching for the address+/-1 or 2 also. Once you find
+it, look at the opcode. Let's say this is the location that is modified by
+the GG code for Start With 9 Lifes:
+
+0084F4 .. ..        LDA #$03
+0084F5 .. ..        STA $ED
+
+If you know 6502 assembly, you'll know RAM location $ED will now contain
+the literal value $03. PAR's forte is RAM locations. So the code for infinite
+lifes is 0000ED09.

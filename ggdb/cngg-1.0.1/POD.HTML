@@ -1,0 +1,149 @@
+<HTML>
+<HEAD>
+<TITLE>Convert::NES::GG - Decode and encode NES Game Genie codes</TITLE>
+<LINK REV="made" HREF="mailto:">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<UL>
+
+		<LI><A HREF="#($address, $value, $key, $warning) = decode($ggcode)">($address, $value, $key, $warning) = <CODE>decode($ggcode)</CODE></A></LI>
+		<LI><A HREF="#$hex_code = decode($ggcode);">$hex_code = decode($ggcode);</A></LI>
+		<LI><A HREF="#($address, $value, $key) = $gg>parse_gg($ggcode)">($address, $value, $key) = $gg-&gt;<CODE>parse_gg($ggcode)</CODE></A></LI>
+		<LI><A HREF="#$ggcode = $gg>encode($address, $value, $key)">$ggcode = $gg-&gt;encode($address, $value, $key)</A></LI>
+		<LI><A HREF="#$gg>rom_loaded()">$gg-&gt;<CODE>ROM_loaded()</CODE></A></LI>
+		<LI><A HREF="#($prg_banks) = $gg>load_rom($filename)">($prg_banks) = $gg-&gt;<CODE>load_ROM($filename)</CODE></A></LI>
+		<LI><A HREF="#(@affected) = $gg>addrkey_to_addr($reladdr, $key)">(@affected) = $gg-&gt;addrkey_to_addr($reladdr, $key)</A></LI>
+		<LI><A HREF="#$gg>looks_encoded($ggcode)">$gg-&gt;<CODE>looks_encoded($ggcode)</CODE></A></LI>
+		<LI><A HREF="#$gg>unload_rom()">$gg-&gt;<CODE>unload_ROM()</CODE></A></LI>
+	</UL>
+
+	<LI><A HREF="#example">EXAMPLE</A></LI>
+	<LI><A HREF="#credits">CREDITS</A></LI>
+	<LI><A HREF="#author information">AUTHOR INFORMATION</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>Convert::NES::GG - Decode and encode NES Game Genie codes</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<PRE>
+  use Convert::NES::GG;</PRE>
+<PRE>
+  my $gg = new Convert::NES::GG;
+  my ($reladdr, $value, $key) = $gg-&gt;decode(&quot;SLXPLOVS&quot;);
+  my @absaddrs = $gg-&gt;addrkey_to_addr($reladdr, $key);
+  # @absaddrs can now be looked up in a disassembly of a NES ROM</PRE>
+<PRE>
+  print $gg-&gt;encode(0x1123, 0xBD, 0xDE);
+  print $gg-&gt;encode(0x45123, 0xBD);</PRE>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P>Convert::NES::GG provides an object-oriented interface for decoding and
+encoding Game Genie codes for the NES console system. Convert::NES::GG is
+able to find the ROM addresses affected by any NES Game Genie code, aiding
+in creation of new codes and understanding of existing ones.</P>
+<P>
+<H2><A NAME="($address, $value, $key, $warning) = decode($ggcode)">($address, $value, $key, $warning) = <CODE>decode($ggcode)</CODE></A></H2>
+<P>
+<H2><A NAME="$hex_code = decode($ggcode);">$hex_code = decode($ggcode);</A></H2>
+<P>Decode an encoded Game Genie code into it's relative address, value, and
+possibly key. In scalar context, returns $warning$address?$key:$value.
+$warning is set to ``~'' if the code really should be eight digits, a space
+otherwise.</P>
+<P>Example:</P>
+<PRE>
+    ($reladdr, $value, $key) = $gg-&gt;decode(&quot;SLXPLOVS&quot;);
+    print &quot;SLXPLOVS is:&quot;, scalar $gg-&gt;decode(&quot;SLXPLOVS&quot;);</PRE>
+<P>
+<H2><A NAME="($address, $value, $key) = $gg>parse_gg($ggcode)">($address, $value, $key) = $gg-&gt;<CODE>parse_gg($ggcode)</CODE></A></H2>
+<P>Parses a GG code in canonical format (that is, aaaa?kk:vv or aaaa:vv)
+into it's relative address, value, and possibily key.</P>
+<P>
+<H2><A NAME="$ggcode = $gg>encode($address, $value, $key)">$ggcode = $gg-&gt;encode($address, $value, $key)</A></H2>
+<P>Encode a relative address, value, and a possibily a key into a Game Genie
+code. If $key is defined, the resulting code will be eight letters. Else it
+will be six.</P>
+<P>If $address is between 0x0000 and 0x7FFF, it is assumed to be a relative
+address. Addresses over 0x7FFF are forced to be be under 0x7FFF if no ROM
+is loaded. If a ROM, however, is loaded, $address is treated as an absolute
+address starting at 0x8000. A key will automagically be discovered if
+possible.</P>
+<P>
+<H2><A NAME="$gg>rom_loaded()">$gg-&gt;<CODE>ROM_loaded()</CODE></A></H2>
+<P>Return true if a ROM is loaded, meaning that special absolute address
+functions are available. False if not.</P>
+<P>
+<H2><A NAME="($prg_banks) = $gg>load_rom($filename)">($prg_banks) = $gg-&gt;<CODE>load_ROM($filename)</CODE></A></H2>
+<P>Load an NES ROM in iNES format, enabling special functions to be used.
+Returns the number of 0x4000-byte PRG banks.</P>
+<P>
+<H2><A NAME="(@affected) = $gg>addrkey_to_addr($reladdr, $key)">(@affected) = $gg-&gt;addrkey_to_addr($reladdr, $key)</A></H2>
+<P>Only available is a ROM is loaded. Searches through all PRG banks of the
+loaded ROM for the $key at $reladdr. Returns a list of affected addresses.
+In scalar context, merely returns the first affected address.</P>
+<P>Note that this code is not needed for six-letter keyless codes, as they
+affect all the PRG banks.</P>
+<P>
+<H2><A NAME="$gg>looks_encoded($ggcode)">$gg-&gt;<CODE>looks_encoded($ggcode)</CODE></A></H2>
+<P>Return true if $ggcode is a decodable eight- or six-letter Game Genie code.</P>
+<P>
+<H2><A NAME="$gg>unload_rom()">$gg-&gt;<CODE>unload_ROM()</CODE></A></H2>
+<P>Unload any loaded ROM.</P>
+<P>
+<HR>
+<H1><A NAME="example">EXAMPLE</A></H1>
+<P>gg.pl is provided as an example of how to use Convert::NES::GG. Usage is
+simple:</P>
+<DL>
+<DT><STRONG><A NAME="item_SLXPLOVS">SLXPLOVS</A></STRONG><BR>
+<DD>
+Type a Game Genie code to decode it into address, key, value format.
+If a ROM is loaded, affected addresses will be listed.
+<P></P>
+<DT><STRONG><A NAME="item_FFFF%3ABD">FFFF:BD</A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_A23%3FDE%3ABD">A23?DE:BD</A></STRONG><BR>
+<DD>
+Type a address/value pair to encode it as a Game Genie code. If the address
+is &lt;0x8000, treated as relative. If &gt;0x8000 and a ROM is loaded, the ROM is
+used to determine the key, else, high bits are lopped off.
+<P>If a ROM is loaded, affected addresses will be listed.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%3Dfilename%2Enes">=filename.nes</A></STRONG><BR>
+<DD>
+Loads an iNES ROM for advanced features.
+<P></P>
+<DT><STRONG><A NAME="item_%2D">-</A></STRONG><BR>
+<DD>
+Unloads any currently loaded ROM.
+<P></P></DL>
+<P>
+<HR>
+<H1><A NAME="credits">CREDITS</A></H1>
+<P>Encode/decode routines translated from Chris Covell's AmiGenie.cpp.</P>
+<P>
+<HR>
+<H1><A NAME="author information">AUTHOR INFORMATION</A></H1>
+<P>Copyright (C) 2001, Jeff Connelly.</P>
+<P>This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.</P>
+<P>Official web site: <A HREF="http://ggdb.sourceforge.net/">http://ggdb.sourceforge.net/</A></P>
+
+</BODY>
+
+</HTML>

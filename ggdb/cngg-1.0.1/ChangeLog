@@ -1,0 +1,6 @@
+1.0.1 Fixed a few warnings
+      Convert::NES::GG can now correctly find the absolute address of a code
+      Added POD
+
+
+1.0.0 Initial release

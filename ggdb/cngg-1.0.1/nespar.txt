@@ -1,0 +1,108 @@
+NES Pro Action Replay Code Format       04/01/01 Jeff
+
+SUMMARY
+
+00rrrrvv    Lock RAM address RRRR to VV
+01vv????    VV=Value, ????=unknown
+7Errrrvv    Lock RAM address RRRR to VV (different from 00 how?)
+
+The Datel's NES PAR is rare. I've heard you can find it on eBay. Because of
+it's rarity, not much is known about the format of NES PAR codes.
+
+According to http://www.freespeech.org/smackdown/info/rare/pro/, the NES
+Pro Action Replay is the rarest NES peripheral ever made.
+
+It looks like NES PAR codes are not encrypted, or at least not the value.
+
+00056CFF - Gremlins 2               255 crystal balls
+0007EEXX - Super Mario Brothers     Gives mario XX amount of coins
+(source: http://nesworld.parodius.com/parcodes.htm)
+
+Clearly the last two digits are the value, and the digits before it are
+the address, in this case.  But:
+
+01XX65C0 - The Adams Family         Gives you xx amount of lives
+
+If the code begins with 01, the value is first, followed by the address.
+
+Comparing NES PAR and NES GG codes for Super Mario Bros. infinite lifes:
+
+PAR     00075A02    
+GG      SXIOPO -> 11D9:AD
+
+Hmm, no noticable correlation. What about 0007EEXX?
+
+Nesten's cheat console reveals memory address $07EE is where the number of
+coins is stored. So NES PAR can codes modify RAM instead of the ROM.
+
+Maybe we should look at that Super Mario Bros. infinite lifes PAR code again:
+
+   RAM Address
+   |||
+00075A02
+      ||
+      ||
+      # of lifes
+Using a memory editor in an emulator reveals 75A is indeed the number of
+lifes left. So how does the ROM patch 11D9:AD correspond to 75A? Simple:
+
+0091D9 CE 5A 07               DEC $075A     ; Disassembling the ROM gives this
+0091DC 10 0B                  BPL $91E9     ; If A is positive, go to 91E9
+0091DE A9 00                  LDA #$00
+0091E0 8D 72 07               STA $0772
+0091E3 A9 03                  LDA #$03
+0091E5 8D 70 07               STA $0770
+0091E8 60                     RTS           ; Return from sub
+0091E9 AD 5F 07               LDA $075F
+0091EC 0A                     ASL A
+0091ED AA                     TAX
+0091EE AD 5C 07               LDA $075C
+0091F1 29 02                  AND #$02
+...
+
+11D9:AD changes that code which decrements the number of lifes after
+death to:
+
+0091D9*AD*5A 07               LDA $075A     ; AD is LDA's absolute opcode
+
+0091DC 10 0B                  BPL $91E9     ; If A is positive, go to 91E9
+0091DE A9 00                  LDA #$00
+0091E0 8D 72 07               STA $0772
+0091E3 A9 03                  LDA #$03
+0091E5 8D 70 07               STA $0770
+0091E8 60                     RTS           ; Return from sub
+0091E9 AD 5F 07               LDA $075F
+0091EC 0A                     ASL A
+0091ED AA                     TAX
+0091EE AD 5C 07               LDA $075C
+0091F1 29 02                  AND #$02
+...
+
+All LDA does is load the byte at $075A into the accumulator. As you can
+plainly see, A is overwritten with 00 soon after. Thus making the instruction
+at 0091D9 not affect either $075A=number of lives, or the well being of the
+program.
+
+NES PAR most likely "locks" a value in RAM by continuously writing to it,
+although emulator authors could devise better methods.
+
+Returning to 01XX65C0 - XX lifes for The Adams Family (this was the only
+code I could find which begins with 01). RAM $4ED is where the number of
+lifes is stored. ROM $E5C0 is this:
+
+             ;/E5C0
+00E5BE AD 32 06               LDA $0632  
+00E5C1 C9 02                  CMP #$02
+00E5C3 D0 E9                  BNE $E5AE
+
+But that doesn't look like it would affect the number of lifes. It could be
+that 01 indicates a 16-bit value instead of 8-bit (as in the current N64
+GameShark/PAR), but what would be the memory address? $65C0 is always 0,
+Perhaps XX, 65, and C0 are separate fields: one could be a "key" where the
+RAM has to be that value, but $C0 contains $AE most of the time (set to $00
+for no enemies). $65 is zero mostly.
+
+What about the 7E04BF3F Infinite lifes code for Street Gangs? $04BF is where
+Ryan's power bar is stored. $3F=63=maximum power bar. The question is, how
+is this different from 0004BF3F?
+                             
