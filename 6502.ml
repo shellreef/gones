@@ -1,4 +1,5 @@
 let opcodes = [|
+(* Indexed by opcode, value is (mneumonic, addressing mode code) *)
 (* ==0==     ==1==     ==2==    ==3==     ==4==     ==5==     ==6==     ==7== *)
 ("BRK", 9);("ORA", 7);("___", 0);("___", 0);("___", 0);("ORA", 1);("ASL", 1);("___", 0);
 ("PHP", 9);("ORA", 0);("ASL",10);("___", 0);("___", 0);("ORA", 4);("ASL", 4);("___", 0);
@@ -32,5 +33,22 @@ let opcodes = [|
 ("INX", 9);("SBC", 0);("NOP", 9);("___", 0);("CPX", 2);("SBC", 4);("INC", 4);("___", 0);
 ("BEQ",12);("SBC", 8);("___", 0);("___", 0);("___", 0);("SBC", 2);("INC", 2);("___", 0);
 ("SED", 9);("SBC", 6);("___", 0);("___", 0);("___", 0);("SBC", 5);("INC", 5);("___", 0);
+|];;
+
+let addressingModes = [|
+    (* operand bytes, name, TODO: formatter *)
+    (1, "Immediate");               (* sprintf '#$%.2X',$_[0]} *)
+    (1, "Zero Page");               (* sprintf '$%.2X',$_[0]} *)
+    (1, "Indexed X Zero Page");     (* sprintf '$%.2X,X',$_[0]} *)
+    (1, "Indexed Y Zero Page");     (* sprintf '$%.2X,Y',$_[0]} *)
+    (2, "Absolute");                (* sprintf '$%.4X',($_[0])+(($_[1])*0x100)} *)
+    (2, "Indexed X");               (* sprintf '$%.4X,X',($_[0])+(($_[1])*0x100)} *)
+    (2, "Indexed Y");               (* sprintf '$%.4X,Y',($_[0])+(($_[1])*0x100)} *)
+    (1, "Pre-indexed Indirect");    (* sprintf '($%.2X,X)', $_[0] } *)
+    (1, "Post-indexed indirect");   (* sprintf '($%.2X),Y', $_[0] } *)
+    (0, "Implied");                 (* '' *)
+    (0, "Accumulator");             (* 'A' *)
+    (2, "Indirect");                (* sprintf '($%.4X)', ($_[0])+(($_[1])*0x100)} *) 
+    (1, "Relative");                (* sprintf '$%.4X', sign_num($_[0])+$_[1] } *)
 |];;
 
