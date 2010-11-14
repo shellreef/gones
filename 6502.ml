@@ -52,19 +52,8 @@ let opcodeMap = [|
 (* Bytes after opcode which operand requires for each addressing mode *)
 let operandBytesForMode mode =
     match mode with
-    | Imm -> 1
-    | Zer -> 1
-    | Ixz -> 1
-    | Iyz -> 1
-    | Abs -> 2
-    | Inx -> 2
-    | Iny -> 2
-    | Pre -> 1
-    | Pst -> 1
-    | Imp -> 0
-    | Acc -> 0
-    | Ind -> 2
-    | Rel -> 1;;
+    | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
+    | Pre -> 1 | Pst -> 1 | Imp -> 0 | Acc -> 0 | Ind -> 2 | Rel -> 1;;
 
 let nameOfMode mode =
     match mode with
@@ -101,3 +90,19 @@ let addressingModes = [|
     (* Rel *) (1, "Relative");                (* sprintf '$%.AbsX', sign_num($_[Imm])+$_[Zer] } *) 
 |];;
 *)
+
+(* This is lame, but OCaml doesn't have reflection like Python f.func_name *)
+let stringOfOpcode opcode = 
+    match opcode with
+    | ADC -> "ADC" | AND -> "AND" | ASL -> "ASL" | BCC -> "BCC" | BCS -> "BCS" | BEQ -> "BEQ" | BIT -> "BIT" | BMI -> "BMI"
+    | BNE -> "BNE" | BPL -> "BPL" | BRK -> "BRK" | BVC -> "BVC" | BVS -> "BVS" | CLC -> "CLC" | CLD -> "CLD" | CLI -> "CLI"
+    | CLV -> "CLV" | CMP -> "CMP" | CPX -> "CPX" | CPY -> "CPY" | DEC -> "DEC" | DEX -> "DEX" | DEY -> "DEY" | EOR -> "EOR"
+    | INC -> "INC" | INX -> "INX" | INY -> "INY" | JMP -> "JMP" | JSR -> "JSR" | LDA -> "LDA" | LDX -> "LDX" | LDY -> "LDY"
+    | LSR -> "LSR" | NOP -> "NOP" | ORA -> "ORA" | PHA -> "PHA" | PHP -> "PHP" | PLA -> "PLA" | PLP -> "PLP" | ROL -> "ROL"
+    | ROR -> "ROR" | RTI -> "RTI" | RTS -> "RTS" | SBC -> "SBC" | SEC -> "SEC" | SED -> "SED" | SEI -> "SEI" | STA -> "STA"
+    | STX -> "STX" | STY -> "STY" | TAX -> "TAX" | TAY -> "TAY" | TSX -> "TSX" | TXA -> "TXA" | TXS -> "TXS" | TYA -> "TYA"
+    | U__ -> "???";;
+
+
+Printf.printf "%s" (stringOfOpcode (fst (Array.get opcodeMap 0xEA)));;
+
