@@ -2,7 +2,7 @@ COMPILER = ocamlopt
 LINKER = ocamlopt
 
 EXE = 6502
-SOURCES = cpu6502.ml
+SOURCES = cpu6502.ml inesfile.ml
 NATIVE_OBJECTS = ${SOURCES:.ml=.cmx}
 MACH_OBJECTS = ${SOURCES:.ml=.o}
 INTERFACES = ${SOURCES:.ml=.cmi}
