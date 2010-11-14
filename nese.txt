@@ -1,0 +1,42 @@
+Writing a NES Emulator
+Jeff Connelly 2010/11/12
+
+why? to learn for fun
+Game Genie codes, reverse engineering, modifications to classic games
+
+resources:
+http://nesdev.parodius.com/
+http://www.zophar.net/
+
+
+disassembler/instruction decoder
+RP2A03 (6502-based) CPU simulator
+other hardware
+Game Genie decoder/encoder
+iNES and Universal NES Interchange Format (UNIF)
+
+
+language? something new to try
+Go? new Google's language, compiles native, fast, systems language, improvements over C
+ no existing NES emulator in Go it appears, though there is a ZX Spectrum one https://github.com/remogatto/gospeccy 
+ and authors said that coding an emulator in Go was very enjoyable
+Lisp? Scheme?
+O'Caml? - can be compiled to bytecode/native, ML-derived language
+Haskell? - team working to make work well on Mac, but not active since 2010/10 http://www.haskell.org/haskellwiki/Mac_OS_X_Strike_Force
+ existing LazyNES https://github.com/trez/LazyNES 
+Objective C? - Mac only, but fast and powerful
+ existing in Obj C: Maciform, last updated 2010-07-19 http://code.google.com/p/macifom/ maybe help? http://www.zophar.net/macintosh/nes.html
+CoffeeScript? - nice language, compiles to JavaScript and runs in browser. limited by browser platform
+ cool idea, but limited by the platform
+ existing in JavaScript: JSNes http://benfirshman.com/projects/jsnes/
+Prolog? - limited graphics
+VHDL? Verilog? existing knes FPGA-based NES emulator https://github.com/konkers/knes
+C? C++? - cliche, but possible
+Python? - nice language, it is a possibility, but doesn't compile well [PyNES]
+Ruby? - nice language, but not exotic enough. existing: RubyNES, 
+Perl? - see perl5 ggdb.sf.net - but how about Perl 6 madness?
+Java? - not my favorite
+
+FCEUXD SP is best NES emulator for hacking purposes (with IDA Pro, $1059 http://www.hex-rays.com/idapro/orderforms/namedworld.pdf)
+author's blog http://www.the-interweb.com/serendipity/
+info on ROM and RAM addresses: http://datacrystal.romhacking.net/
