@@ -49,6 +49,18 @@ let opcodeMap = [|
 (SED, Imp);(SBC, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(SBC, Inx);(INC, Inx);(U__, Imm);
 |];;
 
+(* This is lame, but OCaml doesn't have reflection like Python f.func_name *)
+let stringOfOpcode opcode = 
+    match opcode with
+    | ADC -> "ADC" | AND -> "AND" | ASL -> "ASL" | BCC -> "BCC" | BCS -> "BCS" | BEQ -> "BEQ" | BIT -> "BIT" | BMI -> "BMI"
+    | BNE -> "BNE" | BPL -> "BPL" | BRK -> "BRK" | BVC -> "BVC" | BVS -> "BVS" | CLC -> "CLC" | CLD -> "CLD" | CLI -> "CLI"
+    | CLV -> "CLV" | CMP -> "CMP" | CPX -> "CPX" | CPY -> "CPY" | DEC -> "DEC" | DEX -> "DEX" | DEY -> "DEY" | EOR -> "EOR"
+    | INC -> "INC" | INX -> "INX" | INY -> "INY" | JMP -> "JMP" | JSR -> "JSR" | LDA -> "LDA" | LDX -> "LDX" | LDY -> "LDY"
+    | LSR -> "LSR" | NOP -> "NOP" | ORA -> "ORA" | PHA -> "PHA" | PHP -> "PHP" | PLA -> "PLA" | PLP -> "PLP" | ROL -> "ROL"
+    | ROR -> "ROR" | RTI -> "RTI" | RTS -> "RTS" | SBC -> "SBC" | SEC -> "SEC" | SED -> "SED" | SEI -> "SEI" | STA -> "STA"
+    | STX -> "STX" | STY -> "STY" | TAX -> "TAX" | TAY -> "TAY" | TSX -> "TSX" | TXA -> "TXA" | TXS -> "TXS" | TYA -> "TYA"
+    | U__ -> "???";;
+
 (* Bytes after opcode which operand requires for each addressing mode *)
 let operandBytesForMode mode =
     match mode with
@@ -71,38 +83,23 @@ let nameOfMode mode =
     | Ind -> "Indirect"
     | Rel -> "Relative";;
 
-(* TODO: formatters for each mode *)
-(*
-let addressingModes = [|
-    (* (* index *) operand bytes, name, TODO: formatter *)
-    (* Imm *) (1, "Immediate");               (* sprintf '#$%.IxzX',$_[Imm]} *)
-    (* Zer *) (1, "Zero Page");               (* sprintf '$%.IxzX',$_[Imm]} *)
-    (* Ixz *) (1, "Indexed X Zero Page");     (* sprintf '$%.IxzX,X',$_[Imm]} *)
-    (* Iyz *) (1, "Indexed Y Zero Page");     (* sprintf '$%.IxzX,Y',$_[Imm]} *)
-    (* Abs *) (2, "Absolute");                (* sprintf '$%.AbsX',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Inx *) (2, "Indexed X");               (* sprintf '$%.AbsX,X',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Iny *) (2, "Indexed Y");               (* sprintf '$%.AbsX,Y',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Pre *) (1, "Pre-indexed Indirect");    (* sprintf '($%.IxzX,X)', $_[Imm] } *)
-    (* Pst *) (1, "Post-indexed indirect");   (* sprintf '($%.IxzX),Y', $_[Imm] } *)
-    (* Imp *) (0, "Implied");                 (* '' *)
-    (* Acc *) (0, "Accumulator");             (* 'A' *)
-    (* Ind *) (2, "Indirect");                (* sprintf '($%.AbsX)', ($_[Imm])+(($_[Zer])*ImmxAccImm)} *)  (* JMP only *)
-    (* Rel *) (1, "Relative");                (* sprintf '$%.AbsX', sign_num($_[Imm])+$_[Zer] } *) 
-|];;
-*)
 
-(* This is lame, but OCaml doesn't have reflection like Python f.func_name *)
-let stringOfOpcode opcode = 
-    match opcode with
-    | ADC -> "ADC" | AND -> "AND" | ASL -> "ASL" | BCC -> "BCC" | BCS -> "BCS" | BEQ -> "BEQ" | BIT -> "BIT" | BMI -> "BMI"
-    | BNE -> "BNE" | BPL -> "BPL" | BRK -> "BRK" | BVC -> "BVC" | BVS -> "BVS" | CLC -> "CLC" | CLD -> "CLD" | CLI -> "CLI"
-    | CLV -> "CLV" | CMP -> "CMP" | CPX -> "CPX" | CPY -> "CPY" | DEC -> "DEC" | DEX -> "DEX" | DEY -> "DEY" | EOR -> "EOR"
-    | INC -> "INC" | INX -> "INX" | INY -> "INY" | JMP -> "JMP" | JSR -> "JSR" | LDA -> "LDA" | LDX -> "LDX" | LDY -> "LDY"
-    | LSR -> "LSR" | NOP -> "NOP" | ORA -> "ORA" | PHA -> "PHA" | PHP -> "PHP" | PLA -> "PLA" | PLP -> "PLP" | ROL -> "ROL"
-    | ROR -> "ROR" | RTI -> "RTI" | RTS -> "RTS" | SBC -> "SBC" | SEC -> "SEC" | SED -> "SED" | SEI -> "SEI" | STA -> "STA"
-    | STX -> "STX" | STY -> "STY" | TAX -> "TAX" | TAY -> "TAY" | TSX -> "TSX" | TXA -> "TXA" | TXS -> "TXS" | TYA -> "TYA"
-    | U__ -> "???";;
+(* TODO: refactor, but format/string split might complicate *)
+let formatOperand mode operand =
+    match mode with
+    | Imm -> Printf.sprintf "#$%.2X" operand
+    | Zer -> Printf.sprintf "$%.2X" operand
+    | Ixz -> Printf.sprintf "$%.2X,X" operand
+    | Iyz -> Printf.sprintf "$%.2X,X" operand
+    | Abs -> Printf.sprintf "#$%.4X" operand
+    | Inx -> Printf.sprintf "$%.4X,X" operand
+    | Iny -> Printf.sprintf "$%.4X,Y" operand
+    | Pre -> Printf.sprintf "($%.2X,X)" operand
+    | Pst -> Printf.sprintf "($%.2X),Y" operand
+    | Imp -> ""
+    | Acc -> "A"
+    | Ind -> Printf.sprintf "($%.4X)" operand
+    | Rel -> Printf.sprintf "$%.4X" operand;;    (* TODO: sign_num(operand)+offset, it really needs to be relative current offset *)
 
-
-Printf.printf "%s" (stringOfOpcode (fst (Array.get opcodeMap 0xEA)));;
+Printf.printf "%s %s" (stringOfOpcode (fst (Array.get opcodeMap 0xa1 ))) (formatOperand (snd (Array.get opcodeMap 0xa1)) 123);;
 
