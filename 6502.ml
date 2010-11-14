@@ -120,6 +120,6 @@ let formatOperand mode operand =
 *)
 
 
-Printf.printf "%s %s" (stringOfOpcode (fst (Array.get opcodeMap 0xa1 ))) (formatOperand (snd (Array.get opcodeMap 0xa1)) 123);;
+print_endline ((stringOfOpcode (fst (Array.get opcodeMap 0xa1 ))) ^ " " ^ (formatOperand (snd (Array.get opcodeMap 0xa1)) 123));;
 
 
