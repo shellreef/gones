@@ -8,25 +8,7 @@ type opcode = ADC | AND | ASL | BCC | BCS | BEQ | BIT | BMI | BNE | BPL | BRK | 
     (* undefined / invalid / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt *)
     U__;;
 
-type addressingMode = Imm | Zer | Ixz | Iyz | Abs | Inx | Iny | Pre | Pst | Imp | Acc | Ind | Rel;;
-
-let addressingModes = [|
-    (* (* index *) operand bytes, name, TODO: formatter *)
-    (* Imm *) (1, "Immediate");               (* sprintf '#$%.IxzX',$_[Imm]} *)
-    (* Zer *) (1, "Zero Page");               (* sprintf '$%.IxzX',$_[Imm]} *)
-    (* Ixz *) (1, "Indexed X Zero Page");     (* sprintf '$%.IxzX,X',$_[Imm]} *)
-    (* Iyz *) (1, "Indexed Y Zero Page");     (* sprintf '$%.IxzX,Y',$_[Imm]} *)
-    (* Abs *) (2, "Absolute");                (* sprintf '$%.AbsX',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Inx *) (2, "Indexed X");               (* sprintf '$%.AbsX,X',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Iny *) (2, "Indexed Y");               (* sprintf '$%.AbsX,Y',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
-    (* Pre *) (1, "Pre-indexed Indirect");    (* sprintf '($%.IxzX,X)', $_[Imm] } *)
-    (* Pst *) (1, "Post-indexed indirect");   (* sprintf '($%.IxzX),Y', $_[Imm] } *)
-    (* Imp *) (0, "Implied");                 (* '' *)
-    (* Acc *) (0, "Accumulator");             (* 'A' *)
-    (* Ind *) (2, "Indirect");                (* sprintf '($%.AbsX)', ($_[Imm])+(($_[Zer])*ImmxAccImm)} *)  (* JMP only *)
-    (* Rel *) (1, "Relative");                (* sprintf '$%.AbsX', sign_num($_[Imm])+$_[Zer] } *) 
-|];;
-
+type addrMode = Imm | Zer | Ixz | Iyz | Abs | Inx | Iny | Pre | Pst | Imp | Acc | Ind | Rel;;
 
 (* http://nesdev.parodius.com/6502.txt *)
 let opcodeMap = [|
@@ -46,7 +28,7 @@ let opcodeMap = [|
 (EOR, Inx);(EOR, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(EOR, Ixz);(LSR, Ixz);(U__, Imm); (* 5x *)
 (CLI, Imp);(EOR, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);(LSR, Inx);(U__, Imm);
 (RTS, Imp);(ADC, Pre);(U__, Imm);(U__, Imm);(U__, Imm);(ADC, Zer);(ROR, Zer);(U__, Imm); (* 6x *)
-(PLA, Imp);(ADC, Imm);(ROR, Acc);(U__, Imm);(JMP, Rel);(U__, Imm);(ROR, Abs);(U__, Imm);
+(PLA, Imp);(ADC, Imm);(ROR, Acc);(U__, Imm);(JMP, Ind);(U__, Imm);(ROR, Abs);(U__, Imm);
 (BVS, Rel);(ADC, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(ADC, Ixz);(ROR, Ixz);(U__, Imm); (* 7x *)
 (SEI, Imp);(ADC, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);(ROR, Inx);(U__, Imm);
 (STA, Abs);(STA, Pre);(U__, Imm);(U__, Imm);(STY, Zer);(STA, Zer);(STX, Zer);(U__, Imm); (* 8x *)
@@ -67,4 +49,55 @@ let opcodeMap = [|
 (SED, Imp);(SBC, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(SBC, Inx);(INC, Inx);(U__, Imm);
 |];;
 
+(* Bytes after opcode which operand requires for each addressing mode *)
+let operandBytesForMode mode =
+    match mode with
+    | Imm -> 1
+    | Zer -> 1
+    | Ixz -> 1
+    | Iyz -> 1
+    | Abs -> 2
+    | Inx -> 2
+    | Iny -> 2
+    | Pre -> 1
+    | Pst -> 1
+    | Imp -> 0
+    | Acc -> 0
+    | Ind -> 2
+    | Rel -> 1;;
 
+let nameOfMode mode =
+    match mode with
+    | Imm -> "Immediate"
+    | Zer -> "Zero Page"
+    | Ixz -> "Indexed X Zero Page"
+    | Iyz -> "Indexed Y Zero Page"
+    | Abs -> "Absolute"
+    | Inx -> "Indexed X"
+    | Iny -> "Indexed Y"
+    | Pre -> "Pre-indexed Indirect"
+    | Pst -> "Post-indexed Indirect"
+    | Imp -> "Implied"
+    | Acc -> "Accumulator"
+    | Ind -> "Indirect"
+    | Rel -> "Relative";;
+
+(* TODO: formatters for each mode *)
+(*
+let addressingModes = [|
+    (* (* index *) operand bytes, name, TODO: formatter *)
+    (* Imm *) (1, "Immediate");               (* sprintf '#$%.IxzX',$_[Imm]} *)
+    (* Zer *) (1, "Zero Page");               (* sprintf '$%.IxzX',$_[Imm]} *)
+    (* Ixz *) (1, "Indexed X Zero Page");     (* sprintf '$%.IxzX,X',$_[Imm]} *)
+    (* Iyz *) (1, "Indexed Y Zero Page");     (* sprintf '$%.IxzX,Y',$_[Imm]} *)
+    (* Abs *) (2, "Absolute");                (* sprintf '$%.AbsX',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
+    (* Inx *) (2, "Indexed X");               (* sprintf '$%.AbsX,X',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
+    (* Iny *) (2, "Indexed Y");               (* sprintf '$%.AbsX,Y',($_[Imm])+(($_[Zer])*ImmxAccImm)} *)
+    (* Pre *) (1, "Pre-indexed Indirect");    (* sprintf '($%.IxzX,X)', $_[Imm] } *)
+    (* Pst *) (1, "Post-indexed indirect");   (* sprintf '($%.IxzX),Y', $_[Imm] } *)
+    (* Imp *) (0, "Implied");                 (* '' *)
+    (* Acc *) (0, "Accumulator");             (* 'A' *)
+    (* Ind *) (2, "Indirect");                (* sprintf '($%.AbsX)', ($_[Imm])+(($_[Zer])*ImmxAccImm)} *)  (* JMP only *)
+    (* Rel *) (1, "Relative");                (* sprintf '$%.AbsX', sign_num($_[Imm])+$_[Zer] } *) 
+|];;
+*)
