@@ -17,6 +17,7 @@ Note: to display this document properly, your text viewer needs two things:
 1. support for the classic VGA-based text mode 256 character set with 
 line-drawing characters. 2. word-wrap. windows notepad can easially do both 
 if you change the font over to terminal style.
+[Update 2010/11/13: converted to UTF-8 so a classic VGA editor is no longer needed -JC]
 
 
 +----------------+
@@ -138,7 +139,7 @@ register used inside NES/FC controllers.
 ****************************
 Below are two tables which displays the 6502 opcode matrix, and clearly 
 exposes all the wierd ways the opcode number relates to the operation of the 
-instruction. This new version has John West and Marko M�kel� to thank for 
+instruction. This new version has John West and Marko Mèkelè to thank for 
 their excellent "NMOS 65xx Instruction Set" documentation, available at 
 http://nesdev.parodius.com/. This document is recommend literature for those 
 of you out there who are looking for an exteremely detailed look at how the 
@@ -165,79 +166,79 @@ IND     ($xxxx)
 NDX     ($xx,X)
 NDY     ($xx),Y
 
-1������������������������������������������������������������������������ͻ
-�7654 3210�xx0 00x�xx1 00x�xx0 10x�xx1 10x�xx0 01x�xx1 01x�xx0 11x�xx1 11x�
-�������������������������������������������������������������������������Ķ
-�000x xx00�BRK IMD�BPL    �PHP    �CLC    �nop opg�nop opx�nop abs�nop abx�
-�001x xx00�JSR ABS�BMI    �PLP    �SEC    �BIT 0PG�nop opx�BIT ABS�nop abx�
-�010x xx00�RTI    �BVC    �PHA    �CLI    �nop opg�nop opx�JMP ABS�nop abx�
-�011x xx00�RTS    �BVS    �PLA    �SEI    �nop opg�nop opx�JMP IND�nop abx�
-�100x xx00�nop imd�BCC    �DEY    �TYA    �STY 0PG�STY 0PX�STY ABS�shy abx�
-�101x xx00�LDY IMD�BCS    �TAY    �CLV    �LDY 0PG�LDY 0PX�LDY ABS�LDY ABX�
-�110x xx00�CPY IMD�BNE    �INY    �CLD    �CPY 0PG�nop opx�CPY ABS�nop abx�
-�111x xx00�CPX IMD�BEQ    �INX    �SED    �CPX 0PG�nop opx�CPX ABS�nop abx�
-�000x xx10�       �       �ASL A  �nop    �ASL 0PG�ASL 0PX�ASL ABS�ASL ABX�
-�001x xx10�       �       �ROL A  �nop    �ROL 0PG�ROL 0PX�ROL ABS�ROL ABX�
-�010x xx10�       �       �LSR A  �nop    �LSR 0PG�LSR 0PX�LSR ABS�LSR ABX�
-�011x xx10�       �       �ROR A  �nop    �ROR 0PG�ROR 0PX�ROR ABS�ROR ABX�
-�100x xx10�nop imd�       �TXA    �TXS    �STX 0PG�STX 0PY�STX ABS�shx aby�
-�101x xx10�LDX IMD�       �TAX    �TSX    �LDX 0PG�LDX 0PY�LDX ABS�LDX ABY�
-�110x xx10�nop imd�       �DEX    �nop    �DEC 0PG�DEC 0PX�DEC ABS�DEC ABX�
-�111x xx10�nop imd�       �NOP    �nop    �INC 0PG�INC 0PX�INC ABS�INC ABX�
-�000x xx01�ORA NDX�ORA NDY�ORA IMD�ORA ABY�ORA 0PG�ORA 0PX�ORA ABS�ORA ABX�
-�001x xx01�AND NDX�AND NDY�AND IMD�AND ABY�AND 0PG�AND 0PX�AND ABS�AND ABX�
-�010x xx01�EOR NDX�EOR NDY�EOR IMD�EOR ABY�EOR 0PG�EOR 0PX�EOR ABS�EOR ABX�
-�011x xx01�ADC NDX�ADC NDY�ADC IMD�ADC ABY�ADC 0PG�ADC 0PX�ADC ABS�ADC ABX�
-�100x xx01�STA NDX�STA NDY�nop imd�STA ABY�STA 0PG�STA 0PX�STA ABS�STA ABX�
-�101x xx01�LDA NDX�LDA NDY�LDA IMD�LDA ABY�LDA 0PG�LDA 0PX�LDA ABS�LDA ABX�
-�110x xx01�CMP NDX�CMP NDY�CMP IMD�CMP ABY�CMP 0PG�CMP 0PX�CMP ABS�CMP ABX�
-�111x xx01�SBC NDX�SBC NDY�SBC IMD�SBC ABY�SBC 0PG�SBC 0PX�SBC ABS�SBC ABX�
-�000x xx11�slo ndx�slo ndy�anc imd�slo aby�slo opg�slo opx�slo abs�slo abx�
-�001x xx11�rla ndx�rla ndy�anc imd�rla aby�rla opg�rla opx�rla abs�rla abx�
-�010x xx11�sre ndx�sre ndy�asr imd�sre aby�sre opg�sre opx�sre abs�sre abx�
-�011x xx11�rra ndx�rra ndy�arr imd�rra aby�rra opg�rra opx�rra abs�rra abx�
-�100x xx11�sax ndx�sha ndy�ane imd�shs aby�sax opg�sax opy�sax abs�sha aby�
-�101x xx11�lax ndx�lax ndy�lxa imd�las aby�lax opg�lax opy�lax abs�lax aby�
-�110x xx11�dcp ndx�dcp ndy�sbx imd�dcp aby�dcp opg�dcp opx�dcp abs�dcp abx�
-�111x xx11�isb ndx�isb ndy�sbc imd�isb aby�isb opg�isb opx�isb abs�isb abx�
-�������������������������������������������������������������������������ͼ
-2��������������������������������������������������������������������������ͻ
-�adr.mode�++� 00� 20� 40� 60� 80� A0� C0� E0� 02� 22� 42� 62� 82� A2� C2� 
-E2�
-���������������������������������������������������������������������������Ķ
-�#$nn*   
-�00�BRK�JSR�RTI�RTS�nop�LDY�CPY�CPX�---�---�---�---�nopLDX�nopnop
-�$nn,PC  
-�10�BPL�BMI�BVC�BVS�BCC�BCS�BNE�BEQ�---�---�---�---�---�---�---�---�
-�*       
-�08�PHP�PLP�PHA�PLA�DEY�TAY�INY�INX�ASL�ROL�LSR�ROR�TXA�TAX�DEX�NOP�
-�*       
-�18�CLC�SEC�CLI�SEI�TYA�CLV�CLD�SED�nop�nop�nop�nop�TXS�TSX�nop�nop�
-�$nn     
-�04�nop�BIT�nop�nop�STY�LDY�CPY�CPX�ASL�ROL�LSR�ROR�STX�LDX�DEC�INC�
-�$nn,X   
-�14�nop�nop�nop�nop�STY�LDY�nop�nop�ASL�ROL�LSR�ROR�STX�LDX�DEC�INC�
-�$nnnn   
-�0C�nop�BIT�JMP�NDJ�STY�LDY�CPY�CPX�ASL�ROL�LSR�ROR�STX�LDX�DEC�INC�
-�$nnnn,X 
-�1C�nop�nop�nop�nop�shyLDY�nop�nop�ASL�ROL�LSR�ROR�shxLDX�DEC�INC�
-�($nn,X) 
-�01�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�sax�lax�dcp�isb�
-�($nn),Y 
-�11�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�shalax�dcp�isb�
-�#$nn    
-�09�ORA�AND�EOR�ADC�nop�LDA�CMP�SBC�ancancasrarranelxasbxsbc�
-�$nnnn,Y 
-�19�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�shslasdcp�isb�
-�$nn     
-�05�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�sax�lax�dcp�isb�
-�$nn,X   
-�15�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�sax�lax�dcp�isb�
-�$nnnn   
-�0D�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�sax�lax�dcp�isb�
-�$nnnn,X 
-�1D�ORA�AND�EOR�ADC�STA�LDA�CMP�SBC�slo�rla�sre�rra�shalax�dcp�isb�
-���������������������������������������������������������������������������ͼ
+1═════════╤═══════╤═══════╤═══════╤═══════╤═══════╤═══════╤═══════╤═══════╗
+║7654 3210│xx0 00x│xx1 00x│xx0 10x│xx1 10x│xx0 01x│xx1 01x│xx0 11x│xx1 11x║
+╟─────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────╢
+║000x xx00│BRK IMD│BPL    │PHP    │CLC    │nop opg│nop opx│nop abs│nop abx║
+║001x xx00│JSR ABS│BMI    │PLP    │SEC    │BIT 0PG│nop opx│BIT ABS│nop abx║
+║010x xx00│RTI    │BVC    │PHA    │CLI    │nop opg│nop opx│JMP ABS│nop abx║
+║011x xx00│RTS    │BVS    │PLA    │SEI    │nop opg│nop opx│JMP IND│nop abx║
+║100x xx00│nop imd│BCC    │DEY    │TYA    │STY 0PG│STY 0PX│STY ABS│shy abx║
+║101x xx00│LDY IMD│BCS    │TAY    │CLV    │LDY 0PG│LDY 0PX│LDY ABS│LDY ABX║
+║110x xx00│CPY IMD│BNE    │INY    │CLD    │CPY 0PG│nop opx│CPY ABS│nop abx║
+║111x xx00│CPX IMD│BEQ    │INX    │SED    │CPX 0PG│nop opx│CPX ABS│nop abx║
+║000x xx10│       │       │ASL A  │nop    │ASL 0PG│ASL 0PX│ASL ABS│ASL ABX║
+║001x xx10│       │       │ROL A  │nop    │ROL 0PG│ROL 0PX│ROL ABS│ROL ABX║
+║010x xx10│       │       │LSR A  │nop    │LSR 0PG│LSR 0PX│LSR ABS│LSR ABX║
+║011x xx10│       │       │ROR A  │nop    │ROR 0PG│ROR 0PX│ROR ABS│ROR ABX║
+║100x xx10│nop imd│       │TXA    │TXS    │STX 0PG│STX 0PY│STX ABS│shx aby║
+║101x xx10│LDX IMD│       │TAX    │TSX    │LDX 0PG│LDX 0PY│LDX ABS│LDX ABY║
+║110x xx10│nop imd│       │DEX    │nop    │DEC 0PG│DEC 0PX│DEC ABS│DEC ABX║
+║111x xx10│nop imd│       │NOP    │nop    │INC 0PG│INC 0PX│INC ABS│INC ABX║
+║000x xx01│ORA NDX│ORA NDY│ORA IMD│ORA ABY│ORA 0PG│ORA 0PX│ORA ABS│ORA ABX║
+║001x xx01│AND NDX│AND NDY│AND IMD│AND ABY│AND 0PG│AND 0PX│AND ABS│AND ABX║
+║010x xx01│EOR NDX│EOR NDY│EOR IMD│EOR ABY│EOR 0PG│EOR 0PX│EOR ABS│EOR ABX║
+║011x xx01│ADC NDX│ADC NDY│ADC IMD│ADC ABY│ADC 0PG│ADC 0PX│ADC ABS│ADC ABX║
+║100x xx01│STA NDX│STA NDY│nop imd│STA ABY│STA 0PG│STA 0PX│STA ABS│STA ABX║
+║101x xx01│LDA NDX│LDA NDY│LDA IMD│LDA ABY│LDA 0PG│LDA 0PX│LDA ABS│LDA ABX║
+║110x xx01│CMP NDX│CMP NDY│CMP IMD│CMP ABY│CMP 0PG│CMP 0PX│CMP ABS│CMP ABX║
+║111x xx01│SBC NDX│SBC NDY│SBC IMD│SBC ABY│SBC 0PG│SBC 0PX│SBC ABS│SBC ABX║
+║000x xx11│slo ndx│slo ndy│anc imd│slo aby│slo opg│slo opx│slo abs│slo abx║
+║001x xx11│rla ndx│rla ndy│anc imd│rla aby│rla opg│rla opx│rla abs│rla abx║
+║010x xx11│sre ndx│sre ndy│asr imd│sre aby│sre opg│sre opx│sre abs│sre abx║
+║011x xx11│rra ndx│rra ndy│arr imd│rra aby│rra opg│rra opx│rra abs│rra abx║
+║100x xx11│sax ndx│sha ndy│ane imd│shs aby│sax opg│sax opy│sax abs│sha aby║
+║101x xx11│lax ndx│lax ndy│lxa imd│las aby│lax opg│lax opy│lax abs│lax aby║
+║110x xx11│dcp ndx│dcp ndy│sbx imd│dcp aby│dcp opg│dcp opx│dcp abs│dcp abx║
+║111x xx11│isb ndx│isb ndy│sbc imd│isb aby│isb opg│isb opx│isb abs│isb abx║
+╚═════════╧═══════╧═══════╧═══════╧═══════╧═══════╧═══════╧═══════╧═══════╝
+2════════╤══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗
+║adr.mode│++│ 00│ 20│ 40│ 60│ 80│ A0│ C0│ E0│ 02│ 22│ 42│ 62│ 82│ A2│ C2│ 
+E2║
+╟────────┼──┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+║#$nn*   
+│00│BRK│JSR│RTI│RTS│nop│LDY│CPY│CPX│---│---│---│---│nopLDX│nopnop
+║$nn,PC  
+│10│BPL│BMI│BVC│BVS│BCC│BCS│BNE│BEQ│---│---│---│---│---│---│---│---║
+║*       
+│08│PHP│PLP│PHA│PLA│DEY│TAY│INY│INX│ASL│ROL│LSR│ROR│TXA│TAX│DEX│NOP║
+║*       
+│18│CLC│SEC│CLI│SEI│TYA│CLV│CLD│SED│nop│nop│nop│nop│TXS│TSX│nop│nop║
+║$nn     
+│04│nop│BIT│nop│nop│STY│LDY│CPY│CPX│ASL│ROL│LSR│ROR│STX│LDX│DEC│INC║
+║$nn,X   
+│14│nop│nop│nop│nop│STY│LDY│nop│nop│ASL│ROL│LSR│ROR│STX│LDX│DEC│INC║
+║$nnnn   
+│0C│nop│BIT│JMP│NDJ│STY│LDY│CPY│CPX│ASL│ROL│LSR│ROR│STX│LDX│DEC│INC║
+║$nnnn,X 
+│1C│nop│nop│nop│nop│shyLDY│nop│nop│ASL│ROL│LSR│ROR│shxLDX│DEC│INC║
+║($nn,X) 
+│01│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│sax│lax│dcp│isb║
+║($nn),Y 
+│11│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│shalax│dcp│isb║
+║#$nn    
+│09│ORA│AND│EOR│ADC│nop│LDA│CMP│SBC│ancancasrarranelxasbxsbc║
+║$nnnn,Y 
+│19│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│shslasdcp│isb║
+║$nn     
+│05│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│sax│lax│dcp│isb║
+║$nn,X   
+│15│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│sax│lax│dcp│isb║
+║$nnnn   
+│0D│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│sax│lax│dcp│isb║
+║$nnnn,X 
+│1D│ORA│AND│EOR│ADC│STA│LDA│CMP│SBC│slo│rla│sre│rra│shalax│dcp│isb║
+╚════════╧══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝
 
 +-------------+
 |table 2 notes|
