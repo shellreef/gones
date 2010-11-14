@@ -1,4 +1,8 @@
+*.cmi
+*.cmx
+*.o
 *.6
 *.swp
 6.out
 6502
+*.NES
