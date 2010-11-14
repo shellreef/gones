@@ -1,98 +1,42 @@
-let opADC = None;;
-let opAND = None;;
-let opASL = None;;
-let opBCC = None;;
-let opBCS = None;;
-let opBEQ = None;;
-let opBIT = None;;
-let opBMI = None;;
-let opBNE = None;;
-let opBPL = None;;
-let opBRK = None;;
-let opBVC = None;;
-let opBVS = None;;
-let opCLC = None;;
-let opCLD = None;;
-let opCLI = None;;
-let opCLV = None;;
-let opCMP = None;;
-let opCPX = None;;
-let opCPY = None;;
-let opDEC = None;;
-let opDEX = None;;
-let opDEY = None;;
-let opEOR = None;;
-let opINC = None;;
-let opINX = None;;
-let opINY = None;;
-let opJMP = None;;
-let opJSR = None;;
-let opLDA = None;;
-let opLDX = None;;
-let opLDY = None;;
-let opLSR = None;;
-let opNOP = None;;
-let opORA = None;;
-let opPHA = None;;
-let opPHP = None;;
-let opPLA = None;;
-let opPLP = None;;
-let opROL = None;;
-let opROR = None;;
-let opRTI = None;;
-let opRTS = None;;
-let opSBC = None;;
-let opSEC = None;;
-let opSED = None;;
-let opSEI = None;;
-let opSTA = None;;
-let opSTX = None;;
-let opSTY = None;;
-let opTAX = None;;
-let opTAY = None;;
-let opTSX = None;;
-let opTXA = None;;
-let opTXS = None;;
-let opTYA = None;;
-let op___ = None;;    (* undefined / future expansion / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt *)
+
 
 (* http://nesdev.parodius.com/6502.txt *)
 let opcodes = [|
 (* Indexed by opcode, value is (mneumonic, addressing mode code) *)
 (*  x0        x1         x2         x3        x4          x5         x6        x7   *)
 (*  x8        x9         xa         xb        xc          xd         xe        xf   *)
-(opBRK, 9);(opORA, 7);(op___, 0);(op___, 0);(op___, 0);(opORA, 1);(opASL, 1);(op___, 0); (* 0x *)
-(opPHP, 9);(opORA, 0);(opASL,10);(op___, 0);(op___, 0);(opORA, 4);(opASL, 4);(op___, 0); 
-(opBPL, 9);(opORA, 8);(op___, 0);(op___, 0);(op___, 0);(opORA, 2);(opASL, 2);(op___, 0); (* 1x *)
-(opCLC, 9);(opORA, 6);(op___, 0);(op___, 0);(op___, 0);(op___, 0);(opASL, 5);(op___, 0); 
-(opJSR, 4);(opAND, 7);(op___, 0);(op___, 0);(opBIT, 1);(opAND, 1);(opROL, 1);(op___, 0); (* 2x *)
-(opPLP, 9);(opAND, 0);(opROL,10);(op___, 0);(opBIT, 4);(opAND, 4);(opROL, 4);(op___, 0); 
-(opBMI,12);(opAND, 8);(op___, 0);(op___, 0);(op___, 0);(opAND, 2);(opROL, 2);(op___, 0); (* 3x *)
-(opSEC, 9);(opAND, 6);(op___, 0);(op___, 0);(op___, 0);(opAND, 5);(opROL, 5);(op___, 0); 
-(opEOR, 4);(opEOR, 7);(op___, 0);(op___, 0);(op___, 0);(opEOR, 1);(opLSR, 1);(op___, 0); (* 4x *)
-(opPHA, 9);(opEOR, 0);(opLSR,10);(op___, 0);(opJMP, 4);(opRTI, 9);(opLSR, 4);(op___, 0);
-(opEOR, 5);(opEOR, 8);(op___, 0);(op___, 0);(op___, 0);(opEOR, 2);(opLSR, 2);(op___, 0); (* 5x *)
-(opCLI, 9);(opEOR, 6);(op___, 0);(op___, 0);(op___, 0);(op___, 0);(opLSR, 5);(op___, 0);
-(opRTS, 9);(opADC, 7);(op___, 0);(op___, 0);(op___, 0);(opADC, 1);(opROR, 1);(op___, 0); (* 6x *)
-(opPLA, 9);(opADC, 0);(opROR,10);(op___, 0);(opJMP,12);(op___, 0);(opROR, 4);(op___, 0);
-(opBVS,12);(opADC, 8);(op___, 0);(op___, 0);(op___, 0);(opADC, 2);(opROR, 2);(op___, 0); (* 7x *)
-(opSEI, 9);(opADC, 6);(op___, 0);(op___, 0);(op___, 0);(op___, 0);(opROR, 5);(op___, 0);
-(opSTA, 4);(opSTA, 7);(op___, 0);(op___, 0);(opSTY, 1);(opSTA, 1);(opSTX, 1);(op___, 0); (* 8x *)
-(opDEY, 9);(op___, 0);(opTXA, 9);(op___, 0);(opSTY, 4);(op___, 0);(opSTX, 4);(op___, 0);
-(opSTA, 5);(opSTA, 8);(op___, 0);(op___, 0);(opSTY, 2);(opSTA, 2);(opSTX, 2);(op___, 0); (* 9x *)
-(opTYA, 9);(opSTA, 6);(opTXS, 9);(op___, 0);(op___, 0);(op___, 0);(op___, 0);(op___, 0);
-(opLDY, 0);(opLDA, 7);(opLDX, 0);(op___, 0);(opLDY, 1);(opLDA, 1);(opLDX, 1);(op___, 0); (* ax *)
-(opTAY, 9);(opLDA, 0);(opTAX, 9);(op___, 0);(opLDY, 4);(opLDA, 4);(opLDX, 4);(op___, 0);
-(opBCS,12);(opLDA, 8);(op___, 0);(op___, 0);(opLDY, 2);(opLDA, 2);(opLDX, 3);(op___, 0); (* bx *)
-(opCLV, 9);(opLDA, 6);(opTSX, 9);(op___, 0);(opLDY, 5);(opLDA, 5);(opLDX, 6);(op___, 0);
-(opCPY, 0);(opCMP, 7);(op___, 0);(op___, 0);(opCPY, 1);(opCMP, 1);(opDEC, 1);(op___, 0); (* cx *)
-(opINY, 9);(opCMP, 0);(opDEX, 9);(op___, 0);(opCPY, 2);(opCMP, 4);(opDEC, 4);(op___, 0);
-(opBNE,12);(opCMP, 8);(op___, 0);(op___, 0);(op___, 0);(opCMP, 2);(opDEC, 2);(op___, 0); (* dx *)
-(opCLD, 9);(opCMP, 6);(op___, 0);(op___, 0);(op___, 0);(opCMP, 5);(opDEC, 5);(op___, 0);
-(opCPX, 0);(opSBC, 7);(op___, 0);(op___, 0);(opCPX, 1);(opSBC, 1);(opINC, 1);(op___, 0); (* ex *)
-(opINX, 9);(opSBC, 0);(opNOP, 9);(op___, 0);(opCPX, 2);(opSBC, 4);(opINC, 4);(op___, 0);
-(opBEQ,12);(opSBC, 8);(op___, 0);(op___, 0);(op___, 0);(opSBC, 2);(opINC, 2);(op___, 0); (* fx *)
-(opSED, 9);(opSBC, 6);(op___, 0);(op___, 0);(op___, 0);(opSBC, 5);(opINC, 5);(op___, 0);
+("BRK", 9);("ORA", 7);("___", 0);("___", 0);("___", 0);("ORA", 1);("ASL", 1);("___", 0); (* 0x *)
+("PHP", 9);("ORA", 0);("ASL",10);("___", 0);("___", 0);("ORA", 4);("ASL", 4);("___", 0); 
+("BPL", 9);("ORA", 8);("___", 0);("___", 0);("___", 0);("ORA", 2);("ASL", 2);("___", 0); (* 1x *)
+("CLC", 9);("ORA", 6);("___", 0);("___", 0);("___", 0);("___", 0);("ASL", 5);("___", 0); 
+("JSR", 4);("AND", 7);("___", 0);("___", 0);("BIT", 1);("AND", 1);("ROL", 1);("___", 0); (* 2x *)
+("PLP", 9);("AND", 0);("ROL",10);("___", 0);("BIT", 4);("AND", 4);("ROL", 4);("___", 0); 
+("BMI",12);("AND", 8);("___", 0);("___", 0);("___", 0);("AND", 2);("ROL", 2);("___", 0); (* 3x *)
+("SEC", 9);("AND", 6);("___", 0);("___", 0);("___", 0);("AND", 5);("ROL", 5);("___", 0); 
+("EOR", 4);("EOR", 7);("___", 0);("___", 0);("___", 0);("EOR", 1);("LSR", 1);("___", 0); (* 4x *)
+("PHA", 9);("EOR", 0);("LSR",10);("___", 0);("JMP", 4);("RTI", 9);("LSR", 4);("___", 0);
+("EOR", 5);("EOR", 8);("___", 0);("___", 0);("___", 0);("EOR", 2);("LSR", 2);("___", 0); (* 5x *)
+("CLI", 9);("EOR", 6);("___", 0);("___", 0);("___", 0);("___", 0);("LSR", 5);("___", 0);
+("RTS", 9);("ADC", 7);("___", 0);("___", 0);("___", 0);("ADC", 1);("ROR", 1);("___", 0); (* 6x *)
+("PLA", 9);("ADC", 0);("ROR",10);("___", 0);("JMP",12);("___", 0);("ROR", 4);("___", 0);
+("BVS",12);("ADC", 8);("___", 0);("___", 0);("___", 0);("ADC", 2);("ROR", 2);("___", 0); (* 7x *)
+("SEI", 9);("ADC", 6);("___", 0);("___", 0);("___", 0);("___", 0);("ROR", 5);("___", 0);
+("STA", 4);("STA", 7);("___", 0);("___", 0);("STY", 1);("STA", 1);("STX", 1);("___", 0); (* 8x *)
+("DEY", 9);("___", 0);("TXA", 9);("___", 0);("STY", 4);("___", 0);("STX", 4);("___", 0);
+("STA", 5);("STA", 8);("___", 0);("___", 0);("STY", 2);("STA", 2);("STX", 2);("___", 0); (* 9x *)
+("TYA", 9);("STA", 6);("TXS", 9);("___", 0);("___", 0);("___", 0);("___", 0);("___", 0);
+("LDY", 0);("LDA", 7);("LDX", 0);("___", 0);("LDY", 1);("LDA", 1);("LDX", 1);("___", 0); (* ax *)
+("TAY", 9);("LDA", 0);("TAX", 9);("___", 0);("LDY", 4);("LDA", 4);("LDX", 4);("___", 0);
+("BCS",12);("LDA", 8);("___", 0);("___", 0);("LDY", 2);("LDA", 2);("LDX", 3);("___", 0); (* bx *)
+("CLV", 9);("LDA", 6);("TSX", 9);("___", 0);("LDY", 5);("LDA", 5);("LDX", 6);("___", 0);
+("CPY", 0);("CMP", 7);("___", 0);("___", 0);("CPY", 1);("CMP", 1);("DEC", 1);("___", 0); (* cx *)
+("INY", 9);("CMP", 0);("DEX", 9);("___", 0);("CPY", 2);("CMP", 4);("DEC", 4);("___", 0);
+("BNE",12);("CMP", 8);("___", 0);("___", 0);("___", 0);("CMP", 2);("DEC", 2);("___", 0); (* dx *)
+("CLD", 9);("CMP", 6);("___", 0);("___", 0);("___", 0);("CMP", 5);("DEC", 5);("___", 0);
+("CPX", 0);("SBC", 7);("___", 0);("___", 0);("CPX", 1);("SBC", 1);("INC", 1);("___", 0); (* ex *)
+("INX", 9);("SBC", 0);("NOP", 9);("___", 0);("CPX", 2);("SBC", 4);("INC", 4);("___", 0);
+("BEQ",12);("SBC", 8);("___", 0);("___", 0);("___", 0);("SBC", 2);("INC", 2);("___", 0); (* fx *)
+("SED", 9);("SBC", 6);("___", 0);("___", 0);("___", 0);("SBC", 5);("INC", 5);("___", 0);
 |];;
 
 let addressingModes = [|
