@@ -14,4 +14,5 @@ if len(sys.argv) < 2:
     raise SystemExit
 
 bytes = file(sys.argv[1], "rb").read()
+# TODO: automatically add BOM. You have to do this manually (EF BB BF http://en.wikipedia.org/wiki/Byte_order_mark)
 file("utf8-" + sys.argv[1], "wb").write(unicode(bytes, "cp437").encode("utf8"))

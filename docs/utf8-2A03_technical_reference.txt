@@ -1,4 +1,4 @@
-from: http://nesdev.parodius.com/2A03%20technical%20reference.txt
+﻿from: http://nesdev.parodius.com/2A03%20technical%20reference.txt
 **************************
 *2A03 technical reference*
 **************************
