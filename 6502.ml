@@ -84,7 +84,6 @@ let nameOfMode mode =
     | Rel -> "Relative";;
 
 
-(* TODO: refactor, but format/string split might complicate *)
 let formatOperand mode operand =
     match mode with
     | Imm -> Printf.sprintf "#$%.2X" operand
@@ -101,5 +100,26 @@ let formatOperand mode operand =
     | Ind -> Printf.sprintf "($%.4X)" operand
     | Rel -> Printf.sprintf "$%.4X" operand;;    (* TODO: sign_num(operand)+offset, it really needs to be relative current offset *)
 
+(* This doesn't work because OCaml doesn't infer the match result is a format 
+let formatOperand mode operand =
+    Printf.sprintf (match mode with
+    | Imm -> "#$%.2X" 
+    | Zer -> "$%.2X"
+    | Ixz -> "$%.2X,X"
+    | Iyz -> "$%.2X,X" 
+    | Abs -> "#$%.4X" 
+    | Inx -> "$%.4X,X"
+    | Iny -> "$%.4X,Y"
+    | Pre -> "($%.2X,X)"
+    | Pst -> "($%.2X),Y" 
+    | Imp -> " [ignore: %x]"
+    | Acc -> "A [ignore: %x]"
+    | Ind -> "($%.4X)" 
+    | Rel -> "$%.4X"
+    ) operand;;
+*)
+
+
 Printf.printf "%s %s" (stringOfOpcode (fst (Array.get opcodeMap 0xa1 ))) (formatOperand (snd (Array.get opcodeMap 0xa1)) 123);;
+
 
