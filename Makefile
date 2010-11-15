@@ -1,11 +1,15 @@
-COMPILER = ocamlopt
-LINKER = ocamlopt
-
 EXE = 6502
 SOURCES = cpu6502.ml inesfile.ml
 NATIVE_OBJECTS = ${SOURCES:.ml=.cmx}
 MACH_OBJECTS = ${SOURCES:.ml=.o}
 INTERFACES = ${SOURCES:.ml=.cmi}
+
+# For IO, from http://code.google.com/p/ocaml-extlib/
+PACKAGES = extlib
+
+COMPILER = ocamlfind ocamlopt -package $(PACKAGES)
+LINKER = ocamlfind ocamlopt -package $(PACKAGES) -linkpkg
+
 
 .SUFFIXES: .ml .cmx
 

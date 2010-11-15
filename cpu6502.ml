@@ -65,6 +65,22 @@ let operandBytesForMode mode =
     | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
     | Pre -> 1 | Pst -> 1 | Imp -> 0 | Acc -> 0 | Ind -> 2 | Rel -> 1;;
 
+let readOperandForMode mode io = 
+    match mode with
+    | Imm -> IO.read_byte io
+    | Zer -> IO.read_byte io
+    | Ixz -> IO.read_byte io
+    | Iyz -> IO.read_byte io
+    | Abs -> IO.read_ui16 io
+    | Inx -> IO.read_ui16 io
+    | Iny -> IO.read_ui16 io
+    | Pre -> IO.read_byte io
+    | Pst -> IO.read_byte io
+    | Imp -> 0
+    | Acc -> 0 
+    | Ind -> IO.read_ui16 io
+    | Rel -> IO.read_signed_byte io;;
+
 let nameOfMode mode =
     match mode with
     | Imm -> "Immediate"
@@ -118,4 +134,14 @@ let formatOperand mode operand =
 *)
 
 
+(* Read and decode one instruction 
+ * TODO: IO module file:///Users/jeff/Downloads/extlib-1.5.1/extlib-doc/IO.html
+   so can easily read from string and keep track of position!
+   *)
+let readInstruction io = 
+    let opcode, mode = Array.get opcodeMap (Char.code (IO.read io)) in
+    let operand = readOperandForMode mode io in
 
+    (stringOfOpcode opcode) ^ " " ^ (formatOperand mode operand);;
+
+(* print_endline ((Cpu6502.stringOfOpcode (fst (Array.get Cpu6502.opcodeMap 0xa9))) ^ " " ^ (Cpu6502.formatOperand (snd (Array.get Cpu6502.opcodeMap 0xa9 )) 0x40));; *)
