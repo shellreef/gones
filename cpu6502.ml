@@ -146,6 +146,7 @@ let formatOperand mode operand =
     ) operand;;
 *)
 
+type instruction = {opcode: opcode; mode: addrMode; operand: int};;
 
 (* Read and decode one instruction 
  * TODO: IO module file:///Users/jeff/Downloads/extlib-1.5.1/extlib-doc/IO.html
@@ -155,6 +156,12 @@ let readInstruction io =
     let opcode, mode = Array.get opcodeMap (Char.code (IO.read io)) in
     let operand = readOperandForMode mode io in
 
-    (stringOfOpcode opcode) ^ " " ^ (formatOperand mode operand);;
+    {opcode=opcode; mode=mode; operand=operand};;
+
+let stringifyInstruction instr =
+    (stringOfOpcode instr.opcode) ^ " " ^ (formatOperand instr.mode instr.operand);;
+
+let readAndPrint io =
+    stringifyInstruction (readInstruction io);;
 
 (* print_endline ((Cpu6502.stringOfOpcode (fst (Array.get Cpu6502.opcodeMap 0xa9))) ^ " " ^ (Cpu6502.formatOperand (snd (Array.get Cpu6502.opcodeMap 0xa9 )) 0x40));; *)
