@@ -12,7 +12,7 @@ type opcode = ADC | AND | ASL | BCC | BCS | BEQ | BIT | BMI | BNE | BPL | BRK | 
     (* undefined / invalid / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt *)
     U__;;
 
-type addrMode = Imm | Zer | Ixz | Iyz | Abs | Inx | Iny | Pre | Pst | Imp | Acc | Ind | Rel;;
+type addr_mode = Imm | Zer | Ixz | Iyz | Abs | Inx | Iny | Pre | Pst | Imp | Acc | Ind | Rel;;
 
 (* Opcode byte to opcode and addressing mode
 Note: http://nesdev.parodius.com/6502.txt has several errors. 
@@ -22,7 +22,7 @@ http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is more correct, notably:
 0x90 is BCC, Rel
 *)
 
-let opcodeMap = [|
+let opcode_map = [|
 (* Indexed by opcode, value is (mneumonic, addressing mode code) *)
 (* x0         x1         x2         x3         x4        x5          x6         x7   *)
 (* x8         x9         xa         xb         xc        xd          xe         xf   *)
@@ -61,7 +61,7 @@ let opcodeMap = [|
 |];;
 
 (* This is lame, but OCaml doesn't have reflection like Python f.func_name *)
-let stringOfOpcode opcode = 
+let string_of_opcode opcode = 
     match opcode with
     | ADC -> "ADC" | AND -> "AND" | ASL -> "ASL" | BCC -> "BCC" | BCS -> "BCS" | BEQ -> "BEQ" | BIT -> "BIT" | BMI -> "BMI"
     | BNE -> "BNE" | BPL -> "BPL" | BRK -> "BRK" | BVC -> "BVC" | BVS -> "BVS" | CLC -> "CLC" | CLD -> "CLD" | CLI -> "CLI"
@@ -111,7 +111,7 @@ let nameOfMode mode =
     | Rel -> "Relative";;
 
 
-let formatOperand mode operand =
+let string_of_operand mode operand =
     match mode with
     | Imm -> Printf.sprintf "#$%.2X" operand
     | Zer -> Printf.sprintf "$%.2X" operand
@@ -128,7 +128,7 @@ let formatOperand mode operand =
     | Rel -> Printf.sprintf "$%.4X" operand;;    (* TODO: sign_num(operand)+offset, it really needs to be relative current offset *)
 
 (* This doesn't work because OCaml doesn't infer the match result is a format 
-let formatOperand mode operand =
+let string_of_operand mode operand =
     Printf.sprintf (match mode with
     | Imm -> "#$%.2X" 
     | Zer -> "$%.2X"
@@ -146,22 +146,22 @@ let formatOperand mode operand =
     ) operand;;
 *)
 
-type instruction = {opcode: opcode; mode: addrMode; operand: int};;
+type instruction = {opcode: opcode; mode: addr_mode; operand: int};;
 
 (* Read and decode one instruction 
  * TODO: IO module file:///Users/jeff/Downloads/extlib-1.5.1/extlib-doc/IO.html
    so can easily read from string and keep track of position!
    *)
-let readInstruction io = 
-    let opcode, mode = Array.get opcodeMap (Char.code (IO.read io)) in
+let read_instruction io = 
+    let opcode, mode = Array.get opcode_map (Char.code (IO.read io)) in
     let operand = readOperandForMode mode io in
 
     {opcode=opcode; mode=mode; operand=operand};;
 
-let stringifyInstruction instr =
-    (stringOfOpcode instr.opcode) ^ " " ^ (formatOperand instr.mode instr.operand);;
+let string_of_instruction instr =
+    (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.mode instr.operand);;
 
-let readAndPrint io =
-    stringifyInstruction (readInstruction io);;
+let read_and_print io =
+    string_of_instruction (read_instruction io);;
 
-(* print_endline ((Cpu6502.stringOfOpcode (fst (Array.get Cpu6502.opcodeMap 0xa9))) ^ " " ^ (Cpu6502.formatOperand (snd (Array.get Cpu6502.opcodeMap 0xa9 )) 0x40));; *)
+(* print_endline ((Cpu6502.string_of_opcode (fst (Array.get Cpu6502.opcode_map 0xa9))) ^ " " ^ (Cpu6502.string_of_operand (snd (Array.get Cpu6502.opcode_map 0xa9 )) 0x40));; *)

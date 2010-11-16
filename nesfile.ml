@@ -25,24 +25,24 @@ let read filename =
 
     (* TODO: read banks *)
 
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
-    print_endline (Cpu6502.readAndPrint (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
+    print_endline (Cpu6502.read_and_print (IO.input_channel f));
 
 
-    print_endline (Cpu6502.readAndPrint (IO.input_string "\xa9\x40"));;
+    print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
 
