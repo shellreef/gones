@@ -78,7 +78,7 @@ let operandBytesForMode addr_mode =
     | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
     | Pre -> 1 | Pst -> 1 | Imp -> 0 | Acc -> 0 | Ind -> 2 | Rel -> 1;;
 
-let readOperandForMode addr_mode io = 
+let read_operand addr_mode io = 
     match addr_mode with
     | Imm -> IO.read_byte io
     | Zer -> IO.read_byte io
@@ -150,8 +150,8 @@ type instruction = {opcode: opcode; addr_mode: addr_mode; operand: int};;
 
 (* Read and decode one instruction *)
 let read_instruction io = 
-    let opcode, addr_mode = Array.get opcode_map (Char.code (IO.read io)) in
-    let operand = readOperandForMode addr_mode io in
+    let opcode, addr_mode = Array.get opcode_map (IO.read_byte io) in
+    let operand = read_operand addr_mode io in
 
     {opcode=opcode; addr_mode=addr_mode; operand=operand};;
 

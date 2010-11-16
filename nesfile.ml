@@ -25,22 +25,9 @@ let read filename =
     let reserved = IO.really_nread io 6 in
 
     (* TODO: read banks *)
-
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-    print_endline (Cpu6502.read_and_print io);
-
+    while true do
+        print_endline (Cpu6502.read_and_print io)
+    done;
 
     print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
 
