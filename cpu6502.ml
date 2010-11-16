@@ -73,13 +73,13 @@ let string_of_opcode opcode =
     | U__ -> "???";;
 
 (* Bytes after opcode which operand requires for each addressing mode *)
-let operandBytesForMode mode =
-    match mode with
+let operandBytesForMode addr_mode =
+    match addr_mode with
     | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
     | Pre -> 1 | Pst -> 1 | Imp -> 0 | Acc -> 0 | Ind -> 2 | Rel -> 1;;
 
-let readOperandForMode mode io = 
-    match mode with
+let readOperandForMode addr_mode io = 
+    match addr_mode with
     | Imm -> IO.read_byte io
     | Zer -> IO.read_byte io
     | Ixz -> IO.read_byte io
@@ -94,8 +94,8 @@ let readOperandForMode mode io =
     | Ind -> IO.read_ui16 io
     | Rel -> IO.read_signed_byte io;;
 
-let nameOfMode mode =
-    match mode with
+let nameOfMode addr_mode =
+    match addr_mode with
     | Imm -> "Immediate"
     | Zer -> "Zero Page"
     | Ixz -> "Indexed X Zero Page"
@@ -111,8 +111,8 @@ let nameOfMode mode =
     | Rel -> "Relative";;
 
 
-let string_of_operand mode operand =
-    match mode with
+let string_of_operand addr_mode operand =
+    match addr_mode with
     | Imm -> Printf.sprintf "#$%.2X" operand
     | Zer -> Printf.sprintf "$%.2X" operand
     | Ixz -> Printf.sprintf "$%.2X,X" operand
@@ -128,8 +128,8 @@ let string_of_operand mode operand =
     | Rel -> Printf.sprintf "$%.4X" operand;;    (* TODO: sign_num(operand)+offset, it really needs to be relative current offset *)
 
 (* This doesn't work because OCaml doesn't infer the match result is a format 
-let string_of_operand mode operand =
-    Printf.sprintf (match mode with
+let string_of_operand addr_mode operand =
+    Printf.sprintf (match addr_mode with
     | Imm -> "#$%.2X" 
     | Zer -> "$%.2X"
     | Ixz -> "$%.2X,X"
@@ -146,22 +146,18 @@ let string_of_operand mode operand =
     ) operand;;
 *)
 
-type instruction = {opcode: opcode; mode: addr_mode; operand: int};;
+type instruction = {opcode: opcode; addr_mode: addr_mode; operand: int};;
 
-(* Read and decode one instruction 
- * TODO: IO module file:///Users/jeff/Downloads/extlib-1.5.1/extlib-doc/IO.html
-   so can easily read from string and keep track of position!
-   *)
+(* Read and decode one instruction *)
 let read_instruction io = 
-    let opcode, mode = Array.get opcode_map (Char.code (IO.read io)) in
-    let operand = readOperandForMode mode io in
+    let opcode, addr_mode = Array.get opcode_map (Char.code (IO.read io)) in
+    let operand = readOperandForMode addr_mode io in
 
-    {opcode=opcode; mode=mode; operand=operand};;
+    {opcode=opcode; addr_mode=addr_mode; operand=operand};;
 
 let string_of_instruction instr =
-    (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.mode instr.operand);;
+    (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.addr_mode instr.operand);;
 
 let read_and_print io =
     string_of_instruction (read_instruction io);;
 
-(* print_endline ((Cpu6502.string_of_opcode (fst (Array.get Cpu6502.opcode_map 0xa9))) ^ " " ^ (Cpu6502.string_of_operand (snd (Array.get Cpu6502.opcode_map 0xa9 )) 0x40));; *)
