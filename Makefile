@@ -1,5 +1,5 @@
 EXE = 6502
-SOURCES = cpu6502.ml nesfile.ml main.ml
+SOURCES = dis6502.ml nesfile.ml main.ml
 NATIVE_OBJECTS = ${SOURCES:.ml=.cmx}
 MACH_OBJECTS = ${SOURCES:.ml=.o}
 INTERFACES = ${SOURCES:.ml=.cmi}

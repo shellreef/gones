@@ -1,7 +1,7 @@
 (* Created:2010114
  * By Jeff Connelly
  *
- * 6502 microprocessor
+ * Disassemble 6502 instructions
  *)
 
 type opcode = ADC | AND | ASL | BCC | BCS | BEQ | BIT | BMI | BNE | BPL | BRK | BVC | 
@@ -72,7 +72,7 @@ let string_of_opcode opcode =
     | STX -> "STX" | STY -> "STY" | TAX -> "TAX" | TAY -> "TAY" | TSX -> "TSX" | TXA -> "TXA" | TXS -> "TXS" | TYA -> "TYA"
     | U__ -> "???";;
 
-(* Bytes after opcode which operand requires for each addressing mode *)
+(* Bytes after opcode which operand requires for each addressing mode (not actually used) *)
 let operandBytesForMode addr_mode =
     match addr_mode with
     | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
