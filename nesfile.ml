@@ -20,15 +20,18 @@ let read filename =
 
     Printf.printf "ROM: %d, VROM: %d -- mapper info: %x %x\n" prg_page_count chr_page_count mapper_info1 mapper_info2;
 
-    let ram_pages = IO.read_byte io in   (* 8192 bytes/page *)
-    let pal_flag = IO.read_byte io in
+    let _ram_pages = IO.read_byte io in   (* 8192 bytes/page *)
+    let _pal_flag = IO.read_byte io in
 
-    let reserved = IO.really_nread io 6 in
+    let _reserved = IO.really_nread io 6 in
 
-    (* Read data PRG and CHR pages *)
+    (* Read data PRG and CHR pages, in reverse order *)
     let rec read_pages io count size pages = 
         if count > 0 then 
-            (read_pages io (count - 1) size pages) @ [IO.really_nread io size]
+        (   
+            let page = IO.really_nread io size in
+            page :: (read_pages io (count - 1) size pages) 
+        )
         else
             pages
     in
@@ -38,13 +41,13 @@ let read filename =
 
     Printf.printf "Read %d prg, and %d chr\n" (List.length prg_data) (List.length chr_data);
 
-    let prg0_io = (IO.input_string (List.nth prg_data 1)) in
+    let prg0_io = (IO.input_string (List.nth prg_data 0)) in
 
-    while true do
-        print_endline (Cpu6502.read_and_print prg0_io)
-    done
-    ;;
-   
+    try
+        while true do
+            print_endline (Cpu6502.read_and_print prg0_io)
+        done
+    with IO.No_more_input -> ();
 
     print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
 
