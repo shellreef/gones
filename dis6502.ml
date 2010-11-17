@@ -73,7 +73,7 @@ let string_of_opcode opcode =
     | U__ -> "???";;
 
 (* Bytes after opcode which operand requires for each addressing mode (not actually used) *)
-let operandBytesForMode addr_mode =
+let operand_bytes_for_mode addr_mode =
     match addr_mode with
     | Imm -> 1 | Zer -> 1 | Ixz -> 1 | Iyz -> 1 | Abs -> 2 | Inx -> 2 | Iny -> 2
     | Pre -> 1 | Pst -> 1 | Imp -> 0 | Acc -> 0 | Ind -> 2 | Rel -> 1;;
@@ -94,7 +94,7 @@ let read_operand addr_mode io =
     | Ind -> IO.read_ui16 io
     | Rel -> IO.read_signed_byte io;;
 
-let nameOfMode addr_mode =
+let name_of_mode addr_mode =
     match addr_mode with
     | Imm -> "Immediate"
     | Zer -> "Zero Page"
