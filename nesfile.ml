@@ -25,7 +25,7 @@ let read filename =
 
     let reserved = IO.really_nread io 6 in
 
-    (* Read data chunks *)
+    (* Read data PRG and CHR pages *)
     let rec read_pages io count size pages = 
         if count > 0 then 
             (read_pages io (count - 1) size pages) @ [IO.really_nread io size]
@@ -37,6 +37,14 @@ let read filename =
     let chr_data = (read_pages io chr_page_count 8192 []) in
 
     Printf.printf "Read %d prg, and %d chr\n" (List.length prg_data) (List.length chr_data);
+
+    let prg0_io = (IO.input_string (List.nth prg_data 1)) in
+
+    while true do
+        print_endline (Cpu6502.read_and_print prg0_io)
+    done
+    ;;
+   
 
     print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
 
