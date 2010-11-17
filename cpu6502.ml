@@ -158,7 +158,5 @@ let read_instruction io =
 let string_of_instruction instr =
     (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.addr_mode instr.operand);;
 
-let read_and_print io =
-    string_of_instruction (read_instruction io);;
 
 
