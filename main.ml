@@ -15,12 +15,16 @@ try
     while true do
         let instr = Dis6502.read_instruction prg0_io in
 
+        Printf.printf "I=%B D=%B\n" !i_flag !d_flag;
+
         print_endline (Dis6502.string_of_instruction instr);
 
+        (
         match instr.Dis6502.opcode with
         | Dis6502.SEI -> i_flag := true
         | Dis6502.CLD -> d_flag := false
-        | _ -> ()
+        | _ -> ();
+        );
 
     done
 with IO.No_more_input -> ();;
