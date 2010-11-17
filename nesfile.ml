@@ -27,9 +27,8 @@ let read filename =
 
     (* Read data chunks *)
     let rec read_pages io count size pages = 
-        let page = IO.really_nread io size in
-        if count > 1 then 
-            (read_pages io (count - 1) size pages) @ [page]
+        if count > 0 then 
+            (read_pages io (count - 1) size pages) @ [IO.really_nread io size]
         else
             pages
     in
