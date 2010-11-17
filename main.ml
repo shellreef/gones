@@ -15,4 +15,4 @@ try
     done
 with IO.No_more_input -> ();;
 
-print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
+print_endline (Cpu6502.string_of_instruction (Cpu6502.read_instruction (IO.input_string "\xa9\x40")));;

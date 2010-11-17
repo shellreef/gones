@@ -26,38 +26,38 @@ let opcode_map = [|
 (* Indexed by opcode, value is (mneumonic, addressing mode code) *)
 (* x0         x1         x2         x3         x4        x5          x6         x7   *)
 (* x8         x9         xa         xb         xc        xd          xe         xf   *)
-(BRK, Imp);(ORA, Pre);(U__, Imm);(U__, Imm);(U__, Imm);(ORA, Zer);(ASL, Zer);(U__, Imm); (* 0x *)
-(PHP, Imp);(ORA, Imm);(ASL, Acc);(U__, Imm);(U__, Imm);(ORA, Abs);(ASL, Abs);(U__, Imm); 
-(BPL, Rel);(ORA, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(ORA, Ixz);(ASL, Ixz);(U__, Imm); (* 1x *)
-(CLC, Imp);(ORA, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);(ASL, Inx);(U__, Imm); 
-(JSR, Abs);(AND, Pre);(U__, Imm);(U__, Imm);(BIT, Zer);(AND, Zer);(ROL, Zer);(U__, Imm); (* 2x *)
-(PLP, Imp);(AND, Imm);(ROL, Acc);(U__, Imm);(BIT, Abs);(AND, Abs);(ROL, Abs);(U__, Imm); 
-(BMI, Rel);(AND, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(AND, Ixz);(ROL, Ixz);(U__, Imm); (* 3x *)
-(SEC, Imp);(AND, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(AND, Inx);(ROL, Inx);(U__, Imm); 
-(RTI, Imp);(EOR, Pre);(U__, Imm);(U__, Imm);(U__, Imm);(EOR, Zer);(LSR, Zer);(U__, Imm); (* 4x *)
-(PHA, Imp);(EOR, Imm);(LSR, Acc);(U__, Imm);(JMP, Abs);(EOR, Abs);(LSR, Abs);(U__, Imm);
-(BVC, Rel);(EOR, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(EOR, Ixz);(LSR, Ixz);(U__, Imm); (* 5x *)
-(CLI, Imp);(EOR, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);(LSR, Inx);(U__, Imm);
-(RTS, Imp);(ADC, Pre);(U__, Imm);(U__, Imm);(U__, Imm);(ADC, Zer);(ROR, Zer);(U__, Imm); (* 6x *)
-(PLA, Imp);(ADC, Imm);(ROR, Acc);(U__, Imm);(JMP, Ind);(U__, Imm);(ROR, Abs);(U__, Imm);
-(BVS, Rel);(ADC, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(ADC, Ixz);(ROR, Ixz);(U__, Imm); (* 7x *)
-(SEI, Imp);(ADC, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(ADC, Iny);(ROR, Inx);(U__, Imm);
-(U__, Imm);(STA, Pre);(U__, Imm);(U__, Imm);(STY, Zer);(STA, Zer);(STX, Zer);(U__, Imm); (* 8x *)
-(DEY, Imp);(U__, Imm);(TXA, Imp);(U__, Imm);(STY, Abs);(STA, Abs);(STX, Abs);(U__, Imm);
-(BCC, Rel);(STA, Pst);(U__, Imm);(U__, Imm);(STY, Ixz);(STA, Ixz);(STX, Ixz);(U__, Imm); (* 9x *)
-(TYA, Imp);(STA, Iny);(TXS, Imp);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);(U__, Imm);
-(LDY, Imm);(LDA, Pre);(LDX, Imm);(U__, Imm);(LDY, Zer);(LDA, Zer);(LDX, Zer);(U__, Imm); (* ax *)
-(TAY, Imp);(LDA, Imm);(TAX, Imp);(U__, Imm);(LDY, Abs);(LDA, Abs);(LDX, Abs);(U__, Imm);
-(BCS, Rel);(LDA, Pst);(U__, Imm);(U__, Imm);(LDY, Ixz);(LDA, Ixz);(LDX, Iyz);(U__, Imm); (* bx *)
-(CLV, Imp);(LDA, Iny);(TSX, Imp);(U__, Imm);(LDY, Inx);(LDA, Inx);(LDX, Iny);(U__, Imm);
-(CPY, Imm);(CMP, Pre);(U__, Imm);(U__, Imm);(CPY, Zer);(CMP, Zer);(DEC, Zer);(U__, Imm); (* cx *)
-(INY, Imp);(CMP, Imm);(DEX, Imp);(U__, Imm);(CPY, Abs);(CMP, Abs);(DEC, Abs);(U__, Imm);
-(BNE, Rel);(CMP, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(CMP, Ixz);(DEC, Ixz);(U__, Imm); (* dx *)
-(CLD, Imp);(CMP, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(CMP, Inx);(DEC, Inx);(U__, Imm);
-(CPX, Imm);(SBC, Pre);(U__, Imm);(U__, Imm);(CPX, Zer);(SBC, Zer);(INC, Zer);(U__, Imm); (* ex *)
-(INX, Imp);(SBC, Imm);(NOP, Imp);(U__, Imm);(CPX, Ixz);(SBC, Abs);(INC, Abs);(U__, Imm);
-(BEQ, Rel);(SBC, Pst);(U__, Imm);(U__, Imm);(U__, Imm);(SBC, Ixz);(INC, Ixz);(U__, Imm); (* fx *)
-(SED, Imp);(SBC, Iny);(U__, Imm);(U__, Imm);(U__, Imm);(SBC, Inx);(INC, Inx);(U__, Imm);
+(BRK, Imp);(ORA, Pre);(U__, Imp);(U__, Imp);(U__, Imp);(ORA, Zer);(ASL, Zer);(U__, Imp); (* 0x *)
+(PHP, Imp);(ORA, Imm);(ASL, Acc);(U__, Imp);(U__, Imp);(ORA, Abs);(ASL, Abs);(U__, Imp); 
+(BPL, Rel);(ORA, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(ORA, Ixz);(ASL, Ixz);(U__, Imp); (* 1x *)
+(CLC, Imp);(ORA, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(U__, Imp);(ASL, Inx);(U__, Imp); 
+(JSR, Abs);(AND, Pre);(U__, Imp);(U__, Imp);(BIT, Zer);(AND, Zer);(ROL, Zer);(U__, Imp); (* 2x *)
+(PLP, Imp);(AND, Imm);(ROL, Acc);(U__, Imp);(BIT, Abs);(AND, Abs);(ROL, Abs);(U__, Imp); 
+(BMI, Rel);(AND, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(AND, Ixz);(ROL, Ixz);(U__, Imp); (* 3x *)
+(SEC, Imp);(AND, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(AND, Inx);(ROL, Inx);(U__, Imp); 
+(RTI, Imp);(EOR, Pre);(U__, Imp);(U__, Imp);(U__, Imp);(EOR, Zer);(LSR, Zer);(U__, Imp); (* 4x *)
+(PHA, Imp);(EOR, Imm);(LSR, Acc);(U__, Imp);(JMP, Abs);(EOR, Abs);(LSR, Abs);(U__, Imp);
+(BVC, Rel);(EOR, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(EOR, Ixz);(LSR, Ixz);(U__, Imp); (* 5x *)
+(CLI, Imp);(EOR, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(U__, Imp);(LSR, Inx);(U__, Imp);
+(RTS, Imp);(ADC, Pre);(U__, Imp);(U__, Imp);(U__, Imp);(ADC, Zer);(ROR, Zer);(U__, Imp); (* 6x *)
+(PLA, Imp);(ADC, Imm);(ROR, Acc);(U__, Imp);(JMP, Ind);(U__, Imp);(ROR, Abs);(U__, Imp);
+(BVS, Rel);(ADC, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(ADC, Ixz);(ROR, Ixz);(U__, Imp); (* 7x *)
+(SEI, Imp);(ADC, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(ADC, Iny);(ROR, Inx);(U__, Imp);
+(U__, Imp);(STA, Pre);(U__, Imp);(U__, Imp);(STY, Zer);(STA, Zer);(STX, Zer);(U__, Imp); (* 8x *)
+(DEY, Imp);(U__, Imp);(TXA, Imp);(U__, Imp);(STY, Abs);(STA, Abs);(STX, Abs);(U__, Imp);
+(BCC, Rel);(STA, Pst);(U__, Imp);(U__, Imp);(STY, Ixz);(STA, Ixz);(STX, Ixz);(U__, Imp); (* 9x *)
+(TYA, Imp);(STA, Iny);(TXS, Imp);(U__, Imp);(U__, Imp);(U__, Imp);(U__, Imp);(U__, Imp);
+(LDY, Imm);(LDA, Pre);(LDX, Imm);(U__, Imp);(LDY, Zer);(LDA, Zer);(LDX, Zer);(U__, Imp); (* ax *)
+(TAY, Imp);(LDA, Imm);(TAX, Imp);(U__, Imp);(LDY, Abs);(LDA, Abs);(LDX, Abs);(U__, Imp);
+(BCS, Rel);(LDA, Pst);(U__, Imp);(U__, Imp);(LDY, Ixz);(LDA, Ixz);(LDX, Iyz);(U__, Imp); (* bx *)
+(CLV, Imp);(LDA, Iny);(TSX, Imp);(U__, Imp);(LDY, Inx);(LDA, Inx);(LDX, Iny);(U__, Imp);
+(CPY, Imm);(CMP, Pre);(U__, Imp);(U__, Imp);(CPY, Zer);(CMP, Zer);(DEC, Zer);(U__, Imp); (* cx *)
+(INY, Imp);(CMP, Imm);(DEX, Imp);(U__, Imp);(CPY, Abs);(CMP, Abs);(DEC, Abs);(U__, Imp);
+(BNE, Rel);(CMP, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(CMP, Ixz);(DEC, Ixz);(U__, Imp); (* dx *)
+(CLD, Imp);(CMP, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(CMP, Inx);(DEC, Inx);(U__, Imp);
+(CPX, Imm);(SBC, Pre);(U__, Imp);(U__, Imp);(CPX, Zer);(SBC, Zer);(INC, Zer);(U__, Imp); (* ex *)
+(INX, Imp);(SBC, Imm);(NOP, Imp);(U__, Imp);(CPX, Ixz);(SBC, Abs);(INC, Abs);(U__, Imp);
+(BEQ, Rel);(SBC, Pst);(U__, Imp);(U__, Imp);(U__, Imp);(SBC, Ixz);(INC, Ixz);(U__, Imp); (* fx *)
+(SED, Imp);(SBC, Iny);(U__, Imp);(U__, Imp);(U__, Imp);(SBC, Inx);(INC, Inx);(U__, Imp);
 |];;
 
 (* This is lame, but OCaml doesn't have reflection like Python f.func_name *)
@@ -127,36 +127,21 @@ let string_of_operand addr_mode operand =
     | Ind -> Printf.sprintf "($%.4X)" operand
     | Rel -> Printf.sprintf "$%.4X" operand;;    (* TODO: sign_num(operand)+offset, it really needs to be relative current offset *)
 
-(* This doesn't work because OCaml doesn't infer the match result is a format 
-let string_of_operand addr_mode operand =
-    Printf.sprintf (match addr_mode with
-    | Imm -> "#$%.2X" 
-    | Zer -> "$%.2X"
-    | Ixz -> "$%.2X,X"
-    | Iyz -> "$%.2X,X" 
-    | Abs -> "#$%.4X" 
-    | Inx -> "$%.4X,X"
-    | Iny -> "$%.4X,Y"
-    | Pre -> "($%.2X,X)"
-    | Pst -> "($%.2X),Y" 
-    | Imp -> " [ignore: %x]"
-    | Acc -> "A [ignore: %x]"
-    | Ind -> "($%.4X)" 
-    | Rel -> "$%.4X"
-    ) operand;;
-*)
-
-type instruction = {opcode: opcode; addr_mode: addr_mode; operand: int};;
+type instruction = {opcode: opcode; addr_mode: addr_mode; opcode_byte: int; operand: int};;
 
 (* Read and decode one instruction *)
 let read_instruction io = 
-    let opcode, addr_mode = Array.get opcode_map (IO.read_byte io) in
-    let operand = read_operand addr_mode io in
+    let opcode_byte = IO.read_byte io in                         (* Integer of opcode *)
+    let opcode, addr_mode = Array.get opcode_map opcode_byte in  (* opcode and addr_mode variant types *)
+    let operand = read_operand addr_mode io in                   (* Integer of operand *)
 
-    {opcode=opcode; addr_mode=addr_mode; operand=operand};;
+    {opcode=opcode; addr_mode=addr_mode; opcode_byte=opcode_byte; operand=operand};;
 
 let string_of_instruction instr =
-    (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.addr_mode instr.operand);;
-
+    if instr.opcode != U__ then
+        (string_of_opcode instr.opcode) ^ " " ^ (string_of_operand instr.addr_mode instr.operand)
+    else
+        Printf.sprintf ".DB #$%.2X" instr.opcode_byte
+    ;;
 
 
