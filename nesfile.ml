@@ -5,6 +5,8 @@
  *)
 
 
+type game_cartridge = { prg_data: string list; chr_data: string list; };;
+
 let read filename =
     let io = IO.input_channel (open_in_bin filename) in    (* not using extlib IO because it lacks seek *)
 
@@ -41,13 +43,6 @@ let read filename =
 
     Printf.printf "Read %d prg, and %d chr\n" (List.length prg_data) (List.length chr_data);
 
-    let prg0_io = (IO.input_string (List.nth prg_data 0)) in
+    {prg_data=prg_data; chr_data=chr_data};;
 
-    try
-        while true do
-            print_endline (Cpu6502.read_and_print prg0_io)
-        done
-    with IO.No_more_input -> ();
-
-    print_endline (Cpu6502.read_and_print (IO.input_string "\xa9\x40"));;
 
