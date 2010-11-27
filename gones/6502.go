@@ -78,31 +78,36 @@ var opcodes = [...]OpcodeAddrMode{
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
-func disasm(f *os.File) {
-
-}
-
-func main() {
-    flag.Parse()
-
-    fmt.Printf("Hello, world")
-
-    filename := flag.Arg(0)
-
+// Read all the bytes from a file, terminating if an error occurs
+func slurp(filename string) []byte {
     f, err := os.Open(filename, os.O_RDONLY, 0)
     if f == nil {
         fmt.Fprintf(os.Stderr, "cannot open %s: %s", filename, err)
         os.Exit(1)
     }
     stat, err := f.Stat()
-    fmt.Printf("size = %d", stat.Size)
-    data := make([]byte, stat.Size)
-    count, err := f.Read(data)
-    fmt.Printf("data = %s, count=%d", data, count)
-
-    disasm(f)
+    length_expected := stat.Size
+    data := make([]byte, length_expected)
+    length_read, err := f.Read(data)
+    if int64(length_read) != length_expected {
+        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", length_expected, length_read, filename, err)
+        os.Exit(1)
+    }
 
     f.Close()
+
+    return data
+}
+
+func main() {
+    flag.Parse()
+
+    fmt.Printf("Hello, world\n")
+
+    filename := flag.Arg(0)
+    data := slurp(filename)
+    fmt.Printf("read %d bytes", len(data))
+
 
 }
 
