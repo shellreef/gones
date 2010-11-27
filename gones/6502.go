@@ -21,8 +21,9 @@ SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY";
 TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA")
 
 // Addressing mode
-type AddrMode int
-const (Imd=1; Zpg; Zpx; Zpy; Abs; Abx; Aby; Ndx; Ndy; Imp; Acc; Ind; Rel);
+type AddrMode string
+const (Imd="Imd"; Zpg="Zpg"; Zpx="Zpx"; Zpy="Zpy"; Abs="Abs"; Abx="Abx"; 
+Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
 
 // Opcode and addressing mode
 type OpcodeAddrMode struct { opcode Opcode; addrmode AddrMode }
