@@ -19,7 +19,7 @@ LINKER = ocamlfind ocamlopt -package $(PACKAGES) -linkpkg
 all: $(EXE)
 
 test: $(EXE)
-	./$(EXE) *.NES
+	./$(EXE) ../*.NES
 
 $(EXE): $(NATIVE_OBJECTS)
 	$(LINKER) -o $@ $(NATIVE_OBJECTS)
