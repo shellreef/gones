@@ -9,6 +9,8 @@ import (
     "fmt"
     "flag"
     "os"
+    "bytes"
+    "encoding/binary"
 )
 
 // Operation code, a string for easy printing
@@ -96,7 +98,29 @@ func slurp(filename string) []byte {
 
     f.Close()
 
+    fmt.Printf("Read %d bytes from %s", len(data), filename)
+
     return data
+}
+
+// iNES (.nes) file header
+type NesfileHeader struct {
+    signature uint32;
+    prg_page_count, chr_page_count, mapper_info1, mapper_info2, ram_pages, pal_flag uint8;
+    reserved [6]byte;
+}
+
+func parseINES(data []byte) {
+    // Convert data to an object compatible with http://golang.org/pkg/io/
+    buffer := bytes.NewBuffer(data)
+
+    fmt.Printf("reader length=%d", buffer.Len())
+
+    header := new(NesfileHeader);
+
+    binary.Read(buffer, binary.BigEndian, header)
+
+    fmt.Printf("read header=%s", header.signature)
 }
 
 func main() {
@@ -106,8 +130,7 @@ func main() {
 
     filename := flag.Arg(0)
     data := slurp(filename)
-    fmt.Printf("read %d bytes", len(data))
 
-
+    parseINES(data)
 }
 
