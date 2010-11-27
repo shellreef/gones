@@ -98,29 +98,29 @@ func slurp(filename string) []byte {
 
     f.Close()
 
-    fmt.Printf("Read %d bytes from %s", len(data), filename)
+    fmt.Printf("Read %d bytes from %s\n", len(data), filename)
 
     return data
 }
 
 // iNES (.nes) file header
 type NesfileHeader struct {
-    signature uint32;
-    prg_page_count, chr_page_count, mapper_info1, mapper_info2, ram_pages, pal_flag uint8;
-    reserved [6]byte;
+    Signature uint32
+    Prg_page_count, Chr_page_count, Mapper_info1, Mapper_info2, Ram_pages, Pal_flag uint8
+    Reserved [6]byte
 }
 
 func parseINES(data []byte) {
     // Convert data to an object compatible with http://golang.org/pkg/io/
     buffer := bytes.NewBuffer(data)
 
-    fmt.Printf("reader length=%d", buffer.Len())
+    fmt.Printf("reader length=%d\n", buffer.Len())
 
     header := new(NesfileHeader);
 
     binary.Read(buffer, binary.BigEndian, header)
 
-    fmt.Printf("read header=%s", header.signature)
+    fmt.Printf("read header=%X\n", header.Signature)
 }
 
 func main() {
