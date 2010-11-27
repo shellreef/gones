@@ -8,17 +8,21 @@ package main
 import "fmt"
 
 // TODO: should these map to the opcodes themselves instead of opaque integers?? Probably.
-type Opcode int 
-const (___ = 0;
-ADC; AND; ASL; BCS; BEQ; BIT; BMI; BNE; BRK; BVS; CLC; CLD; CLI; CLV; CMP; CPX; 
-CPY; DEC; DEX; DEY; EOR; INC; INX; INY; JMP; JSR; LDA; LDX; LDY; LSR; NOP; ORA; 
-PHA; PHP; PLA; PLP; ROL; ROR; RTI; RTS; SBC; SEC; SED; SEI; STA; STX; STY; TAX; 
-TAY; TSX; TXA; TXS; TYA)
+type Opcode string
+const (___="???";
+ADC="ADC"; AND="AND"; ASL="ASL"; BCS="BCS"; BEQ="BEQ"; BIT="BIT"; BMI="BMI"; 
+BNE="BNE"; BRK="BRK"; BVS="BVS"; CLC="CLC"; CLD="CLD"; CLI="CLI"; CLV="CLV"; 
+CMP="CMP"; CPX="CPX"; CPY="CPY"; DEC="DEC"; DEX="DEX"; DEY="DEY"; EOR="EOR"; 
+INC="INC"; INX="INX"; INY="INY"; JMP="JMP"; JSR="JSR"; LDA="LDA"; LDX="LDX"; 
+LDY="LDY"; LSR="LSR"; NOP="NOP"; ORA="ORA"; PHA="PHA"; PHP="PHP"; PLA="PLA"; 
+PLP="PLP"; ROL="ROL"; ROR="ROR"; RTI="RTI"; RTS="RTS"; SBC="SBC"; SEC="SEC"; 
+SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY"; 
+TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA")
 
 // TODO: AddrMode
 
 // Opcode and addressing mode
-type OpcodeAddrMode struct { opcode, addrmode int }
+type OpcodeAddrMode struct { opcode Opcode; addrmode int }
 
 // Indexed by opcode number, maps to decoded opcode and addressing mode
 var opcodes = [...]OpcodeAddrMode{
@@ -59,5 +63,7 @@ var opcodes = [...]OpcodeAddrMode{
 
 func main() {
     fmt.Printf("Hello, world!\n")
+
+    fmt.Printf("%s", LDA);
 }
 

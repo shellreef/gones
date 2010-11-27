@@ -12,8 +12,8 @@ OBJS = ${SRCS:.go=.6}
 
 all: $(EXE)
 
-run: $(EXE)
-	./$(EXE)
+test: $(EXE)
+	./$(EXE) ../*.NES
 
 $(EXE): $(OBJS)
 	$(LINKER) -o $@ $(OBJS)
