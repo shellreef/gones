@@ -5,11 +5,15 @@
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "flag"
+    "os"
+)
 
 // Operation code, a string for easy printing
 type Opcode string
-const (U__="???";
+const (U__="???"; // undefined / invalid / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt 
 ADC="ADC"; AND="AND"; ASL="ASL"; BCS="BCS"; BEQ="BEQ"; BIT="BIT"; BMI="BMI"; 
 BPL="BPL"; BVC="BVC"; BCC="BCC";
 BNE="BNE"; BRK="BRK"; BVS="BVS"; CLC="CLC"; CLD="CLD"; CLI="CLI"; CLV="CLV"; 
@@ -28,6 +32,13 @@ Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
 // Opcode and addressing mode
 type OpcodeAddrMode struct { opcode Opcode; addrmode AddrMode }
 
+/* Opcode byte to opcode and addressing mode
+Note: http://nesdev.parodius.com/6502.txt has several errors. 
+http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is more correct, notably:
+0x7d is ADC, Aby
+0x8d is STA, Abs
+0x90 is BCC, Rel
+*/
 // Indexed by opcode number, maps to decoded opcode and addressing mode
 var opcodes = [...]OpcodeAddrMode{
 // Indexed by opcode, value is (mneumonic, addressing mode code) 
@@ -67,9 +78,31 @@ var opcodes = [...]OpcodeAddrMode{
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
-func main() {
-    fmt.Printf("Hello, world!\n")
+func disasm(f *os.File) {
 
-    fmt.Printf("%s", Abs);
+}
+
+func main() {
+    flag.Parse()
+
+    fmt.Printf("Hello, world")
+
+    filename := flag.Arg(0)
+
+    f, err := os.Open(filename, os.O_RDONLY, 0)
+    if f == nil {
+        fmt.Fprintf(os.Stderr, "cannot open %s: %s", filename, err)
+        os.Exit(1)
+    }
+    stat, err := f.Stat()
+    fmt.Printf("size = %d", stat.Size)
+    data := make([]byte, stat.Size)
+    count, err := f.Read(data)
+    fmt.Printf("data = %s, count=%d", data, count)
+
+    disasm(f)
+
+    f.Close()
+
 }
 
