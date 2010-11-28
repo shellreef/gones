@@ -88,11 +88,11 @@ func slurp(filename string) []byte {
         os.Exit(1)
     }
     stat, err := f.Stat()
-    length_expected := stat.Size
-    data := make([]byte, length_expected)
-    length_read, err := f.Read(data)
-    if int64(length_read) != length_expected {
-        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", length_expected, length_read, filename, err)
+    expectedLength := stat.Size
+    data := make([]byte, expectedLength)
+    readLength, err := f.Read(data)
+    if int64(readLength) != expectedLength {
+        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err)
         os.Exit(1)
     }
 
@@ -106,7 +106,7 @@ func slurp(filename string) []byte {
 // iNES (.nes) file header
 type NesfileHeader struct {
     Magic uint32
-    Prg_page_count, Chr_page_count, Mapper_info1, Mapper_info2, Ram_pages, Pal_flag uint8
+    PrgPageCount, ChrPageCount, MapperInfo1, MapperInfo2, RamPageCount, PalFlag uint8
     Reserved [6]byte
 }
 
@@ -127,7 +127,7 @@ func parseINES(data []byte) {
         os.Exit(1)
     }
 
-    fmt.Printf("ROM: %d, VROM: %d\n", header.Prg_page_count, header.Chr_page_count)
+    fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
 
 }
 
