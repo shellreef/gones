@@ -110,7 +110,17 @@ type NesfileHeader struct {
     Reserved [6]byte
 }
 
+// Represents a game cartridge
+type Cartridge struct {
+    Prg []([]byte)
+    Chr []([]byte)
+    // TODO: mappers
+}
+
 const NESFILE_MAGIC = 0x1a53454e 
+const PRG_PAGE_SIZE = 16384
+const CHR_PAGE_SIZE = 8192 
+
 
 func parseINES(data []byte) {
     // Convert data to an object compatible with http://golang.org/pkg/io/
@@ -118,7 +128,8 @@ func parseINES(data []byte) {
 
     fmt.Printf("reader length=%d\n", buffer.Len())
 
-    header := new(NesfileHeader);
+    header := new(NesfileHeader)
+    cart := new(Cartridge)
 
     binary.Read(buffer, binary.LittleEndian, header)
 
@@ -129,13 +140,29 @@ func parseINES(data []byte) {
 
     fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
 
+    cart.Prg = readPages(buffer, PRG_PAGE_SIZE, int(header.PrgPageCount))
+    cart.Chr = readPages(buffer, CHR_PAGE_SIZE, int(header.ChrPageCount))
+
+    return cart
 }
 
-func readPages(buffer bytes.Buffer, size int, pageCount int) {
-    for i := 0; i <= pageCount; i++ {
+// Read chunks of data from a buffer
+func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
+    pages := make([]([]byte), pageCount)
+
+    for i := 0; i < pageCount; i++ {
         page := make([]byte, size)
-        buffer.Read(page)
+        readLength, err := buffer.Read(page)
+        fmt.Printf("read page %d size=%d, err=%s\n", i, readLength, err)
+        if err != nil {
+            fmt.Fprintf(os.Stderr, "readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err)
+            os.Exit(2)
+        }
+
+        pages[i] = page
     }
+
+    return pages
 }
 
 func main() {
