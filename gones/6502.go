@@ -80,28 +80,6 @@ var opcodes = [...]OpcodeAddrMode{
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
-// Read all the bytes from a file, terminating if an error occurs
-func slurp(filename string) []byte {
-    f, err := os.Open(filename, os.O_RDONLY, 0)
-    if f == nil {
-        fmt.Fprintf(os.Stderr, "cannot open %s: %s", filename, err)
-        os.Exit(1)
-    }
-    stat, err := f.Stat()
-    expectedLength := stat.Size
-    data := make([]byte, expectedLength)
-    readLength, err := f.Read(data)
-    if int64(readLength) != expectedLength {
-        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err)
-        os.Exit(1)
-    }
-
-    f.Close()
-
-    fmt.Printf("Read %d bytes from %s\n", len(data), filename)
-
-    return data
-}
 
 // iNES (.nes) file header
 type NesfileHeader struct {
@@ -121,12 +99,11 @@ const NESFILE_MAGIC = 0x1a53454e
 const PRG_PAGE_SIZE = 16384
 const CHR_PAGE_SIZE = 8192 
 
-
-func parseINES(data []byte) {
+// Load a .nes file
+func loadINES(filename string) (*Cartridge) {
+    data := slurp(filename)
     // Convert data to an object compatible with http://golang.org/pkg/io/
     buffer := bytes.NewBuffer(data)
-
-    fmt.Printf("reader length=%d\n", buffer.Len())
 
     header := new(NesfileHeader)
     cart := new(Cartridge)
@@ -153,7 +130,7 @@ func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
     for i := 0; i < pageCount; i++ {
         page := make([]byte, size)
         readLength, err := buffer.Read(page)
-        fmt.Printf("read page %d size=%d, err=%s\n", i, readLength, err)
+        fmt.Printf("read page %d size=%d\n", i, readLength)
         if err != nil {
             fmt.Fprintf(os.Stderr, "readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err)
             os.Exit(2)
@@ -165,14 +142,34 @@ func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
     return pages
 }
 
+// Read all the bytes from a file, terminating if an error occurs
+func slurp(filename string) []byte {
+    f, err := os.Open(filename, os.O_RDONLY, 0)
+    if f == nil {
+        fmt.Fprintf(os.Stderr, "cannot open %s: %s", filename, err)
+        os.Exit(1)
+    }
+    stat, err := f.Stat()
+    expectedLength := stat.Size
+    data := make([]byte, expectedLength)
+    readLength, err := f.Read(data)
+    if int64(readLength) != expectedLength {
+        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err)
+        os.Exit(1)
+    }
+
+    f.Close()
+
+    fmt.Printf("Read %d bytes from %s\n", len(data), filename)
+
+    return data
+}
+
 func main() {
     flag.Parse()
 
     fmt.Printf("Hello, world\n")
 
-    filename := flag.Arg(0)
-    data := slurp(filename)
-
-    parseINES(data)
+    loadINES(flag.Arg(0))
 }
 
