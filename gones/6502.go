@@ -105,10 +105,12 @@ func slurp(filename string) []byte {
 
 // iNES (.nes) file header
 type NesfileHeader struct {
-    Signature uint32
+    Magic uint32
     Prg_page_count, Chr_page_count, Mapper_info1, Mapper_info2, Ram_pages, Pal_flag uint8
     Reserved [6]byte
 }
+
+const NESFILE_MAGIC = 0x1a53454e 
 
 func parseINES(data []byte) {
     // Convert data to an object compatible with http://golang.org/pkg/io/
@@ -118,9 +120,22 @@ func parseINES(data []byte) {
 
     header := new(NesfileHeader);
 
-    binary.Read(buffer, binary.BigEndian, header)
+    binary.Read(buffer, binary.LittleEndian, header)
 
-    fmt.Printf("read header=%X\n", header.Signature)
+    if header.Magic != NESFILE_MAGIC {
+        fmt.Fprintf(os.Stderr, "invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC)
+        os.Exit(1)
+    }
+
+    fmt.Printf("ROM: %d, VROM: %d\n", header.Prg_page_count, header.Chr_page_count)
+
+}
+
+func readPages(buffer bytes.Buffer, size int, pageCount int) {
+    for i := 0; i <= pageCount; i++ {
+        page := make([]byte, size)
+        buffer.Read(page)
+    }
 }
 
 func main() {
