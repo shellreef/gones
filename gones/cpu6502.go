@@ -7,12 +7,10 @@
 
 package cpu6502
 
-import "fmt"
-
 import . "./nesfile"
+import . "./dis6502"
 import (
-    "bytes"
-    "./dis6502"
+    "fmt"
 )
 
 type CPU struct {
@@ -38,11 +36,43 @@ func (cpu *CPU) NextSInt8() (b int8) {
     return b
 }
 
-func (cpu *CPU) NextUInt16 (w uint16) {
+func (cpu *CPU) NextUInt16() (w uint16) {
     low := cpu.NextUInt8()
     high := cpu.NextUInt8()
     return uint16(high) * 0x100 + uint16(low)
 }
+
+// Read an operand for a given addressing mode
+func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
+    switch addrMode {
+    case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
+        return int(cpu.NextUInt8())
+    case Abs, Abx, Aby, Ind:           // read 16 bits
+        return int(cpu.NextUInt16())
+    case Imp, Acc: 
+        return 0
+    case Rel:                          // read 8 bits TODO: signed
+        return int(cpu.NextSInt8())
+    }
+    panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
+} 
+
+// Read and decode a CPU instruction from a buffer
+func (cpu *CPU) NextInstruction() (*Instruction) {
+    opcodeByte := cpu.NextUInt8()
+   
+    opcode, addrMode := Opcodes[opcodeByte].Opcode, Opcodes[opcodeByte].AddrMode
+    operand := cpu.NextOperand(addrMode)
+    
+    instr:= new(Instruction)
+    instr.Opcode = opcode
+    instr.OpcodeByte = opcodeByte
+    instr.AddrMode = addrMode
+    instr.Operand = operand
+
+    return instr
+}
+
 
 // Load a game cartridge
 func (cpu *CPU) Load(cart *Cartridge) {
@@ -63,11 +93,10 @@ func (cpu *CPU) Load(cart *Cartridge) {
 
 // Start execution
 func (cpu *CPU) Run() {
-    // TODO: stop using a buffer
-    buffer := bytes.NewBuffer(cpu.Memory[0x8000:])
+    cpu.PC = 0x8000
     for {
-         instr := dis6502.NextInstruction(buffer)
-         if instr.opcode == U__ {
+         instr := cpu.NextInstruction()
+         if instr.Opcode == U__ {
              break
          }
 

@@ -1,15 +1,13 @@
 // Created:20101126
 // By Jeff Connelly
 
-// Disassemble 6502 operations
+// Disassemble 6502 instructions
+// Provides data used by cpu6502 NextInstruction
 
 package dis6502
 
 import (
-    "os"
-    "bytes"
     "fmt"
-   "./cpu6502"
 )
 
 // Operation code, a string for easy printing
@@ -31,10 +29,10 @@ const (Imd="Imd"; Zpg="Zpg"; Zpx="Zpx"; Zpy="Zpy"; Abs="Abs"; Abx="Abx";
 Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
 
 // Opcode and addressing mode for opcode definition table
-type OpcodeAddrMode struct { opcode Opcode; addrMode AddrMode }
+type OpcodeAddrMode struct { Opcode Opcode; AddrMode AddrMode }
 
 // Instruction with operand
-type Instruction struct { opcode Opcode; opcodeByte uint8; addrMode AddrMode; operand int }
+type Instruction struct { Opcode Opcode; OpcodeByte uint8; AddrMode AddrMode; Operand int }
 
 /* Opcode byte to opcode and addressing mode
 Note: http://nesdev.parodius.com/6502.txt has several errors. 
@@ -44,7 +42,7 @@ http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is more correct, notably:
 0x90 is BCC, Rel
 */
 // Indexed by opcode number, maps to decoded opcode and addressing mode
-var opcodes = [...]OpcodeAddrMode{
+var Opcodes = [...]OpcodeAddrMode{
 // Indexed by opcode, value is (mneumonic, addressing mode code) 
 // x0         x1         x2         x3         x4        x5          x6         x7   
 // x8         x9         xa         xb         xc        xd          xe         xf   
@@ -82,21 +80,6 @@ var opcodes = [...]OpcodeAddrMode{
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
-// Read an operand for a given addressing mode
-func (addrMode AddrMode) readOperand(cpu *cpu6502.CPU) (int) {
-    switch addrMode {
-    case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
-        return int(cpu.NextUInt8())
-    case Abs, Abx, Aby, Ind:           // read 16 bits
-        return int(cpu.NextUInt16())
-    case Imp, Acc: 
-        return 0
-    case Rel:                          // read 8 bits TODO: signed
-        return int(cpu.NextSInt8())
-    }
-    panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
-} 
-
 func (addrMode AddrMode) formatOperand(operand int) (string) {
     switch addrMode {
     case Imd: return fmt.Sprintf("#$%.2X", operand)
@@ -116,26 +99,11 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
     panic(fmt.Sprintf("fotmatOperand unknown addressing mode: %s", addrMode))
 }
 
-// Read and decode a CPU instruction from a buffer
-func NextInstruction(cpu *cpu6503.CPU) (*Instruction) {
-    opcodeByte = cpu.NextUInt8()
-   
-    opcode, addrMode := opcodes[opcodeByte].opcode, opcodes[opcodeByte].addrMode
-    operand := addrMode.readOperand(cpu)
-    
-    instr:= new(Instruction)
-    instr.opcode = opcode
-    instr.opcodeByte = opcodeByte
-    instr.addrMode = addrMode
-    instr.operand = operand
-
-    return instr, nil
-}
 
 func (instr Instruction) String() (string) {
-     if instr.opcode == U__ {
-        return fmt.Sprintf(".DB #$%.2X", instr.opcodeByte)
+     if instr.Opcode == U__ {
+        return fmt.Sprintf(".DB #$%.2X", instr.OpcodeByte)
     } 
 
-    return fmt.Sprintf("%s %s", instr.opcode, instr.addrMode.formatOperand(instr.operand))
+    return fmt.Sprintf("%s %s", instr.Opcode, instr.AddrMode.formatOperand(instr.Operand))
 }
