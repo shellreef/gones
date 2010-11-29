@@ -8,6 +8,7 @@ package main
 import (
     "fmt"
     "flag"
+   "bytes"
 
     "./nesfile"
     "./dis6502"
@@ -18,8 +19,12 @@ func main() {
 
     fmt.Printf("Hello, world\n")
 
-    nesfile.Load(flag.Arg(0))
-    var op dis6502.Opcode = dis6502.BRK
-    fmt.Printf("op=%s\n", op)
+    cart := nesfile.Load(flag.Arg(0))
+
+    buffer := bytes.NewBuffer(cart.Prg[0])
+    dis6502.ReadInstruction(buffer)
+    dis6502.ReadInstruction(buffer)
+    dis6502.ReadInstruction(buffer)
+    dis6502.ReadInstruction(buffer)
 }
 

@@ -5,6 +5,12 @@
 
 package dis6502
 
+import (
+    "os"
+    "bytes"
+    "fmt"
+)
+
 // Operation code, a string for easy printing
 type Opcode string
 const (U__="???"; // undefined / invalid / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt 
@@ -24,7 +30,7 @@ const (Imd="Imd"; Zpg="Zpg"; Zpx="Zpx"; Zpy="Zpy"; Abs="Abs"; Abx="Abx";
 Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
 
 // Opcode and addressing mode
-type OpcodeAddrMode struct { opcode Opcode; addrmode AddrMode }
+type OpcodeAddrMode struct { opcode Opcode; addrMode AddrMode }
 
 /* Opcode byte to opcode and addressing mode
 Note: http://nesdev.parodius.com/6502.txt has several errors. 
@@ -70,5 +76,61 @@ var opcodes = [...]OpcodeAddrMode{
 {INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Zpx},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
+}
+
+// Read an operand for a given addressing mode
+func readOperand(buffer *bytes.Buffer, addrMode AddrMode) (int) {
+    switch addrMode {
+    case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
+        c, _ := buffer.ReadByte()
+        return int(c)
+    case Abs, Abx, Aby, Ind:           // read 16 bits
+        cl, _ := buffer.ReadByte()
+        ch, _ := buffer.ReadByte()
+        return int(ch) * 0x100 + int(cl)
+    case Imp, Acc: 
+        return 0
+    case Rel:                          // read 8 bits TODO: signed
+         c, _ := buffer.ReadByte()
+         return int(c)
+    }
+    fmt.Fprintf(os.Stderr, "readOperand unknown addressing mode: %s", addrMode)
+    os.Exit(1)
+    return 0
+} 
+
+func formatOperand(addrMode AddrMode, operand int) (string) {
+    switch addrMode {
+    case Imd: return fmt.Sprintf("#$%.2X", operand)
+    case Zpg: return fmt.Sprintf("$%.2X", operand)
+    case Zpx: return fmt.Sprintf("$%.2X,X", operand)
+    case Zpy: return fmt.Sprintf("$%.2X,X", operand)
+    case Abs: return fmt.Sprintf("#$%.4X", operand)
+    case Abx: return fmt.Sprintf("$%.4X,X", operand)
+    case Aby: return fmt.Sprintf("$%.4X,Y", operand)
+    case Ndx: return fmt.Sprintf("($%.2X,X)", operand)
+    case Ndy: return fmt.Sprintf("($%.2X),Y", operand)
+    case Imp: return ""
+    case Acc: return "A"
+    case Ind: return fmt.Sprintf("($%.4X)", operand)
+    case Rel: return fmt.Sprintf("$%.4X", operand)   // TODO: return sign_num(operand)+offset, it really needs to be relative current offset 
+    }
+    fmt.Fprintf(os.Stderr, "fotmatOperand unknown addressing mode: %s", addrMode)
+    os.Exit(1)
+    return ""
+}
+
+// Read and decode a CPU instruction from a buffer
+func ReadInstruction(buffer *bytes.Buffer) (os.Error) {
+    opcode_byte, err := buffer.ReadByte()
+    if err != nil {
+        return err
+    }
+   
+    opcode, addrMode := opcodes[opcode_byte].opcode, opcodes[opcode_byte].addrMode
+    operand := readOperand(buffer, addrMode)
+    fmt.Printf("%s %s\n", opcode, formatOperand(addrMode, operand))
+
+    return nil
 }
 

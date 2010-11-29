@@ -26,7 +26,7 @@ type Cartridge struct {
     // TODO: mappers
 }
 
-const NESFILE_MAGIC = 0x1a53454e 
+const NESFILE_MAGIC = 0x1a53454e        // NES^Z
 const PRG_PAGE_SIZE = 16384
 const CHR_PAGE_SIZE = 8192 
 
