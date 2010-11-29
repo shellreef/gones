@@ -130,7 +130,12 @@ func (cpu *CPU) Run() {
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
          case SEI: cpu.P |= FLAG_I
+         case SEC: cpu.P |= FLAG_C
+         case SED: cpu.P |= FLAG_D
          case CLD: cpu.P &^= FLAG_D       // Note: &^ is bit clear operator
+         case CLC: cpu.P &^= FLAG_C
+         case CLI: cpu.P &^= FLAG_I
+         case CLV: cpu.P &^= FLAG_V
          case LDA: cpu.A = uint8(instr.Operand)  // TODO: repeat operand *value*, not address
          case STA: cpu.Memory[instr.Operand] = cpu.A // TODO: other addressing modes etc.
          case U__:
