@@ -85,7 +85,7 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
     case Imd: return fmt.Sprintf("#$%.2X", operand)
     case Zpg: return fmt.Sprintf("$%.2X", operand)
     case Zpx: return fmt.Sprintf("$%.2X,X", operand)
-    case Zpy: return fmt.Sprintf("$%.2X,X", operand)
+    case Zpy: return fmt.Sprintf("$%.2X,Y", operand)
     case Abs: return fmt.Sprintf("#$%.4X", operand)
     case Abx: return fmt.Sprintf("$%.4X,X", operand)
     case Aby: return fmt.Sprintf("$%.4X,Y", operand)
