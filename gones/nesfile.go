@@ -42,8 +42,7 @@ func Load(filename string) (*Cartridge) {
     binary.Read(buffer, binary.LittleEndian, header)
 
     if header.Magic != NESFILE_MAGIC {
-        fmt.Fprintf(os.Stderr, "invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC)
-        os.Exit(1)
+        panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
     }
 
     fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
@@ -63,8 +62,7 @@ func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
         readLength, err := buffer.Read(page)
         fmt.Printf("read page %d size=%d\n", i, readLength)
         if err != nil {
-            fmt.Fprintf(os.Stderr, "readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err)
-            os.Exit(2)
+            panic(fmt.Sprintf("readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err))
         }
 
         pages[i] = page
@@ -77,16 +75,14 @@ func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
 func slurp(filename string) []byte {
     f, err := os.Open(filename, os.O_RDONLY, 0)
     if f == nil {
-        fmt.Fprintf(os.Stderr, "cannot open %s: %s", filename, err)
-        os.Exit(1)
+        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
     }
     stat, err := f.Stat()
     expectedLength := stat.Size
     data := make([]byte, expectedLength)
     readLength, err := f.Read(data)
     if int64(readLength) != expectedLength {
-        fmt.Fprintf(os.Stderr, "failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err)
-        os.Exit(1)
+        panic(fmt.Sprintf("failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err))
     }
 
     f.Close()

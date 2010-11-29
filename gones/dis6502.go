@@ -100,9 +100,7 @@ func (addrMode AddrMode) readOperand(buffer *bytes.Buffer) (int, os.Error) {
          c, err := buffer.ReadByte()
          return int(c), err
     }
-    fmt.Fprintf(os.Stderr, "readOperand unknown addressing mode: %s", addrMode)
-    os.Exit(1)
-    return 0, nil
+    panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
 } 
 
 func (addrMode AddrMode) formatOperand(operand int) (string) {
@@ -121,9 +119,7 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
     case Ind: return fmt.Sprintf("($%.4X)", operand)
     case Rel: return fmt.Sprintf("$%.4X", operand)   // TODO: return sign_num(operand)+offset, it really needs to be relative current offset 
     }
-    fmt.Fprintf(os.Stderr, "fotmatOperand unknown addressing mode: %s", addrMode)
-    os.Exit(1)
-    return ""
+    panic(fmt.Sprintf("fotmatOperand unknown addressing mode: %s", addrMode))
 }
 
 // Read and decode a CPU instruction from a buffer
