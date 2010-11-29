@@ -31,7 +31,7 @@ const PRG_PAGE_SIZE = 16384
 const CHR_PAGE_SIZE = 8192 
 
 // Load a .nes file
-func Load(filename string) (*Cartridge) {
+func Open(filename string) (*Cartridge) {
     data := slurp(filename)
     // Convert data to an object compatible with http://golang.org/pkg/io/
     buffer := bytes.NewBuffer(data)
