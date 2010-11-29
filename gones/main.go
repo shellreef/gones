@@ -8,7 +8,7 @@ package main
 import (
     "fmt"
     "flag"
-   "bytes"
+    "bytes"
 
     "./nesfile"
     "./dis6502"
@@ -22,9 +22,11 @@ func main() {
     cart := nesfile.Load(flag.Arg(0))
 
     buffer := bytes.NewBuffer(cart.Prg[0])
-    dis6502.ReadInstruction(buffer)
-    dis6502.ReadInstruction(buffer)
-    dis6502.ReadInstruction(buffer)
-    dis6502.ReadInstruction(buffer)
+    for {
+         err := dis6502.ReadInstruction(buffer)
+         if err != nil {
+             break
+         }
+    }
 }
 

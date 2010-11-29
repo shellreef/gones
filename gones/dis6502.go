@@ -79,24 +79,27 @@ var opcodes = [...]OpcodeAddrMode{
 }
 
 // Read an operand for a given addressing mode
-func readOperand(buffer *bytes.Buffer, addrMode AddrMode) (int) {
+func readOperand(buffer *bytes.Buffer, addrMode AddrMode) (int, os.Error) {
     switch addrMode {
     case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
-        c, _ := buffer.ReadByte()
-        return int(c)
+        c, err := buffer.ReadByte()
+        return int(c), err
     case Abs, Abx, Aby, Ind:           // read 16 bits
-        cl, _ := buffer.ReadByte()
-        ch, _ := buffer.ReadByte()
-        return int(ch) * 0x100 + int(cl)
+        cl, err := buffer.ReadByte()
+        if err != nil {
+            return int(cl), err
+        }
+        ch, err  := buffer.ReadByte()
+        return int(ch) * 0x100 + int(cl), err
     case Imp, Acc: 
-        return 0
+        return 0, nil
     case Rel:                          // read 8 bits TODO: signed
-         c, _ := buffer.ReadByte()
-         return int(c)
+         c, err := buffer.ReadByte()
+         return int(c), err
     }
     fmt.Fprintf(os.Stderr, "readOperand unknown addressing mode: %s", addrMode)
     os.Exit(1)
-    return 0
+    return 0, nil
 } 
 
 func formatOperand(addrMode AddrMode, operand int) (string) {
@@ -128,7 +131,10 @@ func ReadInstruction(buffer *bytes.Buffer) (os.Error) {
     }
    
     opcode, addrMode := opcodes[opcode_byte].opcode, opcodes[opcode_byte].addrMode
-    operand := readOperand(buffer, addrMode)
+    operand, err := readOperand(buffer, addrMode)
+    if err != nil {
+        return err
+    }
     fmt.Printf("%s %s\n", opcode, formatOperand(addrMode, operand))
 
     return nil
