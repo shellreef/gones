@@ -11,6 +11,7 @@ import . "./nesfile"
 import . "./dis6502"
 import (
     "fmt"
+    "os"
 )
 
 type CPU struct {
@@ -21,6 +22,18 @@ type CPU struct {
     X, Y uint8  // Index registers
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 }
+
+// Processor status bits
+const (
+    FLAG_C = 1 << iota  // Carry
+    FLAG_Z  // Zero
+    FLAG_I  // Interrupt disable
+    FLAG_D  // Decimal mode
+    FLAG_B  // Break command
+    FLAG_R  // (Reserved)
+    FLAG_V  // Overflow
+    FLAG_N  // Negative
+)
 
 // Read from memory, advancing program counter
 
@@ -51,8 +64,8 @@ func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
         return int(cpu.NextUInt16())
     case Imp, Acc: 
         return 0
-    case Rel:                          // read 8 bits TODO: signed
-        return int(cpu.NextSInt8())
+    case Rel:                          // read 8 bits
+        return int(cpu.NextSInt8())    // TODO: calculate from PC
     }
     panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
 } 
@@ -73,7 +86,6 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
     return instr
 }
 
-
 // Load a game cartridge
 func (cpu *CPU) Load(cart *Cartridge) {
     // http://nesdev.parodius.com/NESDoc.pdf
@@ -91,6 +103,11 @@ func (cpu *CPU) Load(cart *Cartridge) {
     }
 }
 
+func (cpu *CPU) DumpRegisters() {
+    fmt.Printf("PC   A  X  Y  P\n")
+    fmt.Printf("%.4X %.2X %.2X %.2X %.2X\n", cpu.PC, cpu.A, cpu.X, cpu.Y, cpu.P);
+}
+
 // Start execution
 func (cpu *CPU) Run() {
     cpu.PC = 0x8000
@@ -98,10 +115,14 @@ func (cpu *CPU) Run() {
          start := cpu.PC
          instr := cpu.NextInstruction()
          fmt.Printf("%.4X\t%s\n", start, instr)
+         cpu.DumpRegisters()
 
-         if instr.Opcode == U__ {
+         switch instr.Opcode {
+         case SEI: cpu.P |= FLAG_I
+         case CLD: cpu.P &^= FLAG_D  // Note: &^ is bit clear operator
+         case U__:
              fmt.Printf("halting on undefined opcode\n")
-             break
+             os.Exit(0)
          }
     }
 
