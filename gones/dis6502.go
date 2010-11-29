@@ -9,6 +9,7 @@ import (
     "os"
     "bytes"
     "fmt"
+   "./cpu6502"
 )
 
 // Operation code, a string for easy printing

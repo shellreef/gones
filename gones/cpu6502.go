@@ -17,6 +17,31 @@ import (
 
 type CPU struct {
     Memory [0xffff]uint8
+    PC uint16   // Program counter
+    SP uint8    // Stack pointer, offset from $0100
+    A uint8     // Accumulator
+    X, Y uint8  // Index registers
+    P uint8     // Processor Status (7-0 = N V - B D I Z C)
+}
+
+// Read from memory, advancing program counter
+
+func (cpu *CPU) NextUInt8() (b uint8) {
+    b = cpu.Memory[cpu.PC]
+    cpu.PC += 1
+    return b
+}
+
+func (cpu *CPU) NextInt8() (b int8) {
+    b = int8(cpu.Memory[cpu.PC])
+    cpu.PC += 1
+    return b
+}
+
+func (cpu *CPU) NextUInt16 (w uint16) {
+    low := cpu.NextUInt8()
+    high := cpu.NextUInt8()
+    return uint16(high) * 0x100 + uint16(low)
 }
 
 // Load a game cartridge
