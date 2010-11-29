@@ -2,7 +2,7 @@ COMPILER = 6g
 LINKER = 6l
 
 EXE = 6502
-SRCS = 6502.go
+SRCS = nesfile.go 6502.go
 OBJS = ${SRCS:.go=.6}
 
 .SUFFIXES: .go .6
@@ -16,7 +16,7 @@ test: $(EXE)
 	./$(EXE) ../*.NES
 
 $(EXE): $(OBJS)
-	$(LINKER) -o $@ $(OBJS)
+	$(LINKER) -o $@ $(EXE).6
 
 $(OBJS): 
 
