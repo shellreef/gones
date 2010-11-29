@@ -136,23 +136,28 @@ func (cpu *CPU) Run() {
          fmt.Printf("%.4X\t%s\n", start, instr)
 
          // Setup operPtr for writing to operand, and operVal for reading
-         var operPtr *uint8;
-         var operVal uint8;
+         // Not all addressing modes allow writing to the operand; in that case,
+         // operPtr will be nil
+         var operPtr *uint8 
+         var operVal uint8
 
          switch instr.AddrMode {
-         case Imd: operPtr = nil; operVal = uint8(instr.Operand)
-         case Zpg: operPtr = &cpu.Memory[instr.Operand]; operVal = *operPtr
-         case Zpx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)]; operVal = *operPtr
-         case Zpy: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)]; operVal = *operPtr
-         case Abs: operPtr = &cpu.Memory[instr.Operand]; operVal = *operPtr
-         case Abx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)]; operVal = *operPtr
-         case Aby: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)]; operVal = *operPtr
-         case Ndx: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand) + uint16(cpu.X)]; operVal = *operPtr
-         case Ndy: operPtr = &cpu.Memory[int(cpu.ReadUInt16(int(instr.Operand))) + int(cpu.Y)]; operVal = *operPtr
-         case Imp: operPtr = nil; operVal = 0
-         case Acc: operPtr = nil; operVal = cpu.A
-         case Ind: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand)]; operVal = *operPtr
-         case Rel: operPtr = nil; //TODO: needs to be 16 bits: operVal = (cpu.PC) + 1 + instr.Operand 
+         case Imd: operVal = uint8(instr.Operand)
+         case Zpg: operPtr = &cpu.Memory[instr.Operand] 
+         case Zpx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)] 
+         case Zpy: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)] 
+         case Abs: operPtr = &cpu.Memory[instr.Operand] 
+         case Abx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)] 
+         case Aby: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)] 
+         case Ndx: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand) + uint16(cpu.X)] 
+         case Ndy: operPtr = &cpu.Memory[int(cpu.ReadUInt16(int(instr.Operand))) + int(cpu.Y)] 
+         case Imp: operVal = 0
+         case Acc: operVal = cpu.A
+         case Ind: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand)] 
+         case Rel: //TODO: needs to be 16 bits: operVal = (cpu.PC) + 1 + instr.Operand 
+         }
+         if operPtr != nil {
+             operVal = *operPtr
          }
          fmt.Printf("operPtr=%x, operVal=%x\n", operPtr, operVal)
 
