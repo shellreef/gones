@@ -95,13 +95,14 @@ func (cpu *CPU) Load(cart *Cartridge) {
 func (cpu *CPU) Run() {
     cpu.PC = 0x8000
     for {
+         start := cpu.PC
          instr := cpu.NextInstruction()
+         fmt.Printf("%.4X\t%s\n", start, instr)
+
          if instr.Opcode == U__ {
+             fmt.Printf("halting on undefined opcode\n")
              break
          }
-
-         // TODO: show address, but how to get file pointer on a Buffer? no Tell()
-         fmt.Printf("%s\n", instr)
     }
 
 }
