@@ -1,16 +1,9 @@
 // Created:20101126
 // By Jeff Connelly
 
-//
+// Disassemble 6502 operations
 
-package main
-
-import (
-    "fmt"
-    "flag"
-
-    "./nesfile"
-)
+package dis6502
 
 // Operation code, a string for easy printing
 type Opcode string
@@ -77,13 +70,5 @@ var opcodes = [...]OpcodeAddrMode{
 {INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Zpx},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
-}
-
-func main() {
-    flag.Parse()
-
-    fmt.Printf("Hello, world\n")
-
-    nesfile.Load(flag.Arg(0))
 }
 
