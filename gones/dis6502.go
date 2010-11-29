@@ -83,23 +83,16 @@ var opcodes = [...]OpcodeAddrMode{
 }
 
 // Read an operand for a given addressing mode
-func (addrMode AddrMode) readOperand(buffer *bytes.Buffer) (int, os.Error) {
+func (addrMode AddrMode) readOperand(cpu *cpu6502.CPU) (int) {
     switch addrMode {
     case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
-        c, err := buffer.ReadByte()
-        return int(c), err
+        return int(cpu.NextUInt8())
     case Abs, Abx, Aby, Ind:           // read 16 bits
-        cl, err := buffer.ReadByte()
-        if err != nil {
-            return int(cl), err
-        }
-        ch, err  := buffer.ReadByte()
-        return int(ch) * 0x100 + int(cl), err
+        return int(cpu.NextUInt16())
     case Imp, Acc: 
-        return 0, nil
+        return 0
     case Rel:                          // read 8 bits TODO: signed
-         c, err := buffer.ReadByte()
-         return int(c), err
+        return int(cpu.NextSInt8())
     }
     panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
 } 
@@ -124,17 +117,11 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
 }
 
 // Read and decode a CPU instruction from a buffer
-func ReadInstruction(buffer *bytes.Buffer) (*Instruction, os.Error) {
-    opcodeByte, err := buffer.ReadByte()
-    if err != nil {
-        return nil, err
-    }
+func NextInstruction(cpu *cpu6503.CPU) (*Instruction) {
+    opcodeByte = cpu.NextUInt8()
    
     opcode, addrMode := opcodes[opcodeByte].opcode, opcodes[opcodeByte].addrMode
-    operand, err := addrMode.readOperand(buffer)
-    if err != nil {
-        return nil, err
-    }
+    operand := addrMode.readOperand(cpu)
     
     instr:= new(Instruction)
     instr.opcode = opcode

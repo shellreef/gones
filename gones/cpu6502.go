@@ -32,7 +32,7 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     return b
 }
 
-func (cpu *CPU) NextInt8() (b int8) {
+func (cpu *CPU) NextSInt8() (b int8) {
     b = int8(cpu.Memory[cpu.PC])
     cpu.PC += 1
     return b
@@ -66,10 +66,11 @@ func (cpu *CPU) Run() {
     // TODO: stop using a buffer
     buffer := bytes.NewBuffer(cpu.Memory[0x8000:])
     for {
-         instr, err := dis6502.ReadInstruction(buffer)
-         if err != nil {
+         instr := dis6502.NextInstruction(buffer)
+         if instr.opcode == U__ {
              break
          }
+
          // TODO: show address, but how to get file pointer on a Buffer? no Tell()
          fmt.Printf("%s\n", instr)
     }
