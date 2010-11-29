@@ -128,8 +128,11 @@ func (cpu *CPU) Run() {
          fmt.Printf("%.4X\t%s\n", start, instr)
 
          switch instr.Opcode {
+         // http://nesdev.parodius.com/6502.txt
          case SEI: cpu.P |= FLAG_I
-         case CLD: cpu.P &^= FLAG_D  // Note: &^ is bit clear operator
+         case CLD: cpu.P &^= FLAG_D       // Note: &^ is bit clear operator
+         case LDA: cpu.A = uint8(instr.Operand)  // TODO: repeat operand *value*, not address
+         case STA: cpu.Memory[instr.Operand] = cpu.A // TODO: other addressing modes etc.
          case U__:
              fmt.Printf("halting on undefined opcode\n")
              os.Exit(0)
