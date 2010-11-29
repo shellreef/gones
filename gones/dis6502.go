@@ -135,7 +135,11 @@ func ReadInstruction(buffer *bytes.Buffer) (os.Error) {
     if err != nil {
         return err
     }
-    fmt.Printf("%s %s\n", opcode, formatOperand(addrMode, operand))
+    if opcode == U__ {
+        fmt.Printf(".DB #$%.X\n", opcode_byte)
+    } else {
+        fmt.Printf("%s %s\n", opcode, formatOperand(addrMode, operand))
+    }
 
     return nil
 }
