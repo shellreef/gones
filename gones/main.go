@@ -23,10 +23,11 @@ func main() {
 
     buffer := bytes.NewBuffer(cart.Prg[0])
     for {
-         err := dis6502.ReadInstruction(buffer)
+         instr, err := dis6502.ReadInstruction(buffer)
          if err != nil {
              break
          }
+         fmt.Printf("%s\n", instr)
     }
 }
 

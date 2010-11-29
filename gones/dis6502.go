@@ -29,8 +29,11 @@ type AddrMode string
 const (Imd="Imd"; Zpg="Zpg"; Zpx="Zpx"; Zpy="Zpy"; Abs="Abs"; Abx="Abx"; 
 Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
 
-// Opcode and addressing mode
+// Opcode and addressing mode for opcode definition table
 type OpcodeAddrMode struct { opcode Opcode; addrMode AddrMode }
+
+// Instruction with operand
+type Instruction struct { opcode Opcode; opcodeByte uint8; addrMode AddrMode; operand int }
 
 /* Opcode byte to opcode and addressing mode
 Note: http://nesdev.parodius.com/6502.txt has several errors. 
@@ -124,23 +127,31 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
 }
 
 // Read and decode a CPU instruction from a buffer
-func ReadInstruction(buffer *bytes.Buffer) (os.Error) {
-    opcode_byte, err := buffer.ReadByte()
+func ReadInstruction(buffer *bytes.Buffer) (*Instruction, os.Error) {
+    opcodeByte, err := buffer.ReadByte()
     if err != nil {
-        return err
+        return nil, err
     }
    
-    opcode, addrMode := opcodes[opcode_byte].opcode, opcodes[opcode_byte].addrMode
+    opcode, addrMode := opcodes[opcodeByte].opcode, opcodes[opcodeByte].addrMode
     operand, err := addrMode.readOperand(buffer)
     if err != nil {
-        return err
+        return nil, err
     }
-    if opcode == U__ {
-        fmt.Printf(".DB #$%.X\n", opcode_byte)
-    } else {
-        fmt.Printf("%s %s\n", opcode, addrMode.formatOperand(operand))
-    }
+    
+    instr:= new(Instruction)
+    instr.opcode = opcode
+    instr.opcodeByte = opcodeByte
+    instr.addrMode = addrMode
+    instr.operand = operand
 
-    return nil
+    return instr, nil
 }
 
+func (instr Instruction) String() (string) {
+     if instr.opcode == U__ {
+        return fmt.Sprintf(".DB #$%.2X", instr.opcodeByte)
+    } 
+
+    return fmt.Sprintf("%s %s", instr.opcode, instr.addrMode.formatOperand(instr.operand))
+}
