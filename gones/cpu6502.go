@@ -164,15 +164,26 @@ func (cpu *CPU) Run() {
 
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
+
+         // Flag setting       
          case SEI: cpu.P |= FLAG_I
          case SEC: cpu.P |= FLAG_C
          case SED: cpu.P |= FLAG_D
-         case CLD: cpu.P &^= FLAG_D       // Note: &^ is bit clear operator
+         // Flag clearing. &^ is Go bit clear operator; cpu.P &= ^FLAG_D will not compile because of an overflow
+         case CLD: cpu.P &^= FLAG_D
          case CLC: cpu.P &^= FLAG_C
          case CLI: cpu.P &^= FLAG_I
          case CLV: cpu.P &^= FLAG_V
-         case LDA: cpu.A = uint8(instr.Operand)  // TODO: repeat operand *value*, not address
-         case STA: cpu.Memory[instr.Operand] = cpu.A // TODO: other addressing modes etc.
+
+         // Load register from memory
+         case LDA: cpu.A = operVal
+         case LDX: cpu.X = operVal
+         case LDY: cpu.Y = operVal
+         // Store register to memory
+         case STA: *operPtr = cpu.A
+         case STX: *operPtr = cpu.X
+         case STY: *operPtr = cpu.Y
+
          case U__:
              fmt.Printf("halting on undefined opcode\n")
              os.Exit(0)
