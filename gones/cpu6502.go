@@ -127,6 +127,33 @@ func (cpu *CPU) DumpRegisters() {
         bitize(cpu.P & FLAG_B), bitize(cpu.P & FLAG_I), bitize(cpu.P & FLAG_Z), bitize(cpu.P & FLAG_C))
 }
 
+// Set/reset flag given by mask FLAG_* if byte is non-zero/zero
+func (cpu *CPU) SetFlag(mask byte, f bool) {
+    if f {
+        cpu.P |= mask
+    } else {
+        cpu.P &^= mask
+    }
+}
+
+// Set/reset sign flag (N, for negative if 1) from 7th bit in given byte
+func (cpu *CPU) SetSign(b byte) {
+    cpu.SetFlag(FLAG_N, (b & 0x80) == 0x80)
+}
+
+// Set/reset zero flag (Z) if byte is zero/non-zero
+func (cpu *CPU) SetZero(b byte) {
+    cpu.SetFlag(FLAG_Z, b == 0)
+}
+
+// Convenience functions to set/reset flags depending on non-zero/zero
+func (cpu *CPU) SetCarry(b byte) { cpu.SetFlag(FLAG_C, b != 0) }
+func (cpu *CPU) SetOverflow(b byte) { cpu.SetFlag(FLAG_V, b != 0) }
+func (cpu *CPU) SetInterrupt(b byte) { cpu.SetFlag(FLAG_I, b != 0) }
+func (cpu *CPU) SetBreak(b byte) { cpu.SetFlag(FLAG_B, b != 0) }
+func (cpu *CPU) SetDecimal(b byte) { cpu.SetFlag(FLAG_D, b != 0) }
+
+
 // Start execution
 func (cpu *CPU) Run() {
     cpu.PC = 0x8000
@@ -183,6 +210,8 @@ func (cpu *CPU) Run() {
          case STA: *operPtr = cpu.A
          case STX: *operPtr = cpu.X
          case STY: *operPtr = cpu.Y
+
+         case AND: cpu.A &= operVal
 
          case U__:
              fmt.Printf("halting on undefined opcode\n")
