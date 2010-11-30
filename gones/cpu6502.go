@@ -138,28 +138,29 @@ func (cpu *CPU) Run() {
          // Setup operPtr for writing to operand, and operVal for reading
          // Not all addressing modes allow writing to the operand; in that case,
          // operPtr will be nil
-         var operPtr *uint8 
-         var operVal uint8
+         var operPtr *uint8    // pointer to write/read, if applicable
+         var operAddr uint16   // address to write/read, if applicable
+         var operVal uint8     // value to read
 
          switch instr.AddrMode {
+         case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
+         case Zpx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+         case Zpy: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+         case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
+         case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+         case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+         case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
+         case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
+         case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
+         case Rel: operAddr = (cpu.PC) + 1 + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr]
+         case Acc: operPtr = &cpu.A  /* no address */
          case Imd: operVal = uint8(instr.Operand)
-         case Zpg: operPtr = &cpu.Memory[instr.Operand] 
-         case Zpx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)] 
-         case Zpy: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)] 
-         case Abs: operPtr = &cpu.Memory[instr.Operand] 
-         case Abx: operPtr = &cpu.Memory[instr.Operand + int(cpu.X)] 
-         case Aby: operPtr = &cpu.Memory[instr.Operand + int(cpu.Y)] 
-         case Ndx: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand) + uint16(cpu.X)] 
-         case Ndy: operPtr = &cpu.Memory[int(cpu.ReadUInt16(int(instr.Operand))) + int(cpu.Y)] 
          case Imp: operVal = 0
-         case Acc: operVal = cpu.A
-         case Ind: operPtr = &cpu.Memory[cpu.ReadUInt16(instr.Operand)] 
-         case Rel: //TODO: needs to be 16 bits: operVal = (cpu.PC) + 1 + instr.Operand 
          }
          if operPtr != nil {
              operVal = *operPtr
          }
-         fmt.Printf("operPtr=%x, operVal=%x\n", operPtr, operVal)
+         fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
 
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
