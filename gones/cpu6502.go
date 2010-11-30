@@ -121,10 +121,10 @@ func bitize(b uint8) (string) {
 
 // Show registers for debugging purposes
 func (cpu *CPU) DumpRegisters() {
-    fmt.Printf("PC   A  X  Y  CZIBD-VN\n")
+    fmt.Printf("PC   A  X  Y  NV-DBIZC\n")
     fmt.Printf("%.4X %.2X %.2X %.2X %s%s%s%s%s%s%s%s\n", cpu.PC, cpu.A, cpu.X, cpu.Y, 
-        bitize(cpu.P & FLAG_C), bitize(cpu.P & FLAG_Z), bitize(cpu.P & FLAG_I), bitize(cpu.P & FLAG_D),
-        bitize(cpu.P & FLAG_B), bitize(cpu.P & FLAG_R), bitize(cpu.P & FLAG_V), bitize(cpu.P & FLAG_N))
+        bitize(cpu.P & FLAG_N), bitize(cpu.P & FLAG_V), bitize(cpu.P & FLAG_R), bitize(cpu.P & FLAG_D),
+        bitize(cpu.P & FLAG_B), bitize(cpu.P & FLAG_I), bitize(cpu.P & FLAG_Z), bitize(cpu.P & FLAG_C))
 }
 
 // Start execution
