@@ -211,7 +211,18 @@ func (cpu *CPU) Run() {
          case STX: *operPtr = cpu.X
          case STY: *operPtr = cpu.Y
 
+         // Math operations
          case AND: cpu.A &= operVal
+             cpu.SetSign(cpu.A)
+             cpu.SetZero(cpu.A)
+         case ASL: cpu.SetCarry(operVal & 0x80)
+             *operPtr = *operPtr << 1
+             *operPtr &= 0xff
+             cpu.SetSign(*operPtr)
+             cpu.SetZero(*operPtr)
+         case BIT: cpu.SetSign(operVal)
+             cpu.SetOverflow(0x40 & operVal)
+             cpu.SetZero(operVal & cpu.A)
 
          case U__:
              fmt.Printf("halting on undefined opcode\n")
