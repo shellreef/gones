@@ -189,6 +189,9 @@ func (cpu *CPU) Run() {
          }
          fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
 
+         // Shorthand convenience for opcode implementation
+         src := operVal
+
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
 
@@ -228,6 +231,12 @@ func (cpu *CPU) Run() {
              fmt.Printf("halting on undefined opcode\n")
              os.Exit(0)
          }
+
+         // Write back
+         if operPtr != nil {
+             *operPtr = src
+         }
+
          cpu.DumpRegisters()
          fmt.Printf("\n")
     }
