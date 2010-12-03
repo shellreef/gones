@@ -221,22 +221,19 @@ func (cpu *CPU) Run() {
          case STY: *operPtr = cpu.Y
 
          // Transfers
-         case TAX: cpu.X = cpu.A
-         case TAY: cpu.Y = cpu.A
-         case TSX: cpu.X = cpu.S
-         case TXA: cpu.A = cpu.X
-         case TXS: cpu.S = cpu.X
-         case TYA: cpu.A = cpu.Y
+         case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)
+         case TAY: cpu.Y = cpu.A; cpu.SetSZ(cpu.A)
+         case TSX: cpu.X = cpu.S; cpu.SetSZ(cpu.S)
+         case TXA: cpu.A = cpu.X; cpu.SetSZ(cpu.X)
+         case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
+         case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
 
          // Math operations
-         case AND: cpu.A &= operVal
-             cpu.SetSign(cpu.A)
-             cpu.SetZero(cpu.A)
+         case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
          case ASL: cpu.SetCarry(operVal & 0x80)
              *operPtr = *operPtr << 1
-             cpu.SetSign(*operPtr)
-             cpu.SetZero(*operPtr)
+             cpu.SetSZ(*operPtr)
          case BIT: cpu.SetSign(operVal)
              cpu.SetOverflow(0x40 & operVal)
              cpu.SetZero(operVal & cpu.A)
