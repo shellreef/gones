@@ -294,6 +294,16 @@ func (cpu *CPU) Run() {
             cpu.SetSZ(uint8(temp))
             cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
             cpu.SetCarry(temp > 0xff)
+         case CMP, CPX, CPY:
+            var temp int
+            switch instr.Opcode {
+            case CMP: temp = int(cpu.A) - int(operVal)
+            case CPX: temp = int(cpu.X) - int(operVal)
+            case CPY: temp = int(cpu.Y) - int(operVal)
+            }
+            cpu.SetCarry(temp < 0x100)
+            tempByte := uint8(temp)
+            cpu.SetSZ(tempByte)
 
          // Decrement
          case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
@@ -312,6 +322,8 @@ func (cpu *CPU) Run() {
          case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
          case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
          case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
+
+         case JMP: cpu.PC = operAddr
 
          case U__:
              fmt.Printf("halting on undefined opcode\n")
