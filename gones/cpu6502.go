@@ -17,7 +17,7 @@ import (
 type CPU struct {
     Memory [0xffff]uint8
     PC uint16   // Program counter
-    SP uint8    // Stack pointer, offset from $0100
+    S uint8    // Stack pointer, offset from $0100
     A uint8     // Accumulator
     X, Y uint8  // Index registers
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
@@ -146,6 +146,12 @@ func (cpu *CPU) SetZero(b byte) {
     cpu.SetFlag(FLAG_Z, b == 0)
 }
 
+// Set sign and zero
+func (cpu *CPU) SetSZ(b byte) {
+    cpu.SetSign(b)
+    cpu.SetZero(b)
+}
+
 // Convenience functions to set/reset flags depending on non-zero/zero
 func (cpu *CPU) SetCarry(b byte) { cpu.SetFlag(FLAG_C, b != 0) }
 func (cpu *CPU) SetOverflow(b byte) { cpu.SetFlag(FLAG_V, b != 0) }
@@ -190,7 +196,7 @@ func (cpu *CPU) Run() {
          fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
 
          // Shorthand convenience for opcode implementation
-         src := operVal
+         //src := operVal
 
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
@@ -206,13 +212,22 @@ func (cpu *CPU) Run() {
          case CLV: cpu.P &^= FLAG_V
 
          // Load register from memory
-         case LDA: cpu.A = operVal
-         case LDX: cpu.X = operVal
-         case LDY: cpu.Y = operVal
+         case LDA: cpu.A = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
+         case LDX: cpu.X = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
+         case LDY: cpu.Y = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
          // Store register to memory
          case STA: *operPtr = cpu.A
          case STX: *operPtr = cpu.X
          case STY: *operPtr = cpu.Y
+
+         // Transfers
+         case TAX: cpu.X = cpu.A
+         case TAY: cpu.Y = cpu.A
+         case TSX: cpu.X = cpu.S
+         case TXA: cpu.A = cpu.X
+         case TXS: cpu.S = cpu.X
+         case TYA: cpu.A = cpu.Y
+
 
          // Math operations
          case AND: cpu.A &= operVal
@@ -220,21 +235,21 @@ func (cpu *CPU) Run() {
              cpu.SetZero(cpu.A)
          case ASL: cpu.SetCarry(operVal & 0x80)
              *operPtr = *operPtr << 1
-             *operPtr &= 0xff
              cpu.SetSign(*operPtr)
              cpu.SetZero(*operPtr)
          case BIT: cpu.SetSign(operVal)
              cpu.SetOverflow(0x40 & operVal)
              cpu.SetZero(operVal & cpu.A)
 
+         // Decrement
+         case DEC: *operPtr -= 1; cpu.SetSign(*operPtr); cpu.SetZero(*operPtr)
+         case DEX: cpu.X -= 1; cpu.SetSign(cpu.X); cpu.SetZero(cpu.X)
+         case DEY: cpu.Y -= 1; cpu.SetSign(cpu.Y); cpu.SetZero(cpu.Y)
+         case INC: *operPtr += 1; cpu.SetSign(*operPtr); cpu.SetZero(*operPtr)
+
          case U__:
              fmt.Printf("halting on undefined opcode\n")
              os.Exit(0)
-         }
-
-         // Write back
-         if operPtr != nil {
-             *operPtr = src
          }
 
          cpu.DumpRegisters()
