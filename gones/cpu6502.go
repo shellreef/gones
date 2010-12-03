@@ -113,7 +113,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
 
 // Return string representation of truth value, for bit flags
 func bitize(b uint8) (string) {
-    if (b != 0) {
+    if b != 0 {
         return "X"
     }
     return "-"
@@ -159,6 +159,12 @@ func (cpu *CPU) SetInterrupt(b byte) { cpu.SetFlag(FLAG_I, b != 0) }
 func (cpu *CPU) SetBreak(b byte) { cpu.SetFlag(FLAG_B, b != 0) }
 func (cpu *CPU) SetDecimal(b byte) { cpu.SetFlag(FLAG_D, b != 0) }
 
+// Branch if flag is set
+func (cpu* CPU) BranchIf(address uint16 , flag bool) {
+    if flag {
+        cpu.PC = address
+    }
+}
 
 // Start execution
 func (cpu *CPU) Run() {
@@ -185,7 +191,7 @@ func (cpu *CPU) Run() {
          case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
          case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
          case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
-         case Rel: operAddr = (cpu.PC) + 1 + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr]
+         case Rel: operAddr = (cpu.PC) + 1 + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
          case Acc: operPtr = &cpu.A  /* no address */
          case Imd: operVal = uint8(instr.Operand)
          case Imp: operVal = 0
@@ -212,22 +218,21 @@ func (cpu *CPU) Run() {
          case CLV: cpu.P &^= FLAG_V
 
          // Load register from memory
-         case LDA: cpu.A = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
-         case LDX: cpu.X = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
-         case LDY: cpu.Y = operVal; cpu.SetSign(operVal); cpu.SetZero(operVal)
+         case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
+         case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
+         case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
          // Store register to memory
          case STA: *operPtr = cpu.A
          case STX: *operPtr = cpu.X
          case STY: *operPtr = cpu.Y
 
          // Transfers
-         case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)
+         case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
          case TAY: cpu.Y = cpu.A; cpu.SetSZ(cpu.A)
          case TSX: cpu.X = cpu.S; cpu.SetSZ(cpu.S)
          case TXA: cpu.A = cpu.X; cpu.SetSZ(cpu.X)
          case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
          case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
-
 
          // Math operations
          case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
@@ -243,6 +248,16 @@ func (cpu *CPU) Run() {
          case DEX: cpu.X -= 1; cpu.SetSign(cpu.X); cpu.SetZero(cpu.X)
          case DEY: cpu.Y -= 1; cpu.SetSign(cpu.Y); cpu.SetZero(cpu.Y)
          case INC: *operPtr += 1; cpu.SetSign(*operPtr); cpu.SetZero(*operPtr)
+
+         // Branches
+         case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
+         case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
+         case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
+         case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
+         case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
+         case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
+         case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
+         case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
 
          case U__:
              fmt.Printf("halting on undefined opcode\n")
