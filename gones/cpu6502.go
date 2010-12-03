@@ -168,7 +168,12 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 
 // Start execution
 func (cpu *CPU) Run() {
-    cpu.PC = 0x8000
+    cpu.PC = 0x8000  // TODO: read from reset vector
+
+    // PPU status register (TODO: memory mapped I/O)
+    // http://nocash.emubase.de/everynes.htm#memorymaps
+    cpu.Memory[0x2002] = 0x80 // VBLANK=1
+
     for {
          start := cpu.PC
          instr := cpu.NextInstruction()
@@ -191,7 +196,7 @@ func (cpu *CPU) Run() {
          case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
          case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
          case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
-         case Rel: operAddr = (cpu.PC) + 1 + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
+         case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
          case Acc: operPtr = &cpu.A  /* no address */
          case Imd: operVal = uint8(instr.Operand)
          case Imp: operVal = 0
