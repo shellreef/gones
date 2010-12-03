@@ -35,6 +35,13 @@ const (
     FLAG_N  // Negative
 )
 
+// Interrupt vector addresses
+const (
+    NMI_VECTOR   = 0xfffa
+    RESET_VECTOR = 0xfffc
+    BRK_VECTOR   = 0xfffe
+)
+
 // Read byte from memory, advancing program counter
 func (cpu *CPU) NextUInt8() (b uint8) {
     b = cpu.Memory[cpu.PC]
@@ -53,14 +60,14 @@ func (cpu *CPU) NextSInt8() (b int8) {
 func (cpu *CPU) NextUInt16() (w uint16) {
     low := cpu.NextUInt8()
     high := cpu.NextUInt8()
-    return uint16(high) * 0x100 + uint16(low)
+    return uint16(high) << 8 + uint16(low)
 }
 
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address int) (w uint16) {
     low := cpu.Memory[address]
     high := cpu.Memory[address + 1]
-    return uint16(high) * 0x100 + uint16(low)
+    return uint16(high) << 8 + uint16(low)
 }
 
 // Read an operand for a given addressing mode
@@ -168,11 +175,12 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 
 // Start execution
 func (cpu *CPU) Run() {
-    cpu.PC = 0x8000  // TODO: read from reset vector
+    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
 
     // PPU status register (TODO: memory mapped I/O)
     // http://nocash.emubase.de/everynes.htm#memorymaps
     cpu.Memory[0x2002] = 0x80 // VBLANK=1
+
 
     for {
          start := cpu.PC
