@@ -160,11 +160,11 @@ func (cpu *CPU) SetSZ(b byte) {
 }
 
 // Convenience functions to set/reset flags depending on non-zero/zero
-func (cpu *CPU) SetCarry(b byte) { cpu.SetFlag(FLAG_C, b != 0) }
-func (cpu *CPU) SetOverflow(b byte) { cpu.SetFlag(FLAG_V, b != 0) }
-func (cpu *CPU) SetInterrupt(b byte) { cpu.SetFlag(FLAG_I, b != 0) }
-func (cpu *CPU) SetBreak(b byte) { cpu.SetFlag(FLAG_B, b != 0) }
-func (cpu *CPU) SetDecimal(b byte) { cpu.SetFlag(FLAG_D, b != 0) }
+func (cpu *CPU) SetCarry(f bool) { cpu.SetFlag(FLAG_C, f) }
+func (cpu *CPU) SetOverflow(f bool) { cpu.SetFlag(FLAG_V, f) }
+func (cpu *CPU) SetInterrupt(f bool) { cpu.SetFlag(FLAG_I, f) }
+func (cpu *CPU) SetBreak(f bool) { cpu.SetFlag(FLAG_B, f) }
+func (cpu *CPU) SetDecimal(f bool) { cpu.SetFlag(FLAG_D, f) }
 
 // Branch if flag is set
 func (cpu* CPU) BranchIf(address uint16 , flag bool) {
@@ -219,6 +219,9 @@ func (cpu *CPU) Run() {
 
          switch instr.Opcode {
          // http://nesdev.parodius.com/6502.txt
+         // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
+
+         case NOP:
 
          // Flag setting       
          case SEI: cpu.P |= FLAG_I
@@ -247,20 +250,58 @@ func (cpu *CPU) Run() {
          case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
          case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
-         // Math operations
+         // Bitwise operations
          case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
-         case ASL: cpu.SetCarry(operVal & 0x80)
-             *operPtr = *operPtr << 1
+         case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
+         case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
+         case ASL: cpu.SetCarry(operVal & 0x80 != 0)
+             *operPtr <<= 1
+             cpu.SetSZ(*operPtr)
+         case LSR: cpu.SetCarry(operVal & 0x01 != 0)
+             *operPtr >>= 1
+             cpu.SetSZ(*operPtr)
+         case ROL: 
+             var temp int
+             temp = int(operVal)    // larger than uint8 so can store carry bit
+             temp <<= 1
+             if cpu.P & FLAG_C != 0 {
+                 temp |= 1
+             }
+             cpu.SetCarry(temp > 0xff)
+             *operPtr = uint8(temp)
+             cpu.SetSZ(*operPtr)
+         case ROR: 
+             var temp int
+             if cpu.P & FLAG_C != 0 {
+                 temp |= 0x100
+             }
+             temp >>= 1
+             *operPtr = uint8(temp)
              cpu.SetSZ(*operPtr)
          case BIT: cpu.SetSign(operVal)
-             cpu.SetOverflow(0x40 & operVal)
+             cpu.SetOverflow(0x40 & operVal != 0)
              cpu.SetZero(operVal & cpu.A)
 
+        // Arithmetic
+        case ADC:
+            var carryIn, temp int
+            if cpu.P & FLAG_C == 0 {
+                carryIn = 0
+            } else {
+                carryIn = 1
+            }
+            temp = int(operVal) + int(cpu.A) + carryIn
+            cpu.SetSZ(uint8(temp))
+            cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
+            cpu.SetCarry(temp > 0xff)
+
          // Decrement
-         case DEC: *operPtr -= 1; cpu.SetSign(*operPtr); cpu.SetZero(*operPtr)
-         case DEX: cpu.X -= 1; cpu.SetSign(cpu.X); cpu.SetZero(cpu.X)
-         case DEY: cpu.Y -= 1; cpu.SetSign(cpu.Y); cpu.SetZero(cpu.Y)
-         case INC: *operPtr += 1; cpu.SetSign(*operPtr); cpu.SetZero(*operPtr)
+         case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
+         case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
+         case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
+         case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
+         case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
+         case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
 
          // Branches
          case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
@@ -275,6 +316,9 @@ func (cpu *CPU) Run() {
          case U__:
              fmt.Printf("halting on undefined opcode\n")
              os.Exit(0)
+
+         default:
+             fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
          }
 
          cpu.DumpRegisters()
