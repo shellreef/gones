@@ -64,7 +64,7 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 }
 
 // Read unsigned 16-bits at given address, not advancing PC
-func (cpu *CPU) ReadUInt16(address int) (w uint16) {
+func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
     low := cpu.Memory[address]
     high := cpu.Memory[address + 1]
     return uint16(high) << 8 + uint16(low)
@@ -270,9 +270,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-    case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
-    case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
-    case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
+    case Ndx: operAddr = cpu.ReadUInt16(uint16(instr.Operand) + uint16(cpu.X)); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
+    case Ndy: operAddr = cpu.ReadUInt16(uint16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
+    case Ind: operAddr = cpu.ReadUInt16(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
     case Acc: operPtr = &cpu.A  /* no address */
     case Imd: operVal = uint8(instr.Operand)
