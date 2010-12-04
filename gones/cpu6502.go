@@ -370,8 +370,8 @@ func (cpu *CPU) ExecuteInstruction() {
      case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
      case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
      case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
-     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
-     case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
+     case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
+     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
  
      // Jumps
      case JMP: cpu.PC = operAddr
