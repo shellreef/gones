@@ -270,7 +270,10 @@ func (cpu *CPU) ExecuteInstruction() {
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+    //case Ndx: operAddr = cpu.ReadUInt16(uint16(instr.Operand) + uint16(cpu.X)); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndx: operAddr = cpu.ReadUInt16(uint16(instr.Operand) + uint16(cpu.X)); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
+        // TODO: this is supposed to wrap-around. LDA ($FF,X) with X=0 will read $ff low byte then $00 high byte to get indirect address
+        fmt.Printf("Ndx (%.2x,%.2x) @ %.2x = %.4x\n", instr.Operand, cpu.X, uint16(instr.Operand) + uint16(cpu.X), operAddr)
     case Ndy: operAddr = cpu.ReadUInt16(uint16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Ind: operAddr = cpu.ReadUInt16(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
