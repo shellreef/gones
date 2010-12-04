@@ -14,7 +14,7 @@ all: $(EXE)
 
 test: $(EXE)
 	./$(EXE) ../nestest.nes > log
-	perl tracediff.pl ../nestest.log log
+	perl tracediff.pl ../nestest.log log 
 
 compare:
 	vim ../nestest.log log

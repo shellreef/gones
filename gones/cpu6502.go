@@ -401,9 +401,9 @@ func (cpu *CPU) ExecuteInstruction() {
  
      // Stack
      case PHA: cpu.Push(cpu.A)
-     case PHP: cpu.Push(cpu.P | FLAG_B)   // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
+     case PHP: cpu.Push(cpu.P | FLAG_B)               // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
      case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
-     case PLP: cpu.P = cpu.Pull()
+     case PLP: cpu.P = cpu.Pull(); cpu.P ^= FLAG_B    // ignore B flag
 
      case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
