@@ -135,6 +135,19 @@ func (cpu *CPU) DumpRegisters() {
         bitize(cpu.P & FLAG_B), bitize(cpu.P & FLAG_I), bitize(cpu.P & FLAG_Z), bitize(cpu.P & FLAG_C))
 }
 
+// Show 256-byte stack for debugging purposes
+func (cpu *CPU) DumpStack() {
+    for i := 0; i < 0x100; i += 1 {
+        if i == int(cpu.S) {
+            fmt.Printf(">%.2x<", cpu.Memory[0x100 + i]) // indicate stack pointer
+        } else {
+            fmt.Printf(" %.2x ", cpu.Memory[0x100 + i])
+        }
+        // TODO: show addresses, multi-column?
+    }
+    fmt.Printf("\n")
+}
+
 // Set/reset flag given by mask FLAG_* if byte is non-zero/zero
 func (cpu *CPU) SetFlag(mask byte, f bool) {
     if f {
@@ -188,10 +201,16 @@ func (cpu *CPU) Pull16() (w uint16) {
     return uint16(high) * 0x100 + uint16(low)
 }
 
-// Push a byte onto stack
+// Push 8 bits onto stack
 func (cpu *CPU) Push(b uint8) {
     cpu.Memory[0x100 + uint16(cpu.S)] = b 
     cpu.S -= 1
+}
+
+// Push 16 bits onto stack
+func (cpu *CPU) Push16(w uint16) {
+    cpu.Push(uint8(w >> 8))
+    cpu.Push(uint8(w & 0xff))
 }
 
 // Initialize CPU to power-up state
@@ -237,6 +256,9 @@ func (cpu *CPU) ExecuteInstruction() {
     fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
        instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
 
+    if cpu.PC == 0xc7da || instr.Opcode == JSR {
+        cpu.DumpStack()
+    }
 
     // Setup operPtr for writing to operand, and operVal for reading
     // Not all addressing modes allow writing to the operand; in that case,
@@ -376,10 +398,10 @@ func (cpu *CPU) ExecuteInstruction() {
      // Jumps
      case JMP: cpu.PC = operAddr
      case JSR: cpu.PC -= 1
-        cpu.Push(uint8(cpu.PC >> 8))
-        cpu.Push(uint8(cpu.PC & 0xff))
+        cpu.Push16(cpu.PC)
         cpu.PC = operAddr
      case RTI: cpu.P = cpu.Pull(); cpu.PC = cpu.Pull16()
+     case RTS: cpu.PC = cpu.Pull16() + 1
  
      // Stack
      case PHA: cpu.Push(cpu.A)

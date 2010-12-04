@@ -16,7 +16,9 @@ test: $(EXE)
 	./$(EXE) ../nestest.nes > log
 	perl -pe's/ CYC.*//' < log > /tmp/actual
 	perl -pe's/ CYC.*//' < ../nestest.log > /tmp/expected
-	diff -y -W180 /tmp/actual /tmp/expected; true
+	diff -y -W180 /tmp/actual /tmp/expected
+
+compare:
 	vim /tmp/actual /tmp/expected
 
 $(EXE): $(OBJS)
