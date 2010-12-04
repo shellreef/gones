@@ -4,18 +4,25 @@
 
 # Diff two instruction traces, only on the processor state (not inconsequential data representation)
 
-open(A, "<$ARGV[0]") || die "cannot open $ARGV[0]: $!";
-open(B, "<$ARGV[1]") || die "cannot open $ARGV[1]: $!";
+open(A, "<$ARGV[0]") || die "cannot open $ARGV[0]: $!";   # expected
+open(B, "<$ARGV[1]") || die "cannot open $ARGV[1]: $!";   # actual
 
 my $differences = 0;
 while()
 {
     my ($a, $b);
 
-    chomp($a = <A>);
     chomp($b = <B>);
+    if (length($b) < 80) {
+        # if lines are not traces, then they're probably informative debugging..print and resynchronize
+        print "?$b\n";
+        next
+    }
 
+    chomp($a = <A>);
     last if !length($a) || !length($b);
+
+
 
     # Full trace is:
     #                   only extract beginning here:  v-----------------------|
