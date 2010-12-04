@@ -71,6 +71,7 @@ func (cpu *CPU) ReadUInt16(address int) (w uint16) {
 }
 
 // Read an operand for a given addressing mode
+// Byte count read is retrievable by addrMode.OperandSize()
 func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
     switch addrMode {
     case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
@@ -336,17 +337,31 @@ func (cpu *CPU) Run() {
          }
 
          // Instruction trace
-         bytes := "## ## ##"
          cycle := 0 // TODO
          scanline := 0 // TODO
-         fmt.Printf("%.4X  %9s  %-32s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
-            start, bytes, instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
+         fmt.Printf("%.4X  ", start)
+         fmt.Printf("%.2X ", instr.OpcodeByte)
+         if instr.AddrMode.OperandSize() >= 1 {
+            fmt.Printf("%.2X ", cpu.Memory[start + 1])
+         } else {
+            fmt.Printf("   ")
+         }
+
+         if instr.AddrMode.OperandSize() >= 2 {
+            fmt.Printf("%.2X ", cpu.Memory[start + 2])
+         } else {
+            fmt.Printf("   ")
+         }
+
+         fmt.Printf("  %-32s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+            instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
 
          // Long format
          //fmt.Printf("%.4X  %s  ", start, instr)
          //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
          //cpu.DumpRegisters()
          //fmt.Printf("\n")
+        
     }
 
 }

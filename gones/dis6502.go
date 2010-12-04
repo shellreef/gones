@@ -99,6 +99,20 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
     panic(fmt.Sprintf("fotmatOperand unknown addressing mode: %s", addrMode))
 }
 
+// Get number of bytes an operand addressing mode requires, useful for disassembly
+// These are read by cpu.NextOperand()
+func (addrMode AddrMode) OperandSize() (int) {
+    switch addrMode {
+    case Imd, Zpg, Zpx, Zpy, Ndx, Ndy, Rel: 
+        return 1
+    case Abs, Abx, Aby, Ind:
+        return 2
+    case Imp, Acc: 
+        return 0
+    }
+    panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
+} 
+
 
 func (instr Instruction) String() (string) {
      if instr.Opcode == U__ {
