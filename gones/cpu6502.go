@@ -177,7 +177,7 @@ func (cpu *CPU) SetSZ(b byte) {
 func (cpu *CPU) SetCarry(f bool) { cpu.SetFlag(FLAG_C, f) }
 func (cpu *CPU) SetOverflow(f bool) { cpu.SetFlag(FLAG_V, f) }
 func (cpu *CPU) SetInterrupt(f bool) { cpu.SetFlag(FLAG_I, f) }
-func (cpu *CPU) SetBreak(f bool) { cpu.SetFlag(FLAG_B, f) }
+//func (cpu *CPU) SetBreak(f bool) { cpu.SetFlag(FLAG_B, f) } // not an actual flag; set on PHP/BRK
 func (cpu *CPU) SetDecimal(f bool) { cpu.SetFlag(FLAG_D, f) }
 
 // Branch if flag is set
@@ -401,10 +401,15 @@ func (cpu *CPU) ExecuteInstruction() {
  
      // Stack
      case PHA: cpu.Push(cpu.A)
-     case PHP: cpu.Push(cpu.P)
+     case PHP: cpu.Push(cpu.P | FLAG_B)   // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
      case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
      case PLP: cpu.P = cpu.Pull()
- 
+
+     case BRK: cpu.PC += 1
+        cpu.Push16(cpu.PC)
+        cpu.Push(cpu.P | FLAG_B)
+        cpu.SetInterrupt(true)
+        cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
  
      case U__:
          fmt.Printf("halting on undefined opcode\n")
