@@ -13,7 +13,7 @@ OBJS = ${SRCS:.go=.6}
 all: $(EXE)
 
 test: $(EXE)
-	./$(EXE) ../*.NES
+	./$(EXE) ../nestest.nes
 
 $(EXE): $(OBJS)
 	$(LINKER) -o $@ main.6

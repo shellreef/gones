@@ -175,7 +175,11 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 
 // Start execution
 func (cpu *CPU) Run() {
+    cpu.P = FLAG_R  // Always set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
+
     cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
+
+    cpu.PC = 0xc000  // for nestest
 
     // PPU status register (TODO: memory mapped I/O)
     // http://nocash.emubase.de/everynes.htm#memorymaps
@@ -185,7 +189,6 @@ func (cpu *CPU) Run() {
     for {
          start := cpu.PC
          instr := cpu.NextInstruction()
-         fmt.Printf("%.4X\t%s\n", start, instr)
 
          // Setup operPtr for writing to operand, and operVal for reading
          // Not all addressing modes allow writing to the operand; in that case,
@@ -212,8 +215,7 @@ func (cpu *CPU) Run() {
          if operPtr != nil {
              operVal = *operPtr
          }
-         fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
-
+         
          // Shorthand convenience for opcode implementation
          //src := operVal
 
@@ -333,8 +335,18 @@ func (cpu *CPU) Run() {
              fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
          }
 
-         cpu.DumpRegisters()
-         fmt.Printf("\n")
+         // Instruction trace
+         bytes := "## ## ##"
+         cycle := 0 // TODO
+         scanline := 0 // TODO
+         fmt.Printf("%.4X  %9s  %-32s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+            start, bytes, instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
+
+         // Long format
+         //fmt.Printf("%.4X  %s  ", start, instr)
+         //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
+         //cpu.DumpRegisters()
+         //fmt.Printf("\n")
     }
 
 }
