@@ -174,6 +174,25 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
     }
 }
 
+// Pull 8 bits from stack
+func (cpu *CPU) Pull() (b uint8) {
+    b = cpu.Memory[0x100 + uint16(cpu.S)]
+    cpu.S -= 1
+    return b
+}
+
+// Pull 16 bits from stack
+func (cpu *CPU) Pull16() (w uint16) {
+    low := cpu.Pull()
+    high := cpu.Pull()
+    return uint16(high) * 0x100 + uint16(low)
+}
+
+// Push a byte onto stack
+func (cpu *CPU) Push(b uint8) {
+    cpu.Memory[0x100 + uint16(cpu.S)] = b 
+}
+
 // Start execution
 func (cpu *CPU) Run() {
     cpu.P = FLAG_R  // Always set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
@@ -326,7 +345,20 @@ func (cpu *CPU) Run() {
          case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
          case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
 
+         // Jumps
          case JMP: cpu.PC = operAddr
+         case JSR: cpu.PC -= 1
+            cpu.Push(uint8(cpu.PC >> 8))
+            cpu.Push(uint8(cpu.PC & 0xff))
+            cpu.PC = operAddr
+         case RTI: cpu.P = cpu.Pull(); cpu.PC = cpu.Pull16()
+
+         // Stack
+         case PHA: cpu.Push(cpu.A)
+         case PHP: cpu.Push(cpu.P)
+         case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
+         case PLP: cpu.P = cpu.Pull()
+
 
          case U__:
              fmt.Printf("halting on undefined opcode\n")
