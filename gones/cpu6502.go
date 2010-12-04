@@ -315,7 +315,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case TAY: cpu.Y = cpu.A; cpu.SetSZ(cpu.A)
     case TSX: cpu.X = cpu.S; cpu.SetSZ(cpu.S)
     case TXA: cpu.A = cpu.X; cpu.SetSZ(cpu.X)
-    case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
+    case TXS: cpu.S = cpu.X
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
