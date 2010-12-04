@@ -364,15 +364,14 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(temp > 0xff)
         cpu.A = uint8(temp)
      case CMP, CPX, CPY:
-        var temp int
+        var temp uint
         switch instr.Opcode {
-        case CMP: temp = int(cpu.A) - int(operVal)
-        case CPX: temp = int(cpu.X) - int(operVal)
-        case CPY: temp = int(cpu.Y) - int(operVal)
+        case CMP: temp = uint(cpu.A) - uint(operVal)
+        case CPX: temp = uint(cpu.X) - uint(operVal)
+        case CPY: temp = uint(cpu.Y) - uint(operVal)
         }
         cpu.SetCarry(temp < 0x100)
-        tempByte := uint8(temp)
-        cpu.SetSZ(tempByte)
+        cpu.SetSZ(uint8(temp))
  
      // Decrement
      case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
