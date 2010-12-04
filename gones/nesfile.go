@@ -45,7 +45,7 @@ func Open(filename string) (*Cartridge) {
         panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
     }
 
-    fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
+    //fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
 
     cart.Prg = readPages(buffer, PRG_PAGE_SIZE, int(header.PrgPageCount))
     cart.Chr = readPages(buffer, CHR_PAGE_SIZE, int(header.ChrPageCount))
@@ -60,7 +60,7 @@ func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
     for i := 0; i < pageCount; i++ {
         page := make([]byte, size)
         readLength, err := buffer.Read(page)
-        fmt.Printf("read page %d size=%d\n", i, readLength)
+        //fmt.Printf("read page %d size=%d\n", i, readLength)
         if err != nil {
             panic(fmt.Sprintf("readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err))
         }
@@ -87,7 +87,7 @@ func slurp(filename string) []byte {
 
     f.Close()
 
-    fmt.Printf("Read %d bytes from %s\n", len(data), filename)
+    //fmt.Printf("Read %d bytes from %s\n", len(data), filename)
 
     return data
 }

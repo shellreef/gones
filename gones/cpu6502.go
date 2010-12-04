@@ -224,8 +224,31 @@ func (cpu *CPU) Run() {
 
 
     for {
+        
          start := cpu.PC
          instr := cpu.NextInstruction()
+
+         // Instruction trace
+         cycle := 0 // TODO
+         scanline := 0 // TODO
+         fmt.Printf("%.4X  ", start)
+         fmt.Printf("%.2X ", instr.OpcodeByte)
+         if instr.AddrMode.OperandSize() >= 1 {
+            fmt.Printf("%.2X ", cpu.Memory[start + 1])
+         } else {
+            fmt.Printf("   ")
+         }
+
+         if instr.AddrMode.OperandSize() >= 2 {
+            fmt.Printf("%.2X ", cpu.Memory[start + 2])
+         } else {
+            fmt.Printf("   ")
+         }
+
+ 
+         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+            instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
+
 
          // Setup operPtr for writing to operand, and operVal for reading
          // Not all addressing modes allow writing to the operand; in that case,
@@ -385,27 +408,7 @@ func (cpu *CPU) Run() {
              fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
          }
 
-         // Instruction trace
-         cycle := 0 // TODO
-         scanline := 0 // TODO
-         fmt.Printf("%.4X  ", start)
-         fmt.Printf("%.2X ", instr.OpcodeByte)
-         if instr.AddrMode.OperandSize() >= 1 {
-            fmt.Printf("%.2X ", cpu.Memory[start + 1])
-         } else {
-            fmt.Printf("   ")
-         }
-
-         if instr.AddrMode.OperandSize() >= 2 {
-            fmt.Printf("%.2X ", cpu.Memory[start + 2])
-         } else {
-            fmt.Printf("   ")
-         }
-
-         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
-            instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
-
-         // Long format
+        // Long format
          //fmt.Printf("%.4X  %s  ", start, instr)
          //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
          //cpu.DumpRegisters()

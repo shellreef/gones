@@ -13,7 +13,11 @@ OBJS = ${SRCS:.go=.6}
 all: $(EXE)
 
 test: $(EXE)
-	./$(EXE) ../nestest.nes|perl -pe's/ CYC.*//'|diff -u /tmp/nestest.log -
+	./$(EXE) ../nestest.nes > log
+	perl -pe's/ CYC.*//' < log > /tmp/actual
+	perl -pe's/ CYC.*//' < ../nestest.log > /tmp/expected
+	diff -y -W180 /tmp/actual /tmp/expected
+	vim /tmp/actual /tmp/expected
 
 $(EXE): $(OBJS)
 	$(LINKER) -o $@ main.6

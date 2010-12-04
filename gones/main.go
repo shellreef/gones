@@ -6,7 +6,6 @@
 package main
 
 import (
-    "fmt"
     "flag"
 
     "./nesfile"
@@ -15,8 +14,6 @@ import (
 
 func main() {
     flag.Parse()
-
-    fmt.Printf("Hello, world\n")
 
     cart := nesfile.Open(flag.Arg(0))
     cpu := new(cpu6502.CPU)
