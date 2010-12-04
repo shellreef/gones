@@ -4,9 +4,6 @@
 
 # Diff two instruction traces, only on the processor state (not inconsequential data representation)
 
-$ARGV[0] = "/tmp/expected";
-$ARGV[1] = "/tmp/actual";
-
 open(A, "<$ARGV[0]") || die "cannot open $ARGV[0]: $!";
 open(B, "<$ARGV[1]") || die "cannot open $ARGV[1]: $!";
 
@@ -21,12 +18,11 @@ while()
     last if !length($a) || !length($b);
 
     # Full trace is:
-    #                   only extract beginning here:  v------------------------
+    #                   only extract beginning here:  v-----------------------|
     # v------------< well, also here too
-    # C000  4C F5 C5  JMP $C5F5                       A:00 X:00 Y:00 P:24 SP:FD
-    my $state_a = substr($a, 48) . substr($a, 0, 14);
-    my $state_b = substr($b, 48) . substr($b, 0, 14);
-
+    # C000  4C F5 C5  JMP $C5F5                       A:00 X:00 Y:00 P:24 SP:FD CYC:  0 SL:241
+    my $state_a = substr($a, 48, 25) . substr($a, 0, 14);
+    my $state_b = substr($b, 48, 25) . substr($b, 0, 14);
 
     if ($state_a eq $state_b) {
         print " $a\n";   # always show line, for reference (or $b??)

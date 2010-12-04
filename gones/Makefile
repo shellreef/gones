@@ -16,6 +16,9 @@ test: $(EXE)
 	./$(EXE) ../nestest.nes > log
 	perl tracediff.pl ../nestest.log log
 
+compare:
+	vim ../nestest.log log
+
 $(EXE): $(OBJS)
 	$(LINKER) -o $@ main.6
 
