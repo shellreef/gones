@@ -70,6 +70,13 @@ func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
+// Read unsigned 16-bits from zero page
+func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
+    low := cpu.Memory[address]
+    high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
+    return uint16(high) << 8 + uint16(low)
+}
+
 // Read an operand for a given addressing mode
 // Byte count read is retrievable by addrMode.OperandSize()
 func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
@@ -270,10 +277,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-    //case Ndx: operAddr = cpu.ReadUInt16(uint16(instr.Operand) + uint16(cpu.X)); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-    case Ndx: operAddr = cpu.ReadUInt16(uint16(instr.Operand) + uint16(cpu.X)); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-        // TODO: this is supposed to wrap-around. LDA ($FF,X) with X=0 will read $ff low byte then $00 high byte to get indirect address
-        fmt.Printf("Ndx (%.2x,%.2x) @ %.2x = %.4x\n", instr.Operand, cpu.X, uint16(instr.Operand) + uint16(cpu.X), operAddr)
+    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndy: operAddr = cpu.ReadUInt16(uint16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Ind: operAddr = cpu.ReadUInt16(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
