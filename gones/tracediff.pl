@@ -13,6 +13,7 @@ while()
     my ($a, $b);
 
     chomp($b = <B>);
+    last if !length($b);
     if (length($b) < 80) {
         # if lines are not traces, then they're probably informative debugging..print and resynchronize
         print "?$b\n";
@@ -20,8 +21,7 @@ while()
     }
 
     chomp($a = <A>);
-    last if !length($a) || !length($b);
-
+    last if !length($a);
 
 
     # Full trace is:
