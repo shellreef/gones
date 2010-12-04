@@ -340,12 +340,14 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetSZ(*operPtr)
     case ROR: 
         var temp int
-            if cpu.P & FLAG_C != 0 {
-                temp |= 0x100
-            }
-            temp >>= 1
-            *operPtr = uint8(temp)
-            cpu.SetSZ(*operPtr)
+        temp = int(operVal)
+        if cpu.P & FLAG_C != 0 {
+            temp |= 0x100
+        }
+        cpu.SetCarry(temp & 0x01 != 0)
+        temp >>= 1
+        *operPtr = uint8(temp)
+        cpu.SetSZ(*operPtr)
     case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
