@@ -189,8 +189,8 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 
 // Pull 8 bits from stack
 func (cpu *CPU) Pull() (b uint8) {
-    b = cpu.Memory[0x100 + uint16(cpu.S)]
     cpu.S += 1
+    b = cpu.Memory[0x100 + uint16(cpu.S)]
     return b
 }
 
@@ -255,10 +255,6 @@ func (cpu *CPU) ExecuteInstruction() {
 
     fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
        instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
-
-    if cpu.PC == 0xc7da || instr.Opcode == JSR {
-        cpu.DumpStack()
-    }
 
     // Setup operPtr for writing to operand, and operVal for reading
     // Not all addressing modes allow writing to the operand; in that case,
