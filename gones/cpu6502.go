@@ -362,6 +362,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetSZ(uint8(temp))
         cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
         cpu.SetCarry(temp > 0xff)
+        cpu.A = uint8(temp)
      case CMP, CPX, CPY:
         var temp int
         switch instr.Opcode {
