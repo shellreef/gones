@@ -211,6 +211,198 @@ func (cpu *CPU) PowerUp() {
     // TODO: 0x4000-$400f set to $00
 }
 
+// Execute one instruction
+func (cpu *CPU) ExecuteInstruction() {
+    start := cpu.PC
+    instr := cpu.NextInstruction()
+
+    // Instruction trace
+    cycle := 0 // TODO
+    scanline := 0 // TODO
+    fmt.Printf("%.4X  ", start)
+    fmt.Printf("%.2X ", instr.OpcodeByte)
+    if instr.AddrMode.OperandSize() >= 1 {
+       fmt.Printf("%.2X ", cpu.Memory[start + 1])
+    } else {
+       fmt.Printf("   ")
+    }
+
+    if instr.AddrMode.OperandSize() >= 2 {
+       fmt.Printf("%.2X ", cpu.Memory[start + 2])
+    } else {
+       fmt.Printf("   ")
+    }
+
+
+    fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+       instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
+
+
+    // Setup operPtr for writing to operand, and operVal for reading
+    // Not all addressing modes allow writing to the operand; in that case,
+    // operPtr will be nil
+    var operPtr *uint8    // pointer to write/read, if applicable
+    var operAddr uint16   // address to write/read, if applicable
+    var operVal uint8     // value to read
+
+    switch instr.AddrMode {
+    case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Zpx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+    case Zpy: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+    case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+    case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+    case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
+    case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
+    case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
+    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
+    case Acc: operPtr = &cpu.A  /* no address */
+    case Imd: operVal = uint8(instr.Operand)
+    case Imp: operVal = 0
+    }
+    if operPtr != nil {
+        operVal = *operPtr
+    }
+    
+    // Shorthand convenience for opcode implementation
+    //src := operVal
+
+    switch instr.Opcode {
+    // http://nesdev.parodius.com/6502.txt
+    // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
+
+    case NOP:
+
+    // Flag setting       
+    case SEI: cpu.P |= FLAG_I
+    case SEC: cpu.P |= FLAG_C
+    case SED: cpu.P |= FLAG_D
+    // Flag clearing. &^ is Go bit clear operator; cpu.P &= ^FLAG_D will not compile because of an overflow
+    case CLD: cpu.P &^= FLAG_D
+    case CLC: cpu.P &^= FLAG_C
+    case CLI: cpu.P &^= FLAG_I
+    case CLV: cpu.P &^= FLAG_V
+
+    // Load register from memory
+    case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
+    case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
+    case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
+    // Store register to memory
+    case STA: *operPtr = cpu.A
+    case STX: *operPtr = cpu.X
+    case STY: *operPtr = cpu.Y
+
+    // Transfers
+    case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
+    case TAY: cpu.Y = cpu.A; cpu.SetSZ(cpu.A)
+    case TSX: cpu.X = cpu.S; cpu.SetSZ(cpu.S)
+    case TXA: cpu.A = cpu.X; cpu.SetSZ(cpu.X)
+    case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
+    case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
+
+    // Bitwise operations
+    case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
+    case ASL: cpu.SetCarry(operVal & 0x80 != 0)
+        *operPtr <<= 1
+        cpu.SetSZ(*operPtr)
+    case LSR: cpu.SetCarry(operVal & 0x01 != 0)
+        *operPtr >>= 1
+        cpu.SetSZ(*operPtr)
+    case ROL: 
+        var temp int
+        temp = int(operVal)    // larger than uint8 so can store carry bit
+        temp <<= 1
+        if cpu.P & FLAG_C != 0 {
+            temp |= 1
+        }
+        cpu.SetCarry(temp > 0xff)
+        *operPtr = uint8(temp)
+        cpu.SetSZ(*operPtr)
+    case ROR: 
+        var temp int
+            if cpu.P & FLAG_C != 0 {
+                temp |= 0x100
+            }
+            temp >>= 1
+            *operPtr = uint8(temp)
+            cpu.SetSZ(*operPtr)
+    case BIT: cpu.SetSign(operVal)
+        cpu.SetOverflow(0x40 & operVal != 0)
+        cpu.SetZero(operVal & cpu.A)
+
+    // Arithmetic
+    case ADC:
+        var carryIn, temp int
+        if cpu.P & FLAG_C == 0 {
+            carryIn = 0
+        } else {
+            carryIn = 1
+        }
+        temp = int(operVal) + int(cpu.A) + carryIn
+        cpu.SetSZ(uint8(temp))
+        cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
+        cpu.SetCarry(temp > 0xff)
+     case CMP, CPX, CPY:
+        var temp int
+        switch instr.Opcode {
+        case CMP: temp = int(cpu.A) - int(operVal)
+        case CPX: temp = int(cpu.X) - int(operVal)
+        case CPY: temp = int(cpu.Y) - int(operVal)
+        }
+        cpu.SetCarry(temp < 0x100)
+        tempByte := uint8(temp)
+        cpu.SetSZ(tempByte)
+ 
+     // Decrement
+     case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
+     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
+     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
+     case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
+     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
+     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
+ 
+     // Branches
+     case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
+     case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
+     case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
+     case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
+     case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
+     case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
+     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
+     case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
+ 
+     // Jumps
+     case JMP: cpu.PC = operAddr
+     case JSR: cpu.PC -= 1
+        cpu.Push(uint8(cpu.PC >> 8))
+        cpu.Push(uint8(cpu.PC & 0xff))
+        cpu.PC = operAddr
+     case RTI: cpu.P = cpu.Pull(); cpu.PC = cpu.Pull16()
+ 
+     // Stack
+     case PHA: cpu.Push(cpu.A)
+     case PHP: cpu.Push(cpu.P)
+     case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
+     case PLP: cpu.P = cpu.Pull()
+ 
+ 
+     case U__:
+         fmt.Printf("halting on undefined opcode\n")
+         os.Exit(0)
+ 
+     default:
+         fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
+     }
+ 
+     // Post-instruction execution trace
+     //fmt.Printf("%.4X  %s  ", start, instr)
+     //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
+     //cpu.DumpRegisters()
+     //fmt.Printf("\n")
+}
+
 // Start execution
 func (cpu *CPU) Run() {
     cpu.PowerUp()
@@ -222,199 +414,8 @@ func (cpu *CPU) Run() {
     // http://nocash.emubase.de/everynes.htm#memorymaps
     //cpu.Memory[0x2002] = 0x80 // VBLANK=1
 
-
     for {
-        
-         start := cpu.PC
-         instr := cpu.NextInstruction()
-
-         // Instruction trace
-         cycle := 0 // TODO
-         scanline := 0 // TODO
-         fmt.Printf("%.4X  ", start)
-         fmt.Printf("%.2X ", instr.OpcodeByte)
-         if instr.AddrMode.OperandSize() >= 1 {
-            fmt.Printf("%.2X ", cpu.Memory[start + 1])
-         } else {
-            fmt.Printf("   ")
-         }
-
-         if instr.AddrMode.OperandSize() >= 2 {
-            fmt.Printf("%.2X ", cpu.Memory[start + 2])
-         } else {
-            fmt.Printf("   ")
-         }
-
- 
-         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
-            instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
-
-
-         // Setup operPtr for writing to operand, and operVal for reading
-         // Not all addressing modes allow writing to the operand; in that case,
-         // operPtr will be nil
-         var operPtr *uint8    // pointer to write/read, if applicable
-         var operAddr uint16   // address to write/read, if applicable
-         var operVal uint8     // value to read
-
-         switch instr.AddrMode {
-         case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
-         case Zpx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
-         case Zpy: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-         case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
-         case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
-         case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-         case Ndx: operAddr = cpu.ReadUInt16(instr.Operand) + uint16(cpu.X);         operPtr = &cpu.Memory[operAddr]
-         case Ndy: operAddr = uint16(cpu.ReadUInt16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]
-         case Ind: operAddr = cpu.ReadUInt16(instr.Operand);  operPtr = &cpu.Memory[operAddr]
-         case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
-         case Acc: operPtr = &cpu.A  /* no address */
-         case Imd: operVal = uint8(instr.Operand)
-         case Imp: operVal = 0
-         }
-         if operPtr != nil {
-             operVal = *operPtr
-         }
-         
-         // Shorthand convenience for opcode implementation
-         //src := operVal
-
-         switch instr.Opcode {
-         // http://nesdev.parodius.com/6502.txt
-         // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
-
-         case NOP:
-
-         // Flag setting       
-         case SEI: cpu.P |= FLAG_I
-         case SEC: cpu.P |= FLAG_C
-         case SED: cpu.P |= FLAG_D
-         // Flag clearing. &^ is Go bit clear operator; cpu.P &= ^FLAG_D will not compile because of an overflow
-         case CLD: cpu.P &^= FLAG_D
-         case CLC: cpu.P &^= FLAG_C
-         case CLI: cpu.P &^= FLAG_I
-         case CLV: cpu.P &^= FLAG_V
-
-         // Load register from memory
-         case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
-         case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
-         case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
-         // Store register to memory
-         case STA: *operPtr = cpu.A
-         case STX: *operPtr = cpu.X
-         case STY: *operPtr = cpu.Y
-
-         // Transfers
-         case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
-         case TAY: cpu.Y = cpu.A; cpu.SetSZ(cpu.A)
-         case TSX: cpu.X = cpu.S; cpu.SetSZ(cpu.S)
-         case TXA: cpu.A = cpu.X; cpu.SetSZ(cpu.X)
-         case TXS: cpu.S = cpu.X; cpu.SetSZ(cpu.X)
-         case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
-
-         // Bitwise operations
-         case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
-         case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
-         case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
-         case ASL: cpu.SetCarry(operVal & 0x80 != 0)
-             *operPtr <<= 1
-             cpu.SetSZ(*operPtr)
-         case LSR: cpu.SetCarry(operVal & 0x01 != 0)
-             *operPtr >>= 1
-             cpu.SetSZ(*operPtr)
-         case ROL: 
-             var temp int
-             temp = int(operVal)    // larger than uint8 so can store carry bit
-             temp <<= 1
-             if cpu.P & FLAG_C != 0 {
-                 temp |= 1
-             }
-             cpu.SetCarry(temp > 0xff)
-             *operPtr = uint8(temp)
-             cpu.SetSZ(*operPtr)
-         case ROR: 
-             var temp int
-             if cpu.P & FLAG_C != 0 {
-                 temp |= 0x100
-             }
-             temp >>= 1
-             *operPtr = uint8(temp)
-             cpu.SetSZ(*operPtr)
-         case BIT: cpu.SetSign(operVal)
-             cpu.SetOverflow(0x40 & operVal != 0)
-             cpu.SetZero(operVal & cpu.A)
-
-        // Arithmetic
-        case ADC:
-            var carryIn, temp int
-            if cpu.P & FLAG_C == 0 {
-                carryIn = 0
-            } else {
-                carryIn = 1
-            }
-            temp = int(operVal) + int(cpu.A) + carryIn
-            cpu.SetSZ(uint8(temp))
-            cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
-            cpu.SetCarry(temp > 0xff)
-         case CMP, CPX, CPY:
-            var temp int
-            switch instr.Opcode {
-            case CMP: temp = int(cpu.A) - int(operVal)
-            case CPX: temp = int(cpu.X) - int(operVal)
-            case CPY: temp = int(cpu.Y) - int(operVal)
-            }
-            cpu.SetCarry(temp < 0x100)
-            tempByte := uint8(temp)
-            cpu.SetSZ(tempByte)
-
-         // Decrement
-         case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
-         case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
-         case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
-         case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
-         case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
-         case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
-
-         // Branches
-         case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
-         case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
-         case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
-         case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
-         case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
-         case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
-         case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
-         case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
-
-         // Jumps
-         case JMP: cpu.PC = operAddr
-         case JSR: cpu.PC -= 1
-            cpu.Push(uint8(cpu.PC >> 8))
-            cpu.Push(uint8(cpu.PC & 0xff))
-            cpu.PC = operAddr
-         case RTI: cpu.P = cpu.Pull(); cpu.PC = cpu.Pull16()
-
-         // Stack
-         case PHA: cpu.Push(cpu.A)
-         case PHP: cpu.Push(cpu.P)
-         case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
-         case PLP: cpu.P = cpu.Pull()
-
-
-         case U__:
-             fmt.Printf("halting on undefined opcode\n")
-             os.Exit(0)
-
-         default:
-             fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
-         }
-
-        // Long format
-         //fmt.Printf("%.4X  %s  ", start, instr)
-         //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
-         //cpu.DumpRegisters()
-         //fmt.Printf("\n")
-        
+        cpu.ExecuteInstruction()
     }
-
 }
 
