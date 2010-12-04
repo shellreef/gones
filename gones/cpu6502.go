@@ -177,7 +177,7 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 // Pull 8 bits from stack
 func (cpu *CPU) Pull() (b uint8) {
     b = cpu.Memory[0x100 + uint16(cpu.S)]
-    cpu.S -= 1
+    cpu.S += 1
     return b
 }
 
@@ -191,19 +191,36 @@ func (cpu *CPU) Pull16() (w uint16) {
 // Push a byte onto stack
 func (cpu *CPU) Push(b uint8) {
     cpu.Memory[0x100 + uint16(cpu.S)] = b 
+    cpu.S -= 1
+}
+
+// Initialize CPU to power-up state
+// http://wiki.nesdev.com/w/index.php/CPU_power_up_state
+func (cpu *CPU) PowerUp() {
+    cpu.P = FLAG_R | FLAG_I   // Reserved bit set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
+    cpu.S = 0xfd
+    // TODO: set $0000-$07FF to $ff
+    cpu.Memory[0x0008] = 0xf7
+    cpu.Memory[0x0009] = 0xef
+    cpu.Memory[0x000a] = 0xdf
+    cpu.Memory[0x000f] = 0xbf
+
+    // Memory mapped
+    cpu.Memory[0x4017] = 0x00   // frame IRQ enabled
+    cpu.Memory[0x4015] = 0x00   // all channels disabled
+    // TODO: 0x4000-$400f set to $00
 }
 
 // Start execution
 func (cpu *CPU) Run() {
-    cpu.P = FLAG_R  // Always set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
+    cpu.PowerUp()
 
     cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
-
     cpu.PC = 0xc000  // for nestest
 
     // PPU status register (TODO: memory mapped I/O)
     // http://nocash.emubase.de/everynes.htm#memorymaps
-    cpu.Memory[0x2002] = 0x80 // VBLANK=1
+    //cpu.Memory[0x2002] = 0x80 // VBLANK=1
 
 
     for {
@@ -385,7 +402,7 @@ func (cpu *CPU) Run() {
             fmt.Printf("   ")
          }
 
-         fmt.Printf("  %-32s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
             instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, cycle, scanline)
 
          // Long format
