@@ -391,25 +391,25 @@ func (cpu *CPU) ExecuteInstruction() {
      case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
      case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
  
-     // Jumps
-     case JMP: cpu.PC = operAddr
-     case JSR: cpu.PC -= 1
-        cpu.Push16(cpu.PC)
-        cpu.PC = operAddr
-     case RTI: cpu.P = cpu.Pull(); cpu.PC = cpu.Pull16()
-     case RTS: cpu.PC = cpu.Pull16() + 1
- 
      // Stack
      case PHA: cpu.Push(cpu.A)
-     case PHP: cpu.Push(cpu.P | FLAG_B)               // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
+     case PHP: cpu.Push(cpu.P | FLAG_B)                         // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
      case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
-     case PLP: cpu.P = cpu.Pull(); cpu.P ^= FLAG_B    // ignore B flag
-
+     case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
      case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
         cpu.Push(cpu.P | FLAG_B)
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
+
+     // Jumps
+     case JMP: cpu.PC = operAddr
+     case JSR: cpu.PC -= 1
+        cpu.Push16(cpu.PC)
+        cpu.PC = operAddr
+     case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
+     case RTS: cpu.PC = cpu.Pull16() + 1
+ 
  
      case U__:
          fmt.Printf("halting on undefined opcode\n")
