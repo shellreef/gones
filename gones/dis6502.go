@@ -48,10 +48,12 @@ type Instruction struct {
 
 /* Opcode byte to opcode and addressing mode
 Note: http://nesdev.parodius.com/6502.txt has several errors. 
-http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is more correct, notably:
+http://www.zophar.net/fileuploads/2/10532krzvs/6502.txt is updated with fixes, notably
 0x7d is ADC, Aby
 0x8d is STA, Abs
 0x90 is BCC, Rel
+http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is also correct
+Chart, but doesn't have undoc: http://e-tradition.net/bytes/6502/6502_instruction_set.html
 
 Shoud also include undocumented opcodes, resources:
 http://nesdev.parodius.com/undocumented_opcodes.txt
@@ -81,7 +83,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {SEI, Imp},{ADC, Aby},{U__, Imp},{RRA, Aby},{U__, Imp},{ADC, Aby},{ROR, Abx},{RRA, Abx},
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
 {DEY, Imp},{U__, Imp},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{U__, Imp},
-{BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpx},{U__, Imp}, // 9x 
+{BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpy},{U__, Imp}, // 9x 
 {TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},
 {LDY, Imd},{LDA, Ndx},{LDX, Imd},{U__, Imp},{LDY, Zpg},{LDA, Zpg},{LDX, Zpg},{U__, Imp}, // ax 
 {TAY, Imp},{LDA, Imd},{TAX, Imp},{U__, Imp},{LDY, Abs},{LDA, Abs},{LDX, Abs},{U__, Imp},

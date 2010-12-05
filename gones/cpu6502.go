@@ -74,6 +74,7 @@ func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
 func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
     low := cpu.Memory[address]
     high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
+    fmt.Printf("ReadUInt16ZeroPage %.4x %.4x = %.2x %.2x\n", address, uint8(address + 1), low, high)
     return uint16(high) << 8 + uint16(low)
 }
 
@@ -312,6 +313,7 @@ func (cpu *CPU) ExecuteInstruction() {
     switch instr.AddrMode {
     case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X);      operPtr = &cpu.Memory[operAddr]
+        fmt.Printf("Zpx operAddr=%x=%x + %x\n", operAddr, instr.Operand, cpu.X)
     case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y);      operPtr = &cpu.Memory[operAddr]
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
