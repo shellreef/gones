@@ -55,11 +55,13 @@ http://www.zophar.net/fileuploads/2/10532krzvs/6502.txt is updated with fixes, n
 0x90 is BCC, Rel
 http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is also correct
 Chart, but doesn't have undoc: http://e-tradition.net/bytes/6502/6502_instruction_set.html
+Comprehensive chart with undoc: http://www.xmission.com/~trevin/atari/6502_opcode_table.html - uses different mneumonics
 
 Shoud also include undocumented opcodes, resources:
 http://nesdev.parodius.com/undocumented_opcodes.txt - I'm using the first opcode mneumonic from here when possible
 http://nesdev.parodius.com/extra_instructions.txt - has better details on operation, but not as popular mneumonics
 http://www.nvg.org/bbc/doc/6502.txt (supersedes http://nesdev.parodius.com/6502_cpu.txt)
+Nice succinct tables: http://apple1.chez.com/Apple1project/Docs/m6502/6502-6510-8500-8502%20Opcodes.htm
 */
 // Indexed by opcode number, maps to decoded opcode and addressing mode
 var Opcodes = [...]OpcodeAddrMode{

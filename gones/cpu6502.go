@@ -412,7 +412,11 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
         cpu.SetCarry(temp < 0x100)
         cpu.A = uint8(temp)
-    case DCP: 
+    case DCP: *operPtr -= 1
+        var temp uint
+        temp = uint(cpu.A) - uint(*operPtr)
+        cpu.SetCarry(temp < 0x100)
+        cpu.SetSZ(uint8(temp))
 
     case CMP, CPX, CPY:
         var temp uint
