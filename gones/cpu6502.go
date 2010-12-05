@@ -473,14 +473,22 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.Push(cpu.P | FLAG_B)
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
- 
+
+    // UNTESTED INSTRUCTIONS
+    // nestest.nes PC=$c000 doesn't test these
+    // TODO: figure out why the known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
+    // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
+    case AAC, ARR, ASR, ATX, AXA, AXS, KIL, LAR, SXA, SYA, XAA, XAS:
+        fmt.Printf("unimplemented opcode: %s\n", instr.Opcode)
+        os.Exit(-1)
+
     case U__:
-         fmt.Printf("halting on undefined opcode\n")
-         os.Exit(0)
+        fmt.Printf("halting on undefined opcode\n")  // won't happen anymore now that all are 'defined' even undocumented
+        os.Exit(-1)
  
     default:
-         fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
-         os.Exit(0)
+        fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
+        os.Exit(-1)
     }
  
     // Post-instruction execution trace
