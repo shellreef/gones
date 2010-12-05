@@ -68,7 +68,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BRK, Imp},{ORA, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Zpg},{ASL, Zpg},{U__, Imp}, // 0x 
 {PHP, Imp},{ORA, Imd},{ASL, Acc},{U__, Imp},{U__, Imp},{ORA, Abs},{ASL, Abs},{U__, Imp}, 
 {BPL, Rel},{ORA, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Zpx},{ASL, Zpx},{U__, Imp}, // 1x 
-{CLC, Imp},{ORA, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{ASL, Abx},{U__, Imp}, 
+{CLC, Imp},{ORA, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Abx},{ASL, Abx},{U__, Imp}, 
 {JSR, Abs},{AND, Ndx},{U__, Imp},{U__, Imp},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{U__, Imp}, // 2x 
 {PLP, Imp},{AND, Imd},{ROL, Acc},{U__, Imp},{BIT, Abs},{AND, Abs},{ROL, Abs},{U__, Imp}, 
 {BMI, Rel},{AND, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{AND, Zpx},{ROL, Zpx},{U__, Imp}, // 3x 
@@ -76,7 +76,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {RTI, Imp},{EOR, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpg},{LSR, Zpg},{U__, Imp}, // 4x 
 {PHA, Imp},{EOR, Imd},{LSR, Acc},{U__, Imp},{JMP, Abs},{EOR, Abs},{LSR, Abs},{U__, Imp},
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
-{CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{LSR, Abx},{U__, Imp},
+{CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Abx},{LSR, Abx},{U__, Imp},
 {RTS, Imp},{ADC, Ndx},{U__, Imp},{RRA, Ndx},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
 {PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
 {BVS, Rel},{ADC, Ndy},{U__, Imp},{RRA, Ndy},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
@@ -84,7 +84,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
 {DEY, Imp},{U__, Imp},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{U__, Imp},
 {BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpy},{U__, Imp}, // 9x 
-{TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},
+{TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{STA, Abx},{U__, Imp},{U__, Imp},
 {LDY, Imd},{LDA, Ndx},{LDX, Imd},{U__, Imp},{LDY, Zpg},{LDA, Zpg},{LDX, Zpg},{U__, Imp}, // ax 
 {TAY, Imp},{LDA, Imd},{TAX, Imp},{U__, Imp},{LDY, Abs},{LDA, Abs},{LDX, Abs},{U__, Imp},
 {BCS, Rel},{LDA, Ndy},{U__, Imp},{U__, Imp},{LDY, Zpx},{LDA, Zpx},{LDX, Zpy},{U__, Imp}, // bx 
@@ -109,7 +109,7 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {BRK, Imp},{ORA, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Zpg},{ASL, Zpg},{U__, Imp}, // 0x 
 {PHP, Imp},{ORA, Imd},{ASL, Acc},{U__, Imp},{U__, Imp},{ORA, Abs},{ASL, Abs},{U__, Imp}, 
 {BPL, Rel},{ORA, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Zpx},{ASL, Zpx},{U__, Imp}, // 1x 
-{CLC, Imp},{ORA, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{ASL, Abx},{U__, Imp}, 
+{CLC, Imp},{ORA, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Abx},{ASL, Abx},{U__, Imp}, 
 {JSR, Abs},{AND, Ndx},{U__, Imp},{U__, Imp},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{U__, Imp}, // 2x 
 {PLP, Imp},{AND, Imd},{ROL, Acc},{U__, Imp},{BIT, Abs},{AND, Abs},{ROL, Abs},{U__, Imp}, 
 {BMI, Rel},{AND, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{AND, Zpx},{ROL, Zpx},{U__, Imp}, // 3x 
@@ -117,15 +117,15 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {RTI, Imp},{EOR, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpg},{LSR, Zpg},{U__, Imp}, // 4x 
 {PHA, Imp},{EOR, Imd},{LSR, Acc},{U__, Imp},{JMP, Abs},{EOR, Abs},{LSR, Abs},{U__, Imp},
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
-{CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{LSR, Abx},{U__, Imp},
+{CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Abx},{LSR, Abx},{U__, Imp},
 {RTS, Imp},{ADC, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{U__, Imp}, // 6x 
 {PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{U__, Imp},
 {BVS, Rel},{ADC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{U__, Imp}, // 7x 
 {SEI, Imp},{ADC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Aby},{ROR, Abx},{U__, Imp},
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
 {DEY, Imp},{U__, Imp},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{U__, Imp},
-{BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpx},{U__, Imp}, // 9x 
-{TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},
+{BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpy},{U__, Imp}, // 9x 
+{TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{STA, Abx},{U__, Imp},{U__, Imp},
 {LDY, Imd},{LDA, Ndx},{LDX, Imd},{U__, Imp},{LDY, Zpg},{LDA, Zpg},{LDX, Zpg},{U__, Imp}, // ax 
 {TAY, Imp},{LDA, Imd},{TAX, Imp},{U__, Imp},{LDY, Abs},{LDA, Abs},{LDX, Abs},{U__, Imp},
 {BCS, Rel},{LDA, Ndy},{U__, Imp},{U__, Imp},{LDY, Zpx},{LDA, Zpx},{LDX, Zpy},{U__, Imp}, // bx 
