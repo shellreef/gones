@@ -13,10 +13,14 @@ import (
 
     "./nesfile"
     "./cpu6502"
+    "./gamegenie"
 )
 
 func main() {
     var start string
+
+    GameGenie.Decode("SLXPLOVS")
+
 
     flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter in hex, or reset vector")
     flag.Usage = func() {
