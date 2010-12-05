@@ -125,7 +125,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
         panic("No PRG found")
     }
    
-    switch cart.Mapper {
+    switch cart.MapperCode {
     case 0: // NROM
     // http://nesdev.parodius.com/NESDoc.pdf
     copy(cpu.Memory[0x8000:], cart.Prg[0])
@@ -140,7 +140,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
     }
 
     default:
-        panic(fmt.Sprintf("sorry, no support for mapper %d", cart.Mapper))
+        panic(fmt.Sprintf("sorry, no support for mapper %d", cart.MapperCode))
     }
 }
 
