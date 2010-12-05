@@ -15,7 +15,7 @@ import (
 )
 
 type CPU struct {
-    Memory [0xffff]uint8
+    Memory [0x10000]uint8          // $0000-$FFFF
     PC uint16   // Program counter
     S uint8    // Stack pointer, offset from $0100
     A uint8     // Accumulator
@@ -66,7 +66,7 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
     low := cpu.Memory[address]
-    high := cpu.Memory[address + 1]
+    high := cpu.Memory[uint16(address + 1)]
     return uint16(high) << 8 + uint16(low)
 }
 
