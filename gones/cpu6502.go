@@ -412,6 +412,10 @@ func (cpu *CPU) ExecuteInstruction() {
         *operPtr <<= 1
         cpu.A |= *operPtr
         cpu.SetSZ(cpu.A)
+    case SRE: cpu.SetCarry(operVal & 0x01 != 0)
+        *operPtr >>= 1
+        cpu.A ^= *operPtr
+        cpu.SetSZ(cpu.A)
 
     // Arithmetic
     case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
