@@ -94,7 +94,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BNE, Rel},{CMP, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{CMP, Zpx},{DEC, Zpx},{U__, Imp}, // dx 
 {CLD, Imp},{CMP, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{CMP, Abx},{DEC, Abx},{U__, Imp},
 {CPX, Imd},{SBC, Ndx},{DOP, Imd},{U__, Imp},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{U__, Imp}, // ex 
-{INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
+{INX, Imp},{SBC, Imd},{NOP, Imp},{SBC, Imd},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
