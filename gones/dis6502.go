@@ -92,7 +92,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BNE, Rel},{CMP, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{CMP, Zpx},{DEC, Zpx},{U__, Imp}, // dx 
 {CLD, Imp},{CMP, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{CMP, Abx},{DEC, Abx},{U__, Imp},
 {CPX, Imd},{SBC, Ndx},{U__, Imp},{U__, Imp},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{U__, Imp}, // ex 
-{INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Zpx},{SBC, Abs},{INC, Abs},{U__, Imp},
+{INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
@@ -133,7 +133,7 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {BNE, Rel},{CMP, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{CMP, Zpx},{DEC, Zpx},{U__, Imp}, // dx 
 {CLD, Imp},{CMP, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{CMP, Abx},{DEC, Abx},{U__, Imp},
 {CPX, Imd},{SBC, Ndx},{U__, Imp},{U__, Imp},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{U__, Imp}, // ex 
-{INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Zpx},{SBC, Abs},{INC, Abs},{U__, Imp},
+{INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
