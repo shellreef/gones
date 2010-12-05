@@ -76,7 +76,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
 {CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{LSR, Abx},{U__, Imp},
 {RTS, Imp},{ADC, Ndx},{U__, Imp},{RRA, Ndx},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
-{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{U__, Imp},{ROR, Abs},{RRA, Abs},
+{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
 {BVS, Rel},{ADC, Ndy},{U__, Imp},{RRA, Ndy},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
 {SEI, Imp},{ADC, Aby},{U__, Imp},{RRA, Aby},{U__, Imp},{ADC, Aby},{ROR, Abx},{RRA, Abx},
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
@@ -117,7 +117,7 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
 {CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{LSR, Abx},{U__, Imp},
 {RTS, Imp},{ADC, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{U__, Imp}, // 6x 
-{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{U__, Imp},{ROR, Abs},{U__, Imp},
+{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{U__, Imp},
 {BVS, Rel},{ADC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{U__, Imp}, // 7x 
 {SEI, Imp},{ADC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Aby},{ROR, Abx},{U__, Imp},
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
