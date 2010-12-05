@@ -105,6 +105,7 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
     instr.OpcodeByte = opcodeByte
     instr.AddrMode = addrMode
     instr.Operand = operand
+    instr.Official = OfficialOpcodes[opcodeByte].Opcode != U__
 
     return instr
 }
