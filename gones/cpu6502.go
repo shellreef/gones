@@ -245,6 +245,13 @@ func (cpu *CPU) PowerUp() {
     cpu.Memory[0x4017] = 0x00   // frame IRQ enabled
     cpu.Memory[0x4015] = 0x00   // all channels disabled
     // TODO: 0x4000-$400f set to $00
+
+    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
+    //cpu.PC = 0xc000  // for nestest
+
+    // PPU status register (TODO: memory mapped I/O)
+    // http://nocash.emubase.de/everynes.htm#memorymaps
+    //cpu.Memory[0x2002] = 0x80 // VBLANK=1
 }
 
 // Some instructions worth having in their own functions
@@ -474,11 +481,23 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
 
-    // UNTESTED INSTRUCTIONS
-    // nestest.nes PC=$c000 doesn't test these
-    // TODO: figure out why the known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
-    // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
-    case AAC, ARR, ASR, ATX, AXA, AXS, KIL, LAR, SXA, SYA, XAA, XAS:
+    case KIL:
+        // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
+        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
+        // So interpret this as a graceful termination. Only up to $C66E will be compared by tracediff.pl anyways.
+        fmt.Printf("Halting on KIL instruction\n")
+        // http://nesdev.com/bbs/viewtopic.php?t=7130
+        result := cpu.Memory[2] << 8 | cpu.Memory[3]
+        if result == 0 {
+            fmt.Printf("Nestest automation: Pass\n")
+        } else {
+            fmt.Printf("Nestest automation: FAIL with code %.4x\n", result)
+        }
+        os.Exit(0)
+
+    // UNIMPLEMENTED INSTRUCTIONS
+    // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
+    case AAC, ARR, ASR, ATX, AXA, AXS, LAR, SXA, SYA, XAA, XAS:
         fmt.Printf("unimplemented opcode: %s\n", instr.Opcode)
         os.Exit(-1)
 
@@ -500,15 +519,6 @@ func (cpu *CPU) ExecuteInstruction() {
 
 // Start execution
 func (cpu *CPU) Run() {
-    cpu.PowerUp()
-
-    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
-    cpu.PC = 0xc000  // for nestest
-
-    // PPU status register (TODO: memory mapped I/O)
-    // http://nocash.emubase.de/everynes.htm#memorymaps
-    //cpu.Memory[0x2002] = 0x80 // VBLANK=1
-
     for {
         cpu.ExecuteInstruction()
     }
