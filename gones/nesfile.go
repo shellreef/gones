@@ -13,17 +13,19 @@ import (
 )
 
 // iNES (.nes) file header
+// http://wiki.nesdev.com/w/index.php/INES
 type NesfileHeader struct {
     Magic uint32
-    PrgPageCount, ChrPageCount, MapperInfo1, MapperInfo2, RamPageCount, PalFlag uint8
-    Reserved [6]byte
+    PrgPageCount, ChrPageCount, Flags6, Flags7, RamPageCount, Flags9, Flags10 uint8
+    Reserved [5]byte
 }
 
 // Represents a game cartridge
 type Cartridge struct {
     Prg []([]byte)
     Chr []([]byte)
-    // TODO: mappers
+    Mapper int // TODO: string constant not flag
+    // TODO: flags
 }
 
 const NESFILE_MAGIC = 0x1a53454e        // NES^Z
@@ -45,10 +47,15 @@ func Open(filename string) (*Cartridge) {
         panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
     }
 
-    fmt.Printf("ROM: %d, VROM: %d, mappers: %.2x %.2x\n", header.PrgPageCount, header.ChrPageCount, header.MapperInfo2, header.MapperInfo2)
-
     cart.Prg = readPages(buffer, PRG_PAGE_SIZE, int(header.PrgPageCount))
     cart.Chr = readPages(buffer, CHR_PAGE_SIZE, int(header.ChrPageCount))
+   
+    // This is weird, but the mapper nibbles are spread across two bytes
+    cart.Mapper = int(header.Flags7 & 0xf0 | header.Flags6 & 0xf0 >> 4)
+
+    // TODO: read and set flags
+
+    fmt.Printf("ROM: %d, VROM: %d, Mapper %d\n", header.PrgPageCount, header.ChrPageCount, cart.Mapper)
 
     return cart
 }

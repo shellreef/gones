@@ -121,22 +121,26 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
 
 // Load a game cartridge
 func (cpu *CPU) Load(cart *Cartridge) {
+    if len(cart.Prg) == 0 {
+        panic("No PRG found")
+    }
+   
+    switch cart.Mapper {
+    case 0: // NROM
     // http://nesdev.parodius.com/NESDoc.pdf
-    if (len(cart.Prg) == 1) {
+    copy(cpu.Memory[0x8000:], cart.Prg[0])
+    if len(cart.Prg) == 1 {
         // One PRG bank loads into $8000 and $C000 (mirrored)
-        copy(cpu.Memory[0x8000:], cart.Prg[0])
         copy(cpu.Memory[0xC000:], cart.Prg[0])
     } else if (len(cart.Prg) == 2) {
-        // Loads first into $8000 and second into $C000
-        copy(cpu.Memory[0x8000:], cart.Prg[0])
+        // Loads second into $C000
         copy(cpu.Memory[0xC000:], cart.Prg[1])
-    } else if (len(cart.Prg) == 16) {
-        copy(cpu.Memory[0x8000:], cart.Prg[0])
-        copy(cpu.Memory[0xC000:], cart.Prg[1])
-        // TODO: what to do? instr_test http://wiki.nesdev.com/w/index.php/Emulator_tests has 16 PRG with mapper 0
     } else {
-        // TODO: mappers
-        panic(fmt.Sprintf("Load: PRG banks not yet supported: %d", len(cart.Prg)))
+        panic(fmt.Sprintf("Load: too many PRGs for NROM: %d", len(cart.Prg)))
+    }
+
+    default:
+        panic(fmt.Sprintf("sorry, no support for mapper %d", cart.Mapper))
     }
 }
 
@@ -514,11 +518,6 @@ func (cpu *CPU) ExecuteInstruction() {
         os.Exit(-1)
     }
 
-    if (cpu.PC == 0xE218) {
-        fmt.Printf("%s\n", cpu.Memory[0x6004:])
-        os.Exit(-1)
-    }
- 
     // Post-instruction execution trace
     //fmt.Printf("%.4X  %s  ", start, instr)
     //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
