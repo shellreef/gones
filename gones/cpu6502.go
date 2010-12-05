@@ -352,6 +352,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
     case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
     case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
+    case LAX: cpu.A = operVal; cpu.X = operVal; cpu.SetSZ(cpu.X)
     // Store register to memory
     case STA: *operPtr = cpu.A
     case STX: *operPtr = cpu.X
@@ -392,6 +393,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Arithmetic
     case ADC: cpu.OpADC(operVal, operPtr)
+    case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
     case SBC:
         var carryIn, temp uint
         if cpu.P & FLAG_C == 0 {
@@ -453,8 +455,6 @@ func (cpu *CPU) ExecuteInstruction() {
      case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
      case RTS: cpu.PC = cpu.Pull16() + 1
 
-     // Undocumented
-     case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
  
      case U__:
          fmt.Printf("halting on undefined opcode\n")
