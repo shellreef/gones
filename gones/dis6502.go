@@ -66,21 +66,21 @@ var Opcodes = [...]OpcodeAddrMode{
 // x0         x1         x2         x3         x4        x5          x6         x7   
 // x8         x9         xa         xb         xc        xd          xe         xf   
 {BRK, Imp},{ORA, Ndx},{U__, Imp},{U__, Imp},{DOP, Zpg},{ORA, Zpg},{ASL, Zpg},{U__, Imp}, // 0x 
-{PHP, Imp},{ORA, Imd},{ASL, Acc},{U__, Imp},{U__, Imp},{ORA, Abs},{ASL, Abs},{U__, Imp}, 
+{PHP, Imp},{ORA, Imd},{ASL, Acc},{U__, Imp},{TOP, Abs},{ORA, Abs},{ASL, Abs},{U__, Imp}, 
 {BPL, Rel},{ORA, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{ORA, Zpx},{ASL, Zpx},{U__, Imp}, // 1x 
-{CLC, Imp},{ORA, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ORA, Abx},{ASL, Abx},{U__, Imp}, 
+{CLC, Imp},{ORA, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{ORA, Abx},{ASL, Abx},{U__, Imp}, 
 {JSR, Abs},{AND, Ndx},{U__, Imp},{U__, Imp},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{U__, Imp}, // 2x 
 {PLP, Imp},{AND, Imd},{ROL, Acc},{U__, Imp},{BIT, Abs},{AND, Abs},{ROL, Abs},{U__, Imp}, 
 {BMI, Rel},{AND, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{U__, Imp}, // 3x 
-{SEC, Imp},{AND, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{AND, Abx},{ROL, Abx},{U__, Imp}, 
+{SEC, Imp},{AND, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{AND, Abx},{ROL, Abx},{U__, Imp}, 
 {RTI, Imp},{EOR, Ndx},{U__, Imp},{U__, Imp},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{U__, Imp}, // 4x 
 {PHA, Imp},{EOR, Imd},{LSR, Acc},{U__, Imp},{JMP, Abs},{EOR, Abs},{LSR, Abs},{U__, Imp},
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
-{CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Abx},{LSR, Abx},{U__, Imp},
+{CLI, Imp},{EOR, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{EOR, Abx},{LSR, Abx},{U__, Imp},
 {RTS, Imp},{ADC, Ndx},{U__, Imp},{RRA, Ndx},{DOP, Zpx},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
 {PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
 {BVS, Rel},{ADC, Ndy},{U__, Imp},{RRA, Ndy},{DOP, Zpx},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
-{SEI, Imp},{ADC, Aby},{U__, Imp},{RRA, Aby},{U__, Imp},{ADC, Abx},{ROR, Abx},{RRA, Abx},
+{SEI, Imp},{ADC, Aby},{NOP, Imp},{RRA, Aby},{TOP, Abx},{ADC, Abx},{ROR, Abx},{RRA, Abx},
 {DOP, Imd},{STA, Ndx},{DOP, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
 {DEY, Imp},{DOP, Imd},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{U__, Imp},
 {BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpy},{U__, Imp}, // 9x 
@@ -92,11 +92,11 @@ var Opcodes = [...]OpcodeAddrMode{
 {CPY, Imd},{CMP, Ndx},{DOP, Imd},{U__, Imp},{CPY, Zpg},{CMP, Zpg},{DEC, Zpg},{U__, Imp}, // cx 
 {INY, Imp},{CMP, Imd},{DEX, Imp},{U__, Imp},{CPY, Abs},{CMP, Abs},{DEC, Abs},{U__, Imp},
 {BNE, Rel},{CMP, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{CMP, Zpx},{DEC, Zpx},{U__, Imp}, // dx 
-{CLD, Imp},{CMP, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{CMP, Abx},{DEC, Abx},{U__, Imp},
+{CLD, Imp},{CMP, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{CMP, Abx},{DEC, Abx},{U__, Imp},
 {CPX, Imd},{SBC, Ndx},{DOP, Imd},{U__, Imp},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{U__, Imp}, // ex 
 {INX, Imp},{SBC, Imd},{NOP, Imp},{U__, Imp},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
-{SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
+{SED, Imp},{SBC, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
 // Excludes http://nesdev.parodius.com/undocumented_opcodes.txt

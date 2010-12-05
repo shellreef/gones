@@ -336,9 +336,7 @@ func (cpu *CPU) ExecuteInstruction() {
     // http://nesdev.parodius.com/6502.txt
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
 
-    case NOP:
-    case DOP:
-    case TOP:
+    case NOP, DOP, TOP:
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I
