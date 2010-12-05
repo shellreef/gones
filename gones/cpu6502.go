@@ -130,6 +130,10 @@ func (cpu *CPU) Load(cart *Cartridge) {
         // Loads first into $8000 and second into $C000
         copy(cpu.Memory[0x8000:], cart.Prg[0])
         copy(cpu.Memory[0xC000:], cart.Prg[1])
+    } else if (len(cart.Prg) == 16) {
+        copy(cpu.Memory[0x8000:], cart.Prg[0])
+        copy(cpu.Memory[0xC000:], cart.Prg[1])
+        // TODO: what to do? instr_test http://wiki.nesdev.com/w/index.php/Emulator_tests has 16 PRG with mapper 0
     } else {
         // TODO: mappers
         panic(fmt.Sprintf("Load: PRG banks not yet supported: %d", len(cart.Prg)))
@@ -507,6 +511,11 @@ func (cpu *CPU) ExecuteInstruction() {
  
     default:
         fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
+        os.Exit(-1)
+    }
+
+    if (cpu.PC == 0xE218) {
+        fmt.Printf("%s\n", cpu.Memory[0x6004:])
         os.Exit(-1)
     }
  
