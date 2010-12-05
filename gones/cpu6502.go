@@ -249,9 +249,9 @@ func (cpu *CPU) PowerUp() {
 
 // Some instructions worth having in their own functions
 
-func (cpu *CPU) OpROR(operVal uint8, operPtr *uint8) {
+func (cpu *CPU) OpROR(operPtr *uint8) {
     var temp int
-    temp = int(operVal)
+    temp = int(*operPtr)
     if cpu.P & FLAG_C != 0 {
         temp |= 0x100
     }
@@ -261,7 +261,7 @@ func (cpu *CPU) OpROR(operVal uint8, operPtr *uint8) {
     cpu.SetSZ(*operPtr)
 }
 
-func (cpu *CPU) OpADC(operVal uint8, operPtr *uint8) {
+func (cpu *CPU) OpADC(operVal uint8) {
     var carryIn, temp int
     if cpu.P & FLAG_C == 0 {
         carryIn = 0
@@ -275,7 +275,7 @@ func (cpu *CPU) OpADC(operVal uint8, operPtr *uint8) {
     cpu.A = uint8(temp)
 }
 
-func (cpu *CPU) OpSBC(operVal uint8, operPtr *uint8) {
+func (cpu *CPU) OpSBC(operVal uint8) {
     var carryIn, temp uint
     if cpu.P & FLAG_C == 0 {
         carryIn = 1
@@ -399,7 +399,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(temp > 0xff)
         *operPtr = uint8(temp)
         cpu.SetSZ(*operPtr)
-    case ROR: cpu.OpROR(operVal, operPtr)
+    case ROR: cpu.OpROR(operPtr)
     case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
@@ -412,15 +412,15 @@ func (cpu *CPU) ExecuteInstruction() {
     case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
-    case ADC: cpu.OpADC(operVal, operPtr)
-    case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
-    case SBC: cpu.OpSBC(operVal, operPtr)
+    case ADC: cpu.OpADC(operVal)
+    case RRA: cpu.OpROR(operPtr); cpu.OpADC(*operPtr)
+    case SBC: cpu.OpSBC(operVal)
     case DCP: *operPtr -= 1
         var temp uint
         temp = uint(cpu.A) - uint(*operPtr)
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
-    case ISC: *operPtr += 1; cpu.OpSBC(*operPtr, operPtr)
+    case ISC: *operPtr += 1; cpu.OpSBC(*operPtr)
 
     case CMP, CPX, CPY:
         var temp uint
