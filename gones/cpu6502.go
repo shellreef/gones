@@ -308,7 +308,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
     case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-    case Ndy: operAddr = cpu.ReadUInt16(uint16(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
+    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Ind: operAddr = cpu.ReadUInt16(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
     case Acc: operPtr = &cpu.A  /* no address */
