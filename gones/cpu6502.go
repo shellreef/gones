@@ -275,6 +275,20 @@ func (cpu *CPU) OpADC(operVal uint8, operPtr *uint8) {
     cpu.A = uint8(temp)
 }
 
+func (cpu *CPU) OpSBC(operVal uint8, operPtr *uint8) {
+    var carryIn, temp uint
+    if cpu.P & FLAG_C == 0 {
+        carryIn = 1
+    } else {
+        carryIn = 0
+    }
+    temp = uint(cpu.A) - uint(operVal) - carryIn
+    cpu.SetSZ(uint8(temp))
+    cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
+    cpu.SetCarry(temp < 0x100)
+    cpu.A = uint8(temp)
+}
+
 // Execute one instruction
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
@@ -400,23 +414,13 @@ func (cpu *CPU) ExecuteInstruction() {
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(operVal, operPtr)
     case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
-    case SBC:
-        var carryIn, temp uint
-        if cpu.P & FLAG_C == 0 {
-            carryIn = 1
-        } else {
-            carryIn = 0
-        }
-        temp = uint(cpu.A) - uint(operVal) - carryIn
-        cpu.SetSZ(uint8(temp))
-        cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
-        cpu.SetCarry(temp < 0x100)
-        cpu.A = uint8(temp)
+    case SBC: cpu.OpSBC(operVal, operPtr)
     case DCP: *operPtr -= 1
         var temp uint
         temp = uint(cpu.A) - uint(*operPtr)
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
+    case ISC: *operPtr += 1; cpu.OpSBC(*operPtr, operPtr)
 
     case CMP, CPX, CPY:
         var temp uint
