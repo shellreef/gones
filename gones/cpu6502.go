@@ -249,18 +249,6 @@ func (cpu *CPU) PowerUp() {
 
 // Some instructions worth having in their own functions
 
-func (cpu *CPU) OpROR(operPtr *uint8) {
-    var temp int
-    temp = int(*operPtr)
-    if cpu.P & FLAG_C != 0 {
-        temp |= 0x100
-    }
-    cpu.SetCarry(temp & 0x01 != 0)
-    temp >>= 1
-    *operPtr = uint8(temp)
-    cpu.SetSZ(*operPtr)
-}
-
 func (cpu *CPU) OpADC(operVal uint8) {
     var carryIn, temp int
     if cpu.P & FLAG_C == 0 {
@@ -287,6 +275,30 @@ func (cpu *CPU) OpSBC(operVal uint8) {
     cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
     cpu.SetCarry(temp < 0x100)
     cpu.A = uint8(temp)
+}
+
+func (cpu *CPU) OpROR(operPtr *uint8) {
+    var temp int
+    temp = int(*operPtr)
+    if cpu.P & FLAG_C != 0 {
+        temp |= 0x100
+    }
+    cpu.SetCarry(temp & 0x01 != 0)
+    temp >>= 1
+    *operPtr = uint8(temp)
+    cpu.SetSZ(*operPtr)
+}
+
+func (cpu *CPU) OpROL(operPtr *uint8) {
+    var temp int
+    temp = int(*operPtr)    // larger than uint8 so can store carry bit
+    temp <<= 1
+    if cpu.P & FLAG_C != 0 {
+        temp |= 1
+    }
+    cpu.SetCarry(temp > 0xff)
+    *operPtr = uint8(temp)
+    cpu.SetSZ(*operPtr)
 }
 
 // Execute one instruction
@@ -389,21 +401,13 @@ func (cpu *CPU) ExecuteInstruction() {
     case LSR: cpu.SetCarry(operVal & 0x01 != 0)
         *operPtr >>= 1
         cpu.SetSZ(*operPtr)
-    case ROL: 
-        var temp int
-        temp = int(operVal)    // larger than uint8 so can store carry bit
-        temp <<= 1
-        if cpu.P & FLAG_C != 0 {
-            temp |= 1
-        }
-        cpu.SetCarry(temp > 0xff)
-        *operPtr = uint8(temp)
-        cpu.SetSZ(*operPtr)
+    case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
+    case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
     case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
-    case AAX: *operPtr = cpu.X & cpu.A  // no flags affected
+    case AAX: *operPtr = cpu.X & cpu.A
     case SLO: cpu.SetCarry(operVal & 0x80 != 0)
         *operPtr <<= 1
         cpu.A |= *operPtr

@@ -73,7 +73,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BPL, Rel},{ORA, Ndy},{KIL, Imp},{SLO, Ndy},{DOP, Zpx},{ORA, Zpx},{ASL, Zpx},{SLO, Zpx}, // 1x 
 {CLC, Imp},{ORA, Aby},{NOP, Imp},{SLO, Aby},{TOP, Abx},{ORA, Abx},{ASL, Abx},{SLO, Abx}, 
 {JSR, Abs},{AND, Ndx},{KIL, Imp},{RLA, Ndx},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{RLA, Zpg}, // 2x 
-{PLP, Imp},{AND, Imd},{ROL, Acc},{AAC, Imd},{BIT, Abs},{AND, Abs},{ROL, Abs},{RLA, Zpx}, 
+{PLP, Imp},{AND, Imd},{ROL, Acc},{AAC, Imd},{BIT, Abs},{AND, Abs},{ROL, Abs},{RLA, Abs}, 
 {BMI, Rel},{AND, Ndy},{KIL, Imp},{RLA, Ndy},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{RLA, Zpx}, // 3x 
 {SEC, Imp},{AND, Aby},{NOP, Imp},{RLA, Aby},{TOP, Abx},{AND, Abx},{ROL, Abx},{RLA, Abx}, 
 {RTI, Imp},{EOR, Ndx},{KIL, Imp},{SRE, Ndx},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{SRE, Zpg}, // 4x 
