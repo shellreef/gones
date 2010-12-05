@@ -74,7 +74,6 @@ func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
 func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
     low := cpu.Memory[address]
     high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
-    fmt.Printf("ReadUInt16ZeroPage %.4x %.4x = %.2x %.2x\n", address, uint8(address + 1), low, high)
     return uint16(high) << 8 + uint16(low)
 }
 
@@ -390,6 +389,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
+    case AAX: *operPtr = cpu.X & cpu.A  // no flags affected
 
     // Arithmetic
     case ADC: cpu.OpADC(operVal, operPtr)
