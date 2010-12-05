@@ -24,9 +24,10 @@ SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY";
 TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
 
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC"; AAX="AAX"; ARR="ARR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; DCP="DCP";
-DOP="DOP"; ISC="ISC"; KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; RRA="RRA";
-SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; TOP="TOP"; XXA="XXA"; XAS="XAS";
+AAC="AAC"; AAX="AAX"; ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
+DCP="DCP"; DOP="DOP"; ISC="ISC"; KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
+RRA="RRA"; SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; TOP="TOP"; XAA="XAA"; 
+XAS="XAS";
 )
 
 // Addressing mode
@@ -56,8 +57,8 @@ http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is also correct
 Chart, but doesn't have undoc: http://e-tradition.net/bytes/6502/6502_instruction_set.html
 
 Shoud also include undocumented opcodes, resources:
-http://nesdev.parodius.com/undocumented_opcodes.txt - using first opcode name when possible
-http://nesdev.parodius.com/extra_instructions.txt
+http://nesdev.parodius.com/undocumented_opcodes.txt - I'm using the first opcode mneumonic from here when possible
+http://nesdev.parodius.com/extra_instructions.txt - has better details on operation, but not as popular mneumonics
 http://www.nvg.org/bbc/doc/6502.txt (supersedes http://nesdev.parodius.com/6502_cpu.txt)
 */
 // Indexed by opcode number, maps to decoded opcode and addressing mode
@@ -65,38 +66,38 @@ var Opcodes = [...]OpcodeAddrMode{
 // Indexed by opcode, value is (mneumonic, addressing mode code) 
 // x0         x1         x2         x3         x4        x5          x6         x7   
 // x8         x9         xa         xb         xc        xd          xe         xf   
-{BRK, Imp},{ORA, Ndx},{U__, Imp},{U__, Imp},{DOP, Zpg},{ORA, Zpg},{ASL, Zpg},{U__, Imp}, // 0x 
-{PHP, Imp},{ORA, Imd},{ASL, Acc},{U__, Imp},{TOP, Abs},{ORA, Abs},{ASL, Abs},{U__, Imp}, 
-{BPL, Rel},{ORA, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{ORA, Zpx},{ASL, Zpx},{U__, Imp}, // 1x 
-{CLC, Imp},{ORA, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{ORA, Abx},{ASL, Abx},{U__, Imp}, 
-{JSR, Abs},{AND, Ndx},{U__, Imp},{U__, Imp},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{U__, Imp}, // 2x 
-{PLP, Imp},{AND, Imd},{ROL, Acc},{U__, Imp},{BIT, Abs},{AND, Abs},{ROL, Abs},{U__, Imp}, 
-{BMI, Rel},{AND, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{U__, Imp}, // 3x 
-{SEC, Imp},{AND, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{AND, Abx},{ROL, Abx},{U__, Imp}, 
-{RTI, Imp},{EOR, Ndx},{U__, Imp},{U__, Imp},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{U__, Imp}, // 4x 
-{PHA, Imp},{EOR, Imd},{LSR, Acc},{U__, Imp},{JMP, Abs},{EOR, Abs},{LSR, Abs},{U__, Imp},
-{BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
-{CLI, Imp},{EOR, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{EOR, Abx},{LSR, Abx},{U__, Imp},
-{RTS, Imp},{ADC, Ndx},{U__, Imp},{RRA, Ndx},{DOP, Zpx},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
-{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
-{BVS, Rel},{ADC, Ndy},{U__, Imp},{RRA, Ndy},{DOP, Zpx},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
+{BRK, Imp},{ORA, Ndx},{KIL, Imp},{SLO, Ndx},{DOP, Zpg},{ORA, Zpg},{ASL, Zpg},{SLO, Zpg}, // 0x 
+{PHP, Imp},{ORA, Imd},{ASL, Acc},{AAC, Imd},{TOP, Abs},{ORA, Abs},{ASL, Abs},{SLO, Abs}, 
+{BPL, Rel},{ORA, Ndy},{KIL, Imp},{SLO, Ndy},{DOP, Zpx},{ORA, Zpx},{ASL, Zpx},{SLO, Zpx}, // 1x 
+{CLC, Imp},{ORA, Aby},{NOP, Imp},{SLO, Aby},{TOP, Abx},{ORA, Abx},{ASL, Abx},{SLO, Abx}, 
+{JSR, Abs},{AND, Ndx},{KIL, Imp},{RLA, Ndx},{BIT, Zpg},{AND, Zpg},{ROL, Zpg},{RLA, Zpg}, // 2x 
+{PLP, Imp},{AND, Imd},{ROL, Acc},{AAC, Imd},{BIT, Abs},{AND, Abs},{ROL, Abs},{RLA, Zpx}, 
+{BMI, Rel},{AND, Ndy},{KIL, Imp},{RLA, Ndy},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{RLA, Zpx}, // 3x 
+{SEC, Imp},{AND, Aby},{NOP, Imp},{RLA, Aby},{TOP, Abx},{AND, Abx},{ROL, Abx},{RLA, Abx}, 
+{RTI, Imp},{EOR, Ndx},{KIL, Imp},{SRE, Ndx},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{SRE, Zpg}, // 4x 
+{PHA, Imp},{EOR, Imd},{LSR, Acc},{ASR, Imd},{JMP, Abs},{EOR, Abs},{LSR, Abs},{SRE, Abs},
+{BVC, Rel},{EOR, Ndy},{KIL, Imp},{SRE, Ndy},{DOP, Zpx},{EOR, Zpx},{LSR, Zpx},{SRE, Zpx}, // 5x 
+{CLI, Imp},{EOR, Aby},{NOP, Imp},{SRE, Aby},{TOP, Abx},{EOR, Abx},{LSR, Abx},{SRE, Abx},
+{RTS, Imp},{ADC, Ndx},{KIL, Imp},{RRA, Ndx},{DOP, Zpx},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
+{PLA, Imp},{ADC, Imd},{ROR, Acc},{ARR, Imd},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
+{BVS, Rel},{ADC, Ndy},{KIL, Imp},{RRA, Ndy},{DOP, Zpx},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
 {SEI, Imp},{ADC, Aby},{NOP, Imp},{RRA, Aby},{TOP, Abx},{ADC, Abx},{ROR, Abx},{RRA, Abx},
 {DOP, Imd},{STA, Ndx},{DOP, Imp},{AAX, Ndx},{STY, Zpg},{STA, Zpg},{STX, Zpg},{AAX, Zpg}, // 8x 
-{DEY, Imp},{DOP, Imd},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{AAX, Abs},
-{BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpy},{AAX, Zpy}, // 9x 
-{TYA, Imp},{STA, Aby},{TXS, Imp},{U__, Imp},{U__, Imp},{STA, Abx},{U__, Imp},{U__, Imp},
+{DEY, Imp},{DOP, Imd},{TXA, Imp},{XAA, Imd},{STY, Abs},{STA, Abs},{STX, Abs},{AAX, Abs},
+{BCC, Rel},{STA, Ndy},{KIL, Imp},{AXA, Ndy},{STY, Zpx},{STA, Zpx},{STX, Zpy},{AAX, Zpy}, // 9x 
+{TYA, Imp},{STA, Aby},{TXS, Imp},{XAS, Aby},{SYA, Abx},{STA, Abx},{SXA, Aby},{AXA, Aby},
 {LDY, Imd},{LDA, Ndx},{LDX, Imd},{LAX, Ndx},{LDY, Zpg},{LDA, Zpg},{LDX, Zpg},{LAX, Zpg}, // ax 
-{TAY, Imp},{LDA, Imd},{TAX, Imp},{U__, Imp},{LDY, Abs},{LDA, Abs},{LDX, Abs},{LAX, Abs},
-{BCS, Rel},{LDA, Ndy},{U__, Imp},{LAX, Ndy},{LDY, Zpx},{LDA, Zpx},{LDX, Zpy},{LAX, Zpy}, // bx 
-{CLV, Imp},{LDA, Aby},{TSX, Imp},{U__, Imp},{LDY, Abx},{LDA, Abx},{LDX, Aby},{LAX, Aby},
-{CPY, Imd},{CMP, Ndx},{DOP, Imd},{U__, Imp},{CPY, Zpg},{CMP, Zpg},{DEC, Zpg},{U__, Imp}, // cx 
-{INY, Imp},{CMP, Imd},{DEX, Imp},{U__, Imp},{CPY, Abs},{CMP, Abs},{DEC, Abs},{U__, Imp},
-{BNE, Rel},{CMP, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{CMP, Zpx},{DEC, Zpx},{U__, Imp}, // dx 
-{CLD, Imp},{CMP, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{CMP, Abx},{DEC, Abx},{U__, Imp},
-{CPX, Imd},{SBC, Ndx},{DOP, Imd},{U__, Imp},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{U__, Imp}, // ex 
-{INX, Imp},{SBC, Imd},{NOP, Imp},{SBC, Imd},{CPX, Abs},{SBC, Abs},{INC, Abs},{U__, Imp},
-{BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
-{SED, Imp},{SBC, Aby},{NOP, Imp},{U__, Imp},{TOP, Abx},{SBC, Abx},{INC, Abx},{U__, Imp},
+{TAY, Imp},{LDA, Imd},{TAX, Imp},{ATX, Imd},{LDY, Abs},{LDA, Abs},{LDX, Abs},{LAX, Abs},
+{BCS, Rel},{LDA, Ndy},{KIL, Imp},{LAX, Ndy},{LDY, Zpx},{LDA, Zpx},{LDX, Zpy},{LAX, Zpy}, // bx 
+{CLV, Imp},{LDA, Aby},{TSX, Imp},{LAR, Aby},{LDY, Abx},{LDA, Abx},{LDX, Aby},{LAX, Aby},
+{CPY, Imd},{CMP, Ndx},{DOP, Imd},{DCP, Ndx},{CPY, Zpg},{CMP, Zpg},{DEC, Zpg},{DCP, Zpg}, // cx 
+{INY, Imp},{CMP, Imd},{DEX, Imp},{AXS, Imd},{CPY, Abs},{CMP, Abs},{DEC, Abs},{DCP, Abs},
+{BNE, Rel},{CMP, Ndy},{KIL, Imp},{DCP, Ndy},{DOP, Zpx},{CMP, Zpx},{DEC, Zpx},{DCP, Zpx}, // dx 
+{CLD, Imp},{CMP, Aby},{NOP, Imp},{DCP, Aby},{TOP, Abx},{CMP, Abx},{DEC, Abx},{DCP, Abx},
+{CPX, Imd},{SBC, Ndx},{DOP, Imd},{ISC, Ndx},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{ISC, Zpg}, // ex 
+{INX, Imp},{SBC, Imd},{NOP, Imp},{SBC, Imd},{CPX, Abs},{SBC, Abs},{INC, Abs},{ISC, Abs},
+{BEQ, Rel},{SBC, Ndy},{KIL, Imp},{ISC, Ndy},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{ISC, Zpx}, // fx 
+{SED, Imp},{SBC, Aby},{NOP, Imp},{ISC, Aby},{TOP, Abx},{SBC, Abx},{INC, Abx},{ISC, Abx},
 }
 
 // Excludes http://nesdev.parodius.com/undocumented_opcodes.txt
