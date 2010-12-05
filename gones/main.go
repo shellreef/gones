@@ -19,7 +19,8 @@ import (
 func main() {
     var start string
 
-    GameGenie.Decode("SLXPLOVS")
+    fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLOVS"))
+    fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLO"))
 
 
     flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter in hex, or reset vector")

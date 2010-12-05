@@ -26,7 +26,10 @@ type GameGenieCode struct {
 const LETTERS = "APZLGITYEOXUKSVN"
 
 func (c GameGenieCode) String() (string) {
-    return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
+    if c.HasKey {
+        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
+    } 
+    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
 }
 
 // Get Game Genie numerical hex digit of a letter, 0-15
@@ -60,10 +63,10 @@ func Decode(s string) (c GameGenieCode) {
 
     // Codes like this don't automagically go to the next line when the sixth 
     // letter is typed. They should be 8 letters, but if you only type 6, they'll
-    // still take affect.
+    // still take affect. This only matters for code entry.
+    // NOTE: When patching, use HasKey to tell whether to apply Key! 
+    // .. not WantsKey, because the code doesn't always get what it wants.
     c.WantsKey = digits[2] >> 3 != 0
-
-    fmt.Printf("code=%v\n", c)
 
     return c
 }
