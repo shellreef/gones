@@ -77,6 +77,15 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
+// Read unsigned 16-bits, but wraparound lower byte
+// JMP ($20FF) jumps the address at $20FF low and $2000 high (not $2100)
+// TODO: replace ReadUInt16ZeroPage with this, and maybe ReadUInt16 entirely?
+func (cpu *CPU) ReadUInt16Wraparound(address uint16) (w uint16) {
+    low := cpu.Memory[address]
+    high := cpu.Memory[(address & 0xff00) | (address + 1) & 0xff]
+    return uint16(high) << 8 + uint16(low)
+}
+
 // Read an operand for a given addressing mode
 // Byte count read is retrievable by addrMode.OperandSize()
 func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
@@ -309,7 +318,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
     case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
-    case Ind: operAddr = cpu.ReadUInt16(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
     case Acc: operPtr = &cpu.A  /* no address */
     case Imd: operVal = uint8(instr.Operand)
