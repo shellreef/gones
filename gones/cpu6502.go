@@ -238,6 +238,34 @@ func (cpu *CPU) PowerUp() {
     // TODO: 0x4000-$400f set to $00
 }
 
+// Some instructions worth having in their own functions
+
+func (cpu *CPU) OpROR(operVal uint8, operPtr *uint8) {
+    var temp int
+    temp = int(operVal)
+    if cpu.P & FLAG_C != 0 {
+        temp |= 0x100
+    }
+    cpu.SetCarry(temp & 0x01 != 0)
+    temp >>= 1
+    *operPtr = uint8(temp)
+    cpu.SetSZ(*operPtr)
+}
+
+func (cpu *CPU) OpADC(operVal uint8, operPtr *uint8) {
+    var carryIn, temp int
+    if cpu.P & FLAG_C == 0 {
+        carryIn = 0
+    } else {
+        carryIn = 1
+    }
+    temp = int(operVal) + int(cpu.A) + carryIn
+    cpu.SetSZ(uint8(temp))
+    cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
+    cpu.SetCarry(temp > 0xff)
+    cpu.A = uint8(temp)
+}
+
 // Execute one instruction
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
@@ -347,33 +375,13 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(temp > 0xff)
         *operPtr = uint8(temp)
         cpu.SetSZ(*operPtr)
-    case ROR: 
-        var temp int
-        temp = int(operVal)
-        if cpu.P & FLAG_C != 0 {
-            temp |= 0x100
-        }
-        cpu.SetCarry(temp & 0x01 != 0)
-        temp >>= 1
-        *operPtr = uint8(temp)
-        cpu.SetSZ(*operPtr)
+    case ROR: cpu.OpROR(operVal, operPtr)
     case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
 
     // Arithmetic
-    case ADC:
-        var carryIn, temp int
-        if cpu.P & FLAG_C == 0 {
-            carryIn = 0
-        } else {
-            carryIn = 1
-        }
-        temp = int(operVal) + int(cpu.A) + carryIn
-        cpu.SetSZ(uint8(temp))
-        cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
-        cpu.SetCarry(temp > 0xff)
-        cpu.A = uint8(temp)
+    case ADC: cpu.OpADC(operVal, operPtr)
     case SBC:
         var carryIn, temp uint
         if cpu.P & FLAG_C == 0 {
@@ -434,7 +442,9 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.PC = operAddr
      case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
      case RTS: cpu.PC = cpu.Pull16() + 1
- 
+
+     // Undocumented
+     case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
  
      case U__:
          fmt.Printf("halting on undefined opcode\n")
@@ -442,6 +452,7 @@ func (cpu *CPU) ExecuteInstruction() {
  
      default:
          fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
+         os.Exit(0)
      }
  
      // Post-instruction execution trace

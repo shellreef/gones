@@ -21,7 +21,13 @@ INC="INC"; INX="INX"; INY="INY"; JMP="JMP"; JSR="JSR"; LDA="LDA"; LDX="LDX";
 LDY="LDY"; LSR="LSR"; NOP="NOP"; ORA="ORA"; PHA="PHA"; PHP="PHP"; PLA="PLA"; 
 PLP="PLP"; ROL="ROL"; ROR="ROR"; RTI="RTI"; RTS="RTS"; SBC="SBC"; SEC="SEC"; 
 SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY"; 
-TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA")
+TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
+
+// Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
+AAC="AAC"; AAX="AAX"; ARR="ARR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; DCP="DCP";
+DOP="DOP"; ISC="ISC"; KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; RRA="RRA";
+SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; TOP="TOP"; XXA="XXA"; XAS="XAS";
+)
 
 // Addressing mode
 type AddrMode string
@@ -46,8 +52,12 @@ http://www.akk.org/~flo/6502%20OpCode%20Disass.pdf is more correct, notably:
 0x7d is ADC, Aby
 0x8d is STA, Abs
 0x90 is BCC, Rel
+
+Shoud also include undocumented opcodes, resources:
+http://nesdev.parodius.com/undocumented_opcodes.txt
+http://nesdev.parodius.com/extra_instructions.txt
+http://www.nvg.org/bbc/doc/6502.txt (supersedes http://nesdev.parodius.com/6502_cpu.txt)
 */
-// Undocumented opcodes: http://nesdev.parodius.com/undocumented_opcodes.txt
 // Indexed by opcode number, maps to decoded opcode and addressing mode
 var Opcodes = [...]OpcodeAddrMode{
 // Indexed by opcode, value is (mneumonic, addressing mode code) 
@@ -65,10 +75,10 @@ var Opcodes = [...]OpcodeAddrMode{
 {PHA, Imp},{EOR, Imd},{LSR, Acc},{U__, Imp},{JMP, Abs},{EOR, Abs},{LSR, Abs},{U__, Imp},
 {BVC, Rel},{EOR, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{EOR, Zpx},{LSR, Zpx},{U__, Imp}, // 5x 
 {CLI, Imp},{EOR, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{U__, Imp},{LSR, Abx},{U__, Imp},
-{RTS, Imp},{ADC, Ndx},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{U__, Imp}, // 6x 
-{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{U__, Imp},{ROR, Abs},{U__, Imp},
-{BVS, Rel},{ADC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{U__, Imp}, // 7x 
-{SEI, Imp},{ADC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{ADC, Aby},{ROR, Abx},{U__, Imp},
+{RTS, Imp},{ADC, Ndx},{U__, Imp},{RRA, Ndx},{U__, Imp},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
+{PLA, Imp},{ADC, Imd},{ROR, Acc},{U__, Imp},{JMP, Ind},{U__, Imp},{ROR, Abs},{RRA, Abs},
+{BVS, Rel},{ADC, Ndy},{U__, Imp},{RRA, Ndy},{U__, Imp},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
+{SEI, Imp},{ADC, Aby},{U__, Imp},{RRA, Aby},{U__, Imp},{ADC, Aby},{ROR, Abx},{RRA, Abx},
 {U__, Imp},{STA, Ndx},{U__, Imp},{U__, Imp},{STY, Zpg},{STA, Zpg},{STX, Zpg},{U__, Imp}, // 8x 
 {DEY, Imp},{U__, Imp},{TXA, Imp},{U__, Imp},{STY, Abs},{STA, Abs},{STX, Abs},{U__, Imp},
 {BCC, Rel},{STA, Ndy},{U__, Imp},{U__, Imp},{STY, Zpx},{STA, Zpx},{STX, Zpx},{U__, Imp}, // 9x 
