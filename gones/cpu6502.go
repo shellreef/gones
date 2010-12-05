@@ -404,6 +404,10 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
     case AAX: *operPtr = cpu.X & cpu.A  // no flags affected
+    case SLO: cpu.SetCarry(operVal & 0x80 != 0)
+        *operPtr <<= 1
+        cpu.A |= *operPtr
+        cpu.SetSZ(cpu.A)
 
     // Arithmetic
     case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
