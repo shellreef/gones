@@ -313,7 +313,6 @@ func (cpu *CPU) ExecuteInstruction() {
     switch instr.AddrMode {
     case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X);      operPtr = &cpu.Memory[operAddr]
-        fmt.Printf("Zpx operAddr=%x=%x + %x\n", operAddr, instr.Operand, cpu.X)
     case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y);      operPtr = &cpu.Memory[operAddr]
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
