@@ -45,7 +45,7 @@ func Open(filename string) (*Cartridge) {
         panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
     }
 
-    //fmt.Printf("ROM: %d, VROM: %d\n", header.PrgPageCount, header.ChrPageCount)
+    fmt.Printf("ROM: %d, VROM: %d, mappers: %.2x %.2x\n", header.PrgPageCount, header.ChrPageCount, header.MapperInfo2, header.MapperInfo2)
 
     cart.Prg = readPages(buffer, PRG_PAGE_SIZE, int(header.PrgPageCount))
     cart.Chr = readPages(buffer, CHR_PAGE_SIZE, int(header.ChrPageCount))
