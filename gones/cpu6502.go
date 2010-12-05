@@ -392,6 +392,12 @@ func (cpu *CPU) ExecuteInstruction() {
     case AAX: *operPtr = cpu.X & cpu.A  // no flags affected
 
     // Arithmetic
+    case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
+    case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
+    case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
+    case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
+    case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
+    case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(operVal, operPtr)
     case RRA: cpu.OpROR(operVal, operPtr); cpu.OpADC(operVal, operPtr)
     case SBC:
@@ -406,9 +412,9 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
         cpu.SetCarry(temp < 0x100)
         cpu.A = uint8(temp)
+    case DCP: 
 
-
-     case CMP, CPX, CPY:
+    case CMP, CPX, CPY:
         var temp uint
         switch instr.Opcode {
         case CMP: temp = uint(cpu.A) - uint(operVal)
@@ -418,58 +424,50 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
  
-     // Decrement
-     case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
-     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
-     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
-     case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
-     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
-     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
  
      // Branches
-     case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
-     case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
-     case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
-     case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
-     case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
-     case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
-     case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
-     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
+    case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
+    case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
+    case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
+    case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
+    case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
+    case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
+    case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
+    case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
  
      // Stack
-     case PHA: cpu.Push(cpu.A)
-     case PHP: cpu.Push(cpu.P | FLAG_B)                         // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
-     case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
-     case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
-     case BRK: cpu.PC += 1
+    case PHA: cpu.Push(cpu.A)
+    case PHP: cpu.Push(cpu.P | FLAG_B)                         // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
+    case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
+    case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
+
+     // Jumps
+    case JMP: cpu.PC = operAddr
+    case JSR: cpu.PC -= 1
+        cpu.Push16(cpu.PC)
+        cpu.PC = operAddr
+    case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
+    case RTS: cpu.PC = cpu.Pull16() + 1
+    case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
         cpu.Push(cpu.P | FLAG_B)
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
-
-     // Jumps
-     case JMP: cpu.PC = operAddr
-     case JSR: cpu.PC -= 1
-        cpu.Push16(cpu.PC)
-        cpu.PC = operAddr
-     case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
-     case RTS: cpu.PC = cpu.Pull16() + 1
-
  
-     case U__:
+    case U__:
          fmt.Printf("halting on undefined opcode\n")
          os.Exit(0)
  
-     default:
+    default:
          fmt.Printf("++ TODO: implement %s\n", instr.Opcode)
          os.Exit(0)
-     }
+    }
  
-     // Post-instruction execution trace
-     //fmt.Printf("%.4X  %s  ", start, instr)
-     //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
-     //cpu.DumpRegisters()
-     //fmt.Printf("\n")
+    // Post-instruction execution trace
+    //fmt.Printf("%.4X  %s  ", start, instr)
+    //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
+    //cpu.DumpRegisters()
+    //fmt.Printf("\n")
 }
 
 // Start execution
