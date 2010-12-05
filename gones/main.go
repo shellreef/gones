@@ -9,7 +9,7 @@ import (
     "flag"
     "os"
     "fmt"
-    "strconv"
+    //"strconv"
 
     "./nesfile"
     "./cpu6502"
@@ -18,7 +18,7 @@ import (
 func main() {
     var start string
 
-    flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter")
+    flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter in hex, or reset vector")
     flag.Usage = func() {
         fmt.Fprintf(os.Stderr, "Usage: %s [flags] game.nes\n", os.Args[0])
         flag.PrintDefaults()
@@ -39,14 +39,14 @@ func main() {
 
     if start != "RESET" {
         // By default, execution starts at reset vector, but can override
-        startInt, err := strconv.Atoi(start)
-        if err == nil {
-            cpu.PC = uint16(startInt)
-        } else {
-            // TODO: need to accept hex, 0xc000.. fmt.Sscanf?
-            fmt.Fprintf(os.Stderr, "Unable to read start address: %s\n", start)
+        var startInt uint16
+        items, err := fmt.Sscanf(start, "%x", &startInt)
+        if items != 1 {
+            fmt.Fprintf(os.Stderr, "Unable to read start address: %s: %s\n", start, err)
             os.Exit(-1)
         }
+
+        cpu.PC = startInt
     }
 
     cpu.Run()
