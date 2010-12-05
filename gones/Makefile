@@ -13,8 +13,8 @@ OBJS = ${SRCS:.go=.6}
 all: $(EXE)
 
 test: $(EXE)
-	./$(EXE) ../nestest.nes > log
-	perl tracediff.pl ../nestest.log log 
+	./$(EXE) ../nestest.nes > log.actual
+	perl tracediff.pl ../nestest.log log.actual -q
 
 compare:
 	vim ../nestest.log log

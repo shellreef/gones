@@ -7,6 +7,8 @@
 open(A, "<$ARGV[0]") || die "cannot open $ARGV[0]: $!";   # expected
 open(B, "<$ARGV[1]") || die "cannot open $ARGV[1]: $!";   # actual
 
+$quiet = $ARGV[2] eq "-q";   # only show failures
+
 my $differences = 0;
 while()
 {
@@ -32,7 +34,7 @@ while()
     my $state_b = substr($b, 48, 25) . substr($b, 0, 14);
 
     if ($state_a eq $state_b) {
-        print " $a\n";   # always show line, for reference (or $b??)
+        print " $a\n" if !$quiet;   # always show line, for reference (or $b??)
     } else {
         # Not as expected! Log what we got instead
         print "-$a\n+$b\n";
