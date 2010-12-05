@@ -13,7 +13,7 @@ OBJS = ${SRCS:.go=.6}
 all: $(EXE)
 
 test: $(EXE)
-	./$(EXE) -start=c000 ../nestest.nes > log.actual
+	./$(EXE) -start=0xc000 ../nestest.nes > log.actual
 	perl tracediff.pl ../nestest.log log.actual -q
 	grep 'Nestest automation' log.actual
 	@grep 'Nestest automation: Pass' log.actual >/dev/null

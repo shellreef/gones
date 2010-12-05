@@ -9,7 +9,7 @@ import (
     "flag"
     "os"
     "fmt"
-    //"strconv"
+    "strconv"
 
     "./nesfile"
     "./cpu6502"
@@ -39,14 +39,13 @@ func main() {
 
     if start != "RESET" {
         // By default, execution starts at reset vector, but can override
-        var startInt uint16
-        items, err := fmt.Sscanf(start, "%x", &startInt)
-        if items != 1 {
+        startInt, err := strconv.Btoui64(start, 0)
+        if err != nil {
             fmt.Fprintf(os.Stderr, "Unable to read start address: %s: %s\n", start, err)
             os.Exit(-1)
         }
 
-        cpu.PC = startInt
+        cpu.PC = uint16(startInt)
     }
 
     cpu.Run()
