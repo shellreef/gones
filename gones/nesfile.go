@@ -36,16 +36,47 @@ const (
     PlatformPlayChoice="PlatformPlayChoice";
 )
 
+type DisplayType string
+const (
+    DisplayPAL="DisplayPAL";
+    DisplayNTSC="DisplayNTSC";
+    DisplayBoth="DisplayBoth";
+)
+
+type PPUType string
+const (
+    PPU_NES="PPU_NES";                  // all NES games use this
+    // Vs. PPUs http://wiki.nesdev.com/w/index.php/NES_2.0#Vs._hardware
+    PPU_RP2C03B="PPU_RP2C03B";          // "bog standard RGB palette"
+    PPU_RP2C03G="PPU_RP2C03G";          // "similar pallete to above, might have 1 changed colour"
+    PPU_RP2C04_0001="PPU_RP2C04_0001";  // "scrambled palette + new colours"
+    PPU_RP2C04_0002="PPU_RP2C04_0002";  // "same as above, different scrambling, diff new colours"
+    PPU_RP2C04_0003="PPU_RP2C04_0003";
+    PPU_RP2C04_0004="PPU_RP2C04_0004";
+    PPU_RC2C03B="PPU_RC2C03B";          // "bog standard palette, seems identical to RP2C03B"
+    PPU_RC2C03C="PPU_RC2C03C";          // "similar to above, but with 1 changed colour or so"
+    PPU_RC2C05_01="PPU_RC2C05_01";      // "all five of these have the normal palette..."
+    PPU_RC2C05_02="PPU_RC2C05_02";      // "...but with different bits returned on 2002"
+    PPU_RC2C05_03="PPU_RC2C05_03";      
+    PPU_RC2C05_04="PPU_RC2C05_04";
+    PPU_RC2C05_05="PPU_RC2C05_05";
+)
+
+
 // Represents a game cartridge
 type Cartridge struct {
     Prg []([]byte)                  // Program data
     Chr []([]byte)                  // Character data
     Platform Platform               // Platform to run on
+    DisplayType DisplayType
     MapperCode, SubmapperCode int   // Extra hardware inside the cart
     Mirroring Mirroring
-    BatteryBacked bool
+    SRAMBacked bool                 // "SRAM in CPU $6000-$7FFF, if present, is battery backed"
+    NoSRAM bool                     // "SRAM in CPU $6000-$7FFF is 0: present; 1: not present"
+    BusConflicts bool
     Trainer []byte
     HintScreen []byte
+    PPUType PPUType
 
     // PRG-RAM and CHR-RAM, battery-backed and not
     RamPrgBacked, RamPrgUnback int
@@ -77,6 +108,11 @@ func Open(filename string) (*Cartridge) {
     prgPageCount := int(header.PrgPageCount)
     chrPageCount := int(header.ChrPageCount)
 
+    if prgPageCount == 0 {
+        // Special case for 4 MB PRG
+        prgPageCount = 256
+    }
+
     // This is weird, but the mapper nibbles are spread across two bytes
     cart.MapperCode = int(header.Flags7 & 0xf0 | header.Flags6 & 0xf0 >> 4)
 
@@ -92,7 +128,7 @@ func Open(filename string) (*Cartridge) {
         cart.Mirroring = MirrorFourscreen
     }
 
-    cart.BatteryBacked = header.Flags6 & 2 == 2   // "SRAM in CPU $6000-$7FFF, if present, is battery backed"
+    cart.SRAMBacked = header.Flags6 & 2 == 2   // "SRAM in CPU $6000-$7FFF, if present, is battery backed"
 
     if header.Flags6 & 4 == 4 {
         // "512-byte trainer at $7000-$71FF (stored before PRG data)"
@@ -107,6 +143,8 @@ func Open(filename string) (*Cartridge) {
     case 2: cart.Platform = PlatformPlayChoice
     case 3: panic("nesfile flags7 platform is both Vs and PlayChoice")
     }
+
+    cart.PPUType = PPU_NES
 
     if header.Flags7 & 0x0c == 8 {
         fmt.Printf("NES 2.0 detected\n")
@@ -140,15 +178,63 @@ func Open(filename string) (*Cartridge) {
             cart.RamChrUnback = 0
         }
 
+        // Display
+        if header.Flags12 & 1 == 1 {
+            cart.DisplayType = DisplayPAL   // "312 lines, NMI on line 241, 3.2 dots per CPU clock"
+        } else {
+            cart.DisplayType = DisplayNTSC  // "262 lines, NMI on line 241, 3 dots per CPU clock"
+        }
+        if header.Flags12 & 2 == 2{
+            cart.DisplayType = DisplayBoth
+        }
+
+        if cart.Platform == PlatformVs {
+            // Vs hardware
+            switch header.Flags13 & 0x0f {
+            case  0: cart.PPUType = PPU_RP2C03B
+            case  1: cart.PPUType = PPU_RP2C03G
+            case  2: cart.PPUType = PPU_RP2C04_0001
+            case  3: cart.PPUType = PPU_RP2C04_0002
+            case  4: cart.PPUType = PPU_RP2C04_0003
+            case  5: cart.PPUType = PPU_RP2C04_0004
+            case  6: cart.PPUType = PPU_RC2C03B
+            case  7: cart.PPUType = PPU_RC2C03C
+            case  8: cart.PPUType = PPU_RC2C05_01
+            case  9: cart.PPUType = PPU_RC2C05_02
+            case 10: cart.PPUType = PPU_RC2C05_03
+            case 11: cart.PPUType = PPU_RC2C05_04
+            case 12: cart.PPUType = PPU_RC2C05_05
+            default: panic(fmt.Sprintf("Vs system: unknown PPU: %d", header.Flags13 & 0x0f))
+            }
+
+            // Not read: upper nibble of Flags13, Vs. mode
+        }
     } else {
         // http://wiki.nesdev.com/w/index.php/INES says "8: Size of PRG RAM in 8 KB units (Value 0 infers 8 KB for compatibility; see PRG RAM circuit)"
         // but http://wiki.nesdev.com/w/index.php/NES_2.0 says byte 8 is mapper variant
         if header.Flags8 == 0 {
             cart.RamPrgUnback = PRG_RAM_PAGE_SIZE
         } else {
+            // TODO: backed or unbacked?
             cart.RamPrgUnback = int(header.Flags8) * PRG_RAM_PAGE_SIZE
         }
-        // TODO: backed or unbacked?
+
+        // "Though in the official specification, very few emulators honor this bit as virtually no ROM images in circulation make use of it."
+        if header.Flags9 & 1 == 1 {
+            cart.DisplayType = DisplayPAL 
+        } else {
+            cart.DisplayType = DisplayNTSC 
+        }
+
+        // "This byte is not part of the official specification, and relatively few emulators honor it."
+        // ..and, it conflicts with Flags9
+        switch header.Flags10 & 3 {
+        case 0: cart.DisplayType = DisplayNTSC
+        case 1, 3: cart.DisplayType = DisplayBoth
+        case 2: cart.DisplayType = DisplayPAL
+        }
+        cart.NoSRAM = header.Flags10 & 0x10 == 0x10
+        cart.BusConflicts = header.Flags10 & 0x20 == 0x20
     }
 
     // Read banks
@@ -161,8 +247,6 @@ func Open(filename string) (*Cartridge) {
     }
    
     fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperCode)
-    fmt.Printf("Mirroring: %s, BatteryBacked=%t\n", cart.Mirroring, cart.BatteryBacked)
-    fmt.Printf("Platform type: %s\n", cart.Platform)
 
     return cart
 }
