@@ -1,31 +1,13 @@
-COMPILER = 6g
-LINKER = 6l
 
-EXE = gones
-# TODO: convert to use Go standard include makefiles etc.
-SRCS = nesfile.go dis6502.go cpu6502.go gamegenie.go main.go
-OBJS = ${SRCS:.go=.6}
+# based on http://golang.org/src/cmd/goinstall/Makefile
+include $(GOROOT)/src/Make.inc
 
-.SUFFIXES: .go .6
+TARG=gones
+GOFILES=\
+	nesfile.go \
+	dis6502.go \
+	cpu6502.go \
+	gamegenie.go \
+	main.go
 
-.go.6:
-	$(COMPILER) -c $<
-
-all: $(EXE)
-
-test: $(EXE)
-	./$(EXE) -start=0xc000 ../nestest.nes > log.actual
-	perl tracediff.pl ../nestest.log log.actual -q
-	grep 'Nestest automation' log.actual
-	@grep 'Nestest automation: Pass' log.actual >/dev/null
-
-compare:
-	vim ../nestest.log log
-
-$(EXE): $(OBJS)
-	$(LINKER) -o $@ main.6
-
-$(OBJS): 
-
-clean:
-	-$(RM) -f $(EXE) $(OBJS)
+include $(GOROOT)/src/Make.cmd
