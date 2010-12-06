@@ -1,6 +1,6 @@
 EXE=gones
 
-$(EXE):
+$(EXE)::
 	gd . -o gones
 
 test: $(EXE)
