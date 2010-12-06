@@ -23,6 +23,8 @@ func TestDecode6(t *testing.T) {
     expect(t, c.Value == 0xbd)
     expect(t, !c.HasKey)
     expect(t, !c.WantsKey)
+    expect(t, c.String() == "1123:BD")
+    expect(t, c.Encode() == "SLZPLO")
 }
 
 // 8-letter code
@@ -33,6 +35,8 @@ func TestDecode8(t *testing.T) {
     expect(t, c.HasKey)
     expect(t, c.WantsKey)
     expect(t, c.Key == 0xde)
+    expect(t, c.String() == "1123:BD?DE")
+    expect(t, c.Encode() == "SLXPLOVS")
 }
 
 // 6-letter code that should be 8-letter. These work as expected, but
@@ -41,6 +45,7 @@ func TestDecodeMissingKey(t *testing.T) {
     c := Decode("SLXPLO")
     expect(t, !c.HasKey)
     expect(t, c.WantsKey)
+    expect(t, c.Encode() == "SLZPLO") // converted to proper 6-letter
 }
 
 // 8-letter code that should be 6-letter. Game Genie won't let you
@@ -49,7 +54,13 @@ func TestDecodeExtraKey(t *testing.T) {
     c := Decode("SLZPLOVS")
     expect(t, c.HasKey)
     expect(t, !c.WantsKey)
+    expect(t, c.Encode() == "SLXPLOVS") // converted to proper 8-letter
 }
 
+// Test encoding from scratch
 func TestEncode(t *testing.T) {
+    var c GameGenieCode 
+    c.Address = 0
+    c.Value = 0
+    expect(t, c.Encode() == "AAAAAA")
 }
