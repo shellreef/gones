@@ -74,28 +74,15 @@ func (c GameGenieCode) String() (string) {
     return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
 }
 
-func DecodePatch(s string) (c GameGenieCode, valid bool) {
-    // aaaa:vv
-    addressRest := strings.Split(s, ":", 2)
-    if len(addressRest) != 2 {
-        return c, false
-    }
-    addressString := addressRest[0]
-    valueKey := strings.Split(addressRest[1], "?", 2)
-    if len(valueKey) < 1 || len(valueKey) > 2 {
-        return c, false
-    }
-    valueString := valueKey[0]
-    // aaaa:vv?kk
-    var keyString string
-    c.HasKey = len(valueKey) == 2
-    if c.HasKey {
-        keyString = valueKey[1]
-    }
+// Decode aaaa:vv?kk style code
+func DecodePatch(s string) (c GameGenieCode) {
+    // Ignore error, since can partially decode to aaaa:vv
+    items, _ := fmt.Sscanf(s, "%x:%x?%x", &c.Address, &c.Value, &c.Key)
 
-    fmt.Printf("a=%s,v=%s,k=%s\n", addressString, valueString, keyString)
+    c.HasKey = items == 3
+    c.WantsKey = c.HasKey
 
-    return c, true
+    return c
 }
 
 // Encode to Game Genie

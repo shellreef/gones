@@ -57,6 +57,11 @@ func TestDecodeExtraKey(t *testing.T) {
     expect(t, c.Encode() == "SLXPLOVS") // converted to proper 8-letter
 }
 
+func TestDecodePatch(t *testing.T) {
+    expect(t, DecodePatch("1123:BD?DE").Encode() == "SLXPLOVS")
+    expect(t, DecodePatch("1123:BD").Encode() == "SLZPLO")
+}
+
 // Test encoding from scratch
 func TestEncode(t *testing.T) {
     var c GameGenieCode 
@@ -64,3 +69,4 @@ func TestEncode(t *testing.T) {
     c.Value = 0
     expect(t, c.Encode() == "AAAAAA")
 }
+
