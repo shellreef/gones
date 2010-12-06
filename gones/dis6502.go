@@ -183,5 +183,11 @@ func (instr Instruction) String() (string) {
         return fmt.Sprintf(".DB #$%.2X", instr.OpcodeByte)
     } 
 
-    return fmt.Sprintf("%s %s", instr.Opcode, instr.AddrMode.formatOperand(instr.Operand))
+    undoc := ""
+    if !instr.Official {
+        // Denote undocumented opcodes with asterisk since they may be unintentional
+        undoc = "*"
+    }
+
+    return fmt.Sprintf("%s%s %s", undoc, instr.Opcode, instr.AddrMode.formatOperand(instr.Operand))
 }
