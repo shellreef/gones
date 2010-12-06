@@ -36,8 +36,16 @@ func letterToDigit(letter string) (digit int) {
     return digit
 }
 
-// Decode a game Genie Code into its consistutent fields
+// Decode a Game Genie code or decoded patch
 func Decode(s string) (c GameGenieCode) {
+    if strings.Contains(s, ":") {
+        return decodePatch(s)
+    }
+    return decodeGG(s)
+}
+
+// Decode a game Genie Code into its consistutent fields
+func decodeGG(s string) (c GameGenieCode) {
     var digits [8]int
     for i, characterCode := range s {
         letter := string(characterCode)
@@ -66,16 +74,9 @@ func Decode(s string) (c GameGenieCode) {
     return c
 }
 
-// String representation of hex addresses and value
-func (c GameGenieCode) String() (string) {
-    if c.HasKey {
-        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
-    } 
-    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
-}
-
-// Decode aaaa:vv?kk style code
-func DecodePatch(s string) (c GameGenieCode) {
+// Decode aaaa:vv?kk style code. This is a "decoded" Game Genie code, used by 
+// some emulators, and convenient when making/changing codes as it avoids the scrambling.
+func decodePatch(s string) (c GameGenieCode) {
     // Ignore error, since can partially decode to aaaa:vv
     items, _ := fmt.Sscanf(s, "%x:%x?%x", &c.Address, &c.Value, &c.Key)
 
@@ -84,6 +85,15 @@ func DecodePatch(s string) (c GameGenieCode) {
 
     return c
 }
+
+// String representation of hex addresses and value
+func (c GameGenieCode) String() (string) {
+    if c.HasKey {
+        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
+    } 
+    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
+}
+
 
 // Encode to Game Genie
 func (c GameGenieCode) Encode() (s string) {

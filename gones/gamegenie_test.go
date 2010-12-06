@@ -57,9 +57,14 @@ func TestDecodeExtraKey(t *testing.T) {
     expect(t, c.Encode() == "SLXPLOVS") // converted to proper 8-letter
 }
 
-func TestDecodePatch(t *testing.T) {
-    expect(t, DecodePatch("1123:BD?DE").Encode() == "SLXPLOVS")
-    expect(t, DecodePatch("1123:BD").Encode() == "SLZPLO")
+// Other forms of codes
+func TestDecodeOther(t *testing.T) {
+    expect(t, Decode("1123:BD?DE").Encode() == "SLXPLOVS")
+    expect(t, Decode("1123:BD").Encode() == "SLZPLO")
+    expect(t, Decode("1123:bd?de").Encode() == "SLXPLOVS")
+    expect(t, Decode("1123:bd").Encode() == "SLZPLO")
+    expect(t, Decode("SLZPLO").Encode() == "SLZPLO")
+    expect(t, Decode("slzplo").Encode() == "SLZPLO")
 }
 
 // Test encoding from scratch
