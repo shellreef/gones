@@ -22,6 +22,8 @@ func main() {
     fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLOVS"))
     fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLO"))
 
+    fmt.Printf("code=%s\n", (GameGenie.Decode("SLXPLOVS")).Encode())
+    fmt.Printf("code=%s\n", (GameGenie.Decode("SLXPLO")).Encode())
 
     flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter in hex, or reset vector")
     flag.Usage = func() {

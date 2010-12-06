@@ -25,12 +25,6 @@ type GameGenieCode struct {
 // Position in this string corresponds to numerical value of code
 const LETTERS = "APZLGITYEOXUKSVN"
 
-func (c GameGenieCode) String() (string) {
-    if c.HasKey {
-        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
-    } 
-    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
-}
 
 // Get Game Genie numerical hex digit of a letter, 0-15
 func letterToDigit(letter string) (digit int) {
@@ -42,6 +36,7 @@ func letterToDigit(letter string) (digit int) {
     return digit
 }
 
+// Decode a game Genie Code into its consistutent fields
 func Decode(s string) (c GameGenieCode) {
     var digits [8]int
     for i, characterCode := range s {
@@ -69,4 +64,48 @@ func Decode(s string) (c GameGenieCode) {
     c.WantsKey = digits[2] >> 3 != 0
 
     return c
+}
+
+// String representation of hex addresses and value
+func (c GameGenieCode) String() (string) {
+    if c.HasKey {
+        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
+    } 
+    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
+}
+
+// Encode to Game Genie
+func (c GameGenieCode) Encode() (s string) {
+    var digits [8]uint8
+
+    digits[0]=uint8((c.Value&7)+((c.Value>>4)&8))
+    digits[1]=uint8(((c.Value>>4)&7)+uint8((c.Address>>4)&8))
+    digits[2]=uint8(((c.Address>>4)&7))
+    digits[3]=uint8((c.Address>>12)+(c.Address&8))
+    digits[4]=uint8((c.Address&7)+((c.Address>>8)&8))
+    digits[5]=uint8(((c.Address>>8)&7))
+
+    var length int
+    if c.HasKey {
+        digits[2]+=8
+        digits[5]+=uint8(c.Key&8)
+        digits[6]=uint8((c.Key&7)+((c.Key>>4)&8))
+        digits[7]=uint8(((c.Key>>4)&7)+(c.Value&8))
+        length = 8
+    }  else {
+        digits[5]+=uint8(c.Value&8)
+        length = 6
+    }
+    // TODO: encoding WantsKey without HasKey?
+    // Currently, this function will only encode canonicalized
+    // codes, so that for example SLXPLO which has WantsKey set
+    // but is only 6 digits will be, if decoded and re-encoded,
+    // changed to SLZPLO which is more correct, and will in
+    // a real Game Genie automatically advance to the next code entry line.
+
+    for i := 0; i < length; i += 1 {
+        s += string(LETTERS[digits[i]])
+    }
+
+    return s
 }
