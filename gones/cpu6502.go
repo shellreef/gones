@@ -125,23 +125,31 @@ func (cpu *CPU) Load(cart *Cartridge) {
         panic("No PRG found")
     }
    
+    var bank8000, bankC000 int
+
+    // By default, load first PRG into 0x8000 bank and 
+    // last PRG into 0xC000. This covers many mappers, including:
+    // (#0) NROM-64K: one PRG loaded into both banks (http://nesdev.parodius.com/NESDoc.pdf)
+    // (#0) NROM-128K: two PRGs, one loaded into each
+    // MMC1, MMC3
+    // TODO: Any other mappers with different default banks??
+    bank8000 = 0
+    bankC000 = len(cart.Prg) - 1
+
     switch cart.MapperCode {
-    case 0: // NROM
-    // http://nesdev.parodius.com/NESDoc.pdf
-    copy(cpu.Memory[0x8000:], cart.Prg[0])
-    if len(cart.Prg) == 1 {
-        // One PRG bank loads into $8000 and $C000 (mirrored)
-        copy(cpu.Memory[0xC000:], cart.Prg[0])
-    } else if (len(cart.Prg) == 2) {
-        // Loads second into $C000
-        copy(cpu.Memory[0xC000:], cart.Prg[1])
-    } else {
-        panic(fmt.Sprintf("Load: too many PRGs for NROM: %d", len(cart.Prg)))
-    }
+    case 0: // NROM - nothing else needed
+    case 1: // SxROM, MMC-1 
+    // TODO
+
 
     default:
         panic(fmt.Sprintf("sorry, no support for mapper %d", cart.MapperCode))
     }
+
+    // TODO: pointers instead of copying, so can switch banks easier
+    copy(cpu.Memory[0x8000:], cart.Prg[bank8000])
+    copy(cpu.Memory[0xC000:], cart.Prg[bankC000])
+
 }
 
 // Return string representation of truth value, for bit flags
