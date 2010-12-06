@@ -1,13 +1,14 @@
+all:
+	gd . -o gones
 
-# based on http://golang.org/src/cmd/goinstall/Makefile
-include $(GOROOT)/src/Make.inc
+test: all
+	./$(EXE) -start=0xc000 ../nestest.nes > log.actual
+	perl tracediff.pl ../nestest.log log.actual -q
+	grep 'Nestest automation' log.actual
+	@grep 'Nestest automation: Pass' log.actual >/dev/null
 
-TARG=gones
-GOFILES=\
-	nesfile.go \
-	dis6502.go \
-	cpu6502.go \
-	gamegenie.go \
-	main.go
+compare:
+	vim ../nestest.log log
 
-include $(GOROOT)/src/Make.cmd
+clean:
+	gd . clean

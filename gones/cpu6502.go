@@ -7,8 +7,8 @@
 
 package cpu6502
 
-import . "./nesfile"
-import . "./dis6502"
+import . "nesfile"
+import . "dis6502"
 import (
     "fmt"
     "os"

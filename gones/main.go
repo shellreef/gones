@@ -11,19 +11,19 @@ import (
     "fmt"
     "strconv"
 
-    "./nesfile"
-    "./cpu6502"
-    "./gamegenie"
+    "nesfile"
+    "cpu6502"
+    "gamegenie"
 )
 
 func main() {
     var start string
 
-    fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLOVS"))
-    fmt.Printf("code=%s\n", GameGenie.Decode("SLXPLO"))
+    fmt.Printf("code=%s\n", gamegenie.Decode("SLXPLOVS"))
+    fmt.Printf("code=%s\n", gamegenie.Decode("SLXPLO"))
 
-    fmt.Printf("code=%s\n", (GameGenie.Decode("SLXPLOVS")).Encode())
-    fmt.Printf("code=%s\n", (GameGenie.Decode("SLXPLO")).Encode())
+    fmt.Printf("code=%s\n", (gamegenie.Decode("SLXPLOVS")).Encode())
+    fmt.Printf("code=%s\n", (gamegenie.Decode("SLXPLO")).Encode())
 
     flag.StringVar(&start, "start", "RESET", "Initial value for Program Counter in hex, or reset vector")
     flag.Usage = func() {

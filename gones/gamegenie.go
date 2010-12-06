@@ -7,7 +7,7 @@
 
 // http://nesdev.com/nesgg.txt
 
-package GameGenie
+package gamegenie
 
 import (
     "fmt"
