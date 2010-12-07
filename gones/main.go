@@ -15,36 +15,67 @@ import (
 
     "nesfile"
     "cpu6502"
+    "gamegenie"
 )
 
 // Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, cmd string) {
-    switch {
+    // TODO: allow specifying filename alone (no command), if exists, load and go 
+    // (so can specify as single command-line argument easily)
+
     // TODO: better cmd parsing
-    case strings.HasPrefix(cmd, "g"):
-        args := strings.Split(cmd, " ", -1)
-        if len(args) > 1 {
-            startInt, err := strconv.Btoui64(args[1], 0)
+    name := string(cmd[0])
+    args := strings.Split(cmd, " ", -1)[1:]
+    switch name {
+    // go (not to be confused with the programming language)
+    case "g": 
+        if len(args) > 0 {
+            // optional start address to override RESET vector
+            startInt, err := strconv.Btoui64(args[0], 0)
             if err != nil {
-                fmt.Fprintf(os.Stderr, "unable to read start address: %s: %s\n", args[1], err)
+                fmt.Fprintf(os.Stderr, "unable to read start address: %s: %s\n", args[0], err)
                 os.Exit(-1)
             }
 
             cpu.PC = uint16(startInt)
         }
         cpu.Run()
-    case strings.HasPrefix(cmd, "l"):
-        args := strings.Split(cmd, " ", 2)
-        if len(args) == 2 {
-            cart := nesfile.Open(args[1])
+    // load
+    case "l":
+        if len(args) > 0 {
+            cart := nesfile.Open(args[0])
             cpu.Load(cart)
             // TODO: verbose load
         } else {
             fmt.Printf("usage: l <filename>\n")
         }
-    case strings.HasPrefix(cmd, "i"):
-        Shell(cpu)
+    // interactive
+    case "i": Shell(cpu)
+    // registers
+    case "r": cpu.DumpRegisters()
+    // TODO: search
+    // TODO: unassemble
+    // TODO: enter
+    // TODO: assemble?
+    // trace
+    case "t":
+        // TODO: optional argument of instructions to execute
+        cpu.ExecuteInstruction()
+        cpu.DumpRegisters()
+    // code
+    case "c": 
+        for _, code := range(args) {
+            patch := gamegenie.Decode(code)
+            fmt.Printf("%s = %s\n", patch, patch.Encode())
+            // TODO: apply
+        }
+        if len(args) == 0 {
+            fmt.Printf("usage: c game-genie-code\n")
+        }
+
+    // TODO: breakpoints
+    // TODO: watch
     default: fmt.Printf("unknown command: %s\n", cmd)
     }
 }
