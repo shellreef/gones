@@ -357,28 +357,47 @@ func (cpu *CPU) ExecuteInstruction() {
     var operAddr uint16   // address to write/read, if applicable
     var operVal uint8     // value to read
 
+    // Whether the operand should be checked if it accesses memory-mapped devices
+    useMapper := false
+
     // http://wiki.nesdev.com/w/index.php/CPU_addressing_modes
     switch instr.AddrMode {
     case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
     case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X);      operPtr = &cpu.Memory[operAddr]
     case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y);      operPtr = &cpu.Memory[operAddr]
-    case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
-    case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
     case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
-    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // TODO: clk += ((PC & 0xFF00) != (REL_ADDR(PC, src) & 0xFF00) ? 2 : 1);
     case Acc: operPtr = &cpu.A  /* no address */
     case Imd: operVal = uint8(instr.Operand)
     case Imp: operVal = 0
+    // These modes might access memory >$07FF so has to be checked for memory-mapped device access
+    case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]; useMapper = true
+    case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]; useMapper = true
+    case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]; useMapper = true
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]; useMapper = true
+    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] ; useMapper = true
     }
+
+    // http://wiki.nesdev.com/w/index.php/CPU_memory_map
+    //originalAddr := operAddr
+    if useMapper && operAddr > 0x07ff {
+        switch {
+        case operAddr <= 0x1fff: operAddr &^= 0x1800    // $0000-07ff mirrors (RAM)
+        case operAddr <= 0x3fff: operAddr &^= 0x1ff8    // $2000-2007 mirrors (PPU)
+        }
+
+        switch {
+        case operAddr <= 0x07ff: // memory; no mapper needed
+        case operAddr <= 0x2007: // TODO: PPU
+        case operAddr <= 0x4017: // TODO: APU and I/O
+        default: // TODO: other mappers
+        }
+    }
+
     if operPtr != nil {
         operVal = *operPtr
     }
     
-    // Shorthand convenience for opcode implementation
-    //src := operVal
 
     switch instr.Opcode {
     // http://nesdev.parodius.com/6502.txt
@@ -525,6 +544,8 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
         os.Exit(-1)
     }
+
+    //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
 
     // Post-instruction execution trace
     //fmt.Printf("%.4X  %s  ", start, instr)

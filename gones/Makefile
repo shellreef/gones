@@ -4,7 +4,7 @@ $(EXE)::
 	gd . -o gones
 
 test: clean
-	./$(EXE) -start=0xc000 ../nestest.nes > log.actual
+	./$(EXE) 'l ../nestest.nes' 'g 0xc000' > log.actual
 	perl tracediff.pl ../nestest.log log.actual -q
 	grep 'Nestest automation' log.actual
 	@grep 'Nestest automation: Pass' log.actual >/dev/null
