@@ -150,6 +150,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
     copy(cpu.Memory[0x8000:], cart.Prg[bank8000])
     copy(cpu.Memory[0xC000:], cart.Prg[bankC000])
 
+    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
 }
 
 // Return string representation of truth value, for bit flags
@@ -263,9 +264,6 @@ func (cpu *CPU) PowerUp() {
     cpu.Memory[0x4017] = 0x00   // frame IRQ enabled
     cpu.Memory[0x4015] = 0x00   // all channels disabled
     // TODO: 0x4000-$400f set to $00
-
-    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
-    //cpu.PC = 0xc000  // for nestest
 
     // PPU status register (TODO: memory mapped I/O)
     // http://nocash.emubase.de/everynes.htm#memorymaps
