@@ -21,10 +21,18 @@ import (
 // Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, cmd string) {
-    // TODO: allow specifying filename alone (no command), if exists, load and go 
-    // (so can specify as single command-line argument easily)
+    // If given filename (no command), load and run it
+    if strings.HasSuffix(cmd, ".nes") || strings.HasSuffix(cmd, ".NES") {
+        _, err := os.Stat(cmd)
+        if err == nil {
+            // TODO: refactor
+            cart := nesfile.Open(cmd)
+            cpu.Load(cart)
+            cpu.Run()
+        } // have to ignore non-existing files, since might be a command
+    }
 
-    // TODO: better cmd parsing
+    // TODO: better cmd parsing. real scripting language?
     name := string(cmd[0])
     args := strings.Split(cmd, " ", -1)[1:]
     switch name {
