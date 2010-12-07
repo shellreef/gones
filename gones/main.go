@@ -11,10 +11,13 @@ import (
     "strconv"
     "strings"
     
+    "readline"  // http://bitbucket.org/taruti/go-readline/
+
     "nesfile"
     "cpu6502"
 )
 
+// Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, cmd string) {
     switch {
@@ -46,18 +49,22 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
     }
 }
 
+// Interactive shell: prompt for commands on stdin and run them
 func Shell(cpu *cpu6502.CPU) {
+    prompt := "-"
     for {
-        var line string
+        line := readline.ReadLine(&prompt)
 
-        fmt.Printf("-")
-        _, err := fmt.Scan(&line)
-        if err != nil || strings.HasPrefix(line, "q") {
-            // TODO: don't break on empty line, only EOF
-            fmt.Printf("err=%s\n", err)
+        if line == nil {
             break
         }
-        RunCommand(cpu, line)
+
+        if *line == "" {
+            continue
+        }
+
+        RunCommand(cpu, *line)
+        readline.AddHistory(*line)
     }
 }
 
