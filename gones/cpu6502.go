@@ -21,6 +21,9 @@ type CPU struct {
     A uint8     // Accumulator
     X, Y uint8  // Index registers
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
+
+    MappersBeforeExecute [10](func(uint16) (bool, *uint8))
+    MappersAfterExecute [10](func(uint16, *uint8))
 }
 
 // Processor status bits
@@ -387,10 +390,24 @@ func (cpu *CPU) ExecuteInstruction() {
         }
 
         switch {
-        case operAddr <= 0x07ff: // memory; no mapper needed
+        case operAddr <= 0x07ff: useMapper = false // memory; no mapper needed
         case operAddr <= 0x2007: // TODO: PPU
         case operAddr <= 0x4017: // TODO: APU and I/O
         default: // TODO: other mappers
+        }
+       
+        // By default, if no mapper claims it
+        operPtr = &cpu.Memory[operAddr]
+
+        // Let all mappers get a chance to set a new operPtr, place to write to
+        for _, mapper := range cpu.MappersBeforeExecute {
+            if mapper != nil {
+                wants, newPtr := mapper(operAddr)
+
+                if wants {
+                    operPtr = newPtr
+                }
+            }
         }
     }
 
@@ -543,6 +560,15 @@ func (cpu *CPU) ExecuteInstruction() {
     default:
         fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
         os.Exit(-1)
+    }
+
+    if useMapper {
+        // Tell mappers if something was written
+        for _, mapper := range cpu.MappersAfterExecute {
+            if mapper != nil {
+                mapper(operAddr, operPtr)
+            }
+        }
     }
 
     //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
