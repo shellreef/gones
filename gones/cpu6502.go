@@ -368,19 +368,19 @@ func (cpu *CPU) ExecuteInstruction() {
     }
 
     // Always refers to ROM, so no mapper check needed. Branches too, but they're all Rel.
-    if instr.Opcode == JSR || instr.Opcode == JMP || operAddr <= 0x7ff /* always RAM */ {
+    if instr.Opcode == JSR || instr.Opcode == JMP {
+        useMapper = false
+    }
+
+    if operAddr < 0x1fff {
+        // $0000-07ff is mirrored three times, and it is always RAM
+        operAddr &^= 0x1800
         useMapper = false
     }
 
     // http://wiki.nesdev.com/w/index.php/CPU_memory_map
     //originalAddr := operAddr
     if useMapper { 
-        switch {
-        case operAddr <= 0x1fff: operAddr &^= 0x1800    // $0000-07ff mirrors (RAM)
-        // TODO: should this go inside the mapper??
-        case operAddr <= 0x3fff: operAddr &^= 0x1ff8    // $2000-2007 mirrors (PPU) 
-        }
-
         // By default, if no mapper claims it
         operPtr = &cpu.Memory[operAddr]
 

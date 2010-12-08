@@ -24,6 +24,9 @@ func Before(operAddr uint16) (wants bool, ptr *uint8) {
             return false, ptr
         }
 
+        // $2000-2007 is mirrored every 8 bytes
+        operAddr &^= 0x1ff8    
+
         fmt.Printf("mapper: before %x\n", operAddr) 
 
         switch operAddr {
@@ -36,5 +39,8 @@ func Before(operAddr uint16) (wants bool, ptr *uint8) {
 }
 
 func After(operAddr uint16, ptr *uint8) {
+        // $2000-2007 is mirrored every 8 bytes
+        operAddr &^= 0x1ff8    
+
         fmt.Printf("mapper: after %.4x -> %x (%.8b)\n", operAddr, *ptr, *ptr)
 }
