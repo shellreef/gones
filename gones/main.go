@@ -15,6 +15,7 @@ import (
 
     "nesfile"
     "cpu6502"
+    "ppu2c02"
     "gamegenie"
 )
 
@@ -111,15 +112,8 @@ func main() {
     cpu := new(cpu6502.CPU)
     cpu.PowerUp()
 
-    cpu.MappersBeforeExecute[0] = func(addr uint16) (wants bool, ptr *uint8) {
-        fmt.Printf("mapper: before %x\n", addr)
-        a := uint8(0)
-        ptr = &a
-        return true, ptr
-    }
-    cpu.MappersAfterExecute[0] = func(addr uint16, ptr *uint8) {
-        fmt.Printf("mapper: after %.4x -> %x\n", addr, *ptr)
-    }
+    cpu.MappersBeforeExecute[0] = ppu2c02.Before
+    cpu.MappersAfterExecute[0] = ppu2c02.After
  
     for _, cmd := range(os.Args[1:]) {
         RunCommand(cpu, cmd)

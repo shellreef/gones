@@ -256,21 +256,7 @@ func (cpu *CPU) Push16(w uint16) {
 // http://wiki.nesdev.com/w/index.php/CPU_power_up_state
 func (cpu *CPU) PowerUp() {
     cpu.P = FLAG_R | FLAG_I   // Reserved bit set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
-    cpu.S = 0xfd
-    // TODO: set $0000-$07FF to $ff
-    cpu.Memory[0x0008] = 0xf7
-    cpu.Memory[0x0009] = 0xef
-    cpu.Memory[0x000a] = 0xdf
-    cpu.Memory[0x000f] = 0xbf
-
-    // Memory mapped
-    cpu.Memory[0x4017] = 0x00   // frame IRQ enabled
-    cpu.Memory[0x4015] = 0x00   // all channels disabled
-    // TODO: 0x4000-$400f set to $00
-
-    // PPU status register (TODO: memory mapped I/O)
-    // http://nocash.emubase.de/everynes.htm#memorymaps
-    //cpu.Memory[0x2002] = 0x80 // VBLANK=1
+    cpu.S = 0xfd              // Top of stack
 }
 
 // Some instructions worth having in their own functions
@@ -391,7 +377,8 @@ func (cpu *CPU) ExecuteInstruction() {
     if useMapper { 
         switch {
         case operAddr <= 0x1fff: operAddr &^= 0x1800    // $0000-07ff mirrors (RAM)
-        case operAddr <= 0x3fff: operAddr &^= 0x1ff8    // $2000-2007 mirrors (PPU)
+        // TODO: should this go inside the mapper??
+        case operAddr <= 0x3fff: operAddr &^= 0x1ff8    // $2000-2007 mirrors (PPU) 
         }
 
         // By default, if no mapper claims it
