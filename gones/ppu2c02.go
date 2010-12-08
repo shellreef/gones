@@ -9,14 +9,14 @@ package ppu2c02
 
 import ("fmt")
 
-const PPU_CTRL = 0x2000
-const PPU_MASK = 0x2001
-const PPU_STATUS = 0x2002
-const OAM_ADDR = 0x2003
-const OAM_DATA = 0x2004
-const PPU_SCROLL = 0x2005
-const PPU_ADDR = 0x2006
-const PPU_DATA = 0x2007
+const PPU_CTRL      = 0x2000
+const PPU_MASK      = 0x2001
+const PPU_STATUS    = 0x2002
+const PPU_SPR_ADDR  = 0x2003
+const PPU_SPR_DATA  = 0x2004
+const PPU_SCROLL    = 0x2005
+const PPU_ADDRESS   = 0x2006
+const PPU_DATA      = 0x2007
 
 func Before(operAddr uint16) (wants bool, ptr *uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
