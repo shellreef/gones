@@ -373,41 +373,43 @@ func (cpu *CPU) ExecuteInstruction() {
     case Acc: operPtr = &cpu.A  /* no address */
     case Imd: operVal = uint8(instr.Operand)
     case Imp: operVal = 0
+    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] // always ROM, so no mapper
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr] // always ROM, so no mapper
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]; useMapper = true
     case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]; useMapper = true
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]; useMapper = true
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]; useMapper = true
-    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);      operPtr = &cpu.Memory[operAddr] ; useMapper = true
+    }
+
+    // Always refers to ROM, so no mapper check needed. Branches too, but they're all Rel.
+    if instr.Opcode == JSR || instr.Opcode == JMP || operAddr <= 0x7ff /* always RAM */ {
+        useMapper = false
     }
 
     // http://wiki.nesdev.com/w/index.php/CPU_memory_map
     //originalAddr := operAddr
-    if useMapper && operAddr > 0x07ff {
+    if useMapper { 
         switch {
         case operAddr <= 0x1fff: operAddr &^= 0x1800    // $0000-07ff mirrors (RAM)
         case operAddr <= 0x3fff: operAddr &^= 0x1ff8    // $2000-2007 mirrors (PPU)
         }
 
-        switch {
-        case operAddr <= 0x07ff: useMapper = false // memory; no mapper needed
-        case operAddr <= 0x2007: // TODO: PPU
-        case operAddr <= 0x4017: // TODO: APU and I/O
-        default: // TODO: other mappers
-        }
-       
         // By default, if no mapper claims it
         operPtr = &cpu.Memory[operAddr]
 
-        // Let all mappers get a chance to set a new operPtr, place to write to
-        for _, mapper := range cpu.MappersBeforeExecute {
-            if mapper != nil {
-                wants, newPtr := mapper(operAddr)
+        if operAddr > 0x07ff {
+            // Let all mappers get a chance to set a new operPtr, place to write to
+            for _, mapper := range cpu.MappersBeforeExecute {
+                if mapper != nil {
+                    wants, newPtr := mapper(operAddr)
 
-                if wants {
-                    operPtr = newPtr
+                    if wants {
+                        operPtr = newPtr
+                    }
                 }
             }
+        } else {
+            useMapper = false // memory; no mapper needed
         }
     }
 
@@ -502,9 +504,15 @@ func (cpu *CPU) ExecuteInstruction() {
         }
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
- 
- 
-     // Branches
+
+    // Stack
+    case PHA: cpu.Push(cpu.A)
+    case PHP: cpu.Push(cpu.P | FLAG_B)                         // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
+    case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
+    case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
+
+    // Branches
+    // Instructions that access operAddr directly, always referring to ROM, can skip mapper checks
     case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
     case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
     case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
@@ -514,13 +522,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
  
-     // Stack
-    case PHA: cpu.Push(cpu.A)
-    case PHP: cpu.Push(cpu.P | FLAG_B)                         // no actual "B" flag, but 4th P bit is set on PHP (and BRK)
-    case PLA: cpu.A = cpu.Pull(); cpu.SetSZ(cpu.A)
-    case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
-
-     // Jumps
+    // Jumps
     case JMP: cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)

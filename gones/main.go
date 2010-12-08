@@ -112,13 +112,13 @@ func main() {
     cpu.PowerUp()
 
     cpu.MappersBeforeExecute[0] = func(addr uint16) (wants bool, ptr *uint8) {
-        fmt.Printf("before mapper got %x\n", addr)
-        ptr = &cpu.Memory[0]
+        fmt.Printf("mapper: before %x\n", addr)
+        a := uint8(0)
+        ptr = &a
         return true, ptr
     }
     cpu.MappersAfterExecute[0] = func(addr uint16, ptr *uint8) {
-        fmt.Printf("after %.4x -> %x\n", addr, *ptr)
-        ptr = &cpu.Memory[0]
+        fmt.Printf("mapper: after %.4x -> %x\n", addr, *ptr)
     }
  
     for _, cmd := range(os.Args[1:]) {
