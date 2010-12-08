@@ -510,7 +510,12 @@ func (cpu *CPU) ExecuteInstruction() {
     case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
  
     // Jumps
-    case JMP: cpu.PC = operAddr
+    case JMP: 
+        if cpu.PC - 3 == operAddr {
+            fmt.Printf("*** Infinite loop detected - halting\n") // TODO: on branches, too
+            os.Exit(0)
+        }
+        cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
         cpu.PC = operAddr
