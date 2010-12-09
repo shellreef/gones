@@ -53,7 +53,7 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     cpu.PC += 1
 
     cpu.Cyc += 1
-    fmt.Printf("cyc: fetch NextUInt8\n")
+    fmt.Printf("cyc: fetch NextUInt8 = %.2x\n", b)
 
     return b
 }
@@ -248,6 +248,8 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 // Pull 8 bits from stack
 func (cpu *CPU) Pull() (b uint8) {
     cpu.S += 1
+    cpu.Cyc += 1
+    fmt.Printf("cyc: increment S\n")
     b = cpu.Memory[0x100 + uint16(cpu.S)]
     cpu.Cyc += 1
     fmt.Printf("cyc: pull stack\n")
@@ -258,6 +260,7 @@ func (cpu *CPU) Pull() (b uint8) {
 func (cpu *CPU) Pull16() (w uint16) {
     low := cpu.Pull()
     high := cpu.Pull()
+    cpu.Cyc -= 1     // increment S and pull from stack overlaps (pipelined)
     return uint16(high) * 0x100 + uint16(low)
 }
 
@@ -292,7 +295,6 @@ func (cpu *CPU) OpADC(operVal uint8) {
         carryIn = 1
     }
     temp = int(operVal) + int(cpu.A) + carryIn
-    cpu.Cyc += 1
     cpu.SetSZ(uint8(temp))
     cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
     cpu.SetCarry(temp > 0xff)
@@ -307,7 +309,6 @@ func (cpu *CPU) OpSBC(operVal uint8) {
         carryIn = 0
     }
     temp = uint(cpu.A) - uint(operVal) - carryIn
-    cpu.Cyc += 1
     cpu.SetSZ(uint8(temp))
     cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
     cpu.SetCarry(temp < 0x100)
@@ -474,9 +475,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
-    case AND: cpu.A &= operVal; cpu.Cyc += 1; cpu.SetSZ(cpu.A)
-    case EOR: cpu.A ^= operVal; cpu.Cyc += 1; cpu.SetSZ(cpu.A)
-    case ORA: cpu.A |= operVal; cpu.Cyc += 1; cpu.SetSZ(cpu.A)
+    case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
     case ASL: cpu.SetCarry(operVal & 0x80 != 0)
         *operPtr <<= 1
         cpu.SetSZ(*operPtr)
@@ -523,7 +524,6 @@ func (cpu *CPU) ExecuteInstruction() {
         case CPX: temp = uint(cpu.X) - uint(operVal)
         case CPY: temp = uint(cpu.Y) - uint(operVal)
         }
-        cpu.Cyc += 1
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
 
@@ -553,10 +553,13 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
-        cpu.PC = operAddr
         cpu.Cyc += 1
+        fmt.Printf("cyc: JSR copy PC\n")
+        cpu.PC = operAddr
     case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
     case RTS: cpu.PC = cpu.Pull16() + 1
+        cpu.Cyc += 1
+        fmt.Printf("cyc: RTS increment PC\n")
     case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
         cpu.Push(cpu.P | FLAG_B)
