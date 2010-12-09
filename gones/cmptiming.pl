@@ -18,7 +18,12 @@ while()
     while()
     {
         chomp($b = <B>);
-        last if length($b) >= 80;  # skip comments
+        if (length($b) >= 80) {
+            last; 
+        } else {
+            # comment
+            print "?$b\n";
+        }
     }
 
     # extract running cycle count
@@ -41,7 +46,8 @@ while()
         print " $a\n";
     } else {
         printf "-%-88s CPU cycles: $cpu_ca\n", $a;
-        printf "+%-88s CPU cycles: $cpu_cb\n", $b;
+        $diff = $cpu_cb - $cpu_ca;
+        printf "+%-88s CPU cycles: $cpu_cb (delta=$diff)\n", $b;
         $not_perfect = 1;
     }
 

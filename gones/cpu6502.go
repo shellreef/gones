@@ -402,6 +402,23 @@ func (cpu *CPU) ExecuteInstruction() {
     case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]; useMapper = true
     }
 
+    switch instr.AddrMode {
+    case Zpg, Zpx, Zpy, Abs:
+        // Read absolute instructions take another cycle to read from effective address (TODO: refactor)
+        switch instr.Opcode {
+        case LDA, LDX, LDY, EOR, AND, ORA, ADC, SBC, CMP, LAX, NOP: cpu.Cyc += 1;
+        }
+    case Ndx, Ndy:
+        switch instr.Opcode {
+        // Read instructions with indexed indirect 1. read address, add X 2. fetch effective address low 3. high 4. read effective address
+        case LDA, ORA, EOR, AND, ADC, CMP, SBC, LAX: cpu.Cyc += 4; fmt.Printf("cyc: indexed indirect read\n")
+        // Read-modify-write
+        case SLO, SRE, RLA, RRA, ISC, DCP: cpu.Cyc += 5
+        // Write
+        case STA, SXA: cpu.Cyc += 3
+        }
+    }
+
     // Always refers to ROM, so no mapper check needed. Branches too, but they're all Rel.
     if instr.Opcode == JSR || instr.Opcode == JMP {
         useMapper = false
@@ -553,10 +570,10 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
-        cpu.Cyc += 1
         fmt.Printf("cyc: JSR copy PC\n")
+        cpu.Cyc += 1
         cpu.PC = operAddr
-    case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16()
+    case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16(); cpu.Cyc -= 1
     case RTS: cpu.PC = cpu.Pull16() + 1
         cpu.Cyc += 1
         fmt.Printf("cyc: RTS increment PC\n")
