@@ -27,11 +27,11 @@ while()
 
 
     # Full trace is:
-    #                   only extract beginning here:  v-----------------------|
+    #                   only extract beginning here:  v-----------------------|-------|
     # v------------< well, also here too
     # C000  4C F5 C5  JMP $C5F5                       A:00 X:00 Y:00 P:24 SP:FD CYC:  0 SL:241
-    my $state_a = substr($a, 48, 25) . substr($a, 0, 14);
-    my $state_b = substr($b, 48, 25) . substr($b, 0, 14);
+    my $state_a = substr($a, 48, 25+8) . substr($a, 0, 14);
+    my $state_b = substr($b, 48, 25+8) . substr($b, 0, 14);
 
     if ($state_a eq $state_b) {
         print " $a\n" if !$quiet;   # always show line, for reference (or $b??)

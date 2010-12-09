@@ -7,7 +7,7 @@
 
 package ppu2c02
 
-import ("fmt")
+//import ("fmt")
 
 const PPU_CTRL      = 0x2000
 const PPU_MASK      = 0x2001
@@ -20,14 +20,14 @@ const PPU_DATA      = 0x2007
 
 func Before(operAddr uint16) (wants bool, ptr *uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
-            fmt.Printf("mapper: PPU doesn't care about %.4x\n", operAddr)
+            //fmt.Printf("mapper: PPU doesn't care about %.4x\n", operAddr)
             return false, ptr
         }
 
         // $2000-2007 is mirrored every 8 bytes
-        operAddr &^= 0x1ff8    
+        operAddr &^= 0x1ff8
 
-        fmt.Printf("mapper: before %x\n", operAddr) 
+        //fmt.Printf("mapper: before %x\n", operAddr) 
 
         switch operAddr {
         case PPU_STATUS: 
@@ -42,5 +42,5 @@ func After(operAddr uint16, ptr *uint8) {
         // $2000-2007 is mirrored every 8 bytes
         operAddr &^= 0x1ff8    
 
-        fmt.Printf("mapper: after %.4x -> %x (%.8b)\n", operAddr, *ptr, *ptr)
+        //fmt.Printf("mapper: after %.4x -> %x (%.8b)\n", operAddr, *ptr, *ptr)
 }
