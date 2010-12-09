@@ -11,18 +11,19 @@
 open(A, "<../nestest.log")||die;
 open(B, "<log.actual")||die;
 
+$failed = 0;
 while()
 {
     chomp($a = <A>);
     last if length($a) == 0;
+    $comments = "";
     while()
     {
         chomp($b = <B>);
         if (length($b) >= 80) {
             last; 
         } else {
-            # comment
-            print "?$b\n";
+            $comments .= " $b\n";
         }
     }
 
@@ -43,17 +44,23 @@ while()
     $cpu_cb = $delta_cb / 3;
 
     if ($cpu_ca == $cpu_cb) {
-        print " $a\n";
+        #print " $a\n";
     } else {
-        printf "-%-88s CPU cycles: $cpu_ca\n", $a;
+        printf "-%-88s CPU cycles: $cpu_ca\n", $prev_a;
         $diff = $cpu_cb - $cpu_ca;
-        printf "+%-88s CPU cycles: $cpu_cb (delta=$diff)\n", $b;
-        $not_perfect = 1;
+        printf "+%-88s CPU cycles: $cpu_cb ($diff)\n", $prev_b;
+        print "$comments\n";
+        $failed += 1;
     }
 
     # to compare to next
     $prev_ca = $ca;
     $prev_cb = $cb;
+
+    $prev_a = $a;
+    $prev_b = $b;
 }
 
-exit($not_perfect);
+print "Failed $failed\n";
+
+exit($failed == 0);

@@ -406,7 +406,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Zpg, Zpx, Zpy, Abs:
         // Read absolute instructions take another cycle to read from effective address (TODO: refactor)
         switch instr.Opcode {
-        case LDA, LDX, LDY, EOR, AND, ORA, ADC, SBC, CMP, LAX, NOP: cpu.Cyc += 1;
+        case LDA, LDX, LDY, EOR, AND, ORA, ADC, SBC, CMP, LAX, NOP, CPX, CPY: cpu.Cyc += 1;
         }
     case Ndx, Ndy:
         switch instr.Opcode {
