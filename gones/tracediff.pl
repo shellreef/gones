@@ -3,6 +3,7 @@
 # By Jeff Connelly
 
 # Diff two instruction traces, only on the processor state (not inconsequential data representation)
+# Also does not compare CYC or SL. For that, see cmptiming.pl.
 
 open(A, "<$ARGV[0]") || die "cannot open $ARGV[0]: $!";   # expected
 open(B, "<$ARGV[1]") || die "cannot open $ARGV[1]: $!";   # actual
@@ -27,11 +28,11 @@ while()
 
 
     # Full trace is:
-    #                   only extract beginning here:  v-----------------------|-------|
+    #                   only extract beginning here:  v-----------------------|---+8--|
     # v------------< well, also here too
     # C000  4C F5 C5  JMP $C5F5                       A:00 X:00 Y:00 P:24 SP:FD CYC:  0 SL:241
-    my $state_a = substr($a, 48, 25+8) . substr($a, 0, 14);
-    my $state_b = substr($b, 48, 25+8) . substr($b, 0, 14);
+    my $state_a = substr($a, 48, 25+8-8) . substr($a, 0, 14);
+    my $state_b = substr($b, 48, 25+8-8) . substr($b, 0, 14);
 
     if ($state_a eq $state_b) {
         print " $a\n" if !$quiet;   # always show line, for reference (or $b??)

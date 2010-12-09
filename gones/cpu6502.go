@@ -362,7 +362,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
 
     // Trace *before* the instruction executes
-    fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%3d\n",
+    fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%d\n",
        instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
        (startCyc * 3) % 341,   // 3 PPU cycles per 1 CPU cycle, wrap around at 341 (TODO: refactor)
        0, // TODO: scanline
