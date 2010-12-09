@@ -391,6 +391,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case Imd: operVal = uint8(instr.Operand)
     case Imp: operVal = 0
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);          operPtr = &cpu.Memory[operAddr]
+        fmt.Printf("cyc: relative: fetch next opcode\n")
+        cpu.Cyc += 1 // fetch opcode of next instruction
+
     case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]; useMapper = true
@@ -588,6 +591,7 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
         os.Exit(-1)
     }
+    fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
 
     if useMapper {
         // Tell mappers if something was written
@@ -598,7 +602,6 @@ func (cpu *CPU) ExecuteInstruction() {
         }
     }
 
-    fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
 
     //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
 
