@@ -24,6 +24,8 @@ type CPU struct {
 
     Cyc int     // CPU cycle counter
 
+    C chan int  // Channel
+
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
 }
@@ -52,8 +54,7 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     b = cpu.Memory[cpu.PC]
     cpu.PC += 1
 
-    cpu.Cyc += 1
-    fmt.Printf("cyc: fetch NextUInt8 = %.2x\n", b)
+    cpu.Tick(fmt.Sprintf("fetch NextUInt8 = %.2x", b))
 
     return b
 }
@@ -337,6 +338,14 @@ func (cpu *CPU) OpROL(operPtr *uint8) {
     cpu.SetCarry(temp > 0xff)
     *operPtr = uint8(temp)
     cpu.SetSZ(*operPtr)
+}
+
+
+// Increment clock cycle
+func (cpu* CPU) Tick(reason string) {
+    fmt.Printf("tick: %s\n", reason)
+    cpu.Cyc += 1
+    cpu.C <- cpu.Cyc
 }
 
 // Execute one instruction

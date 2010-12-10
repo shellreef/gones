@@ -19,6 +19,17 @@ import (
     "gamegenie"
 )
 
+func Start(cpu *cpu6502.CPU) {
+    cpu.C = make(chan int)
+
+    go cpu.Run()
+
+    for {
+        fmt.Printf("heard back: %d\n", <-cpu.C)
+        // TODO: run PPU
+    }
+}
+
 // Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, cmd string) {
@@ -29,7 +40,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
             // TODO: refactor
             cart := nesfile.Open(cmd)
             cpu.Load(cart)
-            cpu.Run()
+            Start(cpu)
         } // have to ignore non-existing files, since might be a command
     }
 
@@ -49,7 +60,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
 
             cpu.PC = uint16(startInt)
         }
-        cpu.Run()
+        Start(cpu)
     // load
     case "l":
         if len(args) > 0 {

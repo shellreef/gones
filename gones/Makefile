@@ -11,8 +11,8 @@ test: clean
 	grep 'Nestest automation' log.actual
 	@grep 'Nestest automation: Pass' log.actual >/dev/null
 
-	@echo "CPU timing test"
-	perl cmptiming.pl
+	#@echo "CPU timing test"
+	#perl cmptiming.pl
 
 
 compare:
