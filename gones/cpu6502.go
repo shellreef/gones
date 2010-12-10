@@ -24,7 +24,7 @@ type CPU struct {
 
     Cyc int     // CPU cycle counter
 
-    C chan int  // Channel
+    CycleChannel chan int  
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -76,11 +76,9 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
     low := cpu.Memory[address]
-    cpu.Cyc += 1
-    fmt.Printf("cyc: fetch ReadUInt16 low\n")
+    cpu.Tick("fetch ReadUInt16 low")
     high := cpu.Memory[uint16(address + 1)]
-    cpu.Cyc += 1
-    fmt.Printf("cyc: fetch ReadUInt16 high\n")
+    cpu.Tick("fetch ReadUInt16 high")
     return uint16(high) << 8 + uint16(low)
 }
 
@@ -109,8 +107,8 @@ func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
     case Abs, Abx, Aby, Ind:           // read 16 bits
         return int(cpu.NextUInt16())
     case Imp, Acc: 
-        cpu.Cyc += 1  // CPU always takes a cycle to fetch next byte
-        fmt.Printf("cyc: Imp/Acc fetch ignored next\n")
+        // CPU always takes a cycle to fetch next byte
+        cpu.Tick("Imp/Acc fetch ignored next")
         return 0
     case Rel:                          // read 8 bits
         return int(cpu.NextSInt8())    // TODO: calculate from PC
@@ -236,11 +234,9 @@ func (cpu *CPU) SetDecimal(f bool) { cpu.SetFlag(FLAG_D, f) }
 // Branch if flag is set
 func (cpu* CPU) BranchIf(address uint16 , flag bool) {
     if flag {
-        cpu.Cyc += 1  // taking branch
-        fmt.Printf("cyc: taking branch\n")
+        cpu.Tick("taking branch")
         if cpu.PC & 0xff00 != address & 0xff00 {
-            cpu.Cyc += 1 // to different page
-            fmt.Printf("cyc: branch new page\n")
+            cpu.Tick("branch new page")
         }
         cpu.PC = address
     }
@@ -249,19 +245,21 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 // Pull 8 bits from stack
 func (cpu *CPU) Pull() (b uint8) {
     cpu.S += 1
-    cpu.Cyc += 1
-    fmt.Printf("cyc: increment S\n")
+    cpu.Tick("increment S")
     b = cpu.Memory[0x100 + uint16(cpu.S)]
-    cpu.Cyc += 1
-    fmt.Printf("cyc: pull stack\n")
+    cpu.Tick("pull stack")
     return b
 }
 
 // Pull 16 bits from stack
 func (cpu *CPU) Pull16() (w uint16) {
     low := cpu.Pull()
-    high := cpu.Pull()
-    cpu.Cyc -= 1     // increment S and pull from stack overlaps (pipelined)
+    //high := cpu.Pull()
+    // pipelined, so takes one fewer cycle than two Pulls
+    cpu.S += 1
+    cpu.Tick("increment S, pull stack")
+    high := cpu.Memory[0x100 + uint16(cpu.S)]
+
     return uint16(high) * 0x100 + uint16(low)
 }
 
@@ -269,8 +267,7 @@ func (cpu *CPU) Pull16() (w uint16) {
 func (cpu *CPU) Push(b uint8) {
     cpu.Memory[0x100 + uint16(cpu.S)] = b 
     cpu.S -= 1
-    cpu.Cyc += 1
-    fmt.Printf("cyc: push stack\n")
+    cpu.Tick("push stack")
 }
 
 // Push 16 bits onto stack
@@ -284,6 +281,7 @@ func (cpu *CPU) Push16(w uint16) {
 func (cpu *CPU) PowerUp() {
     cpu.P = FLAG_R | FLAG_I   // Reserved bit set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
     cpu.S = 0xfd              // Top of stack
+    cpu.CycleChannel = make(chan int) 
 }
 
 // Some instructions worth having in their own functions
@@ -345,7 +343,7 @@ func (cpu *CPU) OpROL(operPtr *uint8) {
 func (cpu* CPU) Tick(reason string) {
     fmt.Printf("tick: %s\n", reason)
     cpu.Cyc += 1
-    cpu.C <- cpu.Cyc
+    //cpu.CycleChannel <- cpu.Cyc
 }
 
 // Execute one instruction
@@ -401,9 +399,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Imd: operVal = uint8(instr.Operand)
     case Imp: operVal = 0
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);          operPtr = &cpu.Memory[operAddr]
-        fmt.Printf("cyc: relative: fetch next opcode\n")
-        cpu.Cyc += 1 // fetch opcode of next instruction
-
+        cpu.Tick("relative: fetch next opcode")
     case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
     case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]; useMapper = true
@@ -471,9 +467,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
     case LAX: cpu.A = operVal; cpu.X = operVal; cpu.SetSZ(cpu.X)
     // Store register to memory
-    case STA: *operPtr = cpu.A; cpu.Cyc += 1
-    case STX: *operPtr = cpu.X; cpu.Cyc += 1
-    case STY: *operPtr = cpu.Y; cpu.Cyc += 1
+    case STA: *operPtr = cpu.A; cpu.Tick("store")
+    case STX: *operPtr = cpu.X; cpu.Tick("store")
+    case STY: *operPtr = cpu.Y; cpu.Tick("store")
 
     // Transfers
     case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
@@ -496,10 +492,10 @@ func (cpu *CPU) ExecuteInstruction() {
     case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
     case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
-    case BIT: cpu.SetSign(operVal); cpu.Cyc += 1
+    case BIT: cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
-    case AAX: *operPtr = cpu.X & cpu.A; cpu.Cyc += 1
+    case AAX: *operPtr = cpu.X & cpu.A
     case SLO: cpu.SetCarry(operVal & 0x80 != 0)
         *operPtr <<= 1
         cpu.A |= *operPtr
@@ -562,13 +558,11 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
-        fmt.Printf("cyc: JSR copy PC\n")
-        cpu.Cyc += 1
+        cpu.Tick("JSR copy PC")
         cpu.PC = operAddr
     case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16(); cpu.Cyc -= 1
     case RTS: cpu.PC = cpu.Pull16() + 1
-        cpu.Cyc += 1
-        fmt.Printf("cyc: RTS increment PC\n")
+        cpu.Tick("RTS increment PC")
     case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
         cpu.Push(cpu.P | FLAG_B)
