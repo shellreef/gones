@@ -23,8 +23,8 @@ type CPU struct {
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 
     Cyc int     // CPU cycle counter
-
     CycleChannel chan int  
+    Immediate uint8 // Temporary holder for immediate addressing
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -73,11 +73,16 @@ func (cpu *CPU) NextUInt16() (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
-// Read byte from memory
-func (cpu *CPU) ReadUInt8(address uint16) (b uint8) {
-    b = cpu.Memory[address]
-    cpu.Tick(fmt.Sprintf("read from effective address %.4X", address))
-    return b
+// Read byte from memory or accumulator or immediate, for instruction
+func (cpu *CPU) ReadUInt8(operPtr *uint8) (b uint8) {
+    fmt.Printf("readuint8 operPtr=%x\n", operPtr)
+    if operPtr != &cpu.A && operPtr != &cpu.Immediate { // for orthogonality, these are accessed by pointers too
+        // Memory access takes cycles
+        // TODO: can we get the array index in cpu.Memory? maybe not..
+        cpu.Tick("read from effective address")
+    }
+
+    return *operPtr
 }
 
 // Read unsigned 16-bits at given address, not advancing PC
@@ -409,7 +414,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Acc: operPtr = &cpu.A  /* no address */
-    case Imd: operVal = uint8(instr.Operand)
+    case Imd: cpu.Immediate = uint8(instr.Operand); operPtr = &cpu.Immediate
     case Imp: operVal = 0
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);          operPtr = &cpu.Memory[operAddr]
         cpu.Tick("relative: fetch next opcode")
@@ -477,7 +482,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case CLV: cpu.P &^= FLAG_V
 
     // Load register from memory
-    case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
+    case LDA: cpu.A = cpu.ReadUInt8(operPtr); cpu.SetSZ(cpu.A)
     case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
     case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
     case LAX: cpu.A = operVal; cpu.X = cpu.A; cpu.SetSZ(cpu.X)

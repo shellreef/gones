@@ -6,7 +6,7 @@ test: nestest unittest
 # CPU functionality test
 nestest: gones
 	rm -f log.actual diff
-	-./gones 'l ../nestest.nes' 'g 0xc000' > log.actual
+	-timeout 2 ./gones 'l ../nestest.nes' 'g 0xc000' > log.actual
 	perl tracediff.pl ../nestest.log log.actual -q > diff
 	! grep "^-" diff
 	grep 'Nestest automation' log.actual
