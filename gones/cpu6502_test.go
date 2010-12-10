@@ -43,6 +43,20 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x28, 4},  // PLP
     {0x20, 6},  // JSR
 
+    // Absolute addressing
+    {0x4c, 3},  // JMP
+    {0xad, 4},  // LDA
+    {0xae, 4},  // LDX
+    {0xac, 4},  // LDY
+    {0x4d, 4},  // EOR
+    {0x2d, 4},  // AND
+    {0x0d, 4},  // ORA
+    {0x6d, 4},  // ADC
+    {0xed, 4},  // SBC
+    {0xcd, 4},  // CMP
+    {0x2c, 4},  // BIT
+    {0xaf, 4},  // LAX
+    {0x0c, 4},  // TOP
 }
 
 func TestTiming(t *testing.T) {
