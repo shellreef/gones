@@ -44,6 +44,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x20, 6},  // JSR
 
     // Absolute addressing
+    /*
     {0x4c, 3},  // JMP
     {0xad, 4},  // LDA
     {0xae, 4},  // LDX
@@ -57,6 +58,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x2c, 4},  // BIT
     {0xaf, 4},  // LAX
     {0x0c, 4},  // TOP
+    */
 }
 
 func TestTiming(t *testing.T) {

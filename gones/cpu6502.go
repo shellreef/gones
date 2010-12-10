@@ -464,7 +464,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     case NOP:
     case DOP:
-    case TOP: _ = cpu.ReadUInt8(operAddr)
+    case TOP: _ = operVal
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I
@@ -477,10 +477,10 @@ func (cpu *CPU) ExecuteInstruction() {
     case CLV: cpu.P &^= FLAG_V
 
     // Load register from memory
-    case LDA: cpu.A = cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.A)
-    case LDX: cpu.X = cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.X)
-    case LDY: cpu.Y = cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.Y)
-    case LAX: cpu.A = cpu.ReadUInt8(operAddr); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
+    case LDA: cpu.A = operVal; cpu.SetSZ(cpu.A)
+    case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
+    case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
+    case LAX: cpu.A = operVal; cpu.X = cpu.A; cpu.SetSZ(cpu.X)
     // Store register to memory
     case STA: *operPtr = cpu.A; cpu.Tick("store")
     case STX: *operPtr = cpu.X; cpu.Tick("store")
@@ -495,10 +495,10 @@ func (cpu *CPU) ExecuteInstruction() {
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
-    case AND: cpu.A &= cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.A)
-    case EOR: cpu.A ^= cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.A)
-    case ORA: cpu.A |= cpu.ReadUInt8(operAddr); cpu.SetSZ(cpu.A)
-    case ASL: cpu.SetCarry(cpu.ReadUInt8(operAddr) & 0x80 != 0)
+    case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
+    case ASL: cpu.SetCarry(operVal & 0x80 != 0)
         *operPtr <<= 1
         cpu.SetSZ(*operPtr)
     case LSR: cpu.SetCarry(operVal & 0x01 != 0)
@@ -507,7 +507,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
     case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
-    case BIT: operVal = cpu.ReadUInt8(operAddr)
+    case BIT: operVal = operVal
         cpu.SetSign(operVal)
         cpu.SetOverflow(0x40 & operVal != 0)
         cpu.SetZero(operVal & cpu.A)
@@ -528,9 +528,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
-    case ADC: cpu.OpADC(cpu.ReadUInt8(operAddr))
+    case ADC: cpu.OpADC(operVal)
     case RRA: cpu.OpROR(operPtr); cpu.OpADC(*operPtr)
-    case SBC: cpu.OpSBC(cpu.ReadUInt8(operAddr))
+    case SBC: cpu.OpSBC(operVal)
     case DCP: *operPtr -= 1
         var temp uint
         temp = uint(cpu.A) - uint(*operPtr)
@@ -541,9 +541,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case CMP, CPX, CPY:
         var temp uint
         switch instr.Opcode {
-        case CMP: temp = uint(cpu.A) - uint(cpu.ReadUInt8(operAddr))
-        case CPX: temp = uint(cpu.X) - uint(cpu.ReadUInt8(operAddr))
-        case CPY: temp = uint(cpu.Y) - uint(cpu.ReadUInt8(operAddr))
+        case CMP: temp = uint(cpu.A) - uint(operVal)
+        case CPX: temp = uint(cpu.X) - uint(operVal)
+        case CPY: temp = uint(cpu.Y) - uint(operVal)
         }
         cpu.SetCarry(temp < 0x100)
         cpu.SetSZ(uint8(temp))
