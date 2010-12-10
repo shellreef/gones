@@ -1,0 +1,13 @@
+OcNES: A 6502 Disassembler in Objective Caml
+
+Herein lies a simple disassembler written in OCaml for the 6502 microprocessor.
+I started writing it to learn about both Objective Caml and emulation, but only
+got as far as a disassembler, because:
+
+Emulating an 8-bit CPU is cumbersome without a proper 8-bit data type in OCaml,
+so I abandoned this project. Not that it would be impossible, but you'd have to
+handle wraparound yourself.
+
+I switched to the Go programming language <http://golang.org/> for this reason.
+
+Jeff Connelly, 2010/12/09
