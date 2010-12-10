@@ -46,7 +46,6 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x20, 6},  // JSR
 
     // Absolute addressing
-    /*
     {0x4c, 3},  // JMP
     {0xad, 4},  // LDA
     {0xae, 4},  // LDX
@@ -54,6 +53,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x4d, 4},  // EOR
     {0x2d, 4},  // AND
     {0x0d, 4},  // ORA
+    /*
     {0x6d, 4},  // ADC
     {0xed, 4},  // SBC
     {0xcd, 4},  // CMP

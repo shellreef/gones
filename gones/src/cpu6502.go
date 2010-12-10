@@ -74,7 +74,7 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 }
 
 // Read byte from memory or accumulator or immediate, for instruction
-func (cpu *CPU) ReadUInt8(operPtr *uint8) (b uint8) {
+func (cpu *CPU) Read(operPtr *uint8) (b uint8) {
     fmt.Printf("readuint8 operPtr=%x\n", operPtr)
     if operPtr != &cpu.A && operPtr != &cpu.Immediate { // for orthogonality, these are accessed by pointers too
         // Memory access takes cycles
@@ -84,6 +84,18 @@ func (cpu *CPU) ReadUInt8(operPtr *uint8) (b uint8) {
 
     return *operPtr
 }
+
+// Write to memory or accumulator
+func (cpu *CPU) Write(operPtr *uint8, b uint8) {
+    if operPtr != &cpu.A {
+        // Memory write takes cycles
+        cpu.Tick("write to effective address")
+    }
+
+    *operPtr = b
+}
+
+
 
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
@@ -393,12 +405,9 @@ func (cpu *CPU) ExecuteInstruction() {
        0, // TODO: scanline
        )
 
-    // Setup operPtr for writing to operand, and operVal for reading
-    // Not all addressing modes allow writing to the operand; in that case,
-    // operPtr will be nil
+    // Setup operPtr for reading/writing to operand. If no operand, it'll be null.
     var operPtr *uint8    // pointer to write/read, if applicable
     var operAddr uint16   // address to write/read, if applicable
-    var operVal uint8     // value to read
 
     // Whether the operand should be checked if it accesses memory-mapped devices
     useMapper := false
@@ -415,7 +424,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Acc: operPtr = &cpu.A  /* no address */
     case Imd: cpu.Immediate = uint8(instr.Operand); operPtr = &cpu.Immediate
-    case Imp: operVal = 0
+    case Imp: 
     case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);          operPtr = &cpu.Memory[operAddr]
         cpu.Tick("relative: fetch next opcode")
     case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
@@ -458,10 +467,12 @@ func (cpu *CPU) ExecuteInstruction() {
         }
     }
 
+    var operVal uint8 
+
+    // TODO: remove this, replace by cpu.Read(operPtr) in instructions
     if operPtr != nil {
         operVal = *operPtr
     }
-    
 
     switch instr.Opcode {
     // http://nesdev.parodius.com/6502.txt
@@ -469,7 +480,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     case NOP:
     case DOP:
-    case TOP: _ = operVal
+    case TOP: _ = cpu.Read(operPtr)
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I
@@ -482,10 +493,10 @@ func (cpu *CPU) ExecuteInstruction() {
     case CLV: cpu.P &^= FLAG_V
 
     // Load register from memory
-    case LDA: cpu.A = cpu.ReadUInt8(operPtr); cpu.SetSZ(cpu.A)
-    case LDX: cpu.X = operVal; cpu.SetSZ(cpu.X)
-    case LDY: cpu.Y = operVal; cpu.SetSZ(cpu.Y)
-    case LAX: cpu.A = operVal; cpu.X = cpu.A; cpu.SetSZ(cpu.X)
+    case LDA: cpu.A = cpu.Read(operPtr); cpu.SetSZ(cpu.A)
+    case LDX: cpu.X = cpu.Read(operPtr); cpu.SetSZ(cpu.X)
+    case LDY: cpu.Y = cpu.Read(operPtr); cpu.SetSZ(cpu.Y)
+    case LAX: cpu.A = cpu.Read(operPtr); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
     // Store register to memory
     case STA: *operPtr = cpu.A; cpu.Tick("store")
     case STX: *operPtr = cpu.X; cpu.Tick("store")
@@ -500,12 +511,15 @@ func (cpu *CPU) ExecuteInstruction() {
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
-    case AND: cpu.A &= operVal; cpu.SetSZ(cpu.A)
-    case EOR: cpu.A ^= operVal; cpu.SetSZ(cpu.A)
-    case ORA: cpu.A |= operVal; cpu.SetSZ(cpu.A)
-    case ASL: cpu.SetCarry(operVal & 0x80 != 0)
-        *operPtr <<= 1
-        cpu.SetSZ(*operPtr)
+    case AND: cpu.A &= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
+    case ASL: tmp := cpu.Read(operPtr)
+        cpu.SetCarry(tmp & 0x80 != 0)
+        cpu.Write(operPtr, tmp)
+        tmp <<= 1
+        cpu.Write(operPtr, tmp)
+        cpu.SetSZ(tmp)
     case LSR: cpu.SetCarry(operVal & 0x01 != 0)
         *operPtr >>= 1
         cpu.SetSZ(*operPtr)
