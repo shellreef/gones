@@ -75,7 +75,32 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
     case "r": cpu.DumpRegisters()
     // TODO: search
     // TODO: unassemble
-    // TODO: enter
+    // enter
+    case "e":
+        if len(args) < 2 {
+            fmt.Printf("usage: e <address> <byte0> [<byte1> [<byteN...]]\n")
+            return
+        }
+
+        baseAddress, err := strconv.Btoui64(args[0], 16)
+        if err != nil {
+            fmt.Printf("bad address: %s: %s\n", args[0], err)
+            return
+        }
+
+        for offset, arg := range args[1:] {
+            argInt, err := strconv.Btoui64(arg, 16)
+            if err == nil {
+                writeAddress := uint16(baseAddress) + uint16(offset)
+                writeByte := uint8(argInt)
+
+                fmt.Printf("%.4X = %X\n", writeAddress, writeByte)
+
+                cpu.Memory[writeAddress] = writeByte
+            } else {
+                fmt.Printf("bad value: %s: %s\n", arg, err)
+            }
+        }
     // TODO: assemble?
     // trace
     case "t":

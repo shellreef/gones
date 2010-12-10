@@ -54,7 +54,7 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     b = cpu.Memory[cpu.PC]
     cpu.PC += 1
 
-    cpu.Tick(fmt.Sprintf("fetch NextUInt8 = %.2x", b))
+    cpu.Tick(fmt.Sprintf("fetch NextUInt8 = %.2x, increment PC", b))
 
     return b
 }
@@ -107,8 +107,8 @@ func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
     case Abs, Abx, Aby, Ind:           // read 16 bits
         return int(cpu.NextUInt16())
     case Imp, Acc: 
-        // CPU always takes a cycle to fetch next byte
-        cpu.Tick("Imp/Acc fetch ignored next")
+        // all others fetch next byte and use it
+        cpu.Tick("read next instruction byte (and throw it away, Imp/Acc)")
         return 0
     case Rel:                          // read 8 bits
         return int(cpu.NextSInt8())    // TODO: calculate from PC
