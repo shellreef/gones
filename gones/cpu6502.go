@@ -253,12 +253,16 @@ func (cpu *CPU) Pull() (b uint8) {
 
 // Pull 16 bits from stack
 func (cpu *CPU) Pull16() (w uint16) {
-    low := cpu.Pull()
-    //high := cpu.Pull()
-    // pipelined, so takes one fewer cycle than two Pulls
+    // pipelining causes this to take one fewer cycles than two 8-bit Pull()s
     cpu.S += 1
-    cpu.Tick("increment S, pull stack")
+    cpu.Tick("increment S")
+
+    low := cpu.Memory[0x100 + uint16(cpu.S)]
+    cpu.S += 1
+    cpu.Tick("pull low from stack, increment S")
+
     high := cpu.Memory[0x100 + uint16(cpu.S)]
+    cpu.Tick("pull high from stack")
 
     return uint16(high) * 0x100 + uint16(low)
 }
@@ -560,7 +564,26 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.Push16(cpu.PC)
         cpu.Tick("JSR copy PC")
         cpu.PC = operAddr
-    case RTI: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B; cpu.PC = cpu.Pull16(); cpu.Cyc -= 1
+    case RTI: 
+        cpu.S += 1
+        cpu.Tick("RTI increment S")
+
+        cpu.P = cpu.Memory[0x100 + uint16(cpu.S)] | FLAG_R
+        cpu.P &^= FLAG_B
+        cpu.S += 1
+        cpu.Tick("RTI pull P from stack, increment S")
+        
+        // For cycle accuracy, since pulling PC is pipelined with
+        // incrementing for pulling P, do manually instead of Pull16()
+        pcl := cpu.Memory[0x100 + uint16(cpu.S)]
+        cpu.S += 1
+        cpu.Tick("RTI pull PCL from stack, increment S")
+
+        pch := cpu.Memory[0x100 + uint16(cpu.S)]
+        cpu.Tick("RTI pull PCH from stack")
+
+        cpu.PC = uint16(pch) << 8 + uint16(pcl)
+
     case RTS: cpu.PC = cpu.Pull16() + 1
         cpu.Tick("RTS increment PC")
     case BRK: cpu.PC += 1
