@@ -3,7 +3,7 @@
 
 // Test 6502 CPU
 
-package cpu6502
+package cpu6502_test
 
 import (
     "testing"
@@ -11,6 +11,8 @@ import (
 
     "dis6502"
     )
+
+import . "cpu6502"
 
 // Measure the cycle count of an operation
 func cyclesForOp(op uint8) (int) {

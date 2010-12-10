@@ -3,11 +3,13 @@
 
 // Test
 
-package gamegenie
+package gamegenie_test
 
 import (
     "testing"
 )
+
+import . "gamegenie"
 
 // Fail if condition is false
 func expect(t *testing.T, f bool) {
