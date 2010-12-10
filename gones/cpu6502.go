@@ -271,13 +271,27 @@ func (cpu *CPU) Pull16() (w uint16) {
 func (cpu *CPU) Push(b uint8) {
     cpu.Memory[0x100 + uint16(cpu.S)] = b 
     cpu.S -= 1
-    cpu.Tick("push stack")
+    cpu.Tick("push stack, decrement S")
 }
 
 // Push 16 bits onto stack
 func (cpu *CPU) Push16(w uint16) {
     cpu.Push(uint8(w >> 8))
     cpu.Push(uint8(w & 0xff))
+}
+
+// Increment clock cycle
+func (cpu *CPU) Tick(reason string) {
+    fmt.Printf("tick: %s\n", reason)
+    cpu.Cyc += 1
+    //cpu.CycleChannel <- cpu.Cyc
+}
+
+// Read from an address as part of an instruction
+func (cpu *CPU) Read(address uint16) (b uint8) {
+    b = cpu.Memory[address]
+    cpu.Tick(fmt.Sprintf("read from effective address %.4X\n", address))
+    return b
 }
 
 // Initialize CPU to power-up state
@@ -343,12 +357,6 @@ func (cpu *CPU) OpROL(operPtr *uint8) {
 }
 
 
-// Increment clock cycle
-func (cpu* CPU) Tick(reason string) {
-    fmt.Printf("tick: %s\n", reason)
-    cpu.Cyc += 1
-    //cpu.CycleChannel <- cpu.Cyc
-}
 
 // Execute one instruction
 func (cpu *CPU) ExecuteInstruction() {
@@ -555,10 +563,10 @@ func (cpu *CPU) ExecuteInstruction() {
  
     // Jumps
     case JMP: 
-        if cpu.PC - 3 == operAddr {
+        /*if cpu.PC - 3 == operAddr {
             fmt.Printf("*** Infinite loop detected - halting\n") // TODO: on branches, too; TODO: continue waiting for NMI, just halt CPU
             os.Exit(0)
-        }
+        }*/
         cpu.PC = operAddr
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)

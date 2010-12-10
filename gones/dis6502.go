@@ -32,8 +32,21 @@ XAS="XAS";
 
 // Addressing mode
 type AddrMode string
-const (Imd="Imd"; Zpg="Zpg"; Zpx="Zpx"; Zpy="Zpy"; Abs="Abs"; Abx="Abx"; 
-Aby="Aby"; Ndx="Ndx"; Ndy="Ndy"; Imp="Imp"; Acc="Acc"; Ind="Ind"; Rel="Rel");
+const (
+    Imd="Imd";      // Immediate
+    Zpg="Zpg";      // Zero Page
+    Zpx="Zpx";      // Zero Page,X
+    Zpy="Zpy";      // Zero Page,Y
+    Abs="Abs";      // Absolute
+    Abx="Abx";      // Absolute,X
+    Aby="Aby";      // Absolute, Y
+    Ndx="Ndx";      // (Indirect,X)
+    Ndy="Ndy";      // (Indirect),Y
+    Imp="Imp";      // Implied
+    Acc="Acc";      // Accumulator
+    Ind="Ind";      // (Indirect)
+    Rel="Rel";      // Relative
+);
 
 // Opcode and addressing mode for opcode definition table
 type OpcodeAddrMode struct { Opcode Opcode; AddrMode AddrMode }
@@ -190,4 +203,15 @@ func (instr Instruction) String() (string) {
     }
 
     return fmt.Sprintf("%s%s %s", undoc, instr.Opcode, instr.AddrMode.formatOperand(instr.Operand))
+}
+
+// Find the opcode byte for an opcode mneumonic/addressing mode pair (basically, assemble)
+func OpcodeByteFor(opcode Opcode, addrMode AddrMode) (uint8) {
+    // TODO: find multiple opcodes, for unofficial?
+    for op, entry := range OfficialOpcodes {
+        if entry.Opcode == opcode && entry.AddrMode == addrMode {
+            return uint8(op)
+        }
+    }
+    return 0
 }
