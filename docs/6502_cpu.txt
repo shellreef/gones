@@ -1091,7 +1091,7 @@ different kinds of instructions.
 
   Absolute indexed addressing
 
-     Read instructions (LDA, LDX, LDY, EOR, AND, ORA, ADC, SBC, CMP, BIT,
+     Read instructions (LDA, LDX, LDY, EOR, AND, ORA, ADC, SBC, CMP,
                         LAX, LAE, SHS, NOP)
 
         #   address  R/W description
