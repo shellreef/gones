@@ -75,7 +75,6 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 
 // Read byte from memory or accumulator or immediate, for instruction
 func (cpu *CPU) Read(operPtr *uint8) (b uint8) {
-    fmt.Printf("readuint8 operPtr=%x\n", operPtr)
     if operPtr != &cpu.A && operPtr != &cpu.Immediate { // for orthogonality, these are accessed by pointers too
         // Memory access takes cycles
         // TODO: can we get the array index in cpu.Memory? maybe not..
@@ -202,7 +201,11 @@ func (cpu *CPU) Load(cart *Cartridge) {
     copy(cpu.Memory[0x8000:], cart.Prg[bank8000])
     copy(cpu.Memory[0xC000:], cart.Prg[bankC000])
 
-    cpu.PC = cpu.ReadUInt16(RESET_VECTOR)
+    // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
+    pcl := cpu.Memory[RESET_VECTOR]
+    pch := cpu.Memory[RESET_VECTOR + 1]
+    cpu.PC = uint16(pch) << 8 + uint16(pcl)
+
     cpu.Cyc = 0
 }
 
@@ -322,7 +325,11 @@ func (cpu *CPU) Push16(w uint16) {
 func (cpu *CPU) Tick(reason string) {
     fmt.Printf("tick: %s\n", reason)
     cpu.Cyc += 1
-    //cpu.CycleChannel <- cpu.Cyc
+
+    // TODO: remove check, but test suites don't setup channel
+    if cpu.CycleChannel != nil {
+        cpu.CycleChannel <- cpu.Cyc
+    }
 }
 
 
@@ -331,7 +338,6 @@ func (cpu *CPU) Tick(reason string) {
 func (cpu *CPU) PowerUp() {
     cpu.P = FLAG_R | FLAG_I   // Reserved bit set, see http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
     cpu.S = 0xfd              // Top of stack
-    cpu.CycleChannel = make(chan int) 
 }
 
 // Some instructions worth having in their own functions

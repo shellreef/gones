@@ -34,7 +34,9 @@ type OpcodeByteCycleCount struct {
 }
 
 // Based on http://nesdev.parodius.com/6502_cpu.txt
-// except mneumonics: NOP,Ab* -> TOP
+// except using more descriptive mneumonics for 
+// multi-byte NOPs: DOP for zero page, TOP for absolute
+// Note: these only test if the page boundary is not crossed
 var Timings = [...]OpcodeByteCycleCount{
     // Instructions accessing the stack
     {0x00, 7},  // BRK
@@ -145,7 +147,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x57, 6},              // SRE
     {0x37, 6},              // RLA
     {0x77, 6},              // RRA
-    {0xf7, 6},              // ISC
+    {0xf7, 6},              // ISB
     {0xd7, 6},              // DCP
     // Write
     {0x95, 4},              // STA
@@ -162,9 +164,22 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x3d, 4}, {0x39, 4},   // AND
     {0x1d, 4}, {0x19, 4},   // ORA
     {0x7d, 4}, {0x79, 4},   // ADC
-    // LAE TODO
-    // SHS TODO
-    // TOP TODO
+    {0xfd, 4}, {0xf9, 4},   // SBC
+    {0xdd, 4}, {0xd9, 4},   // CMP
+               {0xbf, 4},   // LAX
+    // TODO: nothing called LAE?
+    // TODO: SHS aka XAS
+    {0x1c, 4},              // TOP
+    {0x3c, 4},              // TOP
+    {0x5c, 4},              // TOP
+    {0x7c, 4},              // TOP
+    {0xdc, 4},              // TOP
+    {0xfc, 4},              // TOP
+    // Read-modify-write
+    //{0x1e, 7},              // ASL
+    // TODO: rest
+    //{0x99, 5},              // STA
+    // TODO: more
 }
 
 func TestTiming(t *testing.T) {

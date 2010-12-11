@@ -21,12 +21,12 @@ import (
 )
 
 func Start(cpu *cpu6502.CPU) {
-    //go cpu.Run()
-    cpu.Run()
+    cpu.CycleChannel = make(chan int)
+    go cpu.Run()
 
     for {
-        fmt.Printf("heard back: %d\n", <-cpu.CycleChannel)
-        // TODO: run PPU
+        _ = <-cpu.CycleChannel
+        // TODO: advance PPU
     }
 }
 
