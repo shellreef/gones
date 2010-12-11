@@ -466,30 +466,28 @@ func (cpu *CPU) OpROL() (ret uint8) {
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
     startCyc := cpu.Cyc
-    instr := cpu.NextInstruction()
-
-    cpu.Instruction = instr
+    cpu.Instruction = cpu.NextInstruction()
 
     // Instruction trace
     if cpu.InstrTrace || cpu.Verbose {
         fmt.Printf("%.4X  ", start)
-        fmt.Printf("%.2X ", instr.OpcodeByte)
-        if instr.AddrMode.OperandSize() >= 1 {
+        fmt.Printf("%.2X ", cpu.Instruction.OpcodeByte)
+        if cpu.Instruction.AddrMode.OperandSize() >= 1 {
            fmt.Printf("%.2X ", cpu.Memory[start + 1])
         } else {
            fmt.Printf("   ")
         }
 
-        if instr.AddrMode.OperandSize() >= 2 {
+        if cpu.Instruction.AddrMode.OperandSize() >= 2 {
            fmt.Printf("%.2X ", cpu.Memory[start + 2])
         } else {
            fmt.Printf("   ")
         }
 
 
-        // Trace *before* the instruction executes
+        // Trace *before* the cpu.Instructionuction executes
         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%d\n",
-           instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
+           cpu.Instruction, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
            (startCyc * 3) % 341,   // 3 PPU cycles per 1 CPU cycle, wrap around at 341 (TODO: refactor)
            0, // TODO: scanline
            )
@@ -512,7 +510,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
     /* TODO
-    switch instr.AddrMode {
+    switch cpu.Instruction.AddrMode {
     case Abs, Abx, Aby:
         if operAddr < 0x1fff {
             // $0000-07ff is mirrored three times, and it is always RAM
@@ -534,7 +532,7 @@ func (cpu *CPU) ExecuteInstruction() {
         operPtr = &cpu.Memory[operAddr]
     }*/
 
-    switch instr.Opcode {
+    switch cpu.Instruction.Opcode {
     // http://nesdev.parodius.com/6502.txt
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
 
@@ -617,7 +615,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case ISB: cpu.OpSBC(cpu.Modify(func(x uint8) (uint8) { return x + 1 }))
     case CMP, CPX, CPY:
         var tmp uint
-        switch instr.Opcode {
+        switch cpu.Instruction.Opcode {
         case CMP: tmp = uint(cpu.A) - uint(cpu.Read())
         case CPX: tmp = uint(cpu.X) - uint(cpu.Read())
         case CPY: tmp = uint(cpu.Y) - uint(cpu.Read())
@@ -684,9 +682,9 @@ func (cpu *CPU) ExecuteInstruction() {
 
     case KIL:
         // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
-        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
+        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird cpu.Instructionuctions, ending in KIL
         // So interpret this as a graceful termination. Only up to $C66E will be compared by tracediff.pl anyways.
-        fmt.Printf("Halting on KIL instruction\n")
+        fmt.Printf("Halting on KIL cpu.Instructionuction\n")
         // http://nesdev.com/bbs/viewtopic.php?t=7130
         result := cpu.Memory[2] << 8 | cpu.Memory[3]
         if result == 0 {
@@ -699,7 +697,7 @@ func (cpu *CPU) ExecuteInstruction() {
     // UNIMPLEMENTED INSTRUCTIONS
     // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
     case AAC, ARR, ASR, ATX, AXA, AXS, LAR, SXA, SYA, XAA, XAS:
-        fmt.Printf("unimplemented opcode: %s\n", instr.Opcode)
+        fmt.Printf("unimplemented opcode: %s\n", cpu.Instruction.Opcode)
         os.Exit(-1)
 
     case U__:
@@ -707,11 +705,11 @@ func (cpu *CPU) ExecuteInstruction() {
         os.Exit(-1)
  
     default:
-        fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
+        fmt.Printf("unrecognized opcode! %s\n", cpu.Instruction.Opcode) // shouldn't happen either because should all be in table
         os.Exit(-1)
     }
     if cpu.Verbose {
-        fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
+        fmt.Printf("%s took %d cycles\n", cpu.Instruction.Opcode, cpu.Cyc - startCyc)
     }
 
 /* TODO: remove this junk, it should be in Write()
@@ -727,17 +725,17 @@ func (cpu *CPU) ExecuteInstruction() {
 
     //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
 
-    // Post-instruction execution trace
-    //fmt.Printf("%.4X  %s  ", start, instr)
+    // Post-cpu.Instructionuction execution trace
+    //fmt.Printf("%.4X  %s  ", start, cpu.Instruction)
     //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
     //cpu.DumpRegisters()
     //fmt.Printf("\n")
 
-    // Finished instruction, so now can run NMI
+    // Finished cpu.Instructionuction, so now can run NMI
     cpu.CheckNMI()
 
     // Running blargg's emulator tests?
-    // TODO: post-execute instruction hook for debugging?
+    // TODO: post-execute cpu.Instructionuction hook for debugging?
     if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
         status := cpu.Memory[0x6000]
         if cpu.Verbose || status != 0x80 {
