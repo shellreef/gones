@@ -117,6 +117,7 @@ var Timings = [...]OpcodeByteCycleCount{
 
     // Zero page indexed
     // X        Y 
+    // Read
     {0xb5, 4},              // LDA
                 {0xb6, 4},  // LDX
     {0xb4, 4},              // LDY
@@ -133,6 +134,37 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x74, 4},              // DOP
     {0xd4, 4},              // DOP
     {0xf4, 4},              // DOP
+    // Read-modify-write
+    {0x16, 6},              // ASL
+    {0x56, 6},              // LSR
+    {0x36, 6},              // ROL
+    {0x76, 6},              // ROR
+    {0xf6, 6},              // INC
+    {0xd6, 6},              // DEC
+    {0x17, 6},              // SLO
+    {0x57, 6},              // SRE
+    {0x37, 6},              // RLA
+    {0x77, 6},              // RRA
+    {0xf7, 6},              // ISC
+    {0xd7, 6},              // DCP
+    // Write
+    {0x95, 4},              // STA
+                {0x96, 4},  // STX
+    {0x94, 4},              // STY
+                {0x97, 4},  // AAX
+
+    // Absolute indexed
+    // Read
+    {0xbd, 4},  {0xb9, 4},  // LDA
+                {0xbe, 4},  // LDX
+    {0xbc, 4},              // LDY
+    {0x5d, 4}, {0x59, 4},   // EOR
+    {0x3d, 4}, {0x39, 4},   // AND
+    {0x1d, 4}, {0x19, 4},   // ORA
+    {0x7d, 4}, {0x79, 4},   // ADC
+    // LAE TODO
+    // SHS TODO
+    // TOP TODO
 }
 
 func TestTiming(t *testing.T) {
