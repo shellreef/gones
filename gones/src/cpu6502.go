@@ -34,8 +34,8 @@ type CPU struct {
     HaveCalculatedAddress bool
     CalculatedAddress uint16
 
-    ReadMappers [10](func(uint16) (bool, *uint8))
-    WriteMappers [10](func(uint16, *uint8))
+    ReadMappers [10](func(uint16) (bool, uint8))
+    WriteMappers [10](func(uint16, uint8) (bool))
 }
 
 // Processor status bits
@@ -155,9 +155,32 @@ func (cpu *CPU) WriteOperand(b uint8) {
         cpu.Memory[cpu.AddressOperand()] = b
 
     case Abs, Abx, Aby:
-        // TODO: mappers
         cpu.Tick("write to effective address")
-        cpu.Memory[cpu.AddressOperand()] = b
+
+        address := cpu.AddressOperand()
+
+        switch {
+        case address < 0x2000:
+            // $0000-07ff is mirrored three times up to $2000, and is always RAM
+            address &^= 0x1800
+            cpu.Memory[address] = b
+        
+        case address > 0x5fff && address < 0x8000:
+            // Save RAM (SRAM)
+            cpu.Memory[address] = b
+
+        default:
+            handled := false
+            for _, mapper := range cpu.WriteMappers {
+                if mapper != nil && mapper(address, b) {
+                    handled = true
+                    break
+                }
+            }
+            if !handled {
+                fmt.Printf("No mapper claimed write: %.4X -> %.2X, ignored\n", address, b)
+            }
+        }
 
     // Can't write to implied, immediate, etc.
     default: panic(fmt.Sprintf("WriteOperand() bad mode: %s\n", cpu.Instruction.AddrMode))

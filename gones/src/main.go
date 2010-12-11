@@ -169,10 +169,16 @@ func main() {
     ppu.CycleChannel = make(chan int)
     ppu.CPU = cpu
     cpu.CycleChannel = make(chan int)
-    cpu.PowerUp()
 
-    //cpu.MappersBeforeExecute[0] = ppu2c02.Before
-    //cpu.MappersAfterExecute[0] = ppu2c02.After
+   
+    // Would like to be able to do this, but go says: method ppu.ReadMapper is not an expression, must be called
+    //cpu.ReadMappers[0] = ppu.ReadMapper
+    //cpu.WriteMappers[0] = ppu.WriteMapper
+    // so I have to wrap it in a closure:
+    cpu.ReadMappers[0] = func(address uint16) (wants bool, ret uint8) { return ppu.ReadMapper(address) }
+    cpu.WriteMappers[0] = func(address uint16, b uint8) (bool) { return ppu.WriteMapper(address, b) }
+
+    cpu.PowerUp()
 
     // TODO: cpu.Verbose, ppu.Verbose set with -v
     cpu.InstrTrace = true

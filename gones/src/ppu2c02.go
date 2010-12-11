@@ -75,11 +75,11 @@ func (ppu *PPU) VBlank() {
 }
 
 
-// Mapper before instruction
-func Before(operAddr uint16) (wants bool, ptr *uint8) {
+// Read registers
+func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
-            //fmt.Printf("mapper: PPU doesn't care about %.4x\n", operAddr)
-            return false, ptr
+            fmt.Printf("mapper: PPU doesn't care about read %.4x\n", operAddr)
+            return false, ret
         }
 
         // $2000-2007 is mirrored every 8 bytes
@@ -89,17 +89,24 @@ func Before(operAddr uint16) (wants bool, ptr *uint8) {
 
         switch operAddr {
         case PPU_STATUS: 
-            a := uint8(0x80)    // VBLANK
-            return true, &a
+            return true, 0x80   // VBLANK TODO: real
         }
 
-        return false, ptr
+        return false, ret
 }
 
-// Mapper after instruction
-func After(operAddr uint16, ptr *uint8) {
-        // $2000-2007 is mirrored every 8 bytes
-        operAddr &^= 0x1ff8    
+// Write registers
+func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
+        if operAddr > 0x3fff {
+            // Not our territory
+            fmt.Printf("mapper: PPU doesn't care about write %.4x -> %.2X\n", operAddr, b)
+            return false
+        }
 
-        //fmt.Printf("mapper: after %.4x -> %x (%.8b)\n", operAddr, *ptr, *ptr)
+        // $2000-2007 is mirrored every 8 bytes up to $3FFF
+        operAddr &^= 0x1ff8 
+
+        fmt.Printf("mapper: write %.4x -> %x (%.8b)\n", operAddr, b)
+
+        return true
 }
