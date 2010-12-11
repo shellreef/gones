@@ -9,7 +9,7 @@ package ppu2c02
 
 import (
     "cpu6502"
-    //"fmt"
+    "fmt"
 )
 
 const PPU_CTRL      = 0x2000
@@ -62,7 +62,8 @@ func (ppu *PPU) Run() {
 func (ppu *PPU) VBlank() {
     // TODO: only run if VBlank flag is not disabled
 
-    // TODO: ppu.CPU.NMI() 
+    fmt.Printf("** VBLANK **\n")
+    ppu.CPU.NMI() 
 }
 
 

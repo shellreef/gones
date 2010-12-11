@@ -25,6 +25,7 @@ type CPU struct {
     Cyc int     // CPU cycle counter
     CycleChannel chan int  
     Immediate uint8 // Temporary holder for immediate addressing
+    PendingNMI bool // Run non-maskable interrupt after next instr finishes
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -638,6 +639,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.Tick("RTS increment PC")
     case BRK: cpu.PC += 1
         cpu.Push16(cpu.PC)
+        // TODO: allow being interrupted by NMI, see http://nesdev.parodius.com/6502_cpu.txt
         cpu.Push(cpu.P | FLAG_B)
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
@@ -689,6 +691,9 @@ func (cpu *CPU) ExecuteInstruction() {
     //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
     //cpu.DumpRegisters()
     //fmt.Printf("\n")
+
+    // Finished instruction, so now can run NMI
+    cpu.CheckNMI()
 }
 
 // Start execution
@@ -698,3 +703,21 @@ func (cpu *CPU) Run() {
     }
 }
 
+// Set NMI to execute after next instruction finishes
+func (cpu *CPU) NMI() {
+    cpu.PendingNMI = true
+}
+
+// Check for incoming NMI, and if it is present, run it
+func (cpu *CPU) CheckNMI() {
+    if !cpu.PendingNMI {
+        return
+    }
+
+    fmt.Printf("*** RUNNING NMI\n")
+    cpu.Push16(cpu.PC)
+    cpu.Push(cpu.P)
+    cpu.PC = cpu.ReadUInt16(NMI_VECTOR)
+ 
+    cpu.PendingNMI = false
+}
