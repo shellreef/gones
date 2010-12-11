@@ -433,8 +433,8 @@ func (cpu *CPU) ExecuteInstruction() {
     // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
     // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
     case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X);      operPtr = &cpu.Memory[operAddr]
-    case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y);      operPtr = &cpu.Memory[operAddr]
+    case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
+    case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
     case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
     case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
     case Acc: operPtr = &cpu.A  /* no address */

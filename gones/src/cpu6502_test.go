@@ -81,6 +81,8 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x8f, 4},  // AAX
 
     // Zero page addressing
+    // These are very similar to absolute, but take one fewer cycle because
+    // the high-order byte of the operand doesn't have to be fetched (it is zero)
     // Read
     {0xa5, 3},  // LDA
     {0xa6, 3},  // LDX
@@ -107,6 +109,30 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x67, 5},  // RRA
     {0xe7, 5},  // ISC
     {0xc7, 5},  // DCP
+    // Write
+    {0x85, 3},  // STA
+    {0x86, 3},  // STX
+    {0x84, 3},  // STY
+    {0x87, 3},  // AAX
+
+    // Zero page indexed
+    // X        Y 
+    {0xb5, 4},              // LDA
+                {0xb6, 4},  // LDX
+    {0xb4, 4},              // LDY
+    {0x55, 4},              // EOR
+    {0x35, 4},              // AND
+    {0x15, 4},              // ORA
+    {0x75, 4},              // ADC
+    {0xf5, 4},              // SBC
+    {0xd5, 4},              // CMP
+                {0xb7, 4},  // LAX
+    {0x14, 4},              // DOP
+    {0x34, 4},              // DOP
+    {0x54, 4},              // DOP
+    {0x74, 4},              // DOP
+    {0xd4, 4},              // DOP
+    {0xf4, 4},              // DOP
 }
 
 func TestTiming(t *testing.T) {
@@ -119,9 +145,9 @@ func TestTiming(t *testing.T) {
         disasm := dis6502.Opcodes[opcodeByte]
 
         if actual != expected {
-            t.Errorf("FAIL: %s %d != %d (%d)", disasm, actual, expected, actual - expected)
+            t.Errorf("FAIL %.2X: %s %d != %d (%d)", opcodeByte, disasm, actual, expected, actual - expected)
         } else {
-            fmt.Printf("Pass: %s %d == %d\n", disasm, actual, expected);
+            fmt.Printf("Pass %.2X: %s %d == %d\n", opcodeByte, disasm, actual, expected);
         }
     }
 }
