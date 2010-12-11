@@ -84,7 +84,7 @@ func (cpu *CPU) NextUInt16() (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
-// Get the address an operand refers to, for jump/branch instructions
+// Get the address an operand refers to
 func (cpu *CPU) Address() (address uint16) {
     switch cpu.Instruction.AddrMode {
     case Rel: 
@@ -92,6 +92,16 @@ func (cpu *CPU) Address() (address uint16) {
         return (cpu.PC) + uint16(cpu.Instruction.Operand)
     case Ind: return cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
     case Abs: return uint16(cpu.Instruction.Operand)
+    case Abx: return uint16(cpu.Instruction.Operand) + uint16(cpu.X)
+    case Aby: return uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
+
+    case Zpg: return uint16(cpu.Instruction.Operand)
+    case Zpx: return uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register")
+    case Zpy: return uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register")
+    case Ndx: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
+    case Ndy: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
+
+    //case Acc, Imp, Imd:  /* no address */
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
     }
 
@@ -100,40 +110,26 @@ func (cpu *CPU) Address() (address uint16) {
 
 // Read operand byte from memory or accumulator or immediate, for instruction
 func (cpu *CPU) Read() (b uint8) {
-    var operAddr uint16
-    var immediate uint8
-    var operPtr *uint8
-
-    // XXX: TODO: must refactor
-    // http://wiki.nesdev.com/w/index.php/CPU_addressing_modes
-    // Cycle counts from http://nesdev.parodius.com/6502_cpu.txt
     switch cpu.Instruction.AddrMode {
-    // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
-    // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
-    case Zpg: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Zpx: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Zpy: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
-    case Acc: operPtr = &cpu.A  /* no address */
-    case Imd: immediate = uint8(cpu.Instruction.Operand); operPtr = &immediate
-    case Imp: fmt.Printf("read from implied??\n")
-    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand);          operPtr = &cpu.Memory[operAddr]
-        cpu.Tick("relative: fetch next opcode")
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand));  operPtr = &cpu.Memory[operAddr]
-    case Abs: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Abx: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
-    case Aby: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-    }
+    case Acc: return cpu.A
+    case Imd: return uint8(cpu.Instruction.Operand)
+    case Imp: panic("Read() from implied operand\n") // doesn't make any sense
+    case Rel, Ind: panic("Read() from relative or indirect operand\n")// no instruction does this
 
-
-    if operPtr != &cpu.A && operPtr != &immediate { // for orthogonality, these are accessed by pointers too
-        // Memory access takes cycles
-        // TODO: can we get the array index in cpu.Memory? maybe not..
+    case Zpg, Zpx, Zpy, Ndx, Ndy:
+        // Only can access zero page, so read directly from memory
         cpu.Tick("read from effective address")
+        return cpu.Memory[cpu.Address()]
+
+    case Abs, Abx, Aby:
+        // TODO: access mappers!
+        cpu.Tick("read from effective address")
+        return cpu.Memory[cpu.Address()]
+
+    default: panic(fmt.Sprintf("Read() unknown mode: %s\n", cpu.Instruction.AddrMode))
     }
 
-    return *operPtr
+    return 0
 }
 
 // Write to memory or accumulator
