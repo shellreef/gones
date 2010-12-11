@@ -206,13 +206,13 @@ func (instr Instruction) String() (string) {
 }
 
 // Find the opcode byte for an opcode mneumonic/addressing mode pair (basically, assemble)
-/* Removed since ops are not ambiguous - instead use hex in code to be explicit w/ a comment
+// NOTE: since ops are not ambiguous - instead use hex in code to be explicit w/ a comment
 func OpcodeByteFor(opcode Opcode, addrMode AddrMode) (uint8) {
     // TODO: find multiple opcodes, for unofficial?
-    for op, entry := range OfficialOpcodes {
+    for op, entry := range Opcodes {
         if entry.Opcode == opcode && entry.AddrMode == addrMode {
             return uint8(op)
         }
     }
     return 0
-}*/
+}
