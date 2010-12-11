@@ -482,13 +482,6 @@ func (cpu *CPU) ExecuteInstruction() {
         }
     }
 
-    var operVal uint8 
-
-    // TODO: remove this, replace by cpu.Read(operPtr) in instructions
-    if operPtr != nil {
-        operVal = *operPtr
-    }
-
     switch instr.Opcode {
     // http://nesdev.parodius.com/6502.txt
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
@@ -545,13 +538,15 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetOverflow(0x40 & tmp != 0)
         cpu.SetZero(tmp & cpu.A)
     case AAX: *operPtr = cpu.X & cpu.A
-    case SLO: cpu.SetCarry(operVal & 0x80 != 0)
-        *operPtr <<= 1
-        cpu.A |= *operPtr
+    case SLO: cpu.A |= cpu.Modify(operPtr, func(x uint8) (uint8) {
+            cpu.SetCarry(x & 0x80 != 0)
+            return x << 1
+        })
         cpu.SetSZ(cpu.A)
-    case SRE: cpu.SetCarry(operVal & 0x01 != 0)
-        *operPtr >>= 1
-        cpu.A ^= *operPtr 
+    case SRE: cpu.A ^= cpu.Modify(operPtr, func(x uint8) (uint8) {
+            cpu.SetCarry(x & 0x01 != 0)
+            return x >> 1
+        })
         cpu.SetSZ(cpu.A)
 
     // Arithmetic
