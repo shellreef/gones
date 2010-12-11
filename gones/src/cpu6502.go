@@ -49,6 +49,11 @@ const (
     BRK_VECTOR   = 0xfffe
 )
 
+// "Master cycles" for each CPU cycle
+const CPU_MASTER_CYCLES_NTSC = 15
+const CPU_MASTER_CYCLES_PAL = 16
+
+
 // Read byte from memory, advancing program counter
 func (cpu *CPU) NextUInt8() (b uint8) {
     b = cpu.Memory[cpu.PC]
@@ -328,7 +333,7 @@ func (cpu *CPU) Tick(reason string) {
 
     // TODO: remove check, but test suites don't setup channel
     if cpu.CycleChannel != nil {
-        cpu.CycleChannel <- cpu.Cyc
+        cpu.CycleChannel <- CPU_MASTER_CYCLES_NTSC   // TODO: or PAL
     }
 }
 

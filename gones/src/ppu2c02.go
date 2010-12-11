@@ -7,7 +7,10 @@
 
 package ppu2c02
 
-//import ("fmt")
+import (
+    "cpu6502"
+    //"fmt"
+)
 
 const PPU_CTRL      = 0x2000
 const PPU_MASK      = 0x2001
@@ -21,17 +24,49 @@ const PPU_DATA      = 0x2007
 const PIXELS_PER_SCANLINE = 341
 const SCANLINES_PER_FRAME = 262
 
+const PPU_MASTER_CYCLES = 5     // 5 "master cycles" per PPU cycle
+
 type PPU struct {
-    CycleChannel chan int
+    Pixel int
+    Scanline int
+
+    CycleChannel chan int       // Synchronize with CPU
+    CPU *cpu6502.CPU
 } 
 
+// Continuously run
 func (ppu *PPU) Run() {
     for {
-        ppu.CycleChannel <- 1
-        //fmt.Printf("PPU cycle\n")
+        // One pixel per clock cycle
+        ppu.Pixel += 1
+
+        if ppu.Pixel > PIXELS_PER_SCANLINE {
+            ppu.Pixel = 0
+            ppu.Scanline += 1
+        }
+
+        if ppu.Scanline > SCANLINES_PER_FRAME {
+            ppu.VBlank()
+            ppu.Scanline = -1
+        }
+
+        // TODO: render
+
+        // Tick
+        ppu.CycleChannel <- PPU_MASTER_CYCLES
+        //fmt.Printf("PPU: %d,%d\n", ppu.Pixel, ppu.Scanline)
     }
 }
 
+// Vertical blank
+func (ppu *PPU) VBlank() {
+    // TODO: only run if VBlank flag is not disabled
+
+    // TODO: ppu.CPU.NMI() 
+}
+
+
+// Mapper before instruction
 func Before(operAddr uint16) (wants bool, ptr *uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
             //fmt.Printf("mapper: PPU doesn't care about %.4x\n", operAddr)
@@ -52,6 +87,7 @@ func Before(operAddr uint16) (wants bool, ptr *uint8) {
         return false, ptr
 }
 
+// Mapper after instruction
 func After(operAddr uint16, ptr *uint8) {
         // $2000-2007 is mirrored every 8 bytes
         operAddr &^= 0x1ff8    
