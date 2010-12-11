@@ -21,12 +21,22 @@ import (
 )
 
 func Start(cpu *cpu6502.CPU) {
+    ppu := new(ppu2c02.PPU)
+    ppu.CycleChannel = make(chan int)
     cpu.CycleChannel = make(chan int)
     go cpu.Run()
+    go ppu.Run()
 
     for {
+        // TODO: do 15/5 (adjustable to 15/6 for PAL) instead of 3/1
+
+        // for every CPU cycle
         _ = <-cpu.CycleChannel
-        // TODO: advance PPU
+
+        // run three PPU cycles
+        _ = <-ppu.CycleChannel
+        _ = <-ppu.CycleChannel
+        _ = <-ppu.CycleChannel
     }
 }
 

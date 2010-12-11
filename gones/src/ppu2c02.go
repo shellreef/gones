@@ -18,6 +18,20 @@ const PPU_SCROLL    = 0x2005
 const PPU_ADDRESS   = 0x2006
 const PPU_DATA      = 0x2007
 
+const PIXELS_PER_SCANLINE = 341
+const SCANLINES_PER_FRAME = 262
+
+type PPU struct {
+    CycleChannel chan int
+} 
+
+func (ppu *PPU) Run() {
+    for {
+        ppu.CycleChannel <- 1
+        //fmt.Printf("PPU cycle\n")
+    }
+}
+
 func Before(operAddr uint16) (wants bool, ptr *uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
             //fmt.Printf("mapper: PPU doesn't care about %.4x\n", operAddr)
