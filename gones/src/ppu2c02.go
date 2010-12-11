@@ -78,35 +78,40 @@ func (ppu *PPU) VBlank() {
 // Read registers
 func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
-            fmt.Printf("mapper: PPU doesn't care about read %.4x\n", operAddr)
+            fmt.Printf("mapper: PPU doesn't care about read %.4X\n", operAddr)
             return false, ret
         }
 
         // $2000-2007 is mirrored every 8 bytes
         operAddr &^= 0x1ff8
 
-        //fmt.Printf("mapper: before %x\n", operAddr) 
+        //fmt.Printf("mapper: before %X\n", operAddr) 
 
+        wants = true
         switch operAddr {
         case PPU_STATUS: 
-            return true, 0x80   // VBLANK TODO: real
+            // VBLANK flag set
+            // TODO: for real
+            ret = 0x80
+        default:
+            wants = false
         }
 
-        return false, ret
+        return wants, ret
 }
 
 // Write registers
 func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
         if operAddr > 0x3fff {
             // Not our territory
-            fmt.Printf("mapper: PPU doesn't care about write %.4x -> %.2X\n", operAddr, b)
+            fmt.Printf("mapper: PPU doesn't care about write %.4X -> %.2X\n", operAddr, b)
             return false
         }
 
         // $2000-2007 is mirrored every 8 bytes up to $3FFF
         operAddr &^= 0x1ff8 
 
-        fmt.Printf("mapper: write %.4x -> %x (%.8b)\n", operAddr, b)
+        fmt.Printf("mapper: write %.4X -> %X (%.8b)\n", operAddr, b, b)
 
         return true
 }

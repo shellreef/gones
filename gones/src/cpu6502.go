@@ -198,8 +198,7 @@ func (cpu *CPU) ReadOperand() (b uint8) {
                     }
                 }
             }
-            fmt.Printf("No mapper claimed read: %.4X\n", address)
-            // Read from ROM.. hope this is OK
+            // If there isn't any mapper, read from ROM
             return cpu.Memory[address]
         }
 
