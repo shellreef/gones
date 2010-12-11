@@ -101,8 +101,8 @@ func (cpu *CPU) WriteSZ(operPtr *uint8, b uint8) {
     cpu.SetSZ(b)
 }
 
-// Read something, modify it with the given modifier function, and write it back out
-func (cpu *CPU) ReadModifyWrite(operPtr *uint8, modify func(in uint8) (out uint8)) (out uint8) {
+// Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
+func (cpu *CPU) Modify(operPtr *uint8, modify func(in uint8) (out uint8)) (out uint8) {
     in := cpu.Read(operPtr)
     cpu.Write(operPtr, in)  // read-modify-write operations write unmodified value back first
 
@@ -365,27 +365,28 @@ func (cpu *CPU) OpSBC(operVal uint8) {
 }
 
 func (cpu *CPU) OpROR(operPtr *uint8) {
-    var tmp int
-    tmp = int(cpu.Read(operPtr))
-    if cpu.P & FLAG_C != 0 {
-        tmp |= 0x100
-    }
-    cpu.SetCarry(tmp & 0x01 != 0)
-    cpu.Write(operPtr, uint8(tmp))
-    tmp >>= 1
-    cpu.WriteSZ(operPtr, uint8(tmp))
+    cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (y uint8) {
+        tmp := int(x)
+        if cpu.P & FLAG_C != 0 {
+            tmp |= 0x100
+        }
+        cpu.SetCarry(tmp & 0x01 != 0)
+        return uint8(tmp >> 1)
+    }))
 }
 
 func (cpu *CPU) OpROL(operPtr *uint8) {
-    var tmp int
-    tmp = int(cpu.Read(operPtr))    // larger than uint8 so can store carry bit
-    cpu.Write(operPtr, uint8(tmp))
-    tmp <<= 1
-    if cpu.P & FLAG_C != 0 {
-        tmp |= 1
-    }
-    cpu.SetCarry(tmp > 0xff)
-    cpu.WriteSZ(operPtr, uint8(tmp))
+    cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (y uint8) {
+        tmp := int(x)    // larger than uint8 so can store carry bit
+        tmp <<= 1
+
+        if cpu.P & FLAG_C != 0 {
+            tmp |= 1
+        }
+        cpu.SetCarry(tmp > 0xff)
+
+        return uint8(tmp)
+    }))
 }
 
 
@@ -528,16 +529,14 @@ func (cpu *CPU) ExecuteInstruction() {
     case AND: cpu.A &= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
     case EOR: cpu.A ^= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
     case ORA: cpu.A |= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
-    case ASL: tmp := cpu.Read(operPtr)
-        cpu.SetCarry(tmp & 0x80 != 0)
-        cpu.Write(operPtr, tmp)     // first writes unmodified
-        tmp <<= 1
-        cpu.WriteSZ(operPtr, tmp)     // then modified
-    case LSR: tmp := cpu.Read(operPtr)
-        cpu.SetCarry(tmp & 0x01 != 0)
-        cpu.Write(operPtr, tmp)
-        tmp >>= 1
-        cpu.WriteSZ(operPtr, tmp)
+    case ASL: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) {
+        cpu.SetCarry(x & 0x80 != 0)
+        return x << 1
+        }))
+    case LSR: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) {
+        cpu.SetCarry(x & 0x01 != 0)
+        return x >> 1
+        }))
     case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
     case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
@@ -556,16 +555,10 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetSZ(cpu.A)
 
     // Arithmetic
-    case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
+    case DEC: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1}))
     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
-    //case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
-    /*case INC: tmp := cpu.Read(operPtr)
-        cpu.Write(operPtr, tmp)
-        tmp += 1
-        cpu.WriteSZ(operPtr, tmp)*/
-    case INC: cpu.SetSZ(cpu.ReadModifyWrite(operPtr, func(x uint8) (uint8) { return x + 1 }))
-
+    case INC: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 }))
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(cpu.Read(operPtr))
