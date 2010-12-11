@@ -84,6 +84,20 @@ func (cpu *CPU) NextUInt16() (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
+// Get the address an operand refers to, for jump/branch instructions
+func (cpu *CPU) Address() (address uint16) {
+    switch cpu.Instruction.AddrMode {
+    case Rel: 
+        cpu.Tick("relative: fetch next opcode")
+        return (cpu.PC) + uint16(cpu.Instruction.Operand)
+    case Ind: return cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
+    case Abs: return uint16(cpu.Instruction.Operand)
+    default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
+    }
+
+    return 0
+}
+
 // Read operand byte from memory or accumulator or immediate, for instruction
 func (cpu *CPU) Read() (b uint8) {
     var operAddr uint16
@@ -493,34 +507,19 @@ func (cpu *CPU) ExecuteInstruction() {
            )
     }
 
-    // Setup operPtr for reading/writing to operand. If no operand, it'll be null.
-    // XXX TODO: must refactor
-    // This is only for branches/jumps that access operand, but not value. All else uses Read and Write.
-    var operAddr uint16   // address to write/read, if applicable
-
-    switch cpu.Instruction.AddrMode {
-    // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
-    // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
-    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand)
-        cpu.Tick("relative: fetch next opcode")
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
-    case Abs: operAddr = uint16(cpu.Instruction.Operand)
-    }
-
-
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
     /* TODO
     switch cpu.Instruction.AddrMode {
     case Abs, Abx, Aby:
-        if operAddr < 0x1fff {
+        if cpu.Address() < 0x1fff {
             // $0000-07ff is mirrored three times, and it is always RAM
-            operAddr &^= 0x1800
+            cpu.Address() &^= 0x1800
         } 
-        if operAddr > 0x07ff {
+        if cpu.Address() > 0x07ff {
             // Let all mappers get a chance to set a new operPtr, place to write to
             for _, mapper := range cpu.MappersBeforeExecute {
                 if mapper != nil {
-                    wants, newPtr := mapper(operAddr)
+                    wants, newPtr := mapper(cpu.Address())
 
                     if wants {
                         operPtr = newPtr
@@ -529,7 +528,7 @@ func (cpu *CPU) ExecuteInstruction() {
             }
         }
 
-        operPtr = &cpu.Memory[operAddr]
+        operPtr = &cpu.Memory[cpu.Address()]
     }*/
 
     switch cpu.Instruction.Opcode {
@@ -630,27 +629,27 @@ func (cpu *CPU) ExecuteInstruction() {
     case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
 
     // Branches
-    // Instructions that access operAddr directly, always referring to ROM, can skip mapper checks
-    case BCC: cpu.BranchIf(operAddr, cpu.P & FLAG_C == 0)
-    case BCS: cpu.BranchIf(operAddr, cpu.P & FLAG_C != 0)
-    case BNE: cpu.BranchIf(operAddr, cpu.P & FLAG_Z == 0)
-    case BEQ: cpu.BranchIf(operAddr, cpu.P & FLAG_Z != 0)
-    case BPL: cpu.BranchIf(operAddr, cpu.P & FLAG_N == 0)
-    case BMI: cpu.BranchIf(operAddr, cpu.P & FLAG_N != 0)
-    case BVC: cpu.BranchIf(operAddr, cpu.P & FLAG_V == 0)
-    case BVS: cpu.BranchIf(operAddr, cpu.P & FLAG_V != 0)
+    // Instructions that access cpu.Address() directly, always referring to ROM, can skip mapper checks
+    case BCC: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_C == 0)
+    case BCS: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_C != 0)
+    case BNE: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_Z == 0)
+    case BEQ: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_Z != 0)
+    case BPL: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_N == 0)
+    case BMI: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_N != 0)
+    case BVC: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_V == 0)
+    case BVS: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_V != 0)
  
     // Jumps
     case JMP: 
-        /*if cpu.PC - 3 == operAddr {
+        /*if cpu.PC - 3 == cpu.Address() {
             fmt.Printf("*** Infinite loop detected - halting\n") // TODO: on branches, too; TODO: continue waiting for NMI, just halt CPU
             os.Exit(0)
         }*/
-        cpu.PC = operAddr
+        cpu.PC = cpu.Address()
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
         cpu.Tick("JSR copy PC")
-        cpu.PC = operAddr
+        cpu.PC = cpu.Address()
     case RTI: 
         cpu.S += 1
         cpu.Tick("RTI increment S")
@@ -717,7 +716,7 @@ func (cpu *CPU) ExecuteInstruction() {
         // Tell mappers if something was written
         for _, mapper := range cpu.MappersAfterExecute {
             if mapper != nil {
-                mapper(operAddr, operPtr)
+                mapper(cpu.Address(), operPtr)
             }
         }
     }
@@ -727,7 +726,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Post-cpu.Instructionuction execution trace
     //fmt.Printf("%.4X  %s  ", start, cpu.Instruction)
-    //fmt.Printf("operPtr=%x, operAddr=%.4X, operVal=%.2X\n", operPtr, operAddr, operVal)
+    //fmt.Printf("operPtr=%x, cpu.Address()=%.4X, operVal=%.2X\n", operPtr, cpu.Address(), operVal)
     //cpu.DumpRegisters()
     //fmt.Printf("\n")
 
