@@ -140,13 +140,10 @@ func (cpu *CPU) WriteOperand(b uint8) {
     switch cpu.Instruction.AddrMode {
     case Acc: cpu.A = b
     case Zpg, Zpx, Zpy, Ndx, Ndy:
-        cpu.Tick("write to effective address")
-        cpu.Memory[cpu.AddressOperand()] = b
+        cpu.WriteAddress(cpu.AddressOperand(), b)
 
     case Abs, Abx, Aby:
-        // TODO: mappers
-        cpu.Tick("write to effective address")
-        cpu.Memory[cpu.AddressOperand()] = b
+        cpu.WriteAddress(cpu.AddressOperand(), b)
 
 
     // Can't write to implied, immediate, etc.
@@ -154,13 +151,24 @@ func (cpu *CPU) WriteOperand(b uint8) {
     }
 }
 
+// Write to an explicit address. Called by WriteOperand.
+func (cpu *CPU) WriteAddress(address uint16, b uint8) {
+    cpu.Tick("write to effective address")
+    // TODO: mappers and such
+    cpu.Memory[address] = b
+}
+
 // Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
 func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
     in := cpu.ReadOperand()
-    cpu.WriteOperand(in)  // read-modify-write operations write unmodified value back first
+
+    // Calculate the address once (even though we write twice), so timing is accurate
+    operAddr := cpu.AddressOperand()
+
+    cpu.WriteAddress(operAddr, in)  // read-modify-write operations write unmodified value back first
 
     out = modify(in)
-    cpu.WriteOperand(out)
+    cpu.WriteAddress(operAddr, out)
     return out
 }
 
