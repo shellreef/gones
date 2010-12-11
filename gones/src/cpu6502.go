@@ -31,6 +31,8 @@ type CPU struct {
 
     Instruction *Instruction  // Current instruction
     OperPtr *uint8  // Pointer to operand of current instruction
+    HaveCalculatedAddress bool
+    CalculatedAddress uint16
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -86,30 +88,39 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 
 // Get the address an operand refers to
 func (cpu *CPU) AddressOperand() (address uint16) {
+   
+    if cpu.HaveCalculatedAddress {
+        return cpu.CalculatedAddress
+    }
+
     switch cpu.Instruction.AddrMode {
     case Rel: 
         cpu.Tick("relative: fetch next opcode")
-        return (cpu.PC) + uint16(cpu.Instruction.Operand)
-    case Ind: return cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
-    case Abs: return uint16(cpu.Instruction.Operand)
-    case Abx: return uint16(cpu.Instruction.Operand) + uint16(cpu.X)
-    case Aby: return uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
+        address = (cpu.PC) + uint16(cpu.Instruction.Operand)
+    case Ind: address = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
+    case Abs: address = uint16(cpu.Instruction.Operand)
+    case Abx: address = uint16(cpu.Instruction.Operand) + uint16(cpu.X)
+    case Aby: address = uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
 
-    case Zpg: return uint16(cpu.Instruction.Operand)
+    case Zpg: address = uint16(cpu.Instruction.Operand)
     case Zpx: 
         cpu.Tick("add index register")
-        return uint16(uint8(cpu.Instruction.Operand) + cpu.X)
+        address = uint16(uint8(cpu.Instruction.Operand) + cpu.X)
     case Zpy: 
         cpu.Tick("add index register")
-        return uint16(uint8(cpu.Instruction.Operand) + cpu.Y)
-    case Ndx: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
-    case Ndy: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
+        address = uint16(uint8(cpu.Instruction.Operand) + cpu.Y)
+    case Ndx: address = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
+    case Ndy: address = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
 
     // Accumulator, implied, immediate have no address
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
     }
 
-    return 0
+    // TODO: find a better way to avoid recalculating addres (causing extra cycles) for Modify()
+    cpu.HaveCalculatedAddress = true
+    cpu.CalculatedAddress = address
+
+    return address
 }
 
 // Read from operand for instruction
@@ -157,7 +168,8 @@ func (cpu *CPU) WriteOperand(b uint8) {
 func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
     in := cpu.ReadOperand()
 
-    cpu.WriteOperand(in)  // read-modify-write operations write unmodified value back first
+    // read-modify-write operations write unmodified value back first
+    cpu.WriteOperand(in)
 
     out = modify(in)
     cpu.WriteOperand(out)
@@ -465,6 +477,7 @@ func (cpu *CPU) OpROL() (ret uint8) {
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
     startCyc := cpu.Cyc
+    cpu.HaveCalculatedAddress = false
     cpu.Instruction = cpu.NextInstruction()
 
     // Instruction trace
