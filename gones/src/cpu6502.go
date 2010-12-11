@@ -96,8 +96,12 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     case Aby: return uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
 
     case Zpg: return uint16(cpu.Instruction.Operand)
-    case Zpx: return uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register")
-    case Zpy: return uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register")
+    case Zpx: 
+        cpu.Tick("add index register")
+        return uint16(uint8(cpu.Instruction.Operand) + cpu.X)
+    case Zpy: 
+        cpu.Tick("add index register")
+        return uint16(uint8(cpu.Instruction.Operand) + cpu.Y)
     case Ndx: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
     case Ndy: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
 
