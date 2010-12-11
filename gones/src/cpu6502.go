@@ -24,11 +24,13 @@ type CPU struct {
 
     Cyc int     // CPU cycle counter
     CycleChannel chan int  
-    Immediate uint8 // Temporary holder for immediate addressing
     PendingNMI bool // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
     InstrTrace bool
+
+    Instruction *Instruction  // Current instruction
+    OperPtr *uint8  // Pointer to operand of current instruction
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -82,9 +84,36 @@ func (cpu *CPU) NextUInt16() (w uint16) {
     return uint16(high) << 8 + uint16(low)
 }
 
-// Read byte from memory or accumulator or immediate, for instruction
-func (cpu *CPU) Read(operPtr *uint8) (b uint8) {
-    if operPtr != &cpu.A && operPtr != &cpu.Immediate { // for orthogonality, these are accessed by pointers too
+// Read operand byte from memory or accumulator or immediate, for instruction
+func (cpu *CPU) Read() (b uint8) {
+    var operAddr uint16
+    var immediate uint8
+    var operPtr *uint8
+
+    // XXX: TODO: must refactor
+    // http://wiki.nesdev.com/w/index.php/CPU_addressing_modes
+    // Cycle counts from http://nesdev.parodius.com/6502_cpu.txt
+    switch cpu.Instruction.AddrMode {
+    // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
+    // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
+    case Zpg: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Zpx: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
+    case Zpy: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
+    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
+    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
+    case Acc: operPtr = &cpu.A  /* no address */
+    case Imd: immediate = uint8(cpu.Instruction.Operand); operPtr = &immediate
+    case Imp: fmt.Printf("read from implied??\n")
+    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand);          operPtr = &cpu.Memory[operAddr]
+        cpu.Tick("relative: fetch next opcode")
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand));  operPtr = &cpu.Memory[operAddr]
+    case Abs: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Abx: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+    case Aby: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+    }
+
+
+    if operPtr != &cpu.A && operPtr != &immediate { // for orthogonality, these are accessed by pointers too
         // Memory access takes cycles
         // TODO: can we get the array index in cpu.Memory? maybe not..
         cpu.Tick("read from effective address")
@@ -94,7 +123,30 @@ func (cpu *CPU) Read(operPtr *uint8) (b uint8) {
 }
 
 // Write to memory or accumulator
-func (cpu *CPU) Write(operPtr *uint8, b uint8) {
+func (cpu *CPU) Write(b uint8) {
+    var operAddr uint16
+    var operPtr *uint8
+
+    // XXX: TODO: must refactor
+    switch cpu.Instruction.AddrMode {
+    // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
+    // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
+    case Zpg: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Zpx: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
+    case Zpy: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
+    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
+    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
+    case Acc: operPtr = &cpu.A  /* no address */
+    //case Imd: immediate := uint8(cpu.Instruction.Operand); operPtr = &immediate
+    case Imp: 
+    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand);          operPtr = &cpu.Memory[operAddr]
+        cpu.Tick("relative: fetch next opcode")
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand));  operPtr = &cpu.Memory[operAddr]
+    case Abs: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
+    case Abx: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
+    case Aby: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
+    }
+
     if operPtr != &cpu.A {
         // Memory write takes cycles
         cpu.Tick("write to effective address")
@@ -103,19 +155,13 @@ func (cpu *CPU) Write(operPtr *uint8, b uint8) {
     *operPtr = b
 }
 
-// Write and also set sign and zero flags
-func (cpu *CPU) WriteSZ(operPtr *uint8, b uint8) {
-    cpu.Write(operPtr, b)
-    cpu.SetSZ(b)
-}
-
 // Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
-func (cpu *CPU) Modify(operPtr *uint8, modify func(in uint8) (out uint8)) (out uint8) {
-    in := cpu.Read(operPtr)
-    cpu.Write(operPtr, in)  // read-modify-write operations write unmodified value back first
+func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
+    in := cpu.Read()
+    cpu.Write(in)  // read-modify-write operations write unmodified value back first
 
     out = modify(in)
-    cpu.Write(operPtr, out)
+    cpu.Write(out)
     return out
 }
 
@@ -381,8 +427,8 @@ func (cpu *CPU) OpSBC(operVal uint8) {
     cpu.A = uint8(tmp)
 }
 
-func (cpu *CPU) OpROR(operPtr *uint8) (ret uint8) {
-    ret = cpu.Modify(operPtr, func(x uint8) (y uint8) {
+func (cpu *CPU) OpROR() (ret uint8) {
+    ret = cpu.Modify(func(x uint8) (y uint8) {
         tmp := uint(x)
         if cpu.P & FLAG_C != 0 {
             tmp |= 0x100
@@ -396,8 +442,8 @@ func (cpu *CPU) OpROR(operPtr *uint8) (ret uint8) {
     return ret
 }
 
-func (cpu *CPU) OpROL(operPtr *uint8) (ret uint8) {
-    ret = cpu.Modify(operPtr, func(x uint8) (y uint8) {
+func (cpu *CPU) OpROL() (ret uint8) {
+    ret = cpu.Modify(func(x uint8) (y uint8) {
         tmp := int(x)    // larger than uint8 so can store carry bit
         tmp <<= 1
 
@@ -421,6 +467,8 @@ func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
     startCyc := cpu.Cyc
     instr := cpu.NextInstruction()
+
+    cpu.Instruction = instr
 
     // Instruction trace
     if cpu.InstrTrace || cpu.Verbose {
@@ -448,51 +496,28 @@ func (cpu *CPU) ExecuteInstruction() {
     }
 
     // Setup operPtr for reading/writing to operand. If no operand, it'll be null.
-    var operPtr *uint8    // pointer to write/read, if applicable
+    // XXX TODO: must refactor
+    // This is only for branches/jumps that access operand, but not value. All else uses Read and Write.
     var operAddr uint16   // address to write/read, if applicable
 
-    // Whether the operand should be checked if it accesses memory-mapped devices
-    useMapper := false
-
-    // http://wiki.nesdev.com/w/index.php/CPU_addressing_modes
-    // Cycle counts from http://nesdev.parodius.com/6502_cpu.txt
-    switch instr.AddrMode {
+    switch cpu.Instruction.AddrMode {
     // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
     // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
-    case Zpg: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Zpx: operAddr = uint16(uint8(instr.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Zpy: operAddr = uint16(uint8(instr.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(instr.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
-    case Acc: operPtr = &cpu.A  /* no address */
-    case Imd: cpu.Immediate = uint8(instr.Operand); operPtr = &cpu.Immediate
-    case Imp: 
-    case Rel: operAddr = (cpu.PC) + uint16(instr.Operand);          operPtr = &cpu.Memory[operAddr]
+    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand)
         cpu.Tick("relative: fetch next opcode")
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(instr.Operand));  operPtr = &cpu.Memory[operAddr]
+    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
+    case Abs: operAddr = uint16(cpu.Instruction.Operand)
+    }
+
+
     // These modes might access memory >$07FF so has to be checked for memory-mapped device access
-    case Abs: operAddr = uint16(instr.Operand);                     operPtr = &cpu.Memory[operAddr]; useMapper = true
-    case Abx: operAddr = uint16(instr.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]; useMapper = true
-    case Aby: operAddr = uint16(instr.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]; useMapper = true
-    }
-
-    // Always refers to ROM, so no mapper check needed. Branches too, but they're all Rel.
-    if instr.Opcode == JSR || instr.Opcode == JMP {
-        useMapper = false
-    }
-
-    if operAddr < 0x1fff {
-        // $0000-07ff is mirrored three times, and it is always RAM
-        operAddr &^= 0x1800
-        useMapper = false
-    }
-
-    // http://wiki.nesdev.com/w/index.php/CPU_memory_map
-    //originalAddr := operAddr
-    if useMapper { 
-        // By default, if no mapper claims it
-        operPtr = &cpu.Memory[operAddr]
-
+    /* TODO
+    switch instr.AddrMode {
+    case Abs, Abx, Aby:
+        if operAddr < 0x1fff {
+            // $0000-07ff is mirrored three times, and it is always RAM
+            operAddr &^= 0x1800
+        } 
         if operAddr > 0x07ff {
             // Let all mappers get a chance to set a new operPtr, place to write to
             for _, mapper := range cpu.MappersBeforeExecute {
@@ -504,18 +529,18 @@ func (cpu *CPU) ExecuteInstruction() {
                     }
                 }
             }
-        } else {
-            useMapper = false // memory; no mapper needed
         }
-    }
+
+        operPtr = &cpu.Memory[operAddr]
+    }*/
 
     switch instr.Opcode {
     // http://nesdev.parodius.com/6502.txt
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
 
     case NOP:
-    case DOP: _ = cpu.Read(operPtr)     // zero page, so two byte "double no-op"
-    case TOP: _ = cpu.Read(operPtr)     // absolute, so three byte "triple no-op"
+    case DOP: _ = cpu.Read()     // zero page, so two byte "double no-op"
+    case TOP: _ = cpu.Read()     // absolute, so three byte "triple no-op"
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I
@@ -528,14 +553,14 @@ func (cpu *CPU) ExecuteInstruction() {
     case CLV: cpu.P &^= FLAG_V
 
     // Load register from memory
-    case LDA: cpu.A = cpu.Read(operPtr); cpu.SetSZ(cpu.A)
-    case LDX: cpu.X = cpu.Read(operPtr); cpu.SetSZ(cpu.X)
-    case LDY: cpu.Y = cpu.Read(operPtr); cpu.SetSZ(cpu.Y)
-    case LAX: cpu.A = cpu.Read(operPtr); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
+    case LDA: cpu.A = cpu.Read(); cpu.SetSZ(cpu.A)
+    case LDX: cpu.X = cpu.Read(); cpu.SetSZ(cpu.X)
+    case LDY: cpu.Y = cpu.Read(); cpu.SetSZ(cpu.Y)
+    case LAX: cpu.A = cpu.Read(); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
     // Store register to memory
-    case STA: cpu.Write(operPtr, cpu.A)
-    case STX: cpu.Write(operPtr, cpu.X)
-    case STY: cpu.Write(operPtr, cpu.Y)
+    case STA: cpu.Write(cpu.A)
+    case STX: cpu.Write(cpu.X)
+    case STY: cpu.Write(cpu.Y)
 
     // Transfers
     case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
@@ -546,56 +571,56 @@ func (cpu *CPU) ExecuteInstruction() {
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
-    case AND: cpu.A &= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
-    case EOR: cpu.A ^= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
-    case ORA: cpu.A |= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
-    case ASL: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) {
+    case AND: cpu.A &= cpu.Read(); cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= cpu.Read(); cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= cpu.Read(); cpu.SetSZ(cpu.A)
+    case ASL: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) {
         cpu.SetCarry(x & 0x80 != 0)
         return x << 1
         }))
-    case LSR: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) {
+    case LSR: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) {
         cpu.SetCarry(x & 0x01 != 0)
         return x >> 1
         }))
-    case ROL: cpu.OpROL(operPtr)
-    case ROR: cpu.OpROR(operPtr)
-    case RLA: cpu.A &= cpu.OpROL(operPtr); cpu.SetSZ(cpu.A)
-    case BIT: tmp := cpu.Read(operPtr)
+    case ROL: cpu.OpROL()
+    case ROR: cpu.OpROR()
+    case RLA: cpu.A &= cpu.OpROL(); cpu.SetSZ(cpu.A)
+    case BIT: tmp := cpu.Read()
         cpu.SetSign(tmp)
         cpu.SetOverflow(0x40 & tmp != 0)
         cpu.SetZero(tmp & cpu.A)
-    case SAX: cpu.Write(operPtr, cpu.X & cpu.A)
-    case SLO: cpu.A |= cpu.Modify(operPtr, func(x uint8) (uint8) {
+    case SAX: cpu.Write(cpu.X & cpu.A)
+    case SLO: cpu.A |= cpu.Modify(func(x uint8) (uint8) {
             cpu.SetCarry(x & 0x80 != 0)
             return x << 1
         })
         cpu.SetSZ(cpu.A)
-    case SRE: cpu.A ^= cpu.Modify(operPtr, func(x uint8) (uint8) {
+    case SRE: cpu.A ^= cpu.Modify(func(x uint8) (uint8) {
             cpu.SetCarry(x & 0x01 != 0)
             return x >> 1
         })
         cpu.SetSZ(cpu.A)
 
     // Arithmetic
-    case DEC: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1}))
+    case DEC: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) { return x - 1}))
     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
-    case INC: cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 }))
+    case INC: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) { return x + 1 }))
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
-    case ADC: cpu.OpADC(cpu.Read(operPtr))
-    case SBC: cpu.OpSBC(cpu.Read(operPtr))
-    case RRA: cpu.OpADC(cpu.OpROR(operPtr))
-    case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1 }))
+    case ADC: cpu.OpADC(cpu.Read())
+    case SBC: cpu.OpSBC(cpu.Read())
+    case RRA: cpu.OpADC(cpu.OpROR())
+    case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
-    case ISB: cpu.OpSBC(cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 }))
+    case ISB: cpu.OpSBC(cpu.Modify(func(x uint8) (uint8) { return x + 1 }))
     case CMP, CPX, CPY:
         var tmp uint
         switch instr.Opcode {
-        case CMP: tmp = uint(cpu.A) - uint(cpu.Read(operPtr))
-        case CPX: tmp = uint(cpu.X) - uint(cpu.Read(operPtr))
-        case CPY: tmp = uint(cpu.Y) - uint(cpu.Read(operPtr))
+        case CMP: tmp = uint(cpu.A) - uint(cpu.Read())
+        case CPX: tmp = uint(cpu.X) - uint(cpu.Read())
+        case CPY: tmp = uint(cpu.Y) - uint(cpu.Read())
         }
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
@@ -689,6 +714,7 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
     }
 
+/* TODO: remove this junk, it should be in Write()
     if useMapper {
         // Tell mappers if something was written
         for _, mapper := range cpu.MappersAfterExecute {
@@ -697,7 +723,7 @@ func (cpu *CPU) ExecuteInstruction() {
             }
         }
     }
-
+*/
 
     //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
 
