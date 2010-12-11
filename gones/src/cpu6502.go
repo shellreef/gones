@@ -101,6 +101,15 @@ func (cpu *CPU) WriteSZ(operPtr *uint8, b uint8) {
     cpu.SetSZ(b)
 }
 
+// Read something, modify it with the given modifier function, and write it back out
+func (cpu *CPU) ReadModifyWrite(operPtr *uint8, modify func(in uint8) (out uint8)) (out uint8) {
+    in := cpu.Read(operPtr)
+    cpu.Write(operPtr, in)  // read-modify-write operations write unmodified value back first
+
+    out = modify(in)
+    cpu.Write(operPtr, out)
+    return out
+}
 
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
@@ -551,11 +560,12 @@ func (cpu *CPU) ExecuteInstruction() {
     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
     //case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
-    case INC: tmp := cpu.Read(operPtr)
+    /*case INC: tmp := cpu.Read(operPtr)
         cpu.Write(operPtr, tmp)
         tmp += 1
-        cpu.WriteSZ(operPtr, tmp)
-    //*operPtr += 1; cpu.SetSZ(*operPtr)
+        cpu.WriteSZ(operPtr, tmp)*/
+    case INC: cpu.SetSZ(cpu.ReadModifyWrite(operPtr, func(x uint8) (uint8) { return x + 1 }))
+
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(cpu.Read(operPtr))
