@@ -28,6 +28,7 @@ type CPU struct {
     PendingNMI bool // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
+    InstrTrace bool
 
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
@@ -382,7 +383,7 @@ func (cpu *CPU) OpSBC(operVal uint8) {
 
 func (cpu *CPU) OpROR(operPtr *uint8) {
     cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (y uint8) {
-        tmp := int(x)
+        tmp := uint(x)
         if cpu.P & FLAG_C != 0 {
             tmp |= 0x100
         }
@@ -391,8 +392,8 @@ func (cpu *CPU) OpROR(operPtr *uint8) {
     }))
 }
 
-func (cpu *CPU) OpROL(operPtr *uint8) {
-    cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (y uint8) {
+func (cpu *CPU) OpROL(operPtr *uint8) (ret uint8) {
+    ret = cpu.Modify(operPtr, func(x uint8) (y uint8) {
         tmp := int(x)    // larger than uint8 so can store carry bit
         tmp <<= 1
 
@@ -402,7 +403,11 @@ func (cpu *CPU) OpROL(operPtr *uint8) {
         cpu.SetCarry(tmp > 0xff)
 
         return uint8(tmp)
-    }))
+    })
+
+    cpu.SetSZ(ret)
+
+    return ret
 }
 
 
@@ -414,7 +419,7 @@ func (cpu *CPU) ExecuteInstruction() {
     instr := cpu.NextInstruction()
 
     // Instruction trace
-    if cpu.Verbose {
+    if cpu.InstrTrace || cpu.Verbose {
         fmt.Printf("%.4X  ", start)
         fmt.Printf("%.2X ", instr.OpcodeByte)
         if instr.AddrMode.OperandSize() >= 1 {
@@ -550,7 +555,7 @@ func (cpu *CPU) ExecuteInstruction() {
         }))
     case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
-    case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
+    case RLA: cpu.A &= cpu.OpROL(operPtr); cpu.SetSZ(cpu.A)
     case BIT: tmp := cpu.Read(operPtr)
         cpu.SetSign(tmp)
         cpu.SetOverflow(0x40 & tmp != 0)
@@ -576,7 +581,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(cpu.Read(operPtr))
     case SBC: cpu.OpSBC(cpu.Read(operPtr))
-    case RRA: cpu.OpROR(operPtr); cpu.OpADC(*operPtr)
+    case RRA: cpu.OpROR(operPtr); cpu.OpADC(cpu.Read(operPtr))
     case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))

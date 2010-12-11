@@ -26,6 +26,10 @@ while()
     chomp($a = <A>);
     last if !length($a);
 
+    # DOS line endings
+    $a =~ tr/\cM//d;
+    $b =~ tr/\cM//d;
+
 
     # Full trace is:
     #                   only extract beginning here:  v-----------------------|---+8--|

@@ -175,6 +175,7 @@ func main() {
     cpu.MappersAfterExecute[0] = ppu2c02.After
 
     // TODO: cpu.Verbose, ppu.Verbose set with -v
+    cpu.InstrTrace = true
  
     for _, cmd := range(os.Args[1:]) {
         RunCommand(cpu, cmd)
