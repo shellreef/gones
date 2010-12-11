@@ -487,8 +487,8 @@ func (cpu *CPU) ExecuteInstruction() {
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
 
     case NOP:
-    case DOP:
-    case TOP: _ = cpu.Read(operPtr)
+    case DOP: _ = cpu.Read(operPtr)     // zero page, so two byte "double no-op"
+    case TOP: _ = cpu.Read(operPtr)     // absolute, so three byte "triple no-op"
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I

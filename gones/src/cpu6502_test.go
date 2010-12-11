@@ -79,6 +79,21 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x8e, 4},  // STX
     {0x8c, 4},  // STY
     {0x8f, 4},  // AAX
+
+    // Zero page addressing
+    // Read
+    {0xa5, 3},  // LDA
+    {0xa6, 3},  // LDX
+    {0xa4, 3},  // LDY
+    {0x45, 3},  // EOR
+    {0x25, 3},  // AND
+    {0x05, 3},  // ORA
+    {0x65, 3},  // ADC
+    {0xe5, 3},  // SBC
+    {0xc5, 3},  // CMP
+    {0x24, 3},  // BIT
+    {0xa7, 3},  // LAX
+    {0x04, 3},  // DOP
 }
 
 func TestTiming(t *testing.T) {
