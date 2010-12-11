@@ -123,29 +123,6 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     return address
 }
 
-// Read from operand for instruction
-func (cpu *CPU) ReadOperand() (b uint8) {
-    switch cpu.Instruction.AddrMode {
-    case Acc: return cpu.A
-    case Imd: return uint8(cpu.Instruction.Operand)
-
-    case Zpg, Zpx, Zpy, Ndx, Ndy:
-        // Only can access zero page, so read directly from memory
-        cpu.Tick("read from effective address")
-        return cpu.Memory[cpu.AddressOperand()]
-
-    case Abs, Abx, Aby:
-        // TODO: access mappers!
-        cpu.Tick("read from effective address")
-        return cpu.Memory[cpu.AddressOperand()]
-
-    // Can't read from implied (nothing to read from), indirect or relative (no instruction does)
-    default: panic(fmt.Sprintf("ReadOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
-    }
-
-    return 0
-}
-
 // Write to instruction operand
 func (cpu *CPU) WriteOperand(b uint8) {
     switch cpu.Instruction.AddrMode {
@@ -165,11 +142,12 @@ func (cpu *CPU) WriteOperand(b uint8) {
             address &^= 0x1800
             cpu.Memory[address] = b
         
-        case address > 0x5fff && address < 0x8000:
+        case address >= 0x6000 && address <= 0x7fff:
             // Save RAM (SRAM)
             cpu.Memory[address] = b
 
         default:
+            // Find a mapper that cares
             handled := false
             for _, mapper := range cpu.WriteMappers {
                 if mapper != nil && mapper(address, b) {
@@ -186,6 +164,54 @@ func (cpu *CPU) WriteOperand(b uint8) {
     default: panic(fmt.Sprintf("WriteOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
     }
 }
+
+// Read from operand for instruction
+func (cpu *CPU) ReadOperand() (b uint8) {
+    switch cpu.Instruction.AddrMode {
+    case Acc: return cpu.A
+    case Imd: return uint8(cpu.Instruction.Operand)
+
+    case Zpg, Zpx, Zpy, Ndx, Ndy:
+        // Only can access zero page, so read directly from memory
+        cpu.Tick("read from effective address")
+        return cpu.Memory[cpu.AddressOperand()]
+
+    case Abs, Abx, Aby:
+        cpu.Tick("read from effective address")
+
+        address := cpu.AddressOperand()
+
+        switch {
+        case address < 0x2000:
+            address &^= 0x1800
+            return cpu.Memory[address] 
+
+        case address >= 0x6000 && address <= 0x7fff:
+            return cpu.Memory[address]
+
+        default:
+            for _, mapper := range cpu.ReadMappers {
+                if mapper != nil {
+                    wanted, b := mapper(address)
+                    if wanted {
+                        return b
+                    }
+                }
+            }
+            fmt.Printf("No mapper claimed read: %.4X\n", address)
+            // Read from ROM.. hope this is OK
+            return cpu.Memory[address]
+        }
+
+        return cpu.Memory[address]
+
+    // Can't read from implied (nothing to read from), indirect or relative (no instruction does)
+    default: panic(fmt.Sprintf("ReadOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
+    }
+
+    return 0
+}
+
 
 // Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
 func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
