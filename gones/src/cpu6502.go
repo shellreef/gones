@@ -101,20 +101,18 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     case Ndx: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
     case Ndy: return cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
 
-    //case Acc, Imp, Imd:  /* no address */
+    // Accumulator, implied, immediate have no address
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
     }
 
     return 0
 }
 
-// Read operand byte from memory or accumulator or immediate, for instruction
+// Read from operand for instruction
 func (cpu *CPU) ReadOperand() (b uint8) {
     switch cpu.Instruction.AddrMode {
     case Acc: return cpu.A
     case Imd: return uint8(cpu.Instruction.Operand)
-    case Imp: panic("Read() from implied operand\n") // doesn't make any sense
-    case Rel, Ind: panic("Read() from relative or indirect operand\n")// no instruction does this
 
     case Zpg, Zpx, Zpy, Ndx, Ndy:
         // Only can access zero page, so read directly from memory
@@ -126,43 +124,30 @@ func (cpu *CPU) ReadOperand() (b uint8) {
         cpu.Tick("read from effective address")
         return cpu.Memory[cpu.AddressOperand()]
 
-    default: panic(fmt.Sprintf("Read() unknown mode: %s\n", cpu.Instruction.AddrMode))
+    // Can't read from implied (nothing to read from), indirect or relative (no instruction does)
+    default: panic(fmt.Sprintf("ReadOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
     }
 
     return 0
 }
 
-// Write to memory or accumulator
+// Write to instruction operand
 func (cpu *CPU) WriteOperand(b uint8) {
-    var operAddr uint16
-    var operPtr *uint8
-
-    // XXX: TODO: must refactor
     switch cpu.Instruction.AddrMode {
-    // These modes either cannot access >$07FF (zero page is only $00-FF, etc.), or
-    // only access ROM (Rel and Ind), so don't need to be checked for memory-mapped I/O
-    case Zpg: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Zpx: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.X); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Zpy: operAddr = uint16(uint8(cpu.Instruction.Operand) + cpu.Y); cpu.Tick("add index register"); operPtr = &cpu.Memory[operAddr]
-    case Ndx: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X); operPtr = &cpu.Memory[operAddr]  // ($%.2X,X)
-    case Ndy: operAddr = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y); operPtr = &cpu.Memory[operAddr]  // ($%.2X),Y
-    case Acc: operPtr = &cpu.A  /* no address */
-    //case Imd: immediate := uint8(cpu.Instruction.Operand); operPtr = &immediate
-    case Imp: 
-    case Rel: operAddr = (cpu.PC) + uint16(cpu.Instruction.Operand);          operPtr = &cpu.Memory[operAddr]
-        cpu.Tick("relative: fetch next opcode")
-    case Ind: operAddr = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand));  operPtr = &cpu.Memory[operAddr]
-    case Abs: operAddr = uint16(cpu.Instruction.Operand);                     operPtr = &cpu.Memory[operAddr]
-    case Abx: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.X);     operPtr = &cpu.Memory[operAddr]
-    case Aby: operAddr = uint16(cpu.Instruction.Operand) + uint16(cpu.Y);     operPtr = &cpu.Memory[operAddr]
-    }
-
-    if operPtr != &cpu.A {
-        // Memory write takes cycles
+    case Acc: cpu.A = b
+    case Zpg, Zpx, Zpy, Ndx, Ndy:
         cpu.Tick("write to effective address")
-    }
+        cpu.Memory[cpu.AddressOperand()] = b
 
-    *operPtr = b
+    case Abs, Abx, Aby:
+        // TODO: mappers
+        cpu.Tick("write to effective address")
+        cpu.Memory[cpu.AddressOperand()] = b
+
+
+    // Can't write to implied, immediate, etc.
+    default: panic(fmt.Sprintf("WriteOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
+    }
 }
 
 // Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
