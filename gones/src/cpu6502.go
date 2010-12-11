@@ -85,7 +85,7 @@ func (cpu *CPU) NextUInt16() (w uint16) {
 }
 
 // Get the address an operand refers to
-func (cpu *CPU) Address() (address uint16) {
+func (cpu *CPU) AddressOperand() (address uint16) {
     switch cpu.Instruction.AddrMode {
     case Rel: 
         cpu.Tick("relative: fetch next opcode")
@@ -109,7 +109,7 @@ func (cpu *CPU) Address() (address uint16) {
 }
 
 // Read operand byte from memory or accumulator or immediate, for instruction
-func (cpu *CPU) Read() (b uint8) {
+func (cpu *CPU) ReadOperand() (b uint8) {
     switch cpu.Instruction.AddrMode {
     case Acc: return cpu.A
     case Imd: return uint8(cpu.Instruction.Operand)
@@ -119,12 +119,12 @@ func (cpu *CPU) Read() (b uint8) {
     case Zpg, Zpx, Zpy, Ndx, Ndy:
         // Only can access zero page, so read directly from memory
         cpu.Tick("read from effective address")
-        return cpu.Memory[cpu.Address()]
+        return cpu.Memory[cpu.AddressOperand()]
 
     case Abs, Abx, Aby:
         // TODO: access mappers!
         cpu.Tick("read from effective address")
-        return cpu.Memory[cpu.Address()]
+        return cpu.Memory[cpu.AddressOperand()]
 
     default: panic(fmt.Sprintf("Read() unknown mode: %s\n", cpu.Instruction.AddrMode))
     }
@@ -133,7 +133,7 @@ func (cpu *CPU) Read() (b uint8) {
 }
 
 // Write to memory or accumulator
-func (cpu *CPU) Write(b uint8) {
+func (cpu *CPU) WriteOperand(b uint8) {
     var operAddr uint16
     var operPtr *uint8
 
@@ -167,11 +167,11 @@ func (cpu *CPU) Write(b uint8) {
 
 // Read something, modify it with the given modifier function, and write it back out (for read-modify-write instructions)
 func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
-    in := cpu.Read()
-    cpu.Write(in)  // read-modify-write operations write unmodified value back first
+    in := cpu.ReadOperand()
+    cpu.WriteOperand(in)  // read-modify-write operations write unmodified value back first
 
     out = modify(in)
-    cpu.Write(out)
+    cpu.WriteOperand(out)
     return out
 }
 
@@ -507,15 +507,15 @@ func (cpu *CPU) ExecuteInstruction() {
     /* TODO
     switch cpu.Instruction.AddrMode {
     case Abs, Abx, Aby:
-        if cpu.Address() < 0x1fff {
+        if cpu.AddressOperand() < 0x1fff {
             // $0000-07ff is mirrored three times, and it is always RAM
-            cpu.Address() &^= 0x1800
+            cpu.AddressOperand() &^= 0x1800
         } 
-        if cpu.Address() > 0x07ff {
+        if cpu.AddressOperand() > 0x07ff {
             // Let all mappers get a chance to set a new operPtr, place to write to
             for _, mapper := range cpu.MappersBeforeExecute {
                 if mapper != nil {
-                    wants, newPtr := mapper(cpu.Address())
+                    wants, newPtr := mapper(cpu.AddressOperand())
 
                     if wants {
                         operPtr = newPtr
@@ -524,7 +524,7 @@ func (cpu *CPU) ExecuteInstruction() {
             }
         }
 
-        operPtr = &cpu.Memory[cpu.Address()]
+        operPtr = &cpu.Memory[cpu.AddressOperand()]
     }*/
 
     switch cpu.Instruction.Opcode {
@@ -532,8 +532,8 @@ func (cpu *CPU) ExecuteInstruction() {
     // http://www.obelisk.demon.co.uk/6502/reference.html#ADC
 
     case NOP:
-    case DOP: _ = cpu.Read()     // zero page, so two byte "double no-op"
-    case TOP: _ = cpu.Read()     // absolute, so three byte "triple no-op"
+    case DOP: _ = cpu.ReadOperand()     // zero page, so two byte "double no-op"
+    case TOP: _ = cpu.ReadOperand()     // absolute, so three byte "triple no-op"
 
     // Flag setting       
     case SEI: cpu.P |= FLAG_I
@@ -546,14 +546,14 @@ func (cpu *CPU) ExecuteInstruction() {
     case CLV: cpu.P &^= FLAG_V
 
     // Load register from memory
-    case LDA: cpu.A = cpu.Read(); cpu.SetSZ(cpu.A)
-    case LDX: cpu.X = cpu.Read(); cpu.SetSZ(cpu.X)
-    case LDY: cpu.Y = cpu.Read(); cpu.SetSZ(cpu.Y)
-    case LAX: cpu.A = cpu.Read(); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
+    case LDA: cpu.A = cpu.ReadOperand(); cpu.SetSZ(cpu.A)
+    case LDX: cpu.X = cpu.ReadOperand(); cpu.SetSZ(cpu.X)
+    case LDY: cpu.Y = cpu.ReadOperand(); cpu.SetSZ(cpu.Y)
+    case LAX: cpu.A = cpu.ReadOperand(); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
     // Store register to memory
-    case STA: cpu.Write(cpu.A)
-    case STX: cpu.Write(cpu.X)
-    case STY: cpu.Write(cpu.Y)
+    case STA: cpu.WriteOperand(cpu.A)
+    case STX: cpu.WriteOperand(cpu.X)
+    case STY: cpu.WriteOperand(cpu.Y)
 
     // Transfers
     case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
@@ -564,9 +564,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case TYA: cpu.A = cpu.Y; cpu.SetSZ(cpu.Y)
 
     // Bitwise operations
-    case AND: cpu.A &= cpu.Read(); cpu.SetSZ(cpu.A)
-    case EOR: cpu.A ^= cpu.Read(); cpu.SetSZ(cpu.A)
-    case ORA: cpu.A |= cpu.Read(); cpu.SetSZ(cpu.A)
+    case AND: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
+    case EOR: cpu.A ^= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
+    case ORA: cpu.A |= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
     case ASL: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) {
         cpu.SetCarry(x & 0x80 != 0)
         return x << 1
@@ -578,11 +578,11 @@ func (cpu *CPU) ExecuteInstruction() {
     case ROL: cpu.OpROL()
     case ROR: cpu.OpROR()
     case RLA: cpu.A &= cpu.OpROL(); cpu.SetSZ(cpu.A)
-    case BIT: tmp := cpu.Read()
+    case BIT: tmp := cpu.ReadOperand()
         cpu.SetSign(tmp)
         cpu.SetOverflow(0x40 & tmp != 0)
         cpu.SetZero(tmp & cpu.A)
-    case SAX: cpu.Write(cpu.X & cpu.A)
+    case SAX: cpu.WriteOperand(cpu.X & cpu.A)
     case SLO: cpu.A |= cpu.Modify(func(x uint8) (uint8) {
             cpu.SetCarry(x & 0x80 != 0)
             return x << 1
@@ -601,8 +601,8 @@ func (cpu *CPU) ExecuteInstruction() {
     case INC: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) { return x + 1 }))
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
-    case ADC: cpu.OpADC(cpu.Read())
-    case SBC: cpu.OpSBC(cpu.Read())
+    case ADC: cpu.OpADC(cpu.ReadOperand())
+    case SBC: cpu.OpSBC(cpu.ReadOperand())
     case RRA: cpu.OpADC(cpu.OpROR())
     case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
@@ -611,9 +611,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case CMP, CPX, CPY:
         var tmp uint
         switch cpu.Instruction.Opcode {
-        case CMP: tmp = uint(cpu.A) - uint(cpu.Read())
-        case CPX: tmp = uint(cpu.X) - uint(cpu.Read())
-        case CPY: tmp = uint(cpu.Y) - uint(cpu.Read())
+        case CMP: tmp = uint(cpu.A) - uint(cpu.ReadOperand())
+        case CPX: tmp = uint(cpu.X) - uint(cpu.ReadOperand())
+        case CPY: tmp = uint(cpu.Y) - uint(cpu.ReadOperand())
         }
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
@@ -625,27 +625,27 @@ func (cpu *CPU) ExecuteInstruction() {
     case PLP: cpu.P = cpu.Pull() | FLAG_R; cpu.P &^= FLAG_B    // on pull, R "flag" is always set and B "flag" always clear (same with RTI). See http://wiki.nesdev.com/w/index.php/CPU_status_flag_behavior
 
     // Branches
-    // Instructions that access cpu.Address() directly, always referring to ROM, can skip mapper checks
-    case BCC: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_C == 0)
-    case BCS: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_C != 0)
-    case BNE: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_Z == 0)
-    case BEQ: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_Z != 0)
-    case BPL: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_N == 0)
-    case BMI: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_N != 0)
-    case BVC: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_V == 0)
-    case BVS: cpu.BranchIf(cpu.Address(), cpu.P & FLAG_V != 0)
+    // Instructions that access cpu.AddressOperand() directly, always referring to ROM, can skip mapper checks
+    case BCC: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_C == 0)
+    case BCS: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_C != 0)
+    case BNE: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_Z == 0)
+    case BEQ: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_Z != 0)
+    case BPL: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_N == 0)
+    case BMI: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_N != 0)
+    case BVC: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_V == 0)
+    case BVS: cpu.BranchIf(cpu.AddressOperand(), cpu.P & FLAG_V != 0)
  
     // Jumps
     case JMP: 
-        /*if cpu.PC - 3 == cpu.Address() {
+        /*if cpu.PC - 3 == cpu.AddressOperand() {
             fmt.Printf("*** Infinite loop detected - halting\n") // TODO: on branches, too; TODO: continue waiting for NMI, just halt CPU
             os.Exit(0)
         }*/
-        cpu.PC = cpu.Address()
+        cpu.PC = cpu.AddressOperand()
     case JSR: cpu.PC -= 1
         cpu.Push16(cpu.PC)
         cpu.Tick("JSR copy PC")
-        cpu.PC = cpu.Address()
+        cpu.PC = cpu.AddressOperand()
     case RTI: 
         cpu.S += 1
         cpu.Tick("RTI increment S")
@@ -712,7 +712,7 @@ func (cpu *CPU) ExecuteInstruction() {
         // Tell mappers if something was written
         for _, mapper := range cpu.MappersAfterExecute {
             if mapper != nil {
-                mapper(cpu.Address(), operPtr)
+                mapper(cpu.AddressOperand(), operPtr)
             }
         }
     }
@@ -722,7 +722,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Post-cpu.Instructionuction execution trace
     //fmt.Printf("%.4X  %s  ", start, cpu.Instruction)
-    //fmt.Printf("operPtr=%x, cpu.Address()=%.4X, operVal=%.2X\n", operPtr, cpu.Address(), operVal)
+    //fmt.Printf("operPtr=%x, cpu.AddressOperand()=%.4X, operVal=%.2X\n", operPtr, cpu.AddressOperand(), operVal)
     //cpu.DumpRegisters()
     //fmt.Printf("\n")
 
