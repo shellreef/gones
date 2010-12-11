@@ -94,6 +94,19 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x24, 3},  // BIT
     {0xa7, 3},  // LAX
     {0x04, 3},  // DOP
+    // Read-modify-write
+    {0x06, 5},  // ASL
+    {0x46, 5},  // LSR
+    {0x26, 5},  // ROL
+    {0x66, 5},  // ROR
+    {0xe6, 5},  // INC
+    {0xc6, 5},  // DEC
+    {0x07, 5},  // SLO
+    {0x47, 5},  // SRE
+    {0x27, 5},  // RLA
+    {0x67, 5},  // RRA
+    {0xe7, 5},  // ISC
+    {0xc7, 5},  // DCP
 }
 
 func TestTiming(t *testing.T) {
