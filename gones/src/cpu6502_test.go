@@ -34,6 +34,7 @@ type OpcodeByteCycleCount struct {
 }
 
 // Based on http://nesdev.parodius.com/6502_cpu.txt
+// except mneumonics: ISC -> ISB, NOP,Ab* -> TOP, SAX -> AAX
 var Timings = [...]OpcodeByteCycleCount{
     // Instructions accessing the stack
     {0x00, 7},  // BRK
@@ -73,6 +74,11 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x6f, 6},  // RRA
     {0xef, 6},  // ISC
     {0xcf, 6},  // DCP
+    // Write
+    {0x8d, 4},  // STA
+    {0x8e, 4},  // STX
+    {0x8c, 4},  // STY
+    {0x8f, 4},  // AAX
 }
 
 func TestTiming(t *testing.T) {
