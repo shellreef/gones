@@ -32,6 +32,8 @@ type PPU struct {
 
     CycleChannel chan int       // Synchronize with CPU
     CPU *cpu6502.CPU
+
+    Verbose bool
 } 
 
 // Continuously run
@@ -62,7 +64,9 @@ func (ppu *PPU) Run() {
 func (ppu *PPU) VBlank() {
     // TODO: only run if VBlank flag is not disabled
 
-    fmt.Printf("** VBLANK **\n")
+    if ppu.Verbose {
+        fmt.Printf("** VBLANK **\n")
+    }
     ppu.CPU.NMI() 
 }
 

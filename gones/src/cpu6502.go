@@ -27,6 +27,8 @@ type CPU struct {
     Immediate uint8 // Temporary holder for immediate addressing
     PendingNMI bool // Run non-maskable interrupt after next instr finishes
 
+    Verbose bool
+
     MappersBeforeExecute [10](func(uint16) (bool, *uint8))
     MappersAfterExecute [10](func(uint16, *uint8))
 }
@@ -329,7 +331,9 @@ func (cpu *CPU) Push16(w uint16) {
 
 // Increment clock cycle
 func (cpu *CPU) Tick(reason string) {
-    fmt.Printf("tick: %s\n", reason)
+    if cpu.Verbose {
+        fmt.Printf("tick: %s\n", reason)
+    }
     cpu.Cyc += 1
 
     // TODO: remove check, but test suites don't setup channel
@@ -410,27 +414,29 @@ func (cpu *CPU) ExecuteInstruction() {
     instr := cpu.NextInstruction()
 
     // Instruction trace
-    fmt.Printf("%.4X  ", start)
-    fmt.Printf("%.2X ", instr.OpcodeByte)
-    if instr.AddrMode.OperandSize() >= 1 {
-       fmt.Printf("%.2X ", cpu.Memory[start + 1])
-    } else {
-       fmt.Printf("   ")
+    if cpu.Verbose {
+        fmt.Printf("%.4X  ", start)
+        fmt.Printf("%.2X ", instr.OpcodeByte)
+        if instr.AddrMode.OperandSize() >= 1 {
+           fmt.Printf("%.2X ", cpu.Memory[start + 1])
+        } else {
+           fmt.Printf("   ")
+        }
+
+        if instr.AddrMode.OperandSize() >= 2 {
+           fmt.Printf("%.2X ", cpu.Memory[start + 2])
+        } else {
+           fmt.Printf("   ")
+        }
+
+
+        // Trace *before* the instruction executes
+        fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%d\n",
+           instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
+           (startCyc * 3) % 341,   // 3 PPU cycles per 1 CPU cycle, wrap around at 341 (TODO: refactor)
+           0, // TODO: scanline
+           )
     }
-
-    if instr.AddrMode.OperandSize() >= 2 {
-       fmt.Printf("%.2X ", cpu.Memory[start + 2])
-    } else {
-       fmt.Printf("   ")
-    }
-
-
-    // Trace *before* the instruction executes
-    fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%d\n",
-       instr, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
-       (startCyc * 3) % 341,   // 3 PPU cycles per 1 CPU cycle, wrap around at 341 (TODO: refactor)
-       0, // TODO: scanline
-       )
 
     // Setup operPtr for reading/writing to operand. If no operand, it'll be null.
     var operPtr *uint8    // pointer to write/read, if applicable
@@ -672,7 +678,9 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("unrecognized opcode! %s\n", instr.Opcode) // shouldn't happen either because should all be in table
         os.Exit(-1)
     }
-    fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
+    if cpu.Verbose {
+        fmt.Printf("%s took %d cycles\n", instr.Opcode, cpu.Cyc - startCyc)
+    }
 
     if useMapper {
         // Tell mappers if something was written
@@ -694,6 +702,25 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Finished instruction, so now can run NMI
     cpu.CheckNMI()
+
+    // Running blargg's emulator tests?
+    // TODO: post-execute instruction hook for debugging?
+    if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
+        status := cpu.Memory[0x6000]
+        if cpu.Verbose || status != 0x80 {
+            fmt.Printf("@@ Status Code: %.2X\n", status)
+            p := 0x6004
+            fmt.Printf("@@ Status Text: ")
+            for cpu.Memory[p] != 0 {
+                fmt.Printf("%s", string(cpu.Memory[p]))
+                p += 1
+            }
+            fmt.Printf("\n")
+        }
+        if status < 0x80  {
+            os.Exit(int(status))
+        }
+    }
 }
 
 // Start execution
@@ -714,7 +741,9 @@ func (cpu *CPU) CheckNMI() {
         return
     }
 
-    fmt.Printf("*** RUNNING NMI\n")
+    if cpu.Verbose {
+        fmt.Printf("*** RUNNING NMI\n")
+    }
     cpu.Push16(cpu.PC)
     cpu.Push(cpu.P)
     cpu.PC = cpu.ReadUInt16(NMI_VECTOR)

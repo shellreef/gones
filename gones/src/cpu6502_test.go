@@ -48,6 +48,17 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x28, 4},  // PLP
     {0x20, 6},  // JSR
 
+    // Accumulator or implied addressing
+    // TODO: all
+    {0x6a, 2},  // ROR
+    {0x4a, 2},  // LSR
+    {0x18, 2},  // CLC
+    {0xf8, 2},  // SED
+    {0xea, 2},  // NOP
+    
+    // Immediate addressing
+    // TODO: all
+
     // Absolute addressing
     // Read 
     {0x4c, 3},  // JMP

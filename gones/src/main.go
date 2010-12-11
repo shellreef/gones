@@ -173,6 +173,8 @@ func main() {
 
     cpu.MappersBeforeExecute[0] = ppu2c02.Before
     cpu.MappersAfterExecute[0] = ppu2c02.After
+
+    // TODO: cpu.Verbose, ppu.Verbose set with -v
  
     for _, cmd := range(os.Args[1:]) {
         RunCommand(cpu, cmd)
