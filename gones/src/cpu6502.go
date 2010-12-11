@@ -381,15 +381,19 @@ func (cpu *CPU) OpSBC(operVal uint8) {
     cpu.A = uint8(tmp)
 }
 
-func (cpu *CPU) OpROR(operPtr *uint8) {
-    cpu.SetSZ(cpu.Modify(operPtr, func(x uint8) (y uint8) {
+func (cpu *CPU) OpROR(operPtr *uint8) (ret uint8) {
+    ret = cpu.Modify(operPtr, func(x uint8) (y uint8) {
         tmp := uint(x)
         if cpu.P & FLAG_C != 0 {
             tmp |= 0x100
         }
         cpu.SetCarry(tmp & 0x01 != 0)
         return uint8(tmp >> 1)
-    }))
+    })
+
+    cpu.SetSZ(ret)
+
+    return ret
 }
 
 func (cpu *CPU) OpROL(operPtr *uint8) (ret uint8) {
@@ -529,9 +533,9 @@ func (cpu *CPU) ExecuteInstruction() {
     case LDY: cpu.Y = cpu.Read(operPtr); cpu.SetSZ(cpu.Y)
     case LAX: cpu.A = cpu.Read(operPtr); cpu.X = cpu.A; cpu.SetSZ(cpu.X)
     // Store register to memory
-    case STA: *operPtr = cpu.A; cpu.Tick("store")
-    case STX: *operPtr = cpu.X; cpu.Tick("store")
-    case STY: *operPtr = cpu.Y; cpu.Tick("store")
+    case STA: cpu.Write(operPtr, cpu.A)
+    case STX: cpu.Write(operPtr, cpu.X)
+    case STY: cpu.Write(operPtr, cpu.Y)
 
     // Transfers
     case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go
@@ -581,13 +585,11 @@ func (cpu *CPU) ExecuteInstruction() {
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(cpu.Read(operPtr))
     case SBC: cpu.OpSBC(cpu.Read(operPtr))
-    case RRA: cpu.OpROR(operPtr); cpu.OpADC(cpu.Read(operPtr))
+    case RRA: cpu.OpADC(cpu.OpROR(operPtr))
     case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
-    case ISB: cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 })
-        cpu.OpSBC(*operPtr)
-
+    case ISB: cpu.OpSBC(cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 }))
     case CMP, CPX, CPY:
         var tmp uint
         switch instr.Opcode {
