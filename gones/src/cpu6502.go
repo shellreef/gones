@@ -95,6 +95,11 @@ func (cpu *CPU) Write(operPtr *uint8, b uint8) {
     *operPtr = b
 }
 
+// Write and also set sign and zero flags
+func (cpu *CPU) WriteSZ(operPtr *uint8, b uint8) {
+    cpu.Write(operPtr, b)
+    cpu.SetSZ(b)
+}
 
 
 // Read unsigned 16-bits at given address, not advancing PC
@@ -323,55 +328,55 @@ func (cpu *CPU) PowerUp() {
 // Some instructions worth having in their own functions
 
 func (cpu *CPU) OpADC(operVal uint8) {
-    var carryIn, temp int
+    var carryIn, tmp int
     if cpu.P & FLAG_C == 0 {
         carryIn = 0
     } else {
         carryIn = 1
     }
-    temp = int(operVal) + int(cpu.A) + carryIn
-    cpu.SetSZ(uint8(temp))
-    cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ temp) & 0x80 != 0))
-    cpu.SetCarry(temp > 0xff)
-    cpu.A = uint8(temp)
+    tmp = int(operVal) + int(cpu.A) + carryIn
+    cpu.SetSZ(uint8(tmp))
+    cpu.SetOverflow(((int(cpu.A) ^ int(operVal)) & 0x80 == 0) && ((int(cpu.A) ^ tmp) & 0x80 != 0))
+    cpu.SetCarry(tmp > 0xff)
+    cpu.A = uint8(tmp)
 }
 
 func (cpu *CPU) OpSBC(operVal uint8) {
-    var carryIn, temp uint
+    var carryIn, tmp uint
     if cpu.P & FLAG_C == 0 {
         carryIn = 1
     } else {
         carryIn = 0
     }
-    temp = uint(cpu.A) - uint(operVal) - carryIn
-    cpu.SetSZ(uint8(temp))
-    cpu.SetOverflow(((uint(cpu.A) ^ uint(temp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
-    cpu.SetCarry(temp < 0x100)
-    cpu.A = uint8(temp)
+    tmp = uint(cpu.A) - uint(operVal) - carryIn
+    cpu.SetSZ(uint8(tmp))
+    cpu.SetOverflow(((uint(cpu.A) ^ uint(tmp)) & 0x80 != 0) && ((uint(cpu.A) ^ uint(operVal)) & 0x80 != 0))
+    cpu.SetCarry(tmp < 0x100)
+    cpu.A = uint8(tmp)
 }
 
 func (cpu *CPU) OpROR(operPtr *uint8) {
-    var temp int
-    temp = int(*operPtr)
+    var tmp int
+    tmp = int(cpu.Read(operPtr))
     if cpu.P & FLAG_C != 0 {
-        temp |= 0x100
+        tmp |= 0x100
     }
-    cpu.SetCarry(temp & 0x01 != 0)
-    temp >>= 1
-    *operPtr = uint8(temp)
-    cpu.SetSZ(*operPtr)
+    cpu.SetCarry(tmp & 0x01 != 0)
+    cpu.Write(operPtr, uint8(tmp))
+    tmp >>= 1
+    cpu.WriteSZ(operPtr, uint8(tmp))
 }
 
 func (cpu *CPU) OpROL(operPtr *uint8) {
-    var temp int
-    temp = int(*operPtr)    // larger than uint8 so can store carry bit
-    temp <<= 1
+    var tmp int
+    tmp = int(cpu.Read(operPtr))    // larger than uint8 so can store carry bit
+    cpu.Write(operPtr, uint8(tmp))
+    tmp <<= 1
     if cpu.P & FLAG_C != 0 {
-        temp |= 1
+        tmp |= 1
     }
-    cpu.SetCarry(temp > 0xff)
-    *operPtr = uint8(temp)
-    cpu.SetSZ(*operPtr)
+    cpu.SetCarry(tmp > 0xff)
+    cpu.WriteSZ(operPtr, uint8(tmp))
 }
 
 
@@ -516,13 +521,14 @@ func (cpu *CPU) ExecuteInstruction() {
     case ORA: cpu.A |= cpu.Read(operPtr); cpu.SetSZ(cpu.A)
     case ASL: tmp := cpu.Read(operPtr)
         cpu.SetCarry(tmp & 0x80 != 0)
-        cpu.Write(operPtr, tmp)
+        cpu.Write(operPtr, tmp)     // first writes unmodified
         tmp <<= 1
+        cpu.WriteSZ(operPtr, tmp)     // then modified
+    case LSR: tmp := cpu.Read(operPtr)
+        cpu.SetCarry(tmp & 0x01 != 0)
         cpu.Write(operPtr, tmp)
-        cpu.SetSZ(tmp)
-    case LSR: cpu.SetCarry(operVal & 0x01 != 0)
-        *operPtr >>= 1
-        cpu.SetSZ(*operPtr)
+        tmp >>= 1
+        cpu.WriteSZ(operPtr, tmp)
     case ROL: cpu.OpROL(operPtr)
     case ROR: cpu.OpROR(operPtr)
     case RLA: cpu.OpROL(operPtr); cpu.A &= *operPtr; cpu.SetSZ(cpu.A)
@@ -544,28 +550,33 @@ func (cpu *CPU) ExecuteInstruction() {
     case DEC: *operPtr -= 1; cpu.SetSZ(*operPtr)
     case DEX: cpu.X -= 1; cpu.SetSZ(cpu.X)
     case DEY: cpu.Y -= 1; cpu.SetSZ(cpu.Y)
-    case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
+    //case INC: *operPtr += 1; cpu.SetSZ(*operPtr)
+    case INC: tmp := cpu.Read(operPtr)
+        cpu.Write(operPtr, tmp)
+        tmp += 1
+        cpu.WriteSZ(operPtr, tmp)
+    //*operPtr += 1; cpu.SetSZ(*operPtr)
     case INX: cpu.X += 1; cpu.SetSZ(cpu.X)
     case INY: cpu.Y += 1; cpu.SetSZ(cpu.Y)
     case ADC: cpu.OpADC(cpu.Read(operPtr))
     case SBC: cpu.OpSBC(cpu.Read(operPtr))
     case RRA: cpu.OpROR(operPtr); cpu.OpADC(*operPtr)
     case DCP: *operPtr -= 1
-        var temp uint
-        temp = uint(cpu.A) - uint(*operPtr)
-        cpu.SetCarry(temp < 0x100)
-        cpu.SetSZ(uint8(temp))
+        var tmp uint
+        tmp = uint(cpu.A) - uint(*operPtr)
+        cpu.SetCarry(tmp < 0x100)
+        cpu.SetSZ(uint8(tmp))
     case ISC: *operPtr += 1; cpu.OpSBC(*operPtr)
 
     case CMP, CPX, CPY:
-        var temp uint
+        var tmp uint
         switch instr.Opcode {
-        case CMP: temp = uint(cpu.A) - uint(cpu.Read(operPtr))
-        case CPX: temp = uint(cpu.X) - uint(cpu.Read(operPtr))
-        case CPY: temp = uint(cpu.Y) - uint(cpu.Read(operPtr))
+        case CMP: tmp = uint(cpu.A) - uint(cpu.Read(operPtr))
+        case CPX: tmp = uint(cpu.X) - uint(cpu.Read(operPtr))
+        case CPY: tmp = uint(cpu.Y) - uint(cpu.Read(operPtr))
         }
-        cpu.SetCarry(temp < 0x100)
-        cpu.SetSZ(uint8(temp))
+        cpu.SetCarry(tmp < 0x100)
+        cpu.SetSZ(uint8(tmp))
 
     // Stack
     case PHA: cpu.Push(cpu.A)

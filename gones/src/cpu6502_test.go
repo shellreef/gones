@@ -46,6 +46,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x20, 6},  // JSR
 
     // Absolute addressing
+    // Read 
     {0x4c, 3},  // JMP
     {0xad, 4},  // LDA
     {0xae, 4},  // LDX
@@ -59,6 +60,19 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x2c, 4},  // BIT
     {0xaf, 4},  // LAX
     {0x0c, 4},  // TOP
+    // Read-modify-write
+    {0x0e, 6},  // ASL
+    {0x4e, 6},  // LSR
+    {0x2e, 6},  // ROL
+    {0x6e, 6},  // ROR
+    {0xee, 6},  // INC
+    {0xce, 6},  // DEC
+    {0x0f, 6},  // SLO
+    {0x4f, 6},  // SRE
+    {0x2f, 6},  // RLA
+    {0x6f, 6},  // RRA
+    {0xef, 6},  // ISC
+    {0xcf, 6},  // DCP
 }
 
 func TestTiming(t *testing.T) {
