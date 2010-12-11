@@ -559,12 +559,11 @@ func (cpu *CPU) ExecuteInstruction() {
     case ADC: cpu.OpADC(cpu.Read(operPtr))
     case SBC: cpu.OpSBC(cpu.Read(operPtr))
     case RRA: cpu.OpROR(operPtr); cpu.OpADC(*operPtr)
-    case DCP: *operPtr -= 1
-        var tmp uint
-        tmp = uint(cpu.A) - uint(*operPtr)
+    case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
-    case ISC: *operPtr += 1; cpu.OpSBC(*operPtr)
+    case ISC: cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 })
+        cpu.OpSBC(*operPtr)
 
     case CMP, CPX, CPY:
         var tmp uint
