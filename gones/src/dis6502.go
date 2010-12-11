@@ -24,9 +24,16 @@ SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY";
 TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
 
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC"; SAX="SAX"; ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
-DCP="DCP"; DOP="DOP"; ISC="ISC"; KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
-RRA="RRA"; SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; TOP="TOP"; XAA="XAA"; 
+AAC="AAC"; 
+SAX="SAX";  // aka AAX
+ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
+DCP="DCP"; 
+TOP="TOP";  // aka NOP
+DOP="DOP";  // aka NOP
+ISB="ISB";  // aka ISC
+KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
+RRA="RRA"; SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; 
+XAA="XAA"; 
 XAS="XAS";
 )
 
@@ -109,10 +116,10 @@ var Opcodes = [...]OpcodeAddrMode{
 {INY, Imp},{CMP, Imd},{DEX, Imp},{AXS, Imd},{CPY, Abs},{CMP, Abs},{DEC, Abs},{DCP, Abs},
 {BNE, Rel},{CMP, Ndy},{KIL, Imp},{DCP, Ndy},{DOP, Zpx},{CMP, Zpx},{DEC, Zpx},{DCP, Zpx}, // dx 
 {CLD, Imp},{CMP, Aby},{NOP, Imp},{DCP, Aby},{TOP, Abx},{CMP, Abx},{DEC, Abx},{DCP, Abx},
-{CPX, Imd},{SBC, Ndx},{DOP, Imd},{ISC, Ndx},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{ISC, Zpg}, // ex 
-{INX, Imp},{SBC, Imd},{NOP, Imp},{SBC, Imd},{CPX, Abs},{SBC, Abs},{INC, Abs},{ISC, Abs},
-{BEQ, Rel},{SBC, Ndy},{KIL, Imp},{ISC, Ndy},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{ISC, Zpx}, // fx 
-{SED, Imp},{SBC, Aby},{NOP, Imp},{ISC, Aby},{TOP, Abx},{SBC, Abx},{INC, Abx},{ISC, Abx},
+{CPX, Imd},{SBC, Ndx},{DOP, Imd},{ISB, Ndx},{CPX, Zpg},{SBC, Zpg},{INC, Zpg},{ISB, Zpg}, // ex 
+{INX, Imp},{SBC, Imd},{NOP, Imp},{SBC, Imd},{CPX, Abs},{SBC, Abs},{INC, Abs},{ISB, Abs},
+{BEQ, Rel},{SBC, Ndy},{KIL, Imp},{ISB, Ndy},{DOP, Zpx},{SBC, Zpx},{INC, Zpx},{ISB, Zpx}, // fx 
+{SED, Imp},{SBC, Aby},{NOP, Imp},{ISB, Aby},{TOP, Abx},{SBC, Abx},{INC, Abx},{ISB, Abx},
 }
 
 // Excludes http://nesdev.parodius.com/undocumented_opcodes.txt

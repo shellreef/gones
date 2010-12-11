@@ -34,7 +34,7 @@ type OpcodeByteCycleCount struct {
 }
 
 // Based on http://nesdev.parodius.com/6502_cpu.txt
-// except mneumonics: ISC -> ISB, NOP,Ab* -> TOP
+// except mneumonics: NOP,Ab* -> TOP
 var Timings = [...]OpcodeByteCycleCount{
     // Instructions accessing the stack
     {0x00, 7},  // BRK

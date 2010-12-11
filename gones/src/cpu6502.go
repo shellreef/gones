@@ -562,7 +562,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case DCP: tmp := uint(cpu.A) - uint(cpu.Modify(operPtr, func(x uint8) (uint8) { return x - 1 }))
         cpu.SetCarry(tmp < 0x100)
         cpu.SetSZ(uint8(tmp))
-    case ISC: cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 })
+    case ISB: cpu.Modify(operPtr, func(x uint8) (uint8) { return x + 1 })
         cpu.OpSBC(*operPtr)
 
     case CMP, CPX, CPY:
