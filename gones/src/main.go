@@ -20,11 +20,7 @@ import (
     "gamegenie"
 )
 
-func Start(cpu *cpu6502.CPU) {
-    ppu := new(ppu2c02.PPU)
-    ppu.CycleChannel = make(chan int)
-    ppu.CPU = cpu
-    cpu.CycleChannel = make(chan int)
+func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     go cpu.Run()
     go ppu.Run()
 
@@ -45,7 +41,7 @@ func Start(cpu *cpu6502.CPU) {
 
 // Run a command to do something with the unit
 // TODO: in shell module
-func RunCommand(cpu *cpu6502.CPU, cmd string) {
+func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     // If given filename (no command), load and run it
     if strings.HasSuffix(cmd, ".nes") || strings.HasSuffix(cmd, ".NES") {
         _, err := os.Stat(cmd)
@@ -53,7 +49,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
             // TODO: refactor
             cart := nesfile.Open(cmd)
             cpu.Load(cart)
-            Start(cpu)
+            Start(cpu, ppu)
         } // have to ignore non-existing files, since might be a command
     }
 
@@ -73,7 +69,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
 
             cpu.PC = uint16(startInt)
         }
-        Start(cpu)
+        Start(cpu, ppu)
     // load
     case "l":
         if len(args) > 0 {
@@ -84,7 +80,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
             fmt.Printf("usage: l <filename>\n")
         }
     // interactive
-    case "i": Shell(cpu)
+    case "i": Shell(cpu, ppu)
     // registers
     case "r": cpu.DumpRegisters()
     // TODO: search
@@ -149,7 +145,7 @@ func RunCommand(cpu *cpu6502.CPU, cmd string) {
 }
 
 // Interactive shell: prompt for commands on stdin and run them
-func Shell(cpu *cpu6502.CPU) {
+func Shell(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     prompt := "-"
     for {
         line := readline.ReadLine(&prompt)
@@ -162,27 +158,31 @@ func Shell(cpu *cpu6502.CPU) {
             continue
         }
 
-        RunCommand(cpu, *line)
+        RunCommand(cpu, ppu, *line)
         readline.AddHistory(*line)
     }
 }
 
 func main() {
     cpu := new(cpu6502.CPU)
+    ppu := new(ppu2c02.PPU)
+    ppu.CycleChannel = make(chan int)
+    ppu.CPU = cpu
+    cpu.CycleChannel = make(chan int)
     cpu.PowerUp()
 
-    cpu.MappersBeforeExecute[0] = ppu2c02.Before
-    cpu.MappersAfterExecute[0] = ppu2c02.After
+    //cpu.MappersBeforeExecute[0] = ppu2c02.Before
+    //cpu.MappersAfterExecute[0] = ppu2c02.After
 
     // TODO: cpu.Verbose, ppu.Verbose set with -v
     cpu.InstrTrace = true
  
     for _, cmd := range(os.Args[1:]) {
-        RunCommand(cpu, cmd)
+        RunCommand(cpu, ppu, cmd)
     }
 
     if len(os.Args) < 2 {
-        Shell(cpu)
+        Shell(cpu, ppu)
     }
 }
 

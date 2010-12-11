@@ -34,8 +34,8 @@ type CPU struct {
     HaveCalculatedAddress bool
     CalculatedAddress uint16
 
-    MappersBeforeExecute [10](func(uint16) (bool, *uint8))
-    MappersAfterExecute [10](func(uint16, *uint8))
+    ReadMappers [10](func(uint16) (bool, *uint8))
+    WriteMappers [10](func(uint16, *uint8))
 }
 
 // Processor status bits
@@ -472,7 +472,6 @@ func (cpu *CPU) OpROL() (ret uint8) {
 }
 
 
-
 // Execute one instruction
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
@@ -497,37 +496,13 @@ func (cpu *CPU) ExecuteInstruction() {
         }
 
 
-        // Trace *before* the cpu.Instructionuction executes
+        // Trace *before* the instruction executes
         fmt.Printf(" %-31s A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d SL:%d\n",
            cpu.Instruction, cpu.A, cpu.X, cpu.Y, cpu.P, cpu.S, 
            (startCyc * 3) % 341,   // 3 PPU cycles per 1 CPU cycle, wrap around at 341 (TODO: refactor)
            0, // TODO: scanline
            )
     }
-
-    // These modes might access memory >$07FF so has to be checked for memory-mapped device access
-    /* TODO
-    switch cpu.Instruction.AddrMode {
-    case Abs, Abx, Aby:
-        if cpu.AddressOperand() < 0x1fff {
-            // $0000-07ff is mirrored three times, and it is always RAM
-            cpu.AddressOperand() &^= 0x1800
-        } 
-        if cpu.AddressOperand() > 0x07ff {
-            // Let all mappers get a chance to set a new operPtr, place to write to
-            for _, mapper := range cpu.MappersBeforeExecute {
-                if mapper != nil {
-                    wants, newPtr := mapper(cpu.AddressOperand())
-
-                    if wants {
-                        operPtr = newPtr
-                    }
-                }
-            }
-        }
-
-        operPtr = &cpu.Memory[cpu.AddressOperand()]
-    }*/
 
     switch cpu.Instruction.Opcode {
     // http://nesdev.parodius.com/6502.txt
@@ -679,9 +654,9 @@ func (cpu *CPU) ExecuteInstruction() {
 
     case KIL:
         // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
-        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird cpu.Instructionuctions, ending in KIL
+        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
         // So interpret this as a graceful termination. Only up to $C66E will be compared by tracediff.pl anyways.
-        fmt.Printf("Halting on KIL cpu.Instructionuction\n")
+        fmt.Printf("Halting on KIL instruction\n")
         // http://nesdev.com/bbs/viewtopic.php?t=7130
         result := cpu.Memory[2] << 8 | cpu.Memory[3]
         if result == 0 {
@@ -709,30 +684,11 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("%s took %d cycles\n", cpu.Instruction.Opcode, cpu.Cyc - startCyc)
     }
 
-/* TODO: remove this junk, it should be in Write()
-    if useMapper {
-        // Tell mappers if something was written
-        for _, mapper := range cpu.MappersAfterExecute {
-            if mapper != nil {
-                mapper(cpu.AddressOperand(), operPtr)
-            }
-        }
-    }
-*/
-
-    //fmt.Printf("$6000=%.2x\n", cpu.Memory[0x6000])
-
-    // Post-cpu.Instructionuction execution trace
-    //fmt.Printf("%.4X  %s  ", start, cpu.Instruction)
-    //fmt.Printf("operPtr=%x, cpu.AddressOperand()=%.4X, operVal=%.2X\n", operPtr, cpu.AddressOperand(), operVal)
-    //cpu.DumpRegisters()
-    //fmt.Printf("\n")
-
-    // Finished cpu.Instructionuction, so now can run NMI
+    // Finished instruction, so now can run NMI
     cpu.CheckNMI()
 
     // Running blargg's emulator tests?
-    // TODO: post-execute cpu.Instructionuction hook for debugging?
+    // TODO: post-execute instruction hook for debugging?
     if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
         status := cpu.Memory[0x6000]
         if cpu.Verbose || status != 0x80 {
