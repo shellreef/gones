@@ -34,7 +34,7 @@ type OpcodeByteCycleCount struct {
 }
 
 // Based on http://nesdev.parodius.com/6502_cpu.txt
-// except mneumonics: ISC -> ISB, NOP,Ab* -> TOP, SAX -> AAX
+// except mneumonics: ISC -> ISB, NOP,Ab* -> TOP
 var Timings = [...]OpcodeByteCycleCount{
     // Instructions accessing the stack
     {0x00, 7},  // BRK
@@ -78,7 +78,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x8d, 4},  // STA
     {0x8e, 4},  // STX
     {0x8c, 4},  // STY
-    {0x8f, 4},  // AAX
+    {0x8f, 4},  // SAX
 
     // Zero page addressing
     // These are very similar to absolute, but take one fewer cycle because
@@ -113,7 +113,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x85, 3},  // STA
     {0x86, 3},  // STX
     {0x84, 3},  // STY
-    {0x87, 3},  // AAX
+    {0x87, 3},  // SAX
 
     // Zero page indexed
     // X        Y 
@@ -151,7 +151,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0x95, 4},              // STA
                 {0x96, 4},  // STX
     {0x94, 4},              // STY
-                {0x97, 4},  // AAX
+                {0x97, 4},  // SAX
 
     // Absolute indexed
     // Read

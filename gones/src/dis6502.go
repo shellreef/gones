@@ -24,7 +24,7 @@ SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY";
 TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
 
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC"; AAX="AAX"; ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
+AAC="AAC"; SAX="SAX"; ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
 DCP="DCP"; DOP="DOP"; ISC="ISC"; KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
 RRA="RRA"; SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; TOP="TOP"; XAA="XAA"; 
 XAS="XAS";
@@ -97,9 +97,9 @@ var Opcodes = [...]OpcodeAddrMode{
 {PLA, Imp},{ADC, Imd},{ROR, Acc},{ARR, Imd},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
 {BVS, Rel},{ADC, Ndy},{KIL, Imp},{RRA, Ndy},{DOP, Zpx},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
 {SEI, Imp},{ADC, Aby},{NOP, Imp},{RRA, Aby},{TOP, Abx},{ADC, Abx},{ROR, Abx},{RRA, Abx},
-{DOP, Imd},{STA, Ndx},{DOP, Imp},{AAX, Ndx},{STY, Zpg},{STA, Zpg},{STX, Zpg},{AAX, Zpg}, // 8x 
-{DEY, Imp},{DOP, Imd},{TXA, Imp},{XAA, Imd},{STY, Abs},{STA, Abs},{STX, Abs},{AAX, Abs},
-{BCC, Rel},{STA, Ndy},{KIL, Imp},{AXA, Ndy},{STY, Zpx},{STA, Zpx},{STX, Zpy},{AAX, Zpy}, // 9x 
+{DOP, Imd},{STA, Ndx},{DOP, Imp},{SAX, Ndx},{STY, Zpg},{STA, Zpg},{STX, Zpg},{SAX, Zpg}, // 8x 
+{DEY, Imp},{DOP, Imd},{TXA, Imp},{XAA, Imd},{STY, Abs},{STA, Abs},{STX, Abs},{SAX, Abs},
+{BCC, Rel},{STA, Ndy},{KIL, Imp},{AXA, Ndy},{STY, Zpx},{STA, Zpx},{STX, Zpy},{SAX, Zpy}, // 9x 
 {TYA, Imp},{STA, Aby},{TXS, Imp},{XAS, Aby},{SYA, Abx},{STA, Abx},{SXA, Aby},{AXA, Aby},
 {LDY, Imd},{LDA, Ndx},{LDX, Imd},{LAX, Ndx},{LDY, Zpg},{LDA, Zpg},{LDX, Zpg},{LAX, Zpg}, // ax 
 {TAY, Imp},{LDA, Imd},{TAX, Imp},{ATX, Imd},{LDY, Abs},{LDA, Abs},{LDX, Abs},{LAX, Abs},

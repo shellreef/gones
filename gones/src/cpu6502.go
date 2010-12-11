@@ -537,7 +537,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetSign(tmp)
         cpu.SetOverflow(0x40 & tmp != 0)
         cpu.SetZero(tmp & cpu.A)
-    case AAX: cpu.Write(operPtr, cpu.X & cpu.A)
+    case SAX: cpu.Write(operPtr, cpu.X & cpu.A)
     case SLO: cpu.A |= cpu.Modify(operPtr, func(x uint8) (uint8) {
             cpu.SetCarry(x & 0x80 != 0)
             return x << 1
