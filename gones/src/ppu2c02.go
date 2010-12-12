@@ -145,7 +145,6 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         wants = true
         switch operAddr {
         case PPU_STATUS: 
-
             // $2002.5 "Sprite overflow. The PPU can handle only eight sprites on one
             // scanline and sets this bit if it starts dropping sprites"
             if ppu.spriteOverflow {
@@ -169,6 +168,8 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
             ppu.partialAddress = false
 
             fmt.Printf("read PPUSTATUS = %.2X\n", ret)
+
+            //ppu.ShowNametable()
 
         case PPU_OAM_DATA:
             // Note: reading OAM is unreliable in real hardware
@@ -289,18 +290,16 @@ func (ppu *PPU) Load(cart *Cartridge) {
         copy(ppu.Memory[0:0x2000], cart.Chr[0])
         // TODO: what if there are more CHR banks, which one to load first?
     }
-
-    for tile := 0; tile < 255; tile += 1 {
-        ppu.ShowPattern(0, tile)
-    }
 }
 
+// Get a pattern from the pattern table
 // table: 0 or 1
 // tile: 0 to 255
-func (ppu *PPU) ShowPattern(table int, tile int) {
+// TODO: combine with OAM to get sprite bitmap
+func (ppu *PPU) GetPattern(table int, tile int) (pattern [8][8]uint8) {
+
     // There are two pattern tables (of 16 bytes), with 256 titles each
     base := table << 12 | tile << 4
-    fmt.Printf("\n#%d\n", tile)
     for row := 0; row < 8; row += 1 {
         // Palette data is split into two planes, for bit 0 and bit 1
         plane0Row := ppu.Memory[base + row]
@@ -312,7 +311,48 @@ func (ppu *PPU) ShowPattern(table int, tile int) {
             bit1 := (plane1Row & (1 << column)) >> column
             color := bit0 | (bit1 << 1)
 
-            fmt.Printf("%d ", color)
+            pattern[row][column] = color
+        }
+    }
+
+    return pattern
+}
+
+// Print ASCII diagram of a pattern
+func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
+    for row := 0; row < 8; row += 1 {
+        for column := 0; column < 8; column += 1 {
+            fmt.Printf("%d ", pattern[row][column])
+        }
+        fmt.Printf("\n")
+    }
+}
+
+func (ppu *PPU) ShowNametable() {
+    // http://wiki.nesdev.com/w/index.php/PPU_nametables 
+    // TODO: mirroring, access other nametables (4)
+    base := 0x2000
+    patternTable := 0
+    var screen [30*8][32*8]uint8    // pixels
+    for row := 0; row < 30; row += 1 {
+        for column := 0; column < 32; column += 1 {
+            tile := ppu.Memory[base + row*30 + column]
+            pattern := ppu.GetPattern(patternTable, int(tile))
+
+            // Load pattern into screen
+            // TODO: bitblt?
+            for i := 0; i < 8; i += 1 {
+                for j := 0; j < 8; j += 1 {
+                    // TODO: load attributes too
+                    screen[row + i][column + j] = pattern[i][j]
+                }
+            }
+        }
+    }
+
+    for x := 0; x < 30*8; x += 1 {
+        for y := 0; y < 32*8; y += 1 {
+            fmt.Printf("%d", screen[x][y])
         }
         fmt.Printf("\n")
     }

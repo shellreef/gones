@@ -4,6 +4,7 @@
 // Game Genie codes
 
 // TODO: optionally allow using Codemaster's official Game Genie ROM to enter codes: http://nesdev.parodius.com/genie.zip
+// Nintendulator can emulate GENIE.NES. For mapper info see also http://nesdev.parodius.com/bbs/viewtopic.php?t=6434
 
 // http://nesdev.com/nesgg.txt
 

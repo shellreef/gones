@@ -107,7 +107,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         if err == nil {
             tile = 0
         }
-        ppu.ShowPattern(int(table), int(tile))
+        ppu.PrintPattern(ppu.GetPattern(int(table), int(tile)))
 
     // enter
     case "e":
