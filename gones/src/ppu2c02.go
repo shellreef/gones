@@ -246,8 +246,19 @@ func (ppu *PPU) ShowPattern(table int, tile int) {
     // There are two pattern tables (of 16 bytes), with 256 titles each
     base := table << 12 | tile << 4
     fmt.Printf("\n#%d\n", tile)
-    for i := 0; i < 8; i += 1 {
-        // two planes, for bit 0 and bit 1 of color
-        fmt.Printf("%.8b %.8b\n", ppu.Memory[base + i], ppu.Memory[base + i + 8])
+    for row := 0; row < 8; row += 1 {
+        // Palette data is split into two planes, for bit 0 and bit 1
+        plane0Row := ppu.Memory[base + row]
+        plane1Row := ppu.Memory[base + row + 8]
+
+        // Combine bits of both planes to get color of bitmapped pattern
+        for column := uint(0); column < 8; column += 1 {
+            bit0 := (plane0Row & (1 << column)) >> column
+            bit1 := (plane1Row & (1 << column)) >> column
+            color := bit0 | (bit1 << 1)
+
+            fmt.Printf("%d ", color)
+        }
+        fmt.Printf("\n")
     }
 }
