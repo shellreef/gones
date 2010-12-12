@@ -234,4 +234,20 @@ func (ppu *PPU) Load(cart *Cartridge) {
         copy(ppu.Memory[0:0x2000], cart.Chr[0])
         // TODO: what if there are more CHR banks, which one to load first?
     }
+
+    for tile := 0; tile < 255; tile += 1 {
+        ppu.ShowPattern(0, tile)
+    }
+}
+
+// table: 0 or 1
+// tile: 0 to 255
+func (ppu *PPU) ShowPattern(table int, tile int) {
+    // There are two pattern tables (of 16 bytes), with 256 titles each
+    base := table << 12 | tile << 4
+    fmt.Printf("\n#%d\n", tile)
+    for i := 0; i < 8; i += 1 {
+        // two planes, for bit 0 and bit 1 of color
+        fmt.Printf("%.8b %.8b\n", ppu.Memory[base + i], ppu.Memory[base + i + 8])
+    }
 }
