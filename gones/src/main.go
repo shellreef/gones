@@ -80,7 +80,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     // load
     case "l":
         if len(args) > 0 {
-            Load(cpu, ppu, args[0])
+            Load(cpu, ppu, strings.Join(args, " "))
             // TODO: verbose load
         } else {
             fmt.Printf("usage: l <filename>\n")
@@ -91,6 +91,23 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     case "r": cpu.DumpRegisters()
     // TODO: search
     // TODO: unassemble
+
+    // pattern table
+    case "p":
+        if len(args) < 2 {
+            fmt.Printf("usage: p <table-number> <tile-number>\n")
+            return
+        }
+        table, err := strconv.Btoui64(args[0], 0)
+        if err == nil {
+            table = 0
+        }
+        tile, err := strconv.Btoui64(args[1], 0) 
+        if err == nil {
+            tile = 0
+        }
+        ppu.ShowPattern(int(table), int(tile))
+
     // enter
     case "e":
         if len(args) < 2 {
@@ -133,7 +150,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         // TODO: optional argument of instructions to execute
         cpu.ExecuteInstruction()
         cpu.DumpRegisters()
-    // code
+    // cheat code
     case "c": 
         for _, code := range(args) {
             patch := gamegenie.Decode(code)
@@ -143,6 +160,8 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         if len(args) == 0 {
             fmt.Printf("usage: c game-genie-code\n")
         }
+
+       
 
     // TODO: breakpoints
     // TODO: watch
