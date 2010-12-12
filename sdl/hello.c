@@ -24,8 +24,8 @@ int main(int main, char *argv[])
         Uint8 *ptr = screen->pixels + y * screen->pitch + x;
         *ptr = SDL_MapRGB(screen->format, 255, 0, 0);
         
-        SDL_UpdateRect(screen, x, y, 1, 1);
     }
+    SDL_UpdateRect(screen, 0, 0, 0, 0);
 
     SDL_Event event;
     while(SDL_WaitEvent(&event)) {
