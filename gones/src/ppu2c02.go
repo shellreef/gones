@@ -81,6 +81,9 @@ type PPU struct {
 
     // http://wiki.nesdev.com/w/index.php/PPU_memory_map
     Memory [0x4000]uint8        // $0000-3FFF
+    vramAddress uint16          // Address latch used by PPU_SCROLL and PPU_ADDRESS
+    partialAddress bool      // true if in middle of reading/writing second byte of address
+    
 
     // Object Attribute Memory, information on up to 64 sprites
     OAM [0x100]uint8            // $00-FF, see http://wiki.nesdev.com/w/index.php/PPU_OAM
@@ -156,14 +159,18 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
                 ret |= 0x80
             }
 
-            // "Reading the status register will clear D7 mentioned above and also the address latch"
+            // "Reading the status register will clear D7 mentioned above"
             ppu.vblankStarted = false
+            
+            // "and also the address latch"
+            ppu.vramAddress = 0
+            ppu.partialAddress = false
 
             fmt.Printf("read PPUSTATUS = %.2X\n", ret)
 
         case PPU_OAM_DATA:
             // Note: reading OAM is unreliable in real hardware
-            ret = ppu.OAM[b]
+            ret = ppu.OAM[ppu.oamAddress]
 
         default:
             wants = false
@@ -237,6 +244,21 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
             fmt.Printf("PPU_OAM_DATA write to %.2X: %.2X\n", ppu.oamAddress, b)
             ppu.OAM[ppu.oamAddress] = b
             ppu.oamAddress += 1
+
+        case PPU_ADDRESS:
+            // Write here twice for a 16-bit address
+            if !ppu.partialAddress {
+                // First write is to the upper byte
+                ppu.vramAddress = uint16(b) << 8
+                ppu.partialAddress = true
+            } else {
+                // Second write to the lower byte
+                ppu.vramAddress |= uint16(b)
+                ppu.partialAddress = false
+
+                fmt.Printf("PPU_ADDRESS latched %.4X\n", ppu.vramAddress)
+            }
+                
         }
 
         return true
