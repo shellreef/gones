@@ -20,6 +20,8 @@ import (
     "gamegenie"
 )
 
+// TODO: move to a NES Control Deck abstraction?
+
 func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     go cpu.Run()
     go ppu.Run()
@@ -39,6 +41,13 @@ func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     }
 }
 
+func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {
+    cart := nesfile.Open(filename)
+    cpu.Load(cart)
+    ppu.Load(cart)
+
+}
+
 // Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
@@ -46,9 +55,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     if strings.HasSuffix(cmd, ".nes") || strings.HasSuffix(cmd, ".NES") {
         _, err := os.Stat(cmd)
         if err == nil {
-            // TODO: refactor
-            cart := nesfile.Open(cmd)
-            cpu.Load(cart)
+            Load(cpu, ppu, cmd)
             Start(cpu, ppu)
         } // have to ignore non-existing files, since might be a command
     }
@@ -73,8 +80,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     // load
     case "l":
         if len(args) > 0 {
-            cart := nesfile.Open(args[0])
-            cpu.Load(cart)
+            Load(cpu, ppu, args[0])
             // TODO: verbose load
         } else {
             fmt.Printf("usage: l <filename>\n")

@@ -9,10 +9,14 @@
 package ppu2c02
 
 import (
-    "cpu6502"
     "fmt"
+
+    "cpu6502"
 )
 
+import . "nesfile"
+
+// Registers
 const PPU_CTRL      = 0x2000
 const PPU_MASK      = 0x2001
 const PPU_STATUS    = 0x2002
@@ -34,6 +38,15 @@ const PPU_MASTER_CYCLES = 5     // 5 "master cycles" per PPU cycle
 const SPRITE_SIZE_8x8 = false
 const SPRITE_SIZE_8x16 = true
 
+// Memory map http://wiki.nesdev.com/w/index.php/PPU_memory_map
+const PATTERN_TABLE_0 = 0x0000      // to 0x0fff, aka "left http://wiki.nesdev.com/w/index.php/PPU_pattern_tables
+const PATTERN_TABLE_1 = 0x1000      // to 0x1fff, aka "right"
+const NAME_TABLE_0 = 0x2000         // to 0x03c0
+const ATTR_TABLE_0 = 0x23c0         // to 0x2400
+// Name and attribute tables 1 to 3 follow, possibly mirrored
+const IMAGE_PALETTE_1 = 0x3f00      // to 0x3f10
+const SPRITE_PALETTE_1 = 0x3f10     // to 0x3f20
+
 type PPU struct {
     Pixel int
     Scanline int
@@ -49,7 +62,25 @@ type PPU struct {
     spriteSize bool             // SPRITE_SIZE_8x8 or 8x16
     nmiEnabled bool             // "Generate an NMI at the start of the vertical blanking interval"
 
+    // Set by PPU_MASK
+    grayscale bool              // If enabled, AND all palette entries with 0x30 for monochrome display
+    backgroundLeftmost bool     // "Enable backgrounds in leftmost 8 pixels of screen"
+    spritesLeftmost bool        // "Enable sprites in leftmost 8 pixels of screen"
+    backgroundEnabled bool     
+    spritesEnabled bool
+    intensifyRed bool
+    intensifyGreen bool
+    intensifyBlue bool
+
+    // Returned by PPU_STATUS
+    spriteOverflow bool
+    spriteZeroHit bool
+    vblankStarted bool
+
     Verbose bool
+
+    // http://wiki.nesdev.com/w/index.php/PPU_memory_map
+    Memory [0x4000]uint8        // $0000-3FFF
 } 
 
 // Continuously run
@@ -83,6 +114,7 @@ func (ppu *PPU) VBlank() {
     if ppu.Verbose {
         fmt.Printf("** VBLANK **\n")
     }
+    ppu.vblankStarted = true
     if ppu.nmiEnabled {
         ppu.CPU.NMI() 
     }
@@ -104,9 +136,28 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         wants = true
         switch operAddr {
         case PPU_STATUS: 
-            // VBLANK flag set
-            // TODO: for real
-            ret = 0x80
+
+            // $2002.5 "Sprite overflow. The PPU can handle only eight sprites on one
+            // scanline and sets this bit if it starts dropping sprites"
+            if ppu.spriteOverflow {
+                ret |= 0x20
+            }
+            // $2002.6 "Sprite 0 Hit.  Set when a nonzero pixel of sprite 0 'hits'
+            // a nonzero background pixel.  Used for raster timing."
+            if ppu.spriteZeroHit {
+                ret |= 0x40
+            }
+            // $2002.7 Vertical blank has started
+            if ppu.vblankStarted {
+                ret |= 0x80
+            }
+
+            // "Reading the status register will clear D7 mentioned above and also the address latch"
+            ppu.vblankStarted = false
+
+            fmt.Printf("read PPUSTATUS = %.2X\n", ret)
+
+
         default:
             wants = false
         }
@@ -152,9 +203,35 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
             // $2005.7: "Generate an NMI at the start of the VBLANK"
             ppu.nmiEnabled = b & 0x80 != 0
 
-            fmt.Printf("nametable=%.4X, vramIncrement=%d, spritePatternBase8x8=%.4X, backgroundBase=%.4X, spriteSize=%t, nmiEnabled=%t\n",
+            fmt.Printf("PPU_CTRL: nametable=%.4X, vramIncrement=%d, spritePatternBase8x8=%.4X, backgroundBase=%.4X, spriteSize=%t, nmiEnabled=%t\n",
                 ppu.nametableBase, ppu.vramIncrement, ppu.spritePatternBase8x8, ppu.backgroundBase, ppu.spriteSize, ppu.nmiEnabled)
+
+        case PPU_MASK:
+            // $2001 flags
+            ppu.grayscale           = b & 0x01 != 0
+            ppu.backgroundLeftmost  = b & 0x02 != 0
+            ppu.spritesLeftmost     = b & 0x04 != 0
+            ppu.backgroundEnabled   = b & 0x08 != 0
+            ppu.spritesEnabled      = b & 0x10 != 0
+            // http://wiki.nesdev.com/w/index.php/NTSC_video
+            ppu.intensifyRed        = b & 0x20 != 0
+            ppu.intensifyGreen      = b & 0x40 != 0
+            ppu.intensifyBlue       = b & 0x80 != 0
+
+            fmt.Printf("PPU_MASK = %.8b\n", b)
         }
 
         return true
+}
+
+// Initialize the PPU with a game cartridge
+func (ppu *PPU) Load(cart *Cartridge) {
+    if len(cart.Chr) > 0 { 
+        // Load CHR ROM pattern tables #0 and #1 from cartridge, if present, into $0000-1FFF
+        // Note that not all games have this, some use CHR RAM instead, but 
+        // in either case it is wired in the cartridge, not the NES itself
+        // TODO: pointers instead of copying, so can switch CHR banks easily
+        copy(ppu.Memory[0:0x2000], cart.Chr[0])
+        // TODO: what if there are more CHR banks, which one to load first?
+    }
 }
