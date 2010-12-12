@@ -20,8 +20,8 @@ import . "nesfile"
 const PPU_CTRL      = 0x2000
 const PPU_MASK      = 0x2001
 const PPU_STATUS    = 0x2002
-const PPU_SPR_ADDR  = 0x2003
-const PPU_SPR_DATA  = 0x2004
+const PPU_OAM_ADDR  = 0x2003
+const PPU_OAM_DATA  = 0x2004
 const PPU_SCROLL    = 0x2005
 const PPU_ADDRESS   = 0x2006
 const PPU_DATA      = 0x2007
@@ -81,6 +81,10 @@ type PPU struct {
 
     // http://wiki.nesdev.com/w/index.php/PPU_memory_map
     Memory [0x4000]uint8        // $0000-3FFF
+
+    // Object Attribute Memory, information on up to 64 sprites
+    OAM [0x100]uint8            // $00-FF, see http://wiki.nesdev.com/w/index.php/PPU_OAM
+    oamAddress uint8
 } 
 
 // Continuously run
@@ -157,6 +161,9 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
 
             fmt.Printf("read PPUSTATUS = %.2X\n", ret)
 
+        case PPU_OAM_DATA:
+            // Note: reading OAM is unreliable in real hardware
+            ret = ppu.OAM[b]
 
         default:
             wants = false
@@ -219,6 +226,17 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
             ppu.intensifyBlue       = b & 0x80 != 0
 
             fmt.Printf("PPU_MASK = %.8b\n", b)
+
+        case PPU_OAM_ADDR:
+            // $2003, sets address of OAM to write to
+            ppu.oamAddress = b
+            fmt.Printf("PPU_OAM_ADDR = %.2X\n", b)
+
+        case PPU_OAM_DATA:
+            // $2004, to access OAM, but most games use DMA ($4014) instead
+            fmt.Printf("PPU_OAM_DATA write to %.2X: %.2X\n", ppu.oamAddress, b)
+            ppu.OAM[ppu.oamAddress] = b
+            ppu.oamAddress += 1
         }
 
         return true

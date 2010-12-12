@@ -80,7 +80,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     // load
     case "l":
         if len(args) > 0 {
-            Load(cpu, ppu, strings.Join(args, " "))
+            Load(cpu, ppu, strings.Join(args, " ")) // TODO: use cmd directly instead of rejoining
             // TODO: verbose load
         } else {
             fmt.Printf("usage: l <filename>\n")
@@ -98,6 +98,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
             fmt.Printf("usage: p <table-number> <tile-number>\n")
             return
         }
+        // TODO: allow omitting to show all
         table, err := strconv.Btoui64(args[0], 0)
         if err == nil {
             table = 0
