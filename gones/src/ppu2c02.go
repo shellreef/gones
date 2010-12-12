@@ -56,7 +56,7 @@ type PPU struct {
 
     // Set by PPU_CTRL
     nametableBase uint16        // Base nametable address
-    vramIncrement int           // "VRAM address increment per CPU read/write of PPUDATA"
+    vramIncrement uint16        // "VRAM address increment per CPU read/write of PPUDATA"
     spritePatternBase8x8 uint16 // Sprite pattern table address for 8x8 sprites
     backgroundBase uint16       // Background pattern table address
     spriteSize bool             // SPRITE_SIZE_8x8 or 8x16
@@ -89,6 +89,8 @@ type PPU struct {
     OAM [0x100]uint8            // $00-FF, see http://wiki.nesdev.com/w/index.php/PPU_OAM
     oamAddress uint8
 } 
+
+const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 
 // Continuously run
 func (ppu *PPU) Run() {
@@ -171,6 +173,11 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         case PPU_OAM_DATA:
             // Note: reading OAM is unreliable in real hardware
             ret = ppu.OAM[ppu.oamAddress]
+
+        case PPU_DATA:
+            ret = ppu.Memory[ppu.vramAddress]
+            ppu.vramAddress += ppu.vramIncrement
+            ppu.vramAddress &= VRAM_ADDRESS_MASK
 
         default:
             wants = false
@@ -256,9 +263,17 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
                 ppu.vramAddress |= uint16(b)
                 ppu.partialAddress = false
 
+                // $4000-FFFF is mirror of $0000-3FFF
+                ppu.vramAddress &= VRAM_ADDRESS_MASK
+
                 fmt.Printf("PPU_ADDRESS latched %.4X\n", ppu.vramAddress)
             }
-                
+
+        case PPU_DATA:
+            ppu.Memory[ppu.vramAddress] = b
+            fmt.Printf("PPU_DATA write to %.4X: %.2X\n", ppu.vramAddress, b)
+            ppu.vramAddress += ppu.vramIncrement
+            ppu.vramAddress &= VRAM_ADDRESS_MASK
         }
 
         return true
