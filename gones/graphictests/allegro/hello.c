@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <allegro5/allegro5.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     ALLEGRO_DISPLAY *display;
     ALLEGRO_EVENT_QUEUE *queue;
     ALLEGRO_EVENT event;
@@ -26,8 +26,9 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    color = al_map_rgba_f(0.5, 1.0, 0.5, 1.0);
-    al_clear_to_color(color);
+    al_set_target_bitmap(al_get_backbuffer(display));
+    al_clear_to_color(al_map_rgb(128, 255, 128));
+    al_flip_display();
 
 
     queue = al_create_event_queue();

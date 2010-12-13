@@ -1,2 +1,2 @@
 all::
-	gcc -lallegro -lallegro_main hello.o -o hello
+	gcc -lallegro -lallegro_main hello.c -o hello
