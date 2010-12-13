@@ -12,5 +12,7 @@ import "yasdl"
 func main() {
     x := yasdl.Init()
     fmt.Printf("%d\n", x)
+
+    yasdl.SetVideoMode(640, 480, 32, 0)
 }
 

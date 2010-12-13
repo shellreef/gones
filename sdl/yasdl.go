@@ -15,6 +15,14 @@ func Init() (int) {
     return int(x)
 }
 
+func SetVideoMode(width int, height int, bpp int, flags int) {
+    screen := C.SDL_SetVideoMode(C.int(width), C.int(height), C.int(bpp), C.Uint32(flags))
+
+    if screen == nil {
+        panic("unable to set video mode")
+    }
+}
+
 /*
 int main(int main, char *argv[]) 
 {
