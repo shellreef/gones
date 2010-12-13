@@ -1,1 +1,4 @@
-hello
+tryit
+*.6
+*cgo*
+_obj/*
