@@ -5,14 +5,27 @@
 
 package allego5
 
-// #include <allegro5/allegro5.h>
+/*
+
+#include <allegro5/allegro5.h>
+#include <stdio.h>
+
+// We have to wrap this since it is a C macro
+bool al_init_wrapper() {
+    return al_init();
+}
+
+*/
 import "C"
 
-func Init() (int) {
-    // system.h does: #define al_init()    (al_install_system(ALLEGRO_VERSION_INT, atexit))
-    x := C.al_install_system(C.ALLEGRO_VERSION_INT, C.atexit)
+func Init() (bool) {
+    x := C.al_init_wrapper()
 
-    return int(x)
+    return bool(x)
+}
+
+func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
+    return C.al_create_display(C.int(width), C.int(height))
 }
 
 /*

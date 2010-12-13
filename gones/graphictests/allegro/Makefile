@@ -3,6 +3,11 @@ include $(GOROOT)/src/Make.inc
 TARG=allego5
 
 CGOFILES=allego5.go
-CGO_LDFLAGS=-lallegro -lallegro_main
+CGO_CFLAGS=-DALLEGRO_NO_MAGIC_MAIN
+CGO_LDFLAGS=-lallegro
 
 include $(GOROOT)/src/Make.pkg
+
+try: install try.go
+	$(GC) try.go
+	$(LD) -o $@ try.$O
