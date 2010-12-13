@@ -5,6 +5,8 @@
 
 package allego5
 
+import "unsafe"
+
 /*
 
 #include <allegro5/allegro5.h>
@@ -14,6 +16,7 @@ package allego5
 bool al_init_wrapper() {
     return al_init();
 }
+
 
 */
 import "C"
@@ -26,6 +29,10 @@ func Init() (bool) {
 
 func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
     return C.al_create_display(C.int(width), C.int(height))
+}
+
+func AllegroMain(f func(C.int, *[0]C.char) (int)) {
+    C.al_run_main(C.int(0), nil, unsafe.Pointer(f))
 }
 
 /*
