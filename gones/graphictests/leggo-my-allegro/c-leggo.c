@@ -3,23 +3,26 @@
 
 // Leggo my Allegro: an Allegro 5 wrapper for Go
 
+// Turn off magic re#defining of main(), so we can wrap it manually
 #define ALLEGRO_NO_MAGIC_MAIN
 #include <allegro5/allegro5.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "leggo.h"
 #include "_cgo_export.h"
 
-// We have to wrap this since it is a C macro
-int al_init_wrapper() {
-    return (int)al_init();
-}
-
-int user_main(int argc, char **argv) {
+// The "user-defined" callback function given to al_run_main()
+// Allegro will call this as part of its UI wrapper, so when it 
+// returns, the program will exit. All code is invoked from here.
+int leggo_user_main(int argc, char **argv) {
     ALLEGRO_DISPLAY *display;
     
-    al_init();
+    if (!al_init()) {
+        fprintf(stderr, "failed to initialize Allegro\n");
+        exit(EXIT_FAILURE);
+    }
 
     display = al_create_display(640, 480);
     if (!display) {
@@ -32,11 +35,12 @@ int user_main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
+    // Draw a green background as a test
     al_set_target_bitmap(al_get_backbuffer(display));
     al_clear_to_color(al_map_rgb(128, 255, 128));
     al_flip_display();
 
-
+    // Main event loop
     ALLEGRO_EVENT_QUEUE *queue;
     ALLEGRO_EVENT event;
 
@@ -53,7 +57,9 @@ int user_main(int argc, char **argv) {
     return 0;
 }
 
+// Wrap calling Allegro's al_run_main(), with our own leggo_main. 
+// This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {
-    al_run_main(0, 0, user_main);
+    al_run_main(0, 0, leggo_user_main);
 }
 

@@ -12,10 +12,7 @@ import (
 
 func main() {
     // never returns
-    leggo.AllegroMain()
+    leggo.Main()
 
-    fmt.Printf("about to call init\n")
-    fmt.Printf("init = %t\n", leggo.Init())
-
-    //allego5.CreateDisplay(640, 480)
+    fmt.Printf("returned?!\n")
 }
