@@ -3,10 +3,10 @@
 // license that can be found in the LICENSE file.
 
 #include <assert.h>
-#include "life.h"
+#include "leggo.h"
 #include "_cgo_export.h"
 
-// Do the actual manipulation of the life board in C.  This could be
+// Do the actual manipulation of the leggo board in C.  This could be
 // done easily in Go, we are just using C for demonstration
 // purposes.
 void

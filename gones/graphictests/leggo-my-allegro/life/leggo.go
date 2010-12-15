@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package life
+package leggo
 
-// #include "life.h"
+// #include "leggo.h"
 import "C"
 
 import "unsafe"

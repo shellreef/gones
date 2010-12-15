@@ -4,28 +4,28 @@
 
 include $(GOROOT)/src/Make.inc
 
-TARG=life
+TARG=leggo
 
 CGOFILES=\
-	life.go
+	leggo.go
 
 LDPATH_freebsd=-Wl,-R,`pwd`
 LDPATH_linux=-Wl,-R,`pwd`
 LDPATH_darwin=
 
-CGO_LDFLAGS=_cgo_export.o c-life.so $(LDPATH_$(GOOS))
-CGO_DEPS=_cgo_export.o c-life.so
+CGO_LDFLAGS=_cgo_export.o c-leggo.so $(LDPATH_$(GOOS))
+CGO_DEPS=_cgo_export.o c-leggo.so
 
-CLEANFILES += life
+CLEANFILES += leggo
 
 include $(GOROOT)/src/Make.pkg
 
-c-life.o: c-life.c _cgo_export.h
-	gcc $(_CGO_CFLAGS_$(GOARCH)) -g -c -fPIC $(CFLAGS) c-life.c
+c-leggo.o: c-leggo.c _cgo_export.h
+	gcc $(_CGO_CFLAGS_$(GOARCH)) -g -c -fPIC $(CFLAGS) c-leggo.c
 
-c-life.so: c-life.o
-	gcc $(_CGO_CFLAGS_$(GOARCH)) -o $@ c-life.o $(_CGO_LDFLAGS_$(GOOS))
+c-leggo.so: c-leggo.o
+	gcc $(_CGO_CFLAGS_$(GOARCH)) -o $@ c-leggo.o $(_CGO_LDFLAGS_$(GOOS))
 
-life: install main.go
+leggo: install main.go
 	$(GC) main.go
 	$(LD) -o $@ main.$O

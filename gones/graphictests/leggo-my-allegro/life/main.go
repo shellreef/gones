@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Run the game of life in C using Go for parallelization.
+// Run the game of leggo in C using Go for parallelization.
 
 package main
 
 import (
 	"flag"
 	"fmt"
-	"life"
+	"leggo"
 )
 
 const MAXDIM = 100
@@ -29,7 +29,7 @@ func main() {
 		}
 	}
 
-	life.Run(*gen, *dim, *dim, a[:])
+	leggo.Run(*gen, *dim, *dim, a[:])
 
 	for i := 0; i < *dim; i++ {
 		for j := 0; j < *dim; j++ {
