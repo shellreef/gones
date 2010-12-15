@@ -52,7 +52,8 @@ int leggo_user_main(int argc, char **argv) {
         al_wait_for_event(queue, &event);
 
         if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            printf("leggo_user_main: quitting\n");
+            printf("leggo_user_main: calling LeggoExit()\n");
+            LeggoExit();
             break;
         }
     }
