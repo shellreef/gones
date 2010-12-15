@@ -12,8 +12,8 @@ import "fmt"
 // #include <allegro5/allegro.h>
 import "C"
 
-//export LeggoExit
-func LeggoExit() {
+//export GoLeggoExit
+func GoLeggoExit() {
     // Note: don't call this GoExit! It will cause dyld to fail to find anything here.
     fmt.Printf("in LeggoExit!\n");
 }
