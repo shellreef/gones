@@ -1,9 +1,9 @@
 // Created:20101212
 // By Jeff Connelly
 
-// Allego5: an Allegro 5 wrapper for Go
+// Leggo my Allegro: an Allegro 5 wrapper for Go
 
-package allego5
+package leggo
 
 /*
 
@@ -24,9 +24,7 @@ bool al_init_wrapper() {
 // TODO: communicate back with Go using a channel
 int user_main(int argc, char **argv) {
     ALLEGRO_DISPLAY *display;
-    ALLEGRO_EVENT_QUEUE *queue;
-    ALLEGRO_EVENT event;
-
+    
     al_init();
 
     display = al_create_display(640, 480);
@@ -44,6 +42,9 @@ int user_main(int argc, char **argv) {
     al_clear_to_color(al_map_rgb(128, 255, 128));
     al_flip_display();
 
+
+    ALLEGRO_EVENT_QUEUE *queue;
+    ALLEGRO_EVENT event;
 
     queue = al_create_event_queue();
     al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE *)al_get_keyboard_event_source());

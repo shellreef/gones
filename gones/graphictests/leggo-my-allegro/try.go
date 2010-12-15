@@ -7,15 +7,15 @@ package main
 
 import (
     "fmt"
-    "allego5")
+
+    "leggo")
 
 func main() {
     // never returns
-    allego5.AllegroMain()
+    leggo.AllegroMain()
 
     fmt.Printf("about to call init\n")
-    fmt.Printf("init = %t\n", allego5.Init())
-
+    fmt.Printf("init = %t\n", leggo.Init())
 
     //allego5.CreateDisplay(640, 480)
 }
