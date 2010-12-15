@@ -5,6 +5,8 @@
 
 package leggo
 
+import "fmt"
+
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
@@ -16,8 +18,9 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 }*/
 
 // Get things going
-//export Main
-func Main() {
+//export LeggoMain
+func LeggoMain() {
+    fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
 

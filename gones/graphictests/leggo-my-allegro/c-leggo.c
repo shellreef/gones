@@ -17,6 +17,8 @@
 // Allegro will call this as part of its UI wrapper, so when it 
 // returns, the program will exit. All code is invoked from here.
 int leggo_user_main(int argc, char **argv) {
+    printf("leggo_user_main: starting up\n");
+
     ALLEGRO_DISPLAY *display;
     
     if (!al_init()) {
@@ -50,6 +52,7 @@ int leggo_user_main(int argc, char **argv) {
         al_wait_for_event(queue, &event);
 
         if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            printf("leggo_user_main: quitting\n");
             break;
         }
     }
@@ -60,6 +63,7 @@ int leggo_user_main(int argc, char **argv) {
 // Wrap calling Allegro's al_run_main(), with our own leggo_main. 
 // This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {
+    printf("al_run_main_wrapper(): about to call al_run_main()\n");
     al_run_main(0, 0, leggo_user_main);
 }
 

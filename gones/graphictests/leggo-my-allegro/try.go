@@ -12,7 +12,7 @@ import (
 
 func main() {
     // never returns
-    leggo.Main()
+    leggo.LeggoMain()
 
     fmt.Printf("returned?!\n")
 }
