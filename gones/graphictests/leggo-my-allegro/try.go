@@ -7,13 +7,10 @@ package main
 
 import (
     "fmt"
-    "runtime"
 
     "leggo")
 
 func main() {
-    runtime.GOMAXPROCS(2)
-
     // never returns
     leggo.LeggoMain()
 

@@ -5,7 +5,8 @@
 
 package leggo
 
-import "fmt"
+import ("fmt"
+    "runtime")
 
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
@@ -28,5 +29,9 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 func LeggoMain() {
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
+}
+
+func init() {
+    runtime.GOMAXPROCS(2)
 }
 
