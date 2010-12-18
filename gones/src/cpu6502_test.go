@@ -20,6 +20,7 @@ func cyclesForOp(op uint8) (int) {
     cpu.PowerUp()
     cpu.PC = 0x8000
     cpu.Memory[0x8000] = op
+    cpu.Verbose = true
     // Note: cycle count may vary depending on operands.. they're all zeros here
     startCyc := cpu.Cyc
     cpu.ExecuteInstruction()

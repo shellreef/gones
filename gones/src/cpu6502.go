@@ -109,8 +109,12 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     case Zpy: 
         cpu.Tick("add index register")
         address = uint16(uint8(cpu.Instruction.Operand) + cpu.Y)
-    case Ndx: address = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand) + cpu.X)         // ($%.2X,X)
-    case Ndy: address = cpu.ReadUInt16ZeroPage(uint8(cpu.Instruction.Operand)) + uint16(cpu.Y) // ($%.2X),Y
+    case Ndx: pointer := uint8(cpu.Instruction.Operand) + cpu.X         // ($%.2X,X)
+        cpu.Tick("read from address, and X to it")
+        address = cpu.ReadUInt16ZeroPage(pointer)
+    case Ndy: pointer := uint8(cpu.Instruction.Operand)                 // ($%.2X),Y
+        address = cpu.ReadUInt16ZeroPage(pointer) + uint16(cpu.Y)
+        cpu.Tick("add Y to low byte of effective address")
 
     // Accumulator, implied, immediate have no address
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
@@ -236,7 +240,9 @@ func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
 // Read unsigned 16-bits from zero page
 func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
     low := cpu.Memory[address]
+    cpu.Tick("fetch effective address low (zero page)")
     high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
+    cpu.Tick("fetch effective address high (zero page)")
     return uint16(high) << 8 + uint16(low)
 }
 

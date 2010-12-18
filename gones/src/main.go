@@ -196,7 +196,6 @@ func main() {
     ppu.CPU = cpu
     cpu.CycleChannel = make(chan int)
 
-   
     // Would like to be able to do this, but go says: method ppu.ReadMapper is not an expression, must be called
     //cpu.ReadMappers[0] = ppu.ReadMapper
     //cpu.WriteMappers[0] = ppu.WriteMapper
