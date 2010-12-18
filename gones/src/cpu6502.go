@@ -114,7 +114,7 @@ func (cpu *CPU) AddressOperand() (address uint16) {
         address = cpu.ReadUInt16ZeroPage(pointer)
     case Ndy: pointer := uint8(cpu.Instruction.Operand)                 // ($%.2X),Y
         address = cpu.ReadUInt16ZeroPage(pointer) + uint16(cpu.Y)
-        cpu.Tick("add Y to low byte of effective address")
+        //TODO: missing cycle? cpu.Tick("add Y to low byte of effective address")
 
     // Accumulator, implied, immediate have no address
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
