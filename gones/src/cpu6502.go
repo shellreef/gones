@@ -219,6 +219,13 @@ func (cpu *CPU) ReadOperand() (b uint8) {
 func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
     in := cpu.ReadOperand()
 
+    if cpu.Instruction.AddrMode == Abx || cpu.Instruction.AddrMode == Aby {
+        // Read-modify-write to absolute indexed has an extra cycle:
+        // http://nesdev.parodius.com/6502_cpu.txt
+        // "5  address+X  R  re-read from effective address"
+        in = cpu.ReadOperand()
+    }
+
     // read-modify-write operations write unmodified value back first
     cpu.WriteOperand(in)
 
