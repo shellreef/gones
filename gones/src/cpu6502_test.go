@@ -222,8 +222,164 @@ var Timings = [...]OpcodeByteCycleCount{
     // TODO: more
 }
 
-func TestTiming(t *testing.T) {
-    for _, pair := range Timings {
+// All 151 official opcodes, from http://www.obelisk.demon.co.uk/6502/reference.html
+var OfficialTimings = [...]OpcodeByteCycleCount{
+    {0x69, 2}, 
+    {0x65, 3}, 
+    {0x75, 4}, 
+    {0x6d, 4}, 
+    {0x7d, 4},  //  +1 if page crossed
+    {0x79, 4},  //  +1 if page crossed
+    {0x61, 6}, 
+    {0x71, 5},  //  +1 if page crossed
+    {0x29, 2}, 
+    {0x25, 3}, 
+    {0x35, 4}, 
+    {0x2d, 4}, 
+    {0x3d, 4},  //  +1 if page crossed
+    {0x39, 4},  //  +1 if page crossed
+    {0x21, 6}, 
+    {0x31, 5},  //  +1 if page crossed
+    {0x0a, 2}, 
+    {0x06, 5}, 
+    {0x16, 6}, 
+    {0x0e, 6}, 
+    {0x1e, 7}, 
+    {0x90, 2},  //  +1 if branch succeeds
+    {0xb0, 2},  //  +1 if branch succeeds
+    {0xf0, 2},  //  +1 if branch succeeds
+    {0x24, 3}, 
+    {0x2c, 4}, 
+    {0x30, 2},  //  +1 if branch succeeds
+    {0xd0, 2},  //  +1 if branch succeeds
+    {0x10, 2},  //  +1 if branch succeeds
+    {0x00, 7}, 
+    {0x50, 2},  //  +1 if branch succeeds
+    {0x70, 2},  //  +1 if branch succeeds
+    {0x18, 2}, 
+    {0xd8, 2}, 
+    {0x58, 2}, 
+    {0xb8, 2}, 
+    {0xc9, 2}, 
+    {0xc5, 3}, 
+    {0xd5, 4}, 
+    {0xcd, 4}, 
+    {0xdd, 4},  //  +1 if page crossed
+    {0xd9, 4},  //  +1 if page crossed
+    {0xc1, 6}, 
+    {0xd1, 5},  //  +1 if page crossed
+    {0xe0, 2}, 
+    {0xe4, 3}, 
+    {0xec, 4}, 
+    {0xc0, 2}, 
+    {0xc4, 3}, 
+    {0xcc, 4}, 
+    {0xc6, 5}, 
+    {0xd6, 6}, 
+    {0xce, 6}, 
+    {0xde, 7}, 
+    {0xca, 2}, 
+    {0x88, 2}, 
+    {0x49, 2}, 
+    {0x45, 3}, 
+    {0x55, 4}, 
+    {0x4d, 4}, 
+    {0x5d, 4},  //  +1 if page crossed
+    {0x59, 4},  //  +1 if page crossed
+    {0x41, 6}, 
+    {0x51, 5},  //  +1 if page crossed
+    {0xe6, 5}, 
+    {0xf6, 6}, 
+    {0xee, 6}, 
+    {0xfe, 7}, 
+    {0xe8, 2}, 
+    {0xc8, 2}, 
+    {0x4c, 3}, 
+    {0x6c, 5}, 
+    {0x20, 6}, 
+    {0xa9, 2}, 
+    {0xa5, 3}, 
+    {0xb5, 4}, 
+    {0xad, 4}, 
+    {0xbd, 4},  //  +1 if page crossed
+    {0xb9, 4},  //  +1 if page crossed
+    {0xa1, 6}, 
+    {0xb1, 5},  //  +1 if page crossed
+    {0xa2, 2}, 
+    {0xa6, 3}, 
+    {0xb6, 4}, 
+    {0xae, 4}, 
+    {0xbe, 4},  //  +1 if page crossed
+    {0xa0, 2}, 
+    {0xa4, 3}, 
+    {0xb4, 4}, 
+    {0xac, 4}, 
+    {0xbc, 4},  //  +1 if page crossed
+    {0x4a, 2}, 
+    {0x46, 5}, 
+    {0x56, 6}, 
+    {0x4e, 6}, 
+    {0x5e, 7}, 
+    {0xea, 2}, 
+    {0x09, 2}, 
+    {0x05, 3}, 
+    {0x15, 4}, 
+    {0x0d, 4}, 
+    {0x1d, 4},  //  +1 if page crossed
+    {0x19, 4},  //  +1 if page crossed
+    {0x01, 6}, 
+    {0x11, 5},  //  +1 if page crossed
+    {0x48, 3}, 
+    {0x08, 3}, 
+    {0x68, 4}, 
+    {0x28, 4}, 
+    {0x2a, 2}, 
+    {0x26, 5}, 
+    {0x36, 6}, 
+    {0x2e, 6}, 
+    {0x3e, 7}, 
+    {0x6a, 2}, 
+    {0x66, 5}, 
+    {0x76, 6}, 
+    {0x6e, 6}, 
+    {0x7e, 7}, 
+    {0x40, 6}, 
+    {0x60, 6}, 
+    {0xe9, 2}, 
+    {0xe5, 3}, 
+    {0xf5, 4}, 
+    {0xed, 4}, 
+    {0xfd, 4},  //  +1 if page crossed
+    {0xf9, 4},  //  +1 if page crossed
+    {0xe1, 6}, 
+    {0xf1, 5},  //  +1 if page crossed
+    {0x38, 2}, 
+    {0xf8, 2}, 
+    {0x78, 2}, 
+    {0x85, 3}, 
+    {0x95, 4}, 
+    {0x8d, 4}, 
+    {0x9d, 5}, 
+    {0x99, 5}, 
+    {0x81, 6}, 
+    {0x91, 6}, 
+    {0x86, 3}, 
+    {0x96, 4}, 
+    {0x8e, 4}, 
+    {0x84, 3}, 
+    {0x94, 4}, 
+    {0x8c, 4}, 
+    {0xaa, 2}, 
+    {0xa8, 2}, 
+    {0xba, 2}, 
+    {0x8a, 2}, 
+    {0x9a, 2}, 
+    {0x98, 2}, 
+}
+
+// Test timings against a given array
+func testTiming(t *testing.T, a []OpcodeByteCycleCount) {
+    for _, pair := range a {
         opcodeByte := pair.OpcodeByte
         expected := pair.Cycles
 
@@ -237,4 +393,12 @@ func TestTiming(t *testing.T) {
             fmt.Printf("Pass %.2X: %s %d == %d\n", opcodeByte, disasm, actual, expected);
         }
     }
+}
+
+func TestAllTiming(t *testing.T) {
+    testTiming(t, Timings[:])
+}
+
+func TestOfficialTiming(t *testing.T) {
+    testTiming(t, OfficialTimings[:])
 }

@@ -4,8 +4,14 @@ while(<>) {
     chomp;
     if ($_=~m/^[\$]([0-9A-F][0-9A-F])/) {
         $opcode = hex($1);
+        $h = lc $1;
         chomp($bytes = <>);
-        chomp($cycles = <>);
-        print "$1,$bytes,$cycles\n";
+        chomp($s = <>);
+        $cycles = substr($s, 0, 1);
+        $note = substr($s, 1);
+        print "{0x$h, $cycles}, ";
+        $note =~ tr/()//d;
+        print " // $note" if length($note) > 2;
+        print "\n";
     }
 }
