@@ -250,7 +250,9 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
 // TODO: replace ReadUInt16ZeroPage with this, and maybe ReadUInt16 entirely?
 func (cpu *CPU) ReadUInt16Wraparound(address uint16) (w uint16) {
     low := cpu.Memory[address]
+    cpu.Tick("fetch low address ReadUInt16Wraparound")
     high := cpu.Memory[(address & 0xff00) | (address + 1) & 0xff]
+    cpu.Tick("fetch high address ReadUInt16Wraparound")
     return uint16(high) << 8 + uint16(low)
 }
 
