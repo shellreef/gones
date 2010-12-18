@@ -246,16 +246,16 @@ var OfficialTimings = [...]OpcodeByteCycleCount{
     {0x16, 6}, 
     {0x0e, 6}, 
     {0x1e, 7}, 
-    {0x90, 2},  //  +1 if branch succeeds
+    {0x90, 2+1},  //  +1 if branch succeeds (BCC, assuming C=0)
     {0xb0, 2},  //  +1 if branch succeeds
     {0xf0, 2},  //  +1 if branch succeeds
     {0x24, 3}, 
     {0x2c, 4}, 
     {0x30, 2},  //  +1 if branch succeeds
-    {0xd0, 2},  //  +1 if branch succeeds
-    {0x10, 2},  //  +1 if branch succeeds
+    {0xd0, 2+1},  //  +1 if branch succeeds (BNE, assuming Z=0)
+    {0x10, 2+1},  //  +1 if branch succeeds (BPL, assuming N=0)
     {0x00, 7}, 
-    {0x50, 2},  //  +1 if branch succeeds
+    {0x50, 2+1},  //  +1 if branch succeeds (BVC, assuming V=0)
     {0x70, 2},  //  +1 if branch succeeds
     {0x18, 2}, 
     {0xd8, 2}, 

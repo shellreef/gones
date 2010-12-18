@@ -101,7 +101,6 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     case Abs: address = uint16(cpu.Instruction.Operand)
     case Abx: address = uint16(cpu.Instruction.Operand) + uint16(cpu.X)
     case Aby: address = uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
-
     case Zpg: address = uint16(cpu.Instruction.Operand)
     case Zpx: 
         cpu.Tick("add index register")
