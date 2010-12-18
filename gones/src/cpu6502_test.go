@@ -230,7 +230,7 @@ var Timings = [...]OpcodeByteCycleCount{
     */
 }
 
-// All 151 official opcodes, from http://www.obelisk.demon.co.uk/6502/reference.html
+// Cycle counts for all 151 official opcodes, from http://www.obelisk.demon.co.uk/6502/reference.html
 var OfficialTimings = [...]OpcodeByteCycleCount{
     {0x69, 2}, 
     {0x65, 3}, 
@@ -383,6 +383,34 @@ var OfficialTimings = [...]OpcodeByteCycleCount{
     {0x8a, 2}, 
     {0x9a, 2}, 
     {0x98, 2}, 
+}
+
+// Cycles for when a page (lower byte of address) is crossed
+// TODO: test
+var PageCrossTimings = [...]OpcodeByteCycleCount{
+    {0x7d, 4+1},  //  +1 if page crossed
+    {0x79, 4+1},  //  +1 if page crossed
+    {0x71, 5+1},  //  +1 if page crossed
+    {0x3d, 4+1},  //  +1 if page crossed
+    {0x39, 4+1},  //  +1 if page crossed
+    {0x31, 5+1},  //  +1 if page crossed
+    {0xdd, 4+1},  //  +1 if page crossed
+    {0xd9, 4+1},  //  +1 if page crossed
+    {0xd1, 5+1},  //  +1 if page crossed
+    {0x5d, 4+1},  //  +1 if page crossed
+    {0x59, 4+1},  //  +1 if page crossed
+    {0x51, 5+1},  //  +1 if page crossed
+    {0xbd, 4+1},  //  +1 if page crossed
+    {0xb9, 4+1},  //  +1 if page crossed
+    {0xb1, 5+1},  //  +1 if page crossed
+    {0xbe, 4+1},  //  +1 if page crossed
+    {0xbc, 4+1},  //  +1 if page crossed
+    {0x1d, 4+1},  //  +1 if page crossed
+    {0x19, 4+1},  //  +1 if page crossed
+    {0x11, 5+1},  //  +1 if page crossed
+    {0xfd, 4+1},  //  +1 if page crossed
+    {0xf9, 4+1},  //  +1 if page crossed
+    {0xf1, 5+1},  //  +1 if page crossed
 }
 
 // Test timings against a given array

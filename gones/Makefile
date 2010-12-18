@@ -15,8 +15,8 @@ nestest: gones
 unittest: gones
 	gd -test
 
-	#@echo "CPU timing test"
-	#perl cmptiming.pl
+	@echo "CPU timing test"
+	perl cmptiming.pl
 
 
 compare:
