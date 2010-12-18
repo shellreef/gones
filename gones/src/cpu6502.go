@@ -128,6 +128,25 @@ func (cpu *CPU) AddressOperand() (address uint16) {
 
 // Write to instruction operand
 func (cpu *CPU) WriteOperand(b uint8) {
+    // TODO: can this be not hardcoded? 
+    switch cpu.Instruction.Opcode {
+    case STA, AXA, SXA, SYA: 
+        switch cpu.Instruction.AddrMode {
+        case Abx, Aby, Ndy: 
+            // http://nesdev.parodius.com/6502_cpu.txt
+            // Absolute indexed addressing
+            //      Write instructions (STA, STX[sic], STY[sic], SHA[AXA], SHX[SXA], SHY[SYA])
+            //         4  address+I* R  read from effective address,
+            /*
+                  * The high byte of the effective address may be invalid
+                    at this time, i.e. it may be smaller by $100. Because
+                    the processor cannot undo a write to an invalid
+                    address, it always reads from the address first.
+            */
+            _ = cpu.ReadOperand()
+        }
+    }
+
     switch cpu.Instruction.AddrMode {
     case Acc: cpu.A = b
     case Zpg, Zpx, Zpy, Ndx, Ndy:
@@ -138,19 +157,6 @@ func (cpu *CPU) WriteOperand(b uint8) {
         cpu.Tick("write to effective address")
 
         address := cpu.AddressOperand()
-
-        // http://nesdev.parodius.com/6502_cpu.txt
-        //      Write instructions (STA, STX, STY, SHA, SHX, SHY)
-        //         4  address+I* R  read from effective address,
-        /*
-              * The high byte of the effective address may be invalid
-                at this time, i.e. it may be smaller by $100. Because
-                the processor cannot undo a write to an invalid
-                address, it always reads from the address first.
-        */
-        if cpu.Instruction.Opcode == STA {
-            _ = cpu.ReadOperand()
-        }
 
         switch {
         case address < 0x2000:
