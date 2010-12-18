@@ -50,12 +50,39 @@ var Timings = [...]OpcodeByteCycleCount{
 
     // Accumulator or implied addressing
     // TODO: all
-    {0x6a, 2},  // ROR
-    {0x4a, 2},  // LSR
-    {0x18, 2},  // CLC
-    {0xf8, 2},  // SED
+    {0x80, 2},  // NOP
+    {0xa0, 2},  // LDY
+    {0xc0, 2},  // CPY
+    {0xe0, 2},  // CPX
+    {0x88, 2},  // DEY
+    {0xa8, 2},  // TAY
+    {0xc8, 2},  // INY
+    {0xe8, 2},  // INX
+    {0x0a, 2},  // ASL A
+    {0x2a, 2},  // ROL A
+    {0x4a, 2},  // LSR A
+    {0x6a, 2},  // ROR A
+    {0x8a, 2},  // TXA
+    {0xaa, 2},  // TAX
+    {0xca, 2},  // DEX
     {0xea, 2},  // NOP
-    
+    {0x18, 2},  // CLC
+    {0x38, 2},  // SEC
+    {0x58, 2},  // CLI
+    {0x78, 2},  // SEI
+    {0x98, 2},  // TYA
+    {0xb8, 2},  // CLV
+    {0xd8, 2},  // CLD
+    {0xf8, 2},  // SED
+    {0x1a, 2},  // NOP
+    {0x3a, 2},  // NOP
+    {0x5a, 2},  // NOP
+    {0x7a, 2},  // NOP
+    {0x9a, 2},  // TXS
+    {0xba, 2},  // TSX
+    {0xda, 2},  // NOP
+    {0xfa, 2},  // NOP
+   
     // Immediate addressing
     // TODO: all
 
