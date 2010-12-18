@@ -220,7 +220,14 @@ var Timings = [...]OpcodeByteCycleCount{
     //{0x1e, 7},              // ASL
     // TODO: rest
     //{0x99, 5},              // STA
-    // TODO: more
+    // Write
+    {0x9d, 5}, {0x99, 5},   // STA
+    /* TODO
+    // There is actually no Abx/Aby for STX/STY
+               {0x9f, 5},   // AXA (aka SHA)
+               {0x9e, 5},   // SXA (aka SHX)
+    {0x4c, 5},              // SYA (aka SHY)
+    */
 }
 
 // All 151 official opcodes, from http://www.obelisk.demon.co.uk/6502/reference.html

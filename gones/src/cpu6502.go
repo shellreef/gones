@@ -139,6 +139,19 @@ func (cpu *CPU) WriteOperand(b uint8) {
 
         address := cpu.AddressOperand()
 
+        // http://nesdev.parodius.com/6502_cpu.txt
+        //      Write instructions (STA, STX, STY, SHA, SHX, SHY)
+        //         4  address+I* R  read from effective address,
+        /*
+              * The high byte of the effective address may be invalid
+                at this time, i.e. it may be smaller by $100. Because
+                the processor cannot undo a write to an invalid
+                address, it always reads from the address first.
+        */
+        if cpu.Instruction.Opcode == STA {
+            _ = cpu.ReadOperand()
+        }
+
         switch {
         case address < 0x2000:
             // $0000-07ff is mirrored three times up to $2000, and is always RAM
@@ -593,6 +606,8 @@ func (cpu *CPU) ExecuteInstruction() {
     case STA: cpu.WriteOperand(cpu.A)
     case STX: cpu.WriteOperand(cpu.X)
     case STY: cpu.WriteOperand(cpu.Y)
+
+    // TODO: AXA(SHA), SXA(SHX), SYA(SHY), XAS(SHA), they & high byte of address + 1
 
     // Transfers
     case TAX: cpu.X = cpu.A; cpu.SetSZ(cpu.A)   // would like to do cpu.SetSZ((cpu.X=cpu.A)) like in C, but can't in Go

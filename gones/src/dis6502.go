@@ -26,15 +26,19 @@ TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
 AAC="AAC"; 
 SAX="SAX";  // aka AAX
-ARR="ARR"; ASR="ASR"; ATX="ATX"; AXA="AXA"; AXS="AXS"; 
+ARR="ARR"; ASR="ASR"; ATX="ATX"; 
+AXA="AXA";  // aka SHA
+AXS="AXS";  // aka SBX
 DCP="DCP"; 
 TOP="TOP";  // aka NOP
 DOP="DOP";  // aka NOP
 ISB="ISB";  // aka ISC
 KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
-RRA="RRA"; SLO="SLO"; SRE="SRE"; SXA="SXA"; SYA="SYA"; 
+RRA="RRA"; SLO="SLO"; SRE="SRE"; 
+SXA="SXA";  // aka SHX
+SYA="SYA";  // aka SHY
 XAA="XAA"; 
-XAS="XAS";
+XAS="XAS";  // aka SHS
 )
 
 // Addressing mode
