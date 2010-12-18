@@ -36,6 +36,7 @@ type OpcodeByteCycleCount struct {
 // Based on http://nesdev.parodius.com/6502_cpu.txt
 // except using more descriptive mneumonics for 
 // multi-byte NOPs: DOP for zero page, TOP for absolute
+// and also http://www.obelisk.demon.co.uk/6502/reference.html
 // Note: these only test if the page boundary is not crossed
 var Timings = [...]OpcodeByteCycleCount{
     // Instructions accessing the stack
@@ -82,6 +83,7 @@ var Timings = [...]OpcodeByteCycleCount{
     {0xba, 2},  // TSX
     {0xda, 2},  // NOP
     {0xfa, 2},  // NOP
+    {0x69, 2},  // ADC
    
     // Immediate addressing
     // TODO: all
