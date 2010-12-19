@@ -276,11 +276,7 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
 // An an index to a base address obtaining an effective address
 // This is the same as baseAddress + offset, except accounts for extra cycles
 func (cpu *CPU) AddIndex(baseAddress uint16, offset uint16) (effectiveAddress uint16) {
-    sum := uint(baseAddress) + uint(offset)
-    if sum > 0xffff {
-        cpu.Tick("integer wraparound")
-    }
-    effectiveAddress = uint16(sum)
+    effectiveAddress = baseAddress + offset
 
     // An extra cycle is needed to increment the high
     if effectiveAddress & 0xff00 != baseAddress & 0xff00 {
