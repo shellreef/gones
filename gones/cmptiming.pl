@@ -63,4 +63,4 @@ while()
 
 print "Failed $failed\n";
 
-exit($failed == 0);
+exit($failed != 0);

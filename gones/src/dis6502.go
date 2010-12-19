@@ -100,11 +100,11 @@ var Opcodes = [...]OpcodeAddrMode{
 {PLP, Imp},{AND, Imd},{ROL, Acc},{AAC, Imd},{BIT, Abs},{AND, Abs},{ROL, Abs},{RLA, Abs}, 
 {BMI, Rel},{AND, Ndy},{KIL, Imp},{RLA, Ndy},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{RLA, Zpx}, // 3x 
 {SEC, Imp},{AND, Aby},{NOP, Imp},{RLA, Aby},{TOP, Abx},{AND, Abx},{ROL, Abx},{RLA, Abx}, 
-{RTI, Imp},{EOR, Ndx},{KIL, Imp},{SRE, Ndx},{DOP, Zpx},{EOR, Zpg},{LSR, Zpg},{SRE, Zpg}, // 4x 
+{RTI, Imp},{EOR, Ndx},{KIL, Imp},{SRE, Ndx},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{SRE, Zpg}, // 4x 
 {PHA, Imp},{EOR, Imd},{LSR, Acc},{ASR, Imd},{JMP, Abs},{EOR, Abs},{LSR, Abs},{SRE, Abs},
 {BVC, Rel},{EOR, Ndy},{KIL, Imp},{SRE, Ndy},{DOP, Zpx},{EOR, Zpx},{LSR, Zpx},{SRE, Zpx}, // 5x 
 {CLI, Imp},{EOR, Aby},{NOP, Imp},{SRE, Aby},{TOP, Abx},{EOR, Abx},{LSR, Abx},{SRE, Abx},
-{RTS, Imp},{ADC, Ndx},{KIL, Imp},{RRA, Ndx},{DOP, Zpx},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
+{RTS, Imp},{ADC, Ndx},{KIL, Imp},{RRA, Ndx},{DOP, Zpg},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
 {PLA, Imp},{ADC, Imd},{ROR, Acc},{ARR, Imd},{JMP, Ind},{ADC, Abs},{ROR, Abs},{RRA, Abs},
 {BVS, Rel},{ADC, Ndy},{KIL, Imp},{RRA, Ndy},{DOP, Zpx},{ADC, Zpx},{ROR, Zpx},{RRA, Zpx}, // 7x 
 {SEI, Imp},{ADC, Aby},{NOP, Imp},{RRA, Aby},{TOP, Abx},{ADC, Abx},{ROR, Abx},{RRA, Abx},
