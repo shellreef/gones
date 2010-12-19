@@ -1,7 +1,7 @@
 gones::
 	gd -o gones
 
-test: nestest unittest
+test: nestest unittest timingtest
 
 # CPU functionality test
 nestest: gones
@@ -12,11 +12,13 @@ nestest: gones
 	grep 'Nestest automation' log.actual
 	@grep 'Nestest automation: Pass' log.actual >/dev/null
 
-unittest: gones
-	gd -test
-
+timingtest:
 	@echo "CPU timing test"
 	perl cmptiming.pl
+
+
+unittest: gones
+	gd -test
 
 
 compare:

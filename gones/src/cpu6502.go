@@ -112,7 +112,9 @@ func (cpu *CPU) AddressOperand() (address uint16) {
         cpu.Tick("read from address, and X to it")
         address = cpu.ReadUInt16ZeroPage(pointer)
     case Ndy: pointer := uint8(cpu.Instruction.Operand)                 // ($%.2X),Y
-        address = cpu.ReadUInt16ZeroPage(pointer) + uint16(cpu.Y)
+        address = cpu.ReadUInt16ZeroPage(pointer) 
+        address = cpu.AddIndex(address, uint16(cpu.Y))
+        //address += uint16(cpu.Y)
         //TODO: missing cycle? cpu.Tick("add Y to low byte of effective address")
 
     // Accumulator, implied, immediate have no address
@@ -269,6 +271,23 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
     high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
     cpu.Tick("fetch effective address high (zero page)")
     return uint16(high) << 8 + uint16(low)
+}
+
+// An an index to a base address obtaining an effective address
+// This is the same as baseAddress + offset, except accounts for extra cycles
+func (cpu *CPU) AddIndex(baseAddress uint16, offset uint16) (effectiveAddress uint16) {
+    sum := uint(baseAddress) + uint(offset)
+    if sum > 0xffff {
+        cpu.Tick("integer wraparound")
+    }
+    effectiveAddress = uint16(sum)
+
+    // An extra cycle is needed to increment the high
+    if effectiveAddress & 0xff00 != baseAddress & 0xff00 {
+        cpu.Tick("page crossing")
+    }
+
+    return effectiveAddress
 }
 
 // Read unsigned 16-bits, but wraparound lower byte
