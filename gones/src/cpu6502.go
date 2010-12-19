@@ -1,9 +1,11 @@
 // Created:20101128
 // By Jeff Connelly
 
-// 6502 
+// Emulate NES CPU, a 6502-based processor
+// Specifically, the NES uses a Ricoh RP2A03, which:
+// - is NMOS-based 6502 (as opposed to the CMOS 650C2)
+// - has no decimal mode (D flag in processor status is ignored)
 
-// http://nesdev.parodius.com/NESDoc.pdf
 
 package cpu6502
 
@@ -99,8 +101,20 @@ func (cpu *CPU) AddressOperand() (address uint16) {
         address = (cpu.PC) + uint16(cpu.Instruction.Operand)
     case Ind: address = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
     case Abs: address = uint16(cpu.Instruction.Operand)
-    case Abx: address = uint16(cpu.Instruction.Operand) + uint16(cpu.X)
-    case Aby: address = uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
+    case Abx: 
+        // Loads account for page crossing
+        // TODO: this is painfully ugly, can it not be special-cased please?
+        if cpu.Instruction.Opcode == LDA || cpu.Instruction.Opcode == LDY || cpu.Instruction.Opcode == LDX || cpu.Instruction.Opcode == TOP {
+            address = cpu.AddIndex(uint16(cpu.Instruction.Operand), uint16(cpu.X))
+        } else {
+            address = uint16(cpu.Instruction.Operand) + uint16(cpu.X)
+        }
+    case Aby: 
+        if cpu.Instruction.Opcode == LDA || cpu.Instruction.Opcode == LDY || cpu.Instruction.Opcode == LDX || cpu.Instruction.Opcode == TOP {
+            address = cpu.AddIndex(uint16(cpu.Instruction.Operand), uint16(cpu.Y))
+        } else {
+            address = uint16(cpu.Instruction.Operand) + uint16(cpu.Y)
+        }
     case Zpg: address = uint16(cpu.Instruction.Operand)
     case Zpx: 
         cpu.Tick("add index register")
@@ -115,7 +129,6 @@ func (cpu *CPU) AddressOperand() (address uint16) {
         address = cpu.ReadUInt16ZeroPage(pointer) 
         address = cpu.AddIndex(address, uint16(cpu.Y))
         //address += uint16(cpu.Y)
-        //TODO: missing cycle? cpu.Tick("add Y to low byte of effective address")
 
     // Accumulator, implied, immediate have no address
     default: panic(fmt.Sprintf("Address() on invalid mode: %s\n", cpu.Instruction.AddrMode))
@@ -278,6 +291,7 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
 func (cpu *CPU) AddIndex(baseAddress uint16, offset uint16) (effectiveAddress uint16) {
     effectiveAddress = baseAddress + offset
 
+    fmt.Printf("AddIndex(%.4x + %.4x) = %.4x\n", baseAddress, offset, effectiveAddress)
     // An extra cycle is needed to increment the high
     if effectiveAddress & 0xff00 != baseAddress & 0xff00 {
         cpu.Tick("page crossing")
