@@ -8,7 +8,7 @@
 # propagate indefinitely. This one compares incremental cycle
 # counts, so you can isolate the errors more easily.
 
-open(A, "<../nestest.log")||die;
+open(A, "<tests/nestest.log")||die;
 open(B, "<log.actual")||die;
 
 $failed = 0;
