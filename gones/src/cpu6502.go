@@ -696,6 +696,8 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.X -= cpu.ReadOperand()
         cpu.SetCarry(cpu.X & 0x01 != 0)
         cpu.SetSZ(cpu.X)
+    case SYA: cpu.WriteOperand(cpu.Y & uint8(cpu.AddressOperand() >> 8) + 1)
+    case SXA: cpu.WriteOperand(cpu.X & uint8(cpu.AddressOperand() >> 8) + 1)
 
     // Arithmetic
     case DEC: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) { return x - 1}))
@@ -795,7 +797,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // UNIMPLEMENTED INSTRUCTIONS
     // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
-    case AXA, LAR, SXA, SYA, XAA, XAS:
+    case AXA, LAR, XAA, XAS:
         fmt.Printf("unimplemented opcode: %s\n", cpu.Instruction.Opcode)
         os.Exit(-1)
 

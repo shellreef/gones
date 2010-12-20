@@ -37,7 +37,7 @@ DOP="DOP";  // aka NOP
 ISB="ISB";  // aka ISC
 KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
 RRA="RRA"; SLO="SLO"; SRE="SRE"; 
-SXA="SXA";  // aka SHX
+SXA="SXA";  // aka SHX, XAS
 SYA="SYA";  // aka SHY
 XAA="XAA"; 
 XAS="XAS";  // aka SHS
