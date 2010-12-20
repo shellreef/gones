@@ -69,7 +69,7 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     b = cpu.Memory[cpu.PC]
     cpu.PC += 1
 
-    cpu.Tick(fmt.Sprintf("fetch NextUInt8 = %.2x, increment PC", b))
+    cpu.Tick("fetch byte, increment PC")
 
     return b
 }

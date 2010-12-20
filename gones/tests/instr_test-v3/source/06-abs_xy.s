@@ -41,7 +41,7 @@ instrs:
 	entry $3F,"RLA abs,X"
 	entry $5F,"SRE abs,X"
 	entry $7F,"RRA abs,X"
-	entry $9C,"SYA abs,X"
+	;entry $9C,"SYA abs,X"
 	entry $DF,"DCP abs,X"
 	entry $FF,"ISC abs,X"
 
@@ -49,7 +49,7 @@ instrs:
 	entry $3B,"RLA abs,Y"
 	entry $5B,"SRE abs,Y"
 	entry $7B,"RRA abs,Y"
-	entry $9E,"SXA abs,Y"
+	;entry $9E,"SXA abs,Y"
 	entry $BF,"LAX abs,Y"
 	entry $DB,"DCP abs,Y"
 	entry $FB,"ISC abs,Y"
