@@ -10,6 +10,7 @@ package ppu2c02
 
 import (
     "fmt"
+    "time"
 
     "cpu6502"
 )
@@ -77,6 +78,8 @@ type PPU struct {
     spriteZeroHit bool
     vblankStarted bool
 
+    vblankStartedAt int64       // For framerate
+
     Verbose bool
 
     // http://wiki.nesdev.com/w/index.php/PPU_memory_map
@@ -120,10 +123,12 @@ func (ppu *PPU) Run() {
 func (ppu *PPU) VBlank() {
     // TODO: only run if VBlank flag is not disabled
 
-    if ppu.Verbose {
-        fmt.Printf("** VBLANK **\n")
-    }
+    nsPerFrame := time.Nanoseconds() - ppu.vblankStartedAt
+    fps := 1 / (float(nsPerFrame) / 1e9)
+    fmt.Printf("VBLANK: %f frames per second\n", fps)
+
     ppu.vblankStarted = true
+    ppu.vblankStartedAt = time.Nanoseconds()
     if ppu.nmiEnabled {
         ppu.CPU.NMI() 
     }
