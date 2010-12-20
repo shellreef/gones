@@ -162,7 +162,10 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
             fmt.Printf("usage: c game-genie-code\n")
         }
 
-       
+
+    // verbose
+    case "v": cpu.Verbose = true; ppu.Verbose = true
+    case "V": cpu.InstrTrace = true
 
     // TODO: breakpoints
     // TODO: watch
@@ -205,10 +208,6 @@ func main() {
 
     cpu.PowerUp()
 
-    // TODO: cpu.Verbose, ppu.Verbose set with -v
-    cpu.InstrTrace = true
-    //cpu.Verbose = true
- 
     for _, cmd := range(os.Args[1:]) {
         RunCommand(cpu, ppu, cmd)
     }

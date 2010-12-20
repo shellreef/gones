@@ -22,6 +22,8 @@ while()
         chomp($b = <B>);
         if (length($b) >= 80) {
             last; 
+        } elsif (length($b) == 0) {
+            die "unexpected end-of-file in log.actual: missing/truncated instruction trace?";
         } else {
             $comments .= " $b\n";
         }

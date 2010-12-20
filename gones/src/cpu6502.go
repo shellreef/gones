@@ -193,7 +193,9 @@ func (cpu *CPU) WriteOperand(b uint8) {
                 }
             }
             if !handled {
-                fmt.Printf("No mapper claimed write: %.4X -> %.2X, ignored\n", address, b)
+                if cpu.Verbose {
+                    fmt.Printf("No mapper claimed write: %.4X -> %.2X, ignored\n", address, b)
+                }
             }
         }
 
@@ -653,7 +655,6 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Bitwise operations
     case AND: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
-    case AAC: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A); cpu.SetCarry(cpu.P & FLAG_Z != 0)
     case EOR: cpu.A ^= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
     case ORA: cpu.A |= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
     case ASL: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) {
@@ -664,13 +665,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(x & 0x01 != 0)
         return x >> 1
         }))
-    case ASR: cpu.A &= cpu.ReadOperand()
-        cpu.A >>= 1
-        cpu.SetCarry(cpu.A & 0x01 != 0)
-        cpu.SetSZ(cpu.A)
-    case ARR: cpu.A &= cpu.ReadOperand()
-        cpu.Instruction.AddrMode = Acc
-        cpu.OpROR()
+
     case ROL: cpu.OpROL()
     case ROR: cpu.OpROR()
     case RLA: cpu.A &= cpu.OpROL(); cpu.SetSZ(cpu.A)
@@ -689,6 +684,20 @@ func (cpu *CPU) ExecuteInstruction() {
             return x >> 1
         })
         cpu.SetSZ(cpu.A)
+
+    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
+    // they shouldn't. However, they're unofficial opcodes for what's it worth.
+    // http://nesdev.parodius.com/undocumented_opcodes.txt
+    // http://nesdev.parodius.com/extra_instructions.txt
+    // http://nesdev.parodius.com/6502_cpu.txt
+    case AAC: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A); cpu.SetCarry(cpu.P & FLAG_Z != 0)
+    case ASR: cpu.A &= cpu.ReadOperand()
+        cpu.A >>= 1
+        cpu.SetCarry(cpu.A & 0x01 != 0)
+        cpu.SetSZ(cpu.A)
+    case ARR: cpu.A &= cpu.ReadOperand()
+        cpu.Instruction.AddrMode = Acc
+        cpu.OpROR()
     case ATX: cpu.A &= cpu.ReadOperand()
         cpu.X = cpu.A
         cpu.SetSZ(cpu.A)
@@ -696,6 +705,12 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.X -= cpu.ReadOperand()
         cpu.SetCarry(cpu.X & 0x01 != 0)
         cpu.SetSZ(cpu.X)
+
+    // TODO: find out proper emulation of these opcodes, $9C and $9E, or remove them
+    // They fail Blargg instr_test-v3, but that is not the newest version..
+    // http://nesdev.parodius.com/bbs/viewtopic.php?t=3831 mentions blargg_nes_cpu_test5, but
+    // the link is broken, although Blargg suggests these opcodes are inconsistent so their
+    // tests will be removed. Nestopia, FWIW, fails v3 too (06-abs_xy).
     case SYA: cpu.WriteOperand(cpu.Y & uint8(cpu.AddressOperand() >> 8) + 1)
     case SXA: cpu.WriteOperand(cpu.X & uint8(cpu.AddressOperand() >> 8) + 1)
 
@@ -795,11 +810,10 @@ func (cpu *CPU) ExecuteInstruction() {
         os.Exit(0)
 
 
-    // UNIMPLEMENTED INSTRUCTIONS
-    // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
-    case AXA, LAR, XAA, XAS:
-        fmt.Printf("unimplemented opcode: %s\n", cpu.Instruction.Opcode)
-        os.Exit(-1)
+    // Blargg's CPU tests don't test these because they have inconsistent/unknown behavior
+    // TODO: simulate their inconsistency, for accuracy
+    case XAA, AXA, XAS, LAR:
+        fmt.Printf("warning: ignoring unimplemented/inconsistent opcode: %s\n", cpu.Instruction.Opcode)
 
     case U__:
         fmt.Printf("halting on undefined opcode\n")  // won't happen anymore now that all are 'defined' even undocumented

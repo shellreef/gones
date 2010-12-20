@@ -133,14 +133,14 @@ func (ppu *PPU) VBlank() {
 // Read registers
 func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
-            fmt.Printf("mapper: PPU doesn't care about read %.4X\n", operAddr)
+            if ppu.Verbose { 
+                fmt.Printf("mapper: PPU doesn't care about read %.4X\n", operAddr)
+            }
             return false, ret
         }
 
         // $2000-2007 is mirrored every 8 bytes
         operAddr &^= 0x1ff8
-
-        //fmt.Printf("mapper: before %X\n", operAddr) 
 
         wants = true
         switch operAddr {
@@ -167,7 +167,9 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
             ppu.vramAddress = 0
             ppu.partialAddress = false
 
-            fmt.Printf("read PPUSTATUS = %.2X\n", ret)
+            if ppu.Verbose {
+                fmt.Printf("read PPUSTATUS = %.2X\n", ret)
+            }
 
             //ppu.ShowNametable()
 
@@ -191,14 +193,18 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
 func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
         if operAddr > 0x3fff {
             // Not our territory
-            fmt.Printf("mapper: PPU doesn't care about write %.4X -> %.2X\n", operAddr, b)
+            if ppu.Verbose {
+                fmt.Printf("mapper: PPU doesn't care about write %.4X -> %.2X\n", operAddr, b)
+            }
             return false
         }
 
         // $2000-2007 is mirrored every 8 bytes up to $3FFF
         operAddr &^= 0x1ff8 
 
-        fmt.Printf("mapper: write %.4X -> %X (%.8b)\n", operAddr, b, b)
+        if ppu.Verbose {
+            fmt.Printf("mapper: write %.4X -> %X (%.8b)\n", operAddr, b, b)
+        }
 
         switch operAddr {
         case PPU_CTRL: 
@@ -225,8 +231,10 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
             // $2005.7: "Generate an NMI at the start of the VBLANK"
             ppu.nmiEnabled = b & 0x80 != 0
 
-            fmt.Printf("PPU_CTRL: nametable=%.4X, vramIncrement=%d, spritePatternBase8x8=%.4X, backgroundBase=%.4X, spriteSize=%t, nmiEnabled=%t\n",
-                ppu.nametableBase, ppu.vramIncrement, ppu.spritePatternBase8x8, ppu.backgroundBase, ppu.spriteSize, ppu.nmiEnabled)
+            if ppu.Verbose {
+                fmt.Printf("PPU_CTRL: nametable=%.4X, vramIncrement=%d, spritePatternBase8x8=%.4X, backgroundBase=%.4X, spriteSize=%t, nmiEnabled=%t\n",
+                    ppu.nametableBase, ppu.vramIncrement, ppu.spritePatternBase8x8, ppu.backgroundBase, ppu.spriteSize, ppu.nmiEnabled)
+            }
 
         case PPU_MASK:
             // $2001 flags
@@ -240,16 +248,22 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
             ppu.intensifyGreen      = b & 0x40 != 0
             ppu.intensifyBlue       = b & 0x80 != 0
 
-            fmt.Printf("PPU_MASK = %.8b\n", b)
+            if ppu.Verbose {
+                fmt.Printf("PPU_MASK = %.8b\n", b)
+            }
 
         case PPU_OAM_ADDR:
             // $2003, sets address of OAM to write to
             ppu.oamAddress = b
-            fmt.Printf("PPU_OAM_ADDR = %.2X\n", b)
+            if ppu.Verbose {
+                fmt.Printf("PPU_OAM_ADDR = %.2X\n", b)
+            }
 
         case PPU_OAM_DATA:
             // $2004, to access OAM, but most games use DMA ($4014) instead
-            fmt.Printf("PPU_OAM_DATA write to %.2X: %.2X\n", ppu.oamAddress, b)
+            if ppu.Verbose {
+                fmt.Printf("PPU_OAM_DATA write to %.2X: %.2X\n", ppu.oamAddress, b)
+            }
             ppu.OAM[ppu.oamAddress] = b
             ppu.oamAddress += 1
 
@@ -267,12 +281,16 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
                 // $4000-FFFF is mirror of $0000-3FFF
                 ppu.vramAddress &= VRAM_ADDRESS_MASK
 
-                fmt.Printf("PPU_ADDRESS latched %.4X\n", ppu.vramAddress)
+                if ppu.Verbose { 
+                    fmt.Printf("PPU_ADDRESS latched %.4X\n", ppu.vramAddress)
+                }
             }
 
         case PPU_DATA:
             ppu.Memory[ppu.vramAddress] = b
-            fmt.Printf("PPU_DATA write to %.4X: %.2X\n", ppu.vramAddress, b)
+            if ppu.Verbose {
+                fmt.Printf("PPU_DATA write to %.4X: %.2X\n", ppu.vramAddress, b)
+            }
             ppu.vramAddress += ppu.vramIncrement
             ppu.vramAddress &= VRAM_ADDRESS_MASK
         }
