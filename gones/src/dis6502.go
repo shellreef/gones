@@ -24,9 +24,11 @@ SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY";
 TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
 
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC"; 
+AAC="AAC";  // aka ANC
 SAX="SAX";  // aka AAX
-ARR="ARR"; ASR="ASR"; ATX="ATX"; 
+ARR="ARR"; 
+ASR="ASR";  // aka ALR
+ATX="ATX"; 
 AXA="AXA";  // aka SHA
 AXS="AXS";  // aka SBX
 DCP="DCP"; 

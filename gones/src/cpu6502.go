@@ -653,6 +653,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Bitwise operations
     case AND: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
+    case AAC: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A); cpu.SetCarry(cpu.P & FLAG_Z != 0)
     case EOR: cpu.A ^= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
     case ORA: cpu.A |= cpu.ReadOperand(); cpu.SetSZ(cpu.A)
     case ASL: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) {
@@ -663,6 +664,11 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(x & 0x01 != 0)
         return x >> 1
         }))
+    case ASR: cpu.A &= cpu.ReadOperand()
+        cpu.A >>= 1
+        cpu.SetCarry(cpu.A & 0x01 != 0)
+        cpu.SetSZ(cpu.A)
+    //case ARR: cpu.A &= cpu.ReadOperand(); cpu.OpROR()
     case ROL: cpu.OpROL()
     case ROR: cpu.OpROR()
     case RLA: cpu.A &= cpu.OpROL(); cpu.SetSZ(cpu.A)
@@ -777,9 +783,10 @@ func (cpu *CPU) ExecuteInstruction() {
         }
         os.Exit(0)
 
+
     // UNIMPLEMENTED INSTRUCTIONS
     // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
-    case AAC, ARR, ASR, ATX, AXA, AXS, LAR, SXA, SYA, XAA, XAS:
+    case ARR, ATX, AXA, AXS, LAR, SXA, SYA, XAA, XAS:
         fmt.Printf("unimplemented opcode: %s\n", cpu.Instruction.Opcode)
         os.Exit(-1)
 
