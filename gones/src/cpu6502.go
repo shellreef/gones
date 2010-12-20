@@ -291,7 +291,6 @@ func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
 func (cpu *CPU) AddIndex(baseAddress uint16, offset uint16) (effectiveAddress uint16) {
     effectiveAddress = baseAddress + offset
 
-    fmt.Printf("AddIndex(%.4x + %.4x) = %.4x\n", baseAddress, offset, effectiveAddress)
     // An extra cycle is needed to increment the high
     if effectiveAddress & 0xff00 != baseAddress & 0xff00 {
         cpu.Tick("page crossing")

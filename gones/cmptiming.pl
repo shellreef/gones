@@ -61,6 +61,7 @@ while()
     $prev_b = $b;
 }
 
-print "Failed $failed\n";
+print "Timing: Failed $failed\n" if $failed != 0;
+print "Timing: Passed all tests\n" if $failed == 0;
 
 exit($failed != 0);

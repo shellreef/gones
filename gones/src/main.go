@@ -195,7 +195,6 @@ func main() {
     ppu.CycleChannel = make(chan int)
     ppu.CPU = cpu
     cpu.CycleChannel = make(chan int)
-    cpu.Verbose = true
 
     // Would like to be able to do this, but go says: method ppu.ReadMapper is not an expression, must be called
     //cpu.ReadMappers[0] = ppu.ReadMapper
@@ -208,6 +207,7 @@ func main() {
 
     // TODO: cpu.Verbose, ppu.Verbose set with -v
     cpu.InstrTrace = true
+    //cpu.Verbose = true
  
     for _, cmd := range(os.Args[1:]) {
         RunCommand(cpu, ppu, cmd)

@@ -7,7 +7,7 @@ package cpu6502_test
 
 import (
     "testing"
-    "fmt"
+    //"fmt"
 
     "dis6502"
     )
@@ -20,7 +20,7 @@ func cyclesForOp(op uint8) (int) {
     cpu.PowerUp()
     cpu.PC = 0x8000
     cpu.Memory[0x8000] = op
-    cpu.Verbose = true
+    //cpu.Verbose = true
     // Note: cycle count may vary depending on operands.. they're all zeros here
     startCyc := cpu.Cyc
     cpu.ExecuteInstruction()
@@ -426,7 +426,7 @@ func testTiming(t *testing.T, a []OpcodeByteCycleCount) {
         if actual != expected {
             t.Errorf("FAIL %.2X: %s %d != %d (%d)", opcodeByte, disasm, actual, expected, actual - expected)
         } else {
-            fmt.Printf("Pass %.2X: %s %d == %d\n", opcodeByte, disasm, actual, expected);
+            //fmt.Printf("Pass %.2X: %s %d == %d\n", opcodeByte, disasm, actual, expected);
         }
     }
 }
