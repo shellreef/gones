@@ -668,7 +668,9 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.A >>= 1
         cpu.SetCarry(cpu.A & 0x01 != 0)
         cpu.SetSZ(cpu.A)
-    //case ARR: cpu.A &= cpu.ReadOperand(); cpu.OpROR()
+    case ARR: cpu.A &= cpu.ReadOperand()
+        cpu.Instruction.AddrMode = Acc
+        cpu.OpROR()
     case ROL: cpu.OpROL()
     case ROR: cpu.OpROR()
     case RLA: cpu.A &= cpu.OpROL(); cpu.SetSZ(cpu.A)
@@ -687,6 +689,13 @@ func (cpu *CPU) ExecuteInstruction() {
             return x >> 1
         })
         cpu.SetSZ(cpu.A)
+    case ATX: cpu.A &= cpu.ReadOperand()
+        cpu.X = cpu.A
+        cpu.SetSZ(cpu.A)
+    case AXS: cpu.X &= cpu.A
+        cpu.X -= cpu.ReadOperand()
+        cpu.SetCarry(cpu.X & 0x01 != 0)
+        cpu.SetSZ(cpu.X)
 
     // Arithmetic
     case DEC: cpu.SetSZ(cpu.Modify(func(x uint8) (uint8) { return x - 1}))
@@ -786,7 +795,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // UNIMPLEMENTED INSTRUCTIONS
     // nestest.nes PC=$c000 doesn't test these, so I didn't implement them
-    case ARR, ATX, AXA, AXS, LAR, SXA, SYA, XAA, XAS:
+    case AXA, LAR, SXA, SYA, XAA, XAS:
         fmt.Printf("unimplemented opcode: %s\n", cpu.Instruction.Opcode)
         os.Exit(-1)
 
