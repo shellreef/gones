@@ -64,8 +64,6 @@ int leggo_user_main(int argc, char **argv) {
 // Wrap calling Allegro's al_run_main(), with our own leggo_main. 
 // This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {
-    printf("al_run_main_wrapper(): about to call GoLeggoExit() just as a test (not actually to exit)\n");
-    GoLeggoExit();
     printf("al_run_main_wrapper(): about to call al_run_main()\n");
     al_run_main(0, 0, leggo_user_main);
 }

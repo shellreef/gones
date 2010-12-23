@@ -1,0 +1,14 @@
+Installation
+
+1. Install Allegro 5
+Allegro 5.0.0rc3 or later from http://alleg.sourceforge.net/
+If this issue is not fixed <https://sourceforge.net/tracker/?func=detail&aid=3143062&group_id=5665&atid=105665>, then:
+  patch -p0 < allegro-osx-argv0.patch
+Install per directions in README
+
+2. Compile Leggo my Allegro
+make
+make leggo
+
+3. Run sample
+./leggo
