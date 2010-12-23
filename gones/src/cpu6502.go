@@ -699,19 +699,6 @@ func (cpu *CPU) ExecuteInstruction() {
         // C is bit 6, V is bit 6 XOR bit 5. http://wiki.nesdev.com/w/index.php/Programming_with_unofficial_opcodes
         cpu.SetCarry(cpu.A & 0x40 != 0)
         cpu.SetOverflow((cpu.A & 0x40 != 0) != (cpu.A & 0x20 != 0))
-
-    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
-    // they shouldn't. However, they're unofficial opcodes for what's it worth.
-    // http://nesdev.parodius.com/undocumented_opcodes.txt
-    // http://nesdev.parodius.com/extra_instructions.txt
-    // http://nesdev.parodius.com/6502_cpu.txt
-    case ATX: 
-        // This is unreliable/unknown (opcode $AB)
-        // http://nesdev.parodius.com/bbs/viewtopic.php?t=3831&highlight=atx
-        cpu.A |= 0xee     
-        cpu.A &= cpu.ReadOperand()
-        cpu.X = cpu.A
-        cpu.SetSZ(cpu.A)
     case AXS: cpu.X &= cpu.A
         var tmp uint
         tmp = uint(cpu.X) - uint(cpu.ReadOperand())
@@ -719,11 +706,26 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.X = uint8(tmp)
         cpu.SetSZ(cpu.X)
 
-    // TODO: find out proper emulation of these opcodes, $9C and $9E, or remove them
+    // Unreliable/unknown unofficial opcodes
+    // http://nesdev.parodius.com/undocumented_opcodes.txt
+    // http://nesdev.parodius.com/extra_instructions.txt
+    // http://nesdev.parodius.com/6502_cpu.txt
+    // ATX ($AB) fails Blarggs intr_test-v3 in 02-immediate
+    case ATX: 
+        // This is unreliable/unknown (opcode $AB)
+        // http://nesdev.parodius.com/bbs/viewtopic.php?t=3831&highlight=atx
+        // says A is ORed with $EE, $EF, $FE, or $FF depending on internal state
+        cpu.A |= 0xee
+        cpu.A &= cpu.X
+        cpu.A &= cpu.ReadOperand()
+        cpu.X = cpu.A
+        cpu.SetSZ(cpu.A)
+    // $9C and $9E (SYA and SXA) fail instruction tests also
     // They fail Blargg instr_test-v3, but that is not the newest version..
     // http://nesdev.parodius.com/bbs/viewtopic.php?t=3831 mentions blargg_nes_cpu_test5, but
     // the link is broken, although Blargg suggests these opcodes are inconsistent so their
-    // tests will be removed. Nestopia, FWIW, fails v3 too (06-abs_xy).
+    // tests will be removed. Nestopia, FWIW, fails v3 too (06-abs_xy). And on v5, too..
+    // Some discussion of how to make pass tests on http://nesdev.parodius.com/bbs/viewtopic.php?t=3831
     case SYA: cpu.WriteOperand(cpu.Y & uint8(cpu.AddressOperand() >> 8) + 1)
     case SXA: cpu.WriteOperand(cpu.X & uint8(cpu.AddressOperand() >> 8) + 1)
 

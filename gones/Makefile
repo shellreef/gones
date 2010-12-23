@@ -27,12 +27,13 @@ unittest: gones
 # More comprehensive CPU test
 instr_test_v3:
 	./gones tests/instr_test-v3/rom_singles/01-implied.nes
-	@# Known failures: AAC, ASR, ARR, ATX, AXS
+	@# Unreliable opcode: $AB ATX #n
 	-./gones tests/instr_test-v3/rom_singles/02-immediate.nes
 	./gones tests/instr_test-v3/rom_singles/03-zero_page.nes
 	./gones tests/instr_test-v3/rom_singles/04-zp_xy.nes
 	./gones tests/instr_test-v3/rom_singles/05-absolute.nes
-	@# Invalid tests: SYA, SXA
+	@# Unreliable opcode: 9C SYA abs,X
+	@# Unreliable opcode: 9E SXA abs,Y
 	-./gones tests/instr_test-v3/rom_singles/06-abs_xy.nes
 	./gones tests/instr_test-v3/rom_singles/07-ind_x.nes
 	./gones tests/instr_test-v3/rom_singles/08-ind_y.nes
