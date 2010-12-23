@@ -684,12 +684,6 @@ func (cpu *CPU) ExecuteInstruction() {
             return x >> 1
         })
         cpu.SetSZ(cpu.A)
-
-    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
-    // they shouldn't. However, they're unofficial opcodes for what's it worth.
-    // http://nesdev.parodius.com/undocumented_opcodes.txt
-    // http://nesdev.parodius.com/extra_instructions.txt
-    // http://nesdev.parodius.com/6502_cpu.txt
     case AAC: cpu.A &= cpu.ReadOperand()
         // Despite <http://wiki.nesdev.com/w/index.php/Programming_with_unofficial_opcodes>, the zero
         // flag is actually set too, according to blargg's instr-test_v3/02-immediate.nes.
@@ -699,9 +693,18 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(cpu.A & 0x01 != 0)
         cpu.A >>= 1
         cpu.SetSZ(cpu.A)
+
+    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
+    // they shouldn't. However, they're unofficial opcodes for what's it worth.
+    // http://nesdev.parodius.com/undocumented_opcodes.txt
+    // http://nesdev.parodius.com/extra_instructions.txt
+    // http://nesdev.parodius.com/6502_cpu.txt
     case ARR: cpu.A &= cpu.ReadOperand()
         cpu.Instruction.AddrMode = Acc
         cpu.OpROR()
+        // C is bit 6, V is bit 6 XOR bit 5. http://wiki.nesdev.com/w/index.php/Programming_with_unofficial_opcodes
+        cpu.SetCarry(cpu.A & 0x40 != 0)
+        cpu.SetOverflow((cpu.A & 0x40 != 0) != (cpu.A & 0x20 != 0))
     case ATX: cpu.A &= cpu.ReadOperand()
         cpu.X = cpu.A
         cpu.SetSZ(cpu.A)
