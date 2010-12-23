@@ -16,13 +16,15 @@
 #include "leggo.h"
 #include "_cgo_export.h"
 
-#define SOCKET_FILENAME "sock"
+#define SOCKET_FILENAME "/tmp/leggo.sock"
 
 // Connect to the Unix domain socket used for communication with Go
 int connect_socket() {
     struct sockaddr_un address;
     size_t length;
     int fd;
+
+    printf("connect_socket(): connecting...\n");
 
     fd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (fd < 0) {
@@ -32,11 +34,11 @@ int connect_socket() {
 
     address.sun_family = AF_UNIX;
     strlcpy(address.sun_path, SOCKET_FILENAME, sizeof(address.sun_path));
-    length = sizeof(address.sun_family) + strlen(address.sun_path);
+    length = sizeof(address.sun_family) + strlen(address.sun_path) + 1;
     
-    if (connect(fd, (struct sockaddr *)&address, length) != 0) {
+    if (connect(fd, (struct sockaddr *)&address, length) == -1) {
         perror("connect() failed");
-        exit(EXIT_FAILURE);
+        //exit(EXIT_FAILURE);
     }
 
     char buf[256];
@@ -56,7 +58,6 @@ int leggo_user_main(int argc, char **argv) {
 
     printf("leggo_user_main: starting up\n");
     
-    printf("leggo_user_main: connecting to socket\n");
     fd = connect_socket();
 
     ALLEGRO_DISPLAY *display;
