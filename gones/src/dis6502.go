@@ -27,7 +27,23 @@ LAR; LAX; RLA; RRA; SLO; SRE; SXA; SYA; XAA; XAS;
 )
 
 // Addressing mode
-type AddrMode string
+type AddrMode int
+const (
+    Imd=iota;      // Immediate
+    Zpg;      // Zero Page
+    Zpx;      // Zero Page,X
+    Zpy;      // Zero Page,Y
+    Abs;      // Absolute
+    Abx;      // Absolute,X
+    Aby;      // Absolute, Y
+    Ndx;      // (Indirect,X)
+    Ndy;      // (Indirect),Y
+    Imp;      // Implied
+    Acc;      // Accumulator
+    Ind;      // (Indirect)
+    Rel;      // Relative
+);
+/*type AddrMode string
 const (
     Imd="Imd";      // Immediate
     Zpg="Zpg";      // Zero Page
@@ -42,7 +58,8 @@ const (
     Acc="Acc";      // Accumulator
     Ind="Ind";      // (Indirect)
     Rel="Rel";      // Relative
-);
+);*/
+
 
 // Opcode and addressing mode for opcode definition table
 type OpcodeAddrMode struct { Opcode Opcode; AddrMode AddrMode }
