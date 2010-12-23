@@ -53,9 +53,23 @@ func LeggoServer() {
             return
         }
 
-        fmt.Printf("Got connection: %s\n", conn)
-        
-        conn.Write([]byte("hello, client\n"))
+        fmt.Printf("Established connection: %s\n", conn)
+   
+        for {
+            var buffer [1024]byte
+            bytesRead, err := conn.Read(buffer[:])
+            if err != nil {
+                fmt.Printf("Error reading from client: %s\n", err)
+                continue
+            }
+            fmt.Printf(">>> Read %d bytes from client: %s\n", bytesRead, buffer)
+
+            // TODO: dispatch events to Go channel
+            if buffer[0] == 'x' {
+                fmt.Printf("Exiting\n")
+                os.Exit(0)
+            }
+        }
     }
 }
 

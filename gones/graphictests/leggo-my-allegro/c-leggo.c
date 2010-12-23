@@ -38,13 +38,8 @@ int connect_socket() {
     
     if (connect(fd, (struct sockaddr *)&address, length) == -1) {
         perror("connect() failed");
-        //exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
-
-    char buf[256];
-    read(fd, buf, 255);
-    buf[256] = 0;
-    printf("Got from server: %s\n", buf);
 
     return fd;
 }
@@ -93,9 +88,8 @@ int leggo_user_main(int argc, char **argv) {
         al_wait_for_event(queue, &event);
 
         if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            printf("leggo_user_main: calling GoLeggoExit()\n");
-            GoLeggoExit();
-            break;
+            printf("leggo_user_main: sending event\n");
+            send(fd, "x", 1, 0);
         }
     }
 
