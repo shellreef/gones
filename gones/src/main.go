@@ -15,7 +15,7 @@ import (
 
     "nesfile"
     "cpu6502"
-    "dis6502"
+    //"dis6502"
     "ppu2c02"
     "gamegenie"
 )
@@ -136,6 +136,8 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
             }
         }
     // assemble
+    // TODO: get string -> Opcode/AddrMode working again
+    /*
     case "a":
         if len(args) != 2 {
             fmt.Printf("usage: a <opcode> <addrmode>\n")
@@ -146,6 +148,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         // TODO: show all matches
         fmt.Printf("%.2x\n", dis6502.OpcodeByteFor(opcode, addrMode))
         // TODO: read operands and actually assemble and write
+    */
     // trace
     case "t":
         // TODO: optional argument of instructions to execute
@@ -165,6 +168,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
 
     // verbose
     case "v": cpu.Verbose = true; ppu.Verbose = true
+    case "b": ppu.Verbose = true
     case "V": cpu.InstrTrace = true
 
     // TODO: breakpoints
@@ -216,4 +220,3 @@ func main() {
         Shell(cpu, ppu)
     }
 }
-

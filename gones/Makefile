@@ -46,3 +46,6 @@ instr_test_v3:
 	
 clean::
 	gd clean
+
+loop::
+	./gones b g

@@ -125,7 +125,9 @@ func (ppu *PPU) VBlank() {
 
     nsPerFrame := time.Nanoseconds() - ppu.vblankStartedAt
     fps := 1 / (float(nsPerFrame) / 1e9)
-    fmt.Printf("VBLANK: %f frames per second\n", fps)
+    if ppu.Verbose {
+        fmt.Printf("VBLANK: %f frames per second\n", fps)
+    }
 
     ppu.vblankStarted = true
     ppu.vblankStartedAt = time.Nanoseconds()

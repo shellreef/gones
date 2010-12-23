@@ -10,37 +10,42 @@ import (
     "fmt"
 )
 
-// Operation code, a string for easy printing
-type Opcode string
-const (U__="???"; // undefined / invalid / undocumented TODO: http://nesdev.parodius.com/undocumented_opcodes.txt 
-ADC="ADC"; AND="AND"; ASL="ASL"; BCS="BCS"; BEQ="BEQ"; BIT="BIT"; BMI="BMI"; 
-BPL="BPL"; BVC="BVC"; BCC="BCC";
-BNE="BNE"; BRK="BRK"; BVS="BVS"; CLC="CLC"; CLD="CLD"; CLI="CLI"; CLV="CLV"; 
-CMP="CMP"; CPX="CPX"; CPY="CPY"; DEC="DEC"; DEX="DEX"; DEY="DEY"; EOR="EOR"; 
-INC="INC"; INX="INX"; INY="INY"; JMP="JMP"; JSR="JSR"; LDA="LDA"; LDX="LDX"; 
-LDY="LDY"; LSR="LSR"; NOP="NOP"; ORA="ORA"; PHA="PHA"; PHP="PHP"; PLA="PLA"; 
-PLP="PLP"; ROL="ROL"; ROR="ROR"; RTI="RTI"; RTS="RTS"; SBC="SBC"; SEC="SEC"; 
-SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY"; 
-TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
+// Operation code mneumonic
+// Important: this is NOT the opcode byte, since that also encodes
+// the addressing mode. It is only the operation, and the numerical
+// value has no relation to the opcode byte in the instruction. I had
+// it as a string, but changed it to an integer for convenience. To
+// get the mneumonic value, use String().
+type Opcode int
+const (U__=iota;
+ADC; AND; ASL; BCS; BEQ; BIT; BMI; 
+BPL; BVC; BCC;
+BNE; BRK; BVS; CLC; CLD; CLI; CLV; 
+CMP; CPX; CPY; DEC; DEX; DEY; EOR; 
+INC; INX; INY; JMP; JSR; LDA; LDX; 
+LDY; LSR; NOP; ORA; PHA; PHP; PLA; 
+PLP; ROL; ROR; RTI; RTS; SBC; SEC; 
+SED; SEI; STA; STX; STY; TAX; TAY; 
+TSX; TXA; TXS; TYA;
 
 // Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC";  // aka ANC
-SAX="SAX";  // aka AAX
-ARR="ARR"; 
-ASR="ASR";  // aka ALR
-ATX="ATX";  // aka LXA, OAL
-AXA="AXA";  // aka SHA
-AXS="AXS";  // aka SBX
-DCP="DCP"; 
-TOP="TOP";  // aka NOP
-DOP="DOP";  // aka NOP
-ISB="ISB";  // aka ISC
-KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
-RRA="RRA"; SLO="SLO"; SRE="SRE"; 
-SXA="SXA";  // aka SHX, XAS
-SYA="SYA";  // aka SHY
-XAA="XAA"; 
-XAS="XAS";  // aka SHS
+AAC;  // aka ANC
+SAX;  // aka AAX
+ARR; 
+ASR;  // aka ALR
+ATX;  // aka LXA, OAL
+AXA;  // aka SHA
+AXS;  // aka SBX
+DCP; 
+TOP;  // aka NOP
+DOP;  // aka NOP
+ISB;  // aka ISC
+KIL; LAR; LAX; RLA; 
+RRA; SLO; SRE; 
+SXA;  // aka SHX, XAS
+SYA;  // aka SHY
+XAA; 
+XAS;  // aka SHS
 )
 
 // Addressing mode
@@ -168,6 +173,44 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {BEQ, Rel},{SBC, Ndy},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Zpx},{INC, Zpx},{U__, Imp}, // fx 
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
+
+func (op Opcode) String() (string) {
+	switch op {
+	}
+
+	return "???"
+}
+/*
+const (U__="???"
+ADC="ADC"; AND="AND"; ASL="ASL"; BCS="BCS"; BEQ="BEQ"; BIT="BIT"; BMI="BMI"; 
+BPL="BPL"; BVC="BVC"; BCC="BCC";
+BNE="BNE"; BRK="BRK"; BVS="BVS"; CLC="CLC"; CLD="CLD"; CLI="CLI"; CLV="CLV"; 
+CMP="CMP"; CPX="CPX"; CPY="CPY"; DEC="DEC"; DEX="DEX"; DEY="DEY"; EOR="EOR"; 
+INC="INC"; INX="INX"; INY="INY"; JMP="JMP"; JSR="JSR"; LDA="LDA"; LDX="LDX"; 
+LDY="LDY"; LSR="LSR"; NOP="NOP"; ORA="ORA"; PHA="PHA"; PHP="PHP"; PLA="PLA"; 
+PLP="PLP"; ROL="ROL"; ROR="ROR"; RTI="RTI"; RTS="RTS"; SBC="SBC"; SEC="SEC"; 
+SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY"; 
+TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
+
+// Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
+AAC="AAC";  // aka ANC
+SAX="SAX";  // aka AAX
+ARR="ARR"; 
+ASR="ASR";  // aka ALR
+ATX="ATX";  // aka LXA, OAL
+AXA="AXA";  // aka SHA
+AXS="AXS";  // aka SBX
+DCP="DCP"; 
+TOP="TOP";  // aka NOP
+DOP="DOP";  // aka NOP
+ISB="ISB";  // aka ISC
+KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
+RRA="RRA"; SLO="SLO"; SRE="SRE"; 
+SXA="SXA";  // aka SHX, XAS
+SYA="SYA";  // aka SHY
+XAA="XAA"; 
+XAS="XAS";  // aka SHS
+)*/
 
 
 func (addrMode AddrMode) formatOperand(operand int) (string) {
