@@ -696,8 +696,8 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetSZ(cpu.A)
         cpu.SetCarry(cpu.P & FLAG_N != 0)   // Set C to N
     case ASR: cpu.A &= cpu.ReadOperand()
-        cpu.A >>= 1
         cpu.SetCarry(cpu.A & 0x01 != 0)
+        cpu.A >>= 1
         cpu.SetSZ(cpu.A)
     case ARR: cpu.A &= cpu.ReadOperand()
         cpu.Instruction.AddrMode = Acc
