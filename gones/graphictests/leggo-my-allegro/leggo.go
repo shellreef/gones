@@ -7,12 +7,15 @@ package leggo
 
 import ("fmt"
     "net"
+    "os"
     "runtime")
 
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
 import "C"
+
+const SOCKET_FILE = "sock"
 
 //export GoLeggoExit
 func GoLeggoExit() {
@@ -28,9 +31,16 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // Get things going
 //export LeggoMain
 func LeggoMain() {
-    conn, err := net.Dial("unix", "", "sock")
-    fmt.Printf("conn = %s\n", conn)
-    fmt.Printf("err = %s\n", err)
+    // Setup a Unix domain socket to communicate with other thread 
+    // TODO: use pthread conditions? Some other IPC?
+    os.Remove(SOCKET_FILE)
+
+    listener, err := net.Listen("unix", SOCKET_FILE)
+    if err != nil {
+        fmt.Printf("Failed to listen on socket %s: %s\n", SOCKET_FILE, err)
+        return
+    }
+    fmt.Printf("listener = %s\n", listener)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
