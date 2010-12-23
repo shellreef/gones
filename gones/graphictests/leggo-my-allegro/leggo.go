@@ -6,6 +6,7 @@
 package leggo
 
 import ("fmt"
+    "net"
     "runtime")
 
 // #include "leggo.h"
@@ -27,6 +28,10 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // Get things going
 //export LeggoMain
 func LeggoMain() {
+    conn, err := net.Dial("unix", "", "sock")
+    fmt.Printf("conn = %s\n", conn)
+    fmt.Printf("err = %s\n", err)
+
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
