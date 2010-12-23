@@ -693,24 +693,30 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.SetCarry(cpu.A & 0x01 != 0)
         cpu.A >>= 1
         cpu.SetSZ(cpu.A)
-
-    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
-    // they shouldn't. However, they're unofficial opcodes for what's it worth.
-    // http://nesdev.parodius.com/undocumented_opcodes.txt
-    // http://nesdev.parodius.com/extra_instructions.txt
-    // http://nesdev.parodius.com/6502_cpu.txt
     case ARR: cpu.A &= cpu.ReadOperand()
         cpu.Instruction.AddrMode = Acc
         cpu.OpROR()
         // C is bit 6, V is bit 6 XOR bit 5. http://wiki.nesdev.com/w/index.php/Programming_with_unofficial_opcodes
         cpu.SetCarry(cpu.A & 0x40 != 0)
         cpu.SetOverflow((cpu.A & 0x40 != 0) != (cpu.A & 0x20 != 0))
-    case ATX: cpu.A &= cpu.ReadOperand()
+
+    // TODO: fix these opcodes, they fail Blarggs intr_test-v3 in 02-immediate, and
+    // they shouldn't. However, they're unofficial opcodes for what's it worth.
+    // http://nesdev.parodius.com/undocumented_opcodes.txt
+    // http://nesdev.parodius.com/extra_instructions.txt
+    // http://nesdev.parodius.com/6502_cpu.txt
+    case ATX: 
+        // This is unreliable/unknown (opcode $AB)
+        // http://nesdev.parodius.com/bbs/viewtopic.php?t=3831&highlight=atx
+        cpu.A |= 0xee     
+        cpu.A &= cpu.ReadOperand()
         cpu.X = cpu.A
         cpu.SetSZ(cpu.A)
     case AXS: cpu.X &= cpu.A
-        cpu.X -= cpu.ReadOperand()
-        cpu.SetCarry(cpu.X & 0x01 != 0)
+        var tmp uint
+        tmp = uint(cpu.X) - uint(cpu.ReadOperand())
+        cpu.SetCarry(tmp < 0x100)
+        cpu.X = uint8(tmp)
         cpu.SetSZ(cpu.X)
 
     // TODO: find out proper emulation of these opcodes, $9C and $9E, or remove them
