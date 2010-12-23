@@ -695,7 +695,7 @@ func (cpu *CPU) ExecuteInstruction() {
         // flag is actually set too, according to blargg's instr-test_v3/02-immediate.nes.
         cpu.SetSZ(cpu.A)
         cpu.SetCarry(cpu.P & FLAG_N != 0)   // Set C to N
-    case ALR: cpu.A &= cpu.ReadOperand()
+    case ASR: cpu.A &= cpu.ReadOperand()
         cpu.A >>= 1
         cpu.SetCarry(cpu.A & 0x01 != 0)
         cpu.SetSZ(cpu.A)

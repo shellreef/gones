@@ -22,7 +22,7 @@ const (U__=iota;
 ADC; AND; ASL; BCS; BEQ; BIT; BMI; BPL; BVC; BCC; BNE; BRK; BVS; CLC; CLD; CLI; CLV; 
 CMP; CPX; CPY; DEC; DEX; DEY; EOR; INC; INX; INY; JMP; JSR; LDA; LDX; LDY; LSR; NOP; 
 ORA; PHA; PHP; PLA; PLP; ROL; ROR; RTI; RTS; SBC; SEC; SED; SEI; STA; STX; STY; TAX; 
-TAY; TSX; TXA; TXS; TYA; AAC; SAX; ARR; ALR; ATX; AXA; AXS; DCP; TOP; DOP; ISB; KIL; 
+TAY; TSX; TXA; TXS; TYA; AAC; SAX; ARR; ASR; ATX; AXA; AXS; DCP; TOP; DOP; ISB; KIL; 
 LAR; LAX; RLA; RRA; SLO; SRE; SXA; SYA; XAA; XAS;
 )
 
@@ -103,7 +103,7 @@ var Opcodes = [...]OpcodeAddrMode{
 {BMI, Rel},{AND, Ndy},{KIL, Imp},{RLA, Ndy},{DOP, Zpx},{AND, Zpx},{ROL, Zpx},{RLA, Zpx}, // 3x 
 {SEC, Imp},{AND, Aby},{NOP, Imp},{RLA, Aby},{TOP, Abx},{AND, Abx},{ROL, Abx},{RLA, Abx}, 
 {RTI, Imp},{EOR, Ndx},{KIL, Imp},{SRE, Ndx},{DOP, Zpg},{EOR, Zpg},{LSR, Zpg},{SRE, Zpg}, // 4x 
-{PHA, Imp},{EOR, Imd},{LSR, Acc},{ALR, Imd},{JMP, Abs},{EOR, Abs},{LSR, Abs},{SRE, Abs},
+{PHA, Imp},{EOR, Imd},{LSR, Acc},{ASR, Imd},{JMP, Abs},{EOR, Abs},{LSR, Abs},{SRE, Abs},
 {BVC, Rel},{EOR, Ndy},{KIL, Imp},{SRE, Ndy},{DOP, Zpx},{EOR, Zpx},{LSR, Zpx},{SRE, Zpx}, // 5x 
 {CLI, Imp},{EOR, Aby},{NOP, Imp},{SRE, Aby},{TOP, Abx},{EOR, Abx},{LSR, Abx},{SRE, Abx},
 {RTS, Imp},{ADC, Ndx},{KIL, Imp},{RRA, Ndx},{DOP, Zpg},{ADC, Zpg},{ROR, Zpg},{RRA, Zpg}, // 6x 
@@ -234,7 +234,7 @@ func (op Opcode) String() (string) {
     case AAC: return "AAC" // aka ANC
     case SAX: return "SAX" // aka AAX
     case ARR: return "ARR" 
-    case ALR: return "ALR" // aka ASR
+    case ASR: return "ASR" // aka ALR
     case ATX: return "ATX" // aka LXA, OAL
     case AXA: return "AXA" // aka SHA
     case AXS: return "AXS" // aka SBX
