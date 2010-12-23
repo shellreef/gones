@@ -16,36 +16,14 @@ import (
 // value has no relation to the opcode byte in the instruction. I had
 // it as a string, but changed it to an integer for convenience. To
 // get the mneumonic value, use String().
+// Note 2: some unofficial ops have multiple mneumonics; only one is here (see String())
 type Opcode int
 const (U__=iota;
-ADC; AND; ASL; BCS; BEQ; BIT; BMI; 
-BPL; BVC; BCC;
-BNE; BRK; BVS; CLC; CLD; CLI; CLV; 
-CMP; CPX; CPY; DEC; DEX; DEY; EOR; 
-INC; INX; INY; JMP; JSR; LDA; LDX; 
-LDY; LSR; NOP; ORA; PHA; PHP; PLA; 
-PLP; ROL; ROR; RTI; RTS; SBC; SEC; 
-SED; SEI; STA; STX; STY; TAX; TAY; 
-TSX; TXA; TXS; TYA;
-
-// Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC;  // aka ANC
-SAX;  // aka AAX
-ARR; 
-ASR;  // aka ALR
-ATX;  // aka LXA, OAL
-AXA;  // aka SHA
-AXS;  // aka SBX
-DCP; 
-TOP;  // aka NOP
-DOP;  // aka NOP
-ISB;  // aka ISC
-KIL; LAR; LAX; RLA; 
-RRA; SLO; SRE; 
-SXA;  // aka SHX, XAS
-SYA;  // aka SHY
-XAA; 
-XAS;  // aka SHS
+ADC; AND; ASL; BCS; BEQ; BIT; BMI; BPL; BVC; BCC; BNE; BRK; BVS; CLC; CLD; CLI; CLV; 
+CMP; CPX; CPY; DEC; DEX; DEY; EOR; INC; INX; INY; JMP; JSR; LDA; LDX; LDY; LSR; NOP; 
+ORA; PHA; PHP; PLA; PLP; ROL; ROR; RTI; RTS; SBC; SEC; SED; SEI; STA; STX; STY; TAX; 
+TAY; TSX; TXA; TXS; TYA; AAC; SAX; ARR; ASR; ATX; AXA; AXS; DCP; TOP; DOP; ISB; KIL; 
+LAR; LAX; RLA; RRA; SLO; SRE; SXA; SYA; XAA; XAS;
 )
 
 // Addressing mode
@@ -174,44 +152,93 @@ var OfficialOpcodes = [...]OpcodeAddrMode{
 {SED, Imp},{SBC, Aby},{U__, Imp},{U__, Imp},{U__, Imp},{SBC, Abx},{INC, Abx},{U__, Imp},
 }
 
+// Get opcode mneumonic as a string
+// This is admittedly ugly.. any better way?
+// (besides making Opcode a string type)
 func (op Opcode) String() (string) {
-	switch op {
-	}
-
-	return "???"
+    switch op {
+    case ADC: return "ADC" 
+    case AND: return "AND" 
+    case ASL: return "ASL" 
+    case BCS: return "BCS" 
+    case BEQ: return "BEQ" 
+    case BIT: return "BIT" 
+    case BMI: return "BMI" 
+    case BPL: return "BPL" 
+    case BVC: return "BVC" 
+    case BCC: return "BCC" 
+    case BNE: return "BNE" 
+    case BRK: return "BRK" 
+    case BVS: return "BVS" 
+    case CLC: return "CLC" 
+    case CLD: return "CLD" 
+    case CLI: return "CLI" 
+    case CLV: return "CLV" 
+    case CMP: return "CMP" 
+    case CPX: return "CPX" 
+    case CPY: return "CPY" 
+    case DEC: return "DEC" 
+    case DEX: return "DEX" 
+    case DEY: return "DEY" 
+    case EOR: return "EOR" 
+    case INC: return "INC" 
+    case INX: return "INX" 
+    case INY: return "INY" 
+    case JMP: return "JMP" 
+    case JSR: return "JSR" 
+    case LDA: return "LDA" 
+    case LDX: return "LDX" 
+    case LDY: return "LDY" 
+    case LSR: return "LSR" 
+    case NOP: return "NOP" 
+    case ORA: return "ORA" 
+    case PHA: return "PHA" 
+    case PHP: return "PHP" 
+    case PLA: return "PLA" 
+    case PLP: return "PLP" 
+    case ROL: return "ROL" 
+    case ROR: return "ROR" 
+    case RTI: return "RTI" 
+    case RTS: return "RTS" 
+    case SBC: return "SBC" 
+    case SEC: return "SEC" 
+    case SED: return "SED" 
+    case SEI: return "SEI" 
+    case STA: return "STA" 
+    case STX: return "STX" 
+    case STY: return "STY" 
+    case TAX: return "TAX" 
+    case TAY: return "TAY" 
+    case TSX: return "TSX" 
+    case TXA: return "TXA" 
+    case TXS: return "TXS" 
+    case TYA: return "TYA" 
+    // Unofficial
+    case AAC: return "AAC" // aka ANC
+    case SAX: return "SAX" // aka AAX
+    case ARR: return "ARR" 
+    case ASR: return "ASR" // aka ALR
+    case ATX: return "ATX" // aka LXA, OAL
+    case AXA: return "AXA" // aka SHA
+    case AXS: return "AXS" // aka SBX
+    case DCP: return "DCP" 
+    case TOP: return "TOP" // aka NOP
+    case DOP: return "DOP" // aka NOP
+    case ISB: return "ISB" // aka ISC
+    case KIL: return "KIL" // aka HLT
+    case LAR: return "LAR" 
+    case LAX: return "LAX" 
+    case RLA: return "RLA" 
+    case RRA: return "RRA" 
+    case SLO: return "SLO" 
+    case SRE: return "SRE" 
+    case SXA: return "SXA" // aka SHX, XAS
+    case SYA: return "SYA" // aka SHY
+    case XAA: return "XAA" 
+    case XAS: return "XAS" // aka SHS
+    }
+    return "???"
 }
-/*
-const (U__="???"
-ADC="ADC"; AND="AND"; ASL="ASL"; BCS="BCS"; BEQ="BEQ"; BIT="BIT"; BMI="BMI"; 
-BPL="BPL"; BVC="BVC"; BCC="BCC";
-BNE="BNE"; BRK="BRK"; BVS="BVS"; CLC="CLC"; CLD="CLD"; CLI="CLI"; CLV="CLV"; 
-CMP="CMP"; CPX="CPX"; CPY="CPY"; DEC="DEC"; DEX="DEX"; DEY="DEY"; EOR="EOR"; 
-INC="INC"; INX="INX"; INY="INY"; JMP="JMP"; JSR="JSR"; LDA="LDA"; LDX="LDX"; 
-LDY="LDY"; LSR="LSR"; NOP="NOP"; ORA="ORA"; PHA="PHA"; PHP="PHP"; PLA="PLA"; 
-PLP="PLP"; ROL="ROL"; ROR="ROR"; RTI="RTI"; RTS="RTS"; SBC="SBC"; SEC="SEC"; 
-SED="SED"; SEI="SEI"; STA="STA"; STX="STX"; STY="STY"; TAX="TAX"; TAY="TAY"; 
-TSX="TSX"; TXA="TXA"; TXS="TXS"; TYA="TYA";
-
-// Undocumented http://nesdev.parodius.com/undocumented_opcodes.txt
-AAC="AAC";  // aka ANC
-SAX="SAX";  // aka AAX
-ARR="ARR"; 
-ASR="ASR";  // aka ALR
-ATX="ATX";  // aka LXA, OAL
-AXA="AXA";  // aka SHA
-AXS="AXS";  // aka SBX
-DCP="DCP"; 
-TOP="TOP";  // aka NOP
-DOP="DOP";  // aka NOP
-ISB="ISB";  // aka ISC
-KIL="KIL"; LAR="LAR"; LAX="LAX"; RLA="RLA"; 
-RRA="RRA"; SLO="SLO"; SRE="SRE"; 
-SXA="SXA";  // aka SHX, XAS
-SYA="SYA";  // aka SHY
-XAA="XAA"; 
-XAS="XAS";  // aka SHS
-)*/
-
 
 func (addrMode AddrMode) formatOperand(operand int) (string) {
     switch addrMode {
