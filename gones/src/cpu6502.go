@@ -691,7 +691,7 @@ func (cpu *CPU) ExecuteInstruction() {
     // http://nesdev.parodius.com/extra_instructions.txt
     // http://nesdev.parodius.com/6502_cpu.txt
     case AAC: cpu.A &= cpu.ReadOperand(); cpu.SetSZ(cpu.A); cpu.SetCarry(cpu.P & FLAG_Z != 0)
-    case ASR: cpu.A &= cpu.ReadOperand()
+    case ALR: cpu.A &= cpu.ReadOperand()
         cpu.A >>= 1
         cpu.SetCarry(cpu.A & 0x01 != 0)
         cpu.SetSZ(cpu.A)
