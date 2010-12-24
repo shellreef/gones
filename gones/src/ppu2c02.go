@@ -52,7 +52,7 @@ type PPU struct {
     Pixel int
     Scanline int
 
-    CycleCount uint16           // PPU cycle count
+    CycleCount uint             // PPU cycle count
     CycleChannel chan int       // Synchronize with CPU
     CPU *cpu6502.CPU
 
@@ -103,17 +103,16 @@ func (ppu *PPU) Run() {
         ppu.CycleChannel <- PPU_MASTER_CYCLES
         ppu.CycleCount += 1
         
-        fmt.Printf("PPU: %d,%d\n", ppu.Pixel, ppu.Scanline)
+        //fmt.Printf("PPU(%d): %d,%d\n", ppu.CycleCount, ppu.Pixel, ppu.Scanline)
 
         // http://nesdev.parodius.com/NES%20emulator%20development%20guide.txt
         ppu.Pixel = int(ppu.CycleCount) % PIXELS_PER_SCANLINE
         //ppu.HBlank = ppu.Pixel > 255
         ppu.Scanline = int(ppu.CycleCount) / PIXELS_PER_SCANLINE
-
-        // First 21 are not displayed (1 dummy, 20 init)
-        //if ppu.Scanline < SCANLINES_INIT + SCANLINES_DUMMY && !ppu.vblankStarted {
-        if ppu.Scanline >= SCANLINES_PER_FRAME && ppu.Pixel >= PIXELS_PER_SCANLINE {
-            ppu.Scanline = 0
+        // Note first 21 are not displayed (1 dummy, 20 init)
+       
+        if ppu.CycleCount == SCANLINES_PER_FRAME * PIXELS_PER_SCANLINE { 
+            ppu.CycleCount = 0
             ppu.VBlank()
         }
 
