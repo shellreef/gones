@@ -45,18 +45,20 @@ func ppu(cycleChannel chan int) {
 }
 
 func main() {
-    cpuCycleChannel := make(chan int)
+    //cpuCycleChannel := make(chan int)
     ppuCycleChannel := make(chan int)
 
     fmt.Printf("Synchronizing at cpu:ppu = %d:%d\n", CPU_MASTER_CYCLES, PPU_MASTER_CYCLES)
 
-    go cpu(cpuCycleChannel)
+    //go cpu(cpuCycleChannel)
     go ppu(ppuCycleChannel)
 
     masterCycles := 0
     for {
         // for every CPU cycle...
-        masterCycles += <-cpuCycleChannel
+        //masterCycles += <-cpuCycleChannel
+        masterCycles += CPU_MASTER_CYCLES
+        //fmt.Printf("Tick\n")  // run CPU
 
         // ...run PPU appropriate number of cycles 
         for masterCycles > PPU_MASTER_CYCLES {
