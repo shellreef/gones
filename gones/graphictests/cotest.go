@@ -14,6 +14,9 @@ const PPU_MASTER_CYCLES = 5
 
 const PPU_CYCLES_PER_FRAME = (341 * 262)
 
+// 1 / (1.79 MHz * 3)
+const PIXELS_NS_TARGET = 187   // ns/pixel
+
 // CPU goroutine
 func cpu(cycleChannel chan int) {
     for {
@@ -35,7 +38,8 @@ func ppu(cycleChannel chan int) {
         if cycleCount == PPU_CYCLES_PER_FRAME {
             nsPerFrame := time.Nanoseconds() - vblankStartedAt
             fps := 1 / (float(nsPerFrame) / 1e9)
-            fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/switch)\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME)
+            fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
+                    PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
 
             cycleCount = 0
             vblankStartedAt = time.Nanoseconds()
