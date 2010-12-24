@@ -7,15 +7,15 @@ fulltest: test instr_test_v3
 
 # CPU functionality test
 nestest: gones
-	rm -f log.actual diff
-	-timeout 2 ./gones V 'l tests/nestest.nes' 'g 0xc000' > log.actual
-	perl tracediff.pl tests/nestest.log log.actual -q > diff
+	rm -f /tmp/log.actual diff
+	-timeout 5 ./gones V 'l tests/nestest.nes' 'g 0xc000' > /tmp/log.actual
+	perl tracediff.pl tests/nestest.log /tmp/log.actual -q > diff
 	! grep "^-" diff
-	grep 'Nestest automation' log.actual
-	@grep 'Nestest automation: Pass' log.actual >/dev/null
+	grep 'Nestest automation' /tmp/log.actual
+	@grep 'Nestest automation: Pass' /tmp/log.actual >/dev/null
 
 compare-nestest:
-	vim tests/nestest.log log.actual
+	vim tests/nestest.log /tmp/log.actual
 
 timingtest:
 	@echo "CPU timing test"
