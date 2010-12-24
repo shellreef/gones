@@ -14,24 +14,10 @@ import (
 
 import . "cpu6502"
 
-// Measure the cycle count of an operation
-func cyclesForOp(op uint8) (int) {
-    cpu := new(CPU)
-    cpu.PowerUp()
-    cpu.PC = 0x8000
-    cpu.Memory[0x8000] = op
-    //cpu.Verbose = true
-    // Note: cycle count may vary depending on operands.. they're all zeros here
-    startCyc := cpu.Cyc
-    cpu.ExecuteInstruction()
-    cycleCount := cpu.Cyc - startCyc
-
-    return cycleCount
-}
 
 type OpcodeByteCycleCount struct {
     OpcodeByte uint8;
-    Cycles int;
+    Cycles uint;
 }
 
 // Based on http://nesdev.parodius.com/6502_cpu.txt
@@ -411,6 +397,21 @@ var PageCrossTimings = [...]OpcodeByteCycleCount{
     {0xfd, 4+1},  //  +1 if page crossed
     {0xf9, 4+1},  //  +1 if page crossed
     {0xf1, 5+1},  //  +1 if page crossed
+}
+
+// Measure the cycle count of an operation
+func cyclesForOp(op uint8) (uint) {
+    cpu := new(CPU)
+    cpu.PowerUp()
+    cpu.PC = 0x8000
+    cpu.Memory[0x8000] = op
+    //cpu.Verbose = true
+    // Note: cycle count may vary depending on operands.. they're all zeros here
+    startCyc := cpu.CycleCount
+    cpu.ExecuteInstruction()
+    cycleCount := cpu.CycleCount - startCyc
+
+    return cycleCount
 }
 
 // Test timings against a given array

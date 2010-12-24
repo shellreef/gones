@@ -35,7 +35,7 @@ func ppu(cycleChannel chan int) {
         if cycleCount == PPU_CYCLES_PER_FRAME {
             nsPerFrame := time.Nanoseconds() - vblankStartedAt
             fps := 1 / (float(nsPerFrame) / 1e9)
-            fmt.Printf("%.2f frames/second (%d ns/frame)\n", fps, nsPerFrame)
+            fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/switch)\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME)
 
             cycleCount = 0
             vblankStartedAt = time.Nanoseconds()
@@ -53,22 +53,17 @@ func main() {
     //go cpu(cpuCycleChannel)
     go ppu(ppuCycleChannel)
 
-    //masterCycles := 0
+    masterCycles := 0
     for {
         // for every CPU cycle...
         //masterCycles += <-cpuCycleChannel
-        //masterCycles += CPU_MASTER_CYCLES
+        masterCycles += CPU_MASTER_CYCLES
         //fmt.Printf(".")  // run CPU
 
-        <-ppuCycleChannel
-        <-ppuCycleChannel
-        <-ppuCycleChannel
-
-
         // ...run PPU appropriate number of cycles 
-        //for masterCycles > PPU_MASTER_CYCLES {
-        //    masterCycles -= <-ppuCycleChannel
-        //}
+        for masterCycles > PPU_MASTER_CYCLES {
+            masterCycles -= <-ppuCycleChannel
+        }
     }
 }
 
