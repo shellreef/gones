@@ -3,7 +3,6 @@
 package main
 
 import ("fmt"
-        "runtime"
         "time")
 
 
@@ -66,7 +65,6 @@ func main() {
     }
 }
 
-func init() {
-    runtime.GOMAXPROCS(4)
-
-}
+// runtime.GOMAXPROCS(1), default, is fastest (20 fps)
+// runtime.GOMAXPROCS(2) slows to 5 fps
+// runtime.GOMAXPROCS(4) slows to ~1 fps
