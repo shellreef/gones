@@ -28,7 +28,7 @@ func ppu(cycleChannel chan int) {
     vblankStartedAt := time.Nanoseconds()
 
     for {
-        //fmt.Printf("Tock\n")
+        fmt.Printf("+") // run PPU
         cycleChannel <- PPU_MASTER_CYCLES
 
         cycleCount += 1
@@ -58,7 +58,7 @@ func main() {
         // for every CPU cycle...
         //masterCycles += <-cpuCycleChannel
         masterCycles += CPU_MASTER_CYCLES
-        //fmt.Printf("Tick\n")  // run CPU
+        fmt.Printf(".")  // run CPU
 
         // ...run PPU appropriate number of cycles 
         for masterCycles > PPU_MASTER_CYCLES {
