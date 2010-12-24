@@ -3,6 +3,7 @@
 package main
 
 import ("fmt"
+        "runtime"
         "time")
 
 
@@ -65,3 +66,6 @@ func main() {
     }
 }
 
+func init() {
+    runtime.GOMAXPROCS(2)
+}
