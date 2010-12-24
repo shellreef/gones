@@ -24,9 +24,9 @@ type CPU struct {
     X, Y uint8  // Index registers
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 
-    Cyc int     // CPU cycle counter
+    CycleCount uint         // CPU cycle count
     CycleChannel chan int  
-    PendingNMI bool // Run non-maskable interrupt after next instr finishes
+    PendingNMI bool         // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
     InstrTrace bool
@@ -383,7 +383,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
     pch := cpu.Memory[RESET_VECTOR + 1]
     cpu.PC = uint16(pch) << 8 + uint16(pcl)
 
-    cpu.Cyc = 0
+    cpu.CycleCount = 0
 }
 
 // Return string representation of truth value, for bit flags
@@ -503,7 +503,7 @@ func (cpu *CPU) Tick(reason string) {
     if cpu.Verbose {
         fmt.Printf("tick: %s\n", reason)
     }
-    cpu.Cyc += 1
+    cpu.CycleCount += 1
 
     // TODO: remove check, but test suites don't setup channel
     if cpu.CycleChannel != nil {
@@ -586,7 +586,7 @@ func (cpu *CPU) OpROL() (ret uint8) {
 // Execute one instruction
 func (cpu *CPU) ExecuteInstruction() {
     start := cpu.PC
-    startCyc := cpu.Cyc
+    startCyc := cpu.CycleCount
     cpu.HaveCalculatedAddress = false
     cpu.Instruction = cpu.NextInstruction()
 
@@ -839,7 +839,7 @@ func (cpu *CPU) ExecuteInstruction() {
         os.Exit(-1)
     }
     if cpu.Verbose {
-        fmt.Printf("%s took %d cycles\n", cpu.Instruction.Opcode, cpu.Cyc - startCyc)
+        fmt.Printf("%s took %d cycles\n", cpu.Instruction.Opcode, cpu.CycleCount - startCyc)
     }
 
     // Finished instruction, so now can run NMI

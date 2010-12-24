@@ -47,6 +47,7 @@ instr_test_v3:
 	
 clean::
 	gd clean
+	rm gones
 
-loop::
+loop:: gones
 	./gones b g
