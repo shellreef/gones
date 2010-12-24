@@ -27,23 +27,15 @@ func cpu(cycleChannel chan int) {
 
 // PPU goroutine
 func ppu(cycleChannel chan int) {
-    cycleCount := 0
-    vblankStartedAt := time.Nanoseconds()
+    last := time.Nanoseconds()
 
     for {
         //fmt.Printf("+") // run PPU
+        nsPerPixel := time.Nanoseconds() - last
         cycleChannel <- PPU_MASTER_CYCLES
-
-        cycleCount += 1
-        if cycleCount == PPU_CYCLES_PER_FRAME {
-            nsPerFrame := time.Nanoseconds() - vblankStartedAt
-            fps := 1 / (float(nsPerFrame) / 1e9)
-            fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
-                    PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
-
-            cycleCount = 0
-            vblankStartedAt = time.Nanoseconds()
-        }
+        
+        last = time.Nanoseconds()
+        fmt.Printf("%d ns/pixel (%d)\n", nsPerPixel, PIXELS_NS_TARGET - nsPerPixel)
 
     }
 }
