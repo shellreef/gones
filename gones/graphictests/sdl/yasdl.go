@@ -5,11 +5,18 @@
 
 package yasdl
 
-// #include <stdlib.h>
-// #include <SDL/SDL.h>
+/* 
+#include <stdlib.h>
+#include <SDL/SDL.h>
+
+// Call the real main which SDL defines, not the user's SDL_main
+#undef main
+extern int main(int argc, char **argv);
+*/
 import "C"
 
 func Main() () {
+    // Call main entry point, defined by SDL src/main/macosx/SDLMain.m
     C.main(0, nil)
 }
 
