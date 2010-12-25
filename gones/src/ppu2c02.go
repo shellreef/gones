@@ -34,6 +34,9 @@ const SCANLINES_DUMMY = 1
 const SCANLINES_DATA = 240
 const SCANLINES_PER_FRAME = SCANLINES_INIT + SCANLINES_DUMMY + SCANLINES_DATA + SCANLINES_DUMMY // 262 total
 
+// NTSC is 12:4
+// Dendy is 15:5 (same 3:1) - using this here for ease
+// PAL is 15:6
 const PPU_MASTER_CYCLES = 5     // 5 "master cycles" per PPU cycle
 
 const SPRITE_SIZE_8x8 = false

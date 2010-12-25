@@ -23,8 +23,16 @@ import (
 // TODO: move to a NES Control Deck abstraction?
 
 func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
-    go cpu.Run()
+    cpu.CycleCallback = func(x int) {
+        ppu.RunOne()
+        ppu.RunOne()
+        ppu.RunOne()
+    }
 
+    cpu.Run()
+    //go cpu.Run()
+
+        /*
     masterCycles := 0
 
     for {
@@ -36,7 +44,7 @@ func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
         for masterCycles > ppu2c02.PPU_MASTER_CYCLES {
             masterCycles -= ppu.RunOne()
         }
-    }
+    }*/
 }
 
 func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {

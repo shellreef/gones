@@ -14,6 +14,7 @@ import . "dis6502"
 import (
     "fmt"
     "os"
+
 )
 
 type CPU struct {
@@ -26,6 +27,7 @@ type CPU struct {
 
     CycleCount uint         // CPU cycle count
     CycleChannel chan int  
+    CycleCallback func(int)
     PendingNMI bool         // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
@@ -506,8 +508,9 @@ func (cpu *CPU) Tick(reason string) {
     cpu.CycleCount += 1
 
     // TODO: remove check, but test suites don't setup channel
-    if cpu.CycleChannel != nil {
-        cpu.CycleChannel <- CPU_MASTER_CYCLES_NTSC   // TODO: or PAL
+    if cpu.CycleCallback != nil {
+        //cpu.CycleChannel <- CPU_MASTER_CYCLES_NTSC   // TODO: or PAL
+        cpu.CycleCallback(CPU_MASTER_CYCLES_NTSC)
     }
 }
 
