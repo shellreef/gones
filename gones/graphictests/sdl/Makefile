@@ -12,7 +12,7 @@ CLEANFILES+=tryit
 include $(GOROOT)/src/Make.pkg
 
 SDLMain.o: SDLMain.m
-	gcc `sdl-config --cflags` SDLMain.m -c -o SDLMain.o
+	gcc -fPIC `sdl-config --cflags` SDLMain.m -c -o SDLMain.o
 
 c-hello::
 	gcc c-hello.c `sdl-config --static-libs` -o c-hello
