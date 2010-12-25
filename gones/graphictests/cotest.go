@@ -25,29 +25,23 @@ func cpu(cycleChannel chan int) {
     }
 }
 
-// PPU goroutine
-/*
-func ppu(cycleChannel chan int) {
-    cycleCount := 0
-    vblankStartedAt := time.Nanoseconds()
+var cycleCount = 0
+var vblankStartedAt = time.Nanoseconds()
 
-    for {
-        cyclesToRun := <-cycleChannel 
-        for i := 0; i < cyclesToRun; i += 1 {
-            //fmt.Printf("+") // run PPU
-            cycleCount += 1
-            if cycleCount == PPU_CYCLES_PER_FRAME {
-                nsPerFrame := time.Nanoseconds() - vblankStartedAt
-                fps := 1 / (float(nsPerFrame) / 1e9)
-                fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
-                        PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
+// Run one cycle of PPU
+func ppuTick() {
+    //fmt.Printf("+") // run PPU
+    cycleCount += 1
+    if cycleCount == PPU_CYCLES_PER_FRAME {
+        nsPerFrame := time.Nanoseconds() - vblankStartedAt
+        fps := 1 / (float(nsPerFrame) / 1e9)
+        fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
+                PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
 
-                cycleCount = 0
-                vblankStartedAt = time.Nanoseconds()
-            }
-        }
+        cycleCount = 0
+        vblankStartedAt = time.Nanoseconds()
     }
-}*/
+}
 
 func main() {
     cpuCycleChannel := make(chan int)
@@ -57,9 +51,6 @@ func main() {
 
     go cpu(cpuCycleChannel)
     //go ppu(ppuCycleChannel)
-
-    cycleCount := 0
-    vblankStartedAt := time.Nanoseconds()
 
     for {
         // for every CPU cycle...
@@ -71,18 +62,8 @@ func main() {
         //ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
 
         cyclesToRun := masterCycles / PPU_MASTER_CYCLES
-        for i := 0; i < cyclesToRun; i += 1 {
-            //fmt.Printf("+") // run PPU
-            cycleCount += 1
-            if cycleCount == PPU_CYCLES_PER_FRAME {
-                nsPerFrame := time.Nanoseconds() - vblankStartedAt
-                fps := 1 / (float(nsPerFrame) / 1e9)
-                fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
-                        PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
-
-                cycleCount = 0
-                vblankStartedAt = time.Nanoseconds()
-            }
+        for ; cyclesToRun != 0; cyclesToRun -= 1 {
+            ppuTick()
         }
     }
 }
