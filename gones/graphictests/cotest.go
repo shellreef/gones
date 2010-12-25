@@ -59,7 +59,9 @@ func main() {
 
     for {
         // for every CPU cycle...
-        masterCycles := <-cpuCycleChannel
+        //fmt.Printf(".")  // run CPU
+        //masterCycles := <-cpuCycleChannel
+        masterCycles := CPU_MASTER_CYCLES
 
         // ...run PPU appropriate number of cycles 
         ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
