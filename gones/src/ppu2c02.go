@@ -52,6 +52,12 @@ const SPRITE_PALETTE_1 = 0x3f10     // to 0x3f20
 const NTSC_CPU_CYCLES, NTSC_PPU_CYCLES = 12, 4
 const DENDY_CPU_CYCLES, DENDY_PPU_CYCLES = 15, 5
 const PAL_CPU_CYCLES, PAL_PPU_CYCLES = 15, 6
+type VideoMode string
+const (
+        NTSC="NTSC";
+        Dendy="Dendy";
+        PAL="PAL")
+
 
 type PPU struct {
     Pixel int
@@ -103,11 +109,13 @@ type PPU struct {
 
 const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 
+// Run the CPU continuously, running the PPU every cycle
 func (ppu *PPU) Run() {
     ppu.masterCycles = 0
 
-    ppu.cpuMasterCycles = NTSC_CPU_CYCLES
-    ppu.ppuMasterCycles = NTSC_PPU_CYCLES
+    if ppu.cpuMasterCycles == 0 || ppu.ppuMasterCycles == 0 {
+        ppu.SetVideoMode(NTSC)
+    }
 
     ppu.CPU.CycleCallback = func() {
         // for every CPU cycle... (TODO: remove argument, only knowledge of NTSC/PAL in PPU!)
@@ -152,6 +160,26 @@ func (ppu *PPU) RunOne() {
     }*/
 
     // TODO: render
+}
+
+// Set video mode for CPU synchronization
+func (ppu *PPU) SetVideoMode(mode VideoMode) {
+    // TODO: var MasterCycleRatios = map[string]([2]int){?
+    // Then could avoid this redundancy
+    switch mode {
+    case NTSC: 
+        ppu.cpuMasterCycles = NTSC_CPU_CYCLES
+        ppu.ppuMasterCycles = NTSC_PPU_CYCLES
+    case Dendy:
+        ppu.cpuMasterCycles = DENDY_CPU_CYCLES
+        ppu.ppuMasterCycles = DENDY_PPU_CYCLES
+    case PAL:
+        ppu.cpuMasterCycles = PAL_CPU_CYCLES
+        ppu.ppuMasterCycles = PAL_PPU_CYCLES
+
+    default:
+        panic(fmt.Sprintf("SetVideoMode(%d): invalid", mode))
+    }
 }
 
 // Vertical blank
