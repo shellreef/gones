@@ -5,11 +5,14 @@ TARG=yasdl
 CGOFILES=yasdl.go
 CGO_OFILES=SDLMain.o
 CGO_CFLAGS=`sdl-config --cflags` 
-CGO_LDFLAGS=`sdl-config --static-libs`
+CGO_LDFLAGS=`sdl-config --libs`
 
 CLEANFILES+=tryit
 
 include $(GOROOT)/src/Make.pkg
+
+SDLMain.o: SDLMain.m
+	gcc `sdl-config --cflags` SDLMain.m -c -o SDLMain.o
 
 c-hello::
 	gcc c-hello.c `sdl-config --static-libs` -o c-hello
