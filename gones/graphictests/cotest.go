@@ -20,7 +20,7 @@ const PIXELS_NS_TARGET = 187   // ns/pixel
 // CPU goroutine
 func cpu(cycleChannel chan int) {
     for {
-        //fmt.Printf("Tick\n")
+        //fmt.Printf(".")  // run CPU
         cycleChannel <- CPU_MASTER_CYCLES
     }
 }
@@ -49,19 +49,17 @@ func ppu(cycleChannel chan int) {
 }
 
 func main() {
-    //cpuCycleChannel := make(chan int)
+    cpuCycleChannel := make(chan int)
     ppuCycleChannel := make(chan int)
 
     fmt.Printf("Synchronizing at cpu:ppu = %d:%d\n", CPU_MASTER_CYCLES, PPU_MASTER_CYCLES)
 
-    //go cpu(cpuCycleChannel)
+    go cpu(cpuCycleChannel)
     go ppu(ppuCycleChannel)
 
     for {
         // for every CPU cycle...
-        //masterCycles += <-cpuCycleChannel
-        masterCycles :=  CPU_MASTER_CYCLES
-        //fmt.Printf(".")  // run CPU
+        masterCycles := <-cpuCycleChannel
 
         // ...run PPU appropriate number of cycles 
         ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
