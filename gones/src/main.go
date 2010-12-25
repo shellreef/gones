@@ -23,28 +23,9 @@ import (
 // TODO: move to a NES Control Deck abstraction?
 
 func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
-    cpu.CycleCallback = func(x int) {
-        ppu.RunOne()
-        ppu.RunOne()
-        ppu.RunOne()
-    }
+    ppu.CPU = cpu
 
-    cpu.Run()
-    //go cpu.Run()
-
-        /*
-    masterCycles := 0
-
-    for {
-        // For every CPU cycle...
-        masterCycles += <-cpu.CycleChannel
-
-        // ..run PPU appropriate number of cycles
-        // This is 3 for NTSC, but keep the left over for PAL (1 master cycle)
-        for masterCycles > ppu2c02.PPU_MASTER_CYCLES {
-            masterCycles -= ppu.RunOne()
-        }
-    }*/
+    ppu.Run()
 }
 
 func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {
@@ -205,8 +186,6 @@ func Shell(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
 func main() {
     cpu := new(cpu6502.CPU)
     ppu := new(ppu2c02.PPU)
-    ppu.CPU = cpu
-    cpu.CycleChannel = make(chan int)
 
     // Would like to be able to do this, but go says: method ppu.ReadMapper is not an expression, must be called
     //cpu.ReadMappers[0] = ppu.ReadMapper

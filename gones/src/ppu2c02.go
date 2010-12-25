@@ -98,6 +98,17 @@ type PPU struct {
 
 const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 
+func (ppu *PPU) Run() {
+    ppu.CPU.CycleCallback = func(_ int) {
+        // TODO: master cycles and such
+        ppu.RunOne()
+        ppu.RunOne()
+        ppu.RunOne()
+    }
+
+    ppu.CPU.Run()
+}
+
 // Run the PPU for one PPU cycle; return number of master cycles executed
 func (ppu *PPU) RunOne() (masterCycles int) {
     ppu.CycleCount += 1

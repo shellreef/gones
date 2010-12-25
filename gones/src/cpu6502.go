@@ -26,7 +26,6 @@ type CPU struct {
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 
     CycleCount uint         // CPU cycle count
-    CycleChannel chan int  
     CycleCallback func(int)
     PendingNMI bool         // Run non-maskable interrupt after next instr finishes
 
