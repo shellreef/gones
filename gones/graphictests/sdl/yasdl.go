@@ -9,11 +9,20 @@ package yasdl
 // #include <SDL/SDL.h>
 import "C"
 
+func Main() () {
+    C.main(0, nil)
+}
+
 func Init() (int) {
     x := C.SDL_Init(C.SDL_INIT_VIDEO)
 
     return int(x)
 }
+
+/*
+func SDL_main(argc C.int, argv []*C.char) {
+    fmt.Printf("in SDL_Main\n")
+}*/
 
 func SetVideoMode(width int, height int, bpp int, flags int) {
     screen := C.SDL_SetVideoMode(C.int(width), C.int(height), C.int(bpp), C.Uint32(flags))
