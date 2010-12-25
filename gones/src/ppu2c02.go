@@ -56,6 +56,7 @@ type PPU struct {
     Scanline int
 
     CycleCount uint             // PPU cycle count
+    masterCycles uint           // "Master cycle" count for CPU synchronization
     CPU *cpu6502.CPU
 
     // Set by PPU_CTRL
@@ -99,18 +100,22 @@ type PPU struct {
 const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 
 func (ppu *PPU) Run() {
-    ppu.CPU.CycleCallback = func(_ int) {
-        // TODO: master cycles and such
-        ppu.RunOne()
-        ppu.RunOne()
-        ppu.RunOne()
+    ppu.masterCycles = 0
+
+    ppu.CPU.CycleCallback = func(cpuMasterCycles uint) {
+        // for every CPU cycle... (TODO: remove argument, only knowledge of NTSC/PAL in PPU!)
+        ppu.masterCycles += cpuMasterCycles
+
+        for ppu.masterCycles > PPU_MASTER_CYCLES {
+            ppu.masterCycles -= ppu.RunOne()
+        }
     }
 
     ppu.CPU.Run()
 }
 
 // Run the PPU for one PPU cycle; return number of master cycles executed
-func (ppu *PPU) RunOne() (masterCycles int) {
+func (ppu *PPU) RunOne() (masterCycles uint) {
     ppu.CycleCount += 1
     
     //fmt.Printf("PPU(%d): %d,%d\n", ppu.CycleCount, ppu.Pixel, ppu.Scanline)

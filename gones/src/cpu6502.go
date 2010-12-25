@@ -26,7 +26,7 @@ type CPU struct {
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 
     CycleCount uint         // CPU cycle count
-    CycleCallback func(int)
+    CycleCallback func(uint)// Called on every CPU cycle
     PendingNMI bool         // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
@@ -509,7 +509,8 @@ func (cpu *CPU) Tick(reason string) {
     // TODO: remove check, but test suites don't setup channel
     if cpu.CycleCallback != nil {
         //cpu.CycleChannel <- CPU_MASTER_CYCLES_NTSC   // TODO: or PAL
-        cpu.CycleCallback(CPU_MASTER_CYCLES_NTSC)
+        //cpu.CycleCallback(CPU_MASTER_CYCLES_NTSC)
+        cpu.CycleCallback(CPU_MASTER_CYCLES_PAL)
     }
 }
 
