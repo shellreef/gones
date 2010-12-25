@@ -53,7 +53,6 @@ type PPU struct {
     Scanline int
 
     CycleCount uint             // PPU cycle count
-    CycleChannel chan int       // Synchronize with CPU
     CPU *cpu6502.CPU
 
     // Set by PPU_CTRL
@@ -96,40 +95,39 @@ type PPU struct {
 
 const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 
-// Continuously run
-func (ppu *PPU) Run() {
-    for {
-        // Tick.. synchronized with CPU 
-        ppu.CycleChannel <- PPU_MASTER_CYCLES
-        ppu.CycleCount += 1
-        
-        //fmt.Printf("PPU(%d): %d,%d\n", ppu.CycleCount, ppu.Pixel, ppu.Scanline)
+// Run the PPU for one PPU cycle; return number of master cycles executed
+func (ppu *PPU) RunOne() (masterCycles int) {
+    ppu.CycleCount += 1
+    
+    //fmt.Printf("PPU(%d): %d,%d\n", ppu.CycleCount, ppu.Pixel, ppu.Scanline)
 
-        // http://nesdev.parodius.com/NES%20emulator%20development%20guide.txt
-        ppu.Pixel = int(ppu.CycleCount) % PIXELS_PER_SCANLINE
-        //ppu.HBlank = ppu.Pixel > 255
-        ppu.Scanline = int(ppu.CycleCount) / PIXELS_PER_SCANLINE
-        // Note first 21 are not displayed (1 dummy, 20 init)
-       
-        if ppu.CycleCount == SCANLINES_PER_FRAME * PIXELS_PER_SCANLINE { 
-            ppu.CycleCount = 0
-            ppu.VBlank()
-        }
-
-        /* Naive branch-heavy pixel/scanline counting: 20 frames/second 
-        ppu.Pixel += 1
-        if ppu.Pixel >= PIXELS_PER_SCANLINE {
-            ppu.Scanline += 1
-            ppu.Pixel = 0
-        }
-
-        if ppu.Scanline >= SCANLINES_PER_FRAME {
-            ppu.Scanline = -1
-            ppu.VBlank()
-        }*/
-
-        // TODO: render
+    // http://nesdev.parodius.com/NES%20emulator%20development%20guide.txt
+    ppu.Pixel = int(ppu.CycleCount) % PIXELS_PER_SCANLINE
+    //ppu.HBlank = ppu.Pixel > 255
+    ppu.Scanline = int(ppu.CycleCount) / PIXELS_PER_SCANLINE
+    // Note first 21 are not displayed (1 dummy, 20 init)
+   
+    if ppu.CycleCount == SCANLINES_PER_FRAME * PIXELS_PER_SCANLINE { 
+        ppu.CycleCount = 0
+        ppu.VBlank()
     }
+
+    /* Naive branch-heavy pixel/scanline counting: 20 frames/second 
+    ppu.Pixel += 1
+    if ppu.Pixel >= PIXELS_PER_SCANLINE {
+        ppu.Scanline += 1
+        ppu.Pixel = 0
+    }
+
+    if ppu.Scanline >= SCANLINES_PER_FRAME {
+        ppu.Scanline = -1
+        ppu.VBlank()
+    }*/
+
+    // TODO: render
+    
+    // Tick.. synchronized with CPU 
+    return PPU_MASTER_CYCLES
 }
 
 // Vertical blank

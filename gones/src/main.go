@@ -24,8 +24,6 @@ import (
 
 func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     go cpu.Run()
-    go ppu.Run()
-
 
     masterCycles := 0
 
@@ -36,7 +34,7 @@ func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
         // ..run PPU appropriate number of cycles
         // This is 3 for NTSC, but keep the left over for PAL (1 master cycle)
         for masterCycles > ppu2c02.PPU_MASTER_CYCLES {
-            masterCycles -= <-ppu.CycleChannel
+            masterCycles -= ppu.RunOne()
         }
     }
 }
@@ -199,7 +197,6 @@ func Shell(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
 func main() {
     cpu := new(cpu6502.CPU)
     ppu := new(ppu2c02.PPU)
-    ppu.CycleChannel = make(chan int)
     ppu.CPU = cpu
     cpu.CycleChannel = make(chan int)
 
