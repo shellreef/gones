@@ -5,19 +5,30 @@
 
 package yasdl
 
+import "fmt"
+
 /* 
 #include <stdlib.h>
+#include <stdio.h>
 #include <SDL/SDL.h>
 
 // Call the real main which SDL defines, not the user's SDL_main
 #undef main
-extern int main(int argc, char **argv);
+extern int SDL_not_main(int argc, char **argv);
+
+// Define our user SDL_main()
+int SDL_main(int argc, char **argv) {
+    printf("in SDL_main, argc=%d\n", argc);
+
+    return 0;
+}
+
 */
 import "C"
 
 func Main() () {
     // Call main entry point, defined by SDL src/main/macosx/SDLMain.m
-    C.main(0, nil)
+    C.SDL_not_main(0, nil)
 }
 
 func Init() (int) {
@@ -26,10 +37,10 @@ func Init() (int) {
     return int(x)
 }
 
-/*
+//export
 func SDL_main(argc C.int, argv []*C.char) {
     fmt.Printf("in SDL_Main\n")
-}*/
+}
 
 func SetVideoMode(width int, height int, bpp int, flags int) {
     screen := C.SDL_SetVideoMode(C.int(width), C.int(height), C.int(bpp), C.Uint32(flags))

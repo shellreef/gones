@@ -3,7 +3,8 @@ include $(GOROOT)/src/Make.inc
 TARG=yasdl
 
 CGOFILES=yasdl.go
-CGO_CFLAGS=`sdl-config --cflags`
+CGO_OFILES=SDLMain.o
+CGO_CFLAGS=`sdl-config --cflags` 
 CGO_LDFLAGS=`sdl-config --libs`
 
 CLEANFILES+=tryit
