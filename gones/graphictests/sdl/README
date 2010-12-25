@@ -1,0 +1,46 @@
+Attempt at a Go wrapper for SDL on Mac OS X
+JC20101224
+
+Current status: failure
+
+SDL redefines the user's main to SDL_main, and implements its own
+main in /usr/local/lib/libSDLmain.a which calls the user's main. This
+is needed on OS X and Windows to initialize the GUI before calling user code.
+
+With the Allegro gaming library, you have another choice: define ALLEGRO_NO_MAGIC_MAIN,
+then call al_run_main() yourself, and it is no problem. SDL doesn't appear to
+offer this option. On Linux the wrapping is not needed, in either library.
+
+https://github.com/banthar/Go-SDL
+ fork: https://github.com/0xe2-0x9a-0x9b/Go-SDL
+
+Neither work on OS X. They compile and link just fine (after installing the
+required SDL libraries from source), but crash at runtime, after a bunch of
+NSAutoreleasePool leak warnings, dying in SDL_SetVideoMode. This is because Go-SDL
+neglects to run SDL's main(), so the environment is not properly setup.
+
+To get this to work, the required initialization (implemented in SDL in
+src/main/macosx/SDLMain.m, written in Objective C and using Cocoa) must be called
+before any other SDL functions. It is possible to link in SDL's main():
+
+    ar x /usr/local/lib/libSDLmain.a
+
+then add SDLMain.o to CGO_OFILES, but gcc detects a conflict with this main()
+and _cgo_export.c, so I patched SDL src/main/macosx/SDLMain.m to call it
+SDL_not_main() instead of main() (not to be confused with SDL_main, which is,
+confusingly, the user-defined function -- defined by the user as main() but
+re#define'd as SDL_main -- that is called by the real main()). This allows it to link,
+a test program using the library fails to link, with errors:
+
+    unexpected reloc for dynamic symbol [...]
+
+Same as on http://groups.google.com/group/golang-nuts/browse_thread/thread/218fdb0beddf2ffe/c6570053bd09c710?show_docid=c6570053bd09c710
+
+basicsound wrapper has same problems:
+https://github.com/tajtiattila/basicsound.go/issues/issue/1
+https://github.com/tajtiattila/basicsound.go/issues/issue/2
+
+Go-OpenGL also notes the need to run the code through sdlMain:
+https://github.com/banthar/Go-OpenGL/issues#issue/11
+
+

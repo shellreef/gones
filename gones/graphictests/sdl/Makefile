@@ -5,7 +5,7 @@ TARG=yasdl
 CGOFILES=yasdl.go
 CGO_OFILES=SDLMain.o
 CGO_CFLAGS=`sdl-config --cflags` 
-CGO_LDFLAGS=`sdl-config --libs`
+CGO_LDFLAGS=`sdl-config --static-libs`
 
 CLEANFILES+=tryit
 
