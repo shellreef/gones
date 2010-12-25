@@ -9,7 +9,7 @@ import ("fmt"
 // Synchronization ratio
 // 15:5 = 3:1
 // 16:5 = 3.2:1
-const CPU_MASTER_CYCLES = 15
+const CPU_MASTER_CYCLES = 16//15
 const PPU_MASTER_CYCLES = 5
 
 const PPU_CYCLES_PER_FRAME = (341 * 262)
@@ -45,25 +45,26 @@ func ppuTick() {
 
 func main() {
     cpuCycleChannel := make(chan int)
-    //ppuCycleChannel := make(chan int)
 
-    fmt.Printf("Synchronizing at cpu:ppu = %d:%d\n", CPU_MASTER_CYCLES, PPU_MASTER_CYCLES)
+    fmt.Printf("Synchronizing at ppu:cpu = %d:%d\n", CPU_MASTER_CYCLES, PPU_MASTER_CYCLES)
 
     go cpu(cpuCycleChannel)
     //go ppu(ppuCycleChannel)
+    
+    masterCycles := 0
 
     for {
         // for every CPU cycle...
         //fmt.Printf(".")  // run CPU
         //masterCycles := <-cpuCycleChannel
-        masterCycles := <-cpuCycleChannel
+        masterCycles += <-cpuCycleChannel
 
         // ...run PPU appropriate number of cycles 
         //ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
 
-        cyclesToRun := masterCycles / PPU_MASTER_CYCLES
-        for ; cyclesToRun != 0; cyclesToRun -= 1 {
+        for masterCycles > PPU_MASTER_CYCLES {
             ppuTick()
+            masterCycles -= PPU_MASTER_CYCLES
         }
     }
 }
