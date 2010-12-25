@@ -26,6 +26,7 @@ func cpu(cycleChannel chan int) {
 }
 
 // PPU goroutine
+/*
 func ppu(cycleChannel chan int) {
     cycleCount := 0
     vblankStartedAt := time.Nanoseconds()
@@ -46,25 +47,43 @@ func ppu(cycleChannel chan int) {
             }
         }
     }
-}
+}*/
 
 func main() {
     cpuCycleChannel := make(chan int)
-    ppuCycleChannel := make(chan int)
+    //ppuCycleChannel := make(chan int)
 
     fmt.Printf("Synchronizing at cpu:ppu = %d:%d\n", CPU_MASTER_CYCLES, PPU_MASTER_CYCLES)
 
     go cpu(cpuCycleChannel)
-    go ppu(ppuCycleChannel)
+    //go ppu(ppuCycleChannel)
+
+    cycleCount := 0
+    vblankStartedAt := time.Nanoseconds()
 
     for {
         // for every CPU cycle...
         //fmt.Printf(".")  // run CPU
         //masterCycles := <-cpuCycleChannel
-        masterCycles := CPU_MASTER_CYCLES
+        masterCycles := <-cpuCycleChannel
 
         // ...run PPU appropriate number of cycles 
-        ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
+        //ppuCycleChannel <- masterCycles / PPU_MASTER_CYCLES
+
+        cyclesToRun := masterCycles / PPU_MASTER_CYCLES
+        for i := 0; i < cyclesToRun; i += 1 {
+            //fmt.Printf("+") // run PPU
+            cycleCount += 1
+            if cycleCount == PPU_CYCLES_PER_FRAME {
+                nsPerFrame := time.Nanoseconds() - vblankStartedAt
+                fps := 1 / (float(nsPerFrame) / 1e9)
+                fmt.Printf("%.2f frames/second (%d ns/frame, %d ns/pixel (%d))\n", fps, nsPerFrame, nsPerFrame / PPU_CYCLES_PER_FRAME,
+                        PIXELS_NS_TARGET - nsPerFrame / PPU_CYCLES_PER_FRAME)
+
+                cycleCount = 0
+                vblankStartedAt = time.Nanoseconds()
+            }
+        }
     }
 }
 
