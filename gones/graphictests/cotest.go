@@ -7,10 +7,11 @@ import ("fmt"
 
 
 // Synchronization ratio
-// 15:5 = 3:1
+// See http://nesdev.parodius.com/bbs/viewtopic.php?p=61467
+// 15:5 = 12:4 = 3:1
 // 16:5 = 3.2:1
-const CPU_MASTER_CYCLES = 16//15
-const PPU_MASTER_CYCLES = 5
+const CPU_MASTER_CYCLES = 12
+const PPU_MASTER_CYCLES = 4
 
 const PPU_CYCLES_PER_FRAME = (341 * 262)
 
