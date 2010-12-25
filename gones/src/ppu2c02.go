@@ -34,11 +34,6 @@ const SCANLINES_DUMMY = 1
 const SCANLINES_DATA = 240
 const SCANLINES_PER_FRAME = SCANLINES_INIT + SCANLINES_DUMMY + SCANLINES_DATA + SCANLINES_DUMMY // 262 total
 
-// NTSC is 12:4
-// Dendy is 15:5 (same 3:1) - using this here for ease
-// PAL is 15:6
-const PPU_MASTER_CYCLES = 5     // 5 "master cycles" per PPU cycle
-
 const SPRITE_SIZE_8x8 = false
 const SPRITE_SIZE_8x16 = true
 
@@ -51,12 +46,21 @@ const ATTR_TABLE_0 = 0x23c0         // to 0x2400
 const IMAGE_PALETTE_1 = 0x3f00      // to 0x3f10
 const SPRITE_PALETTE_1 = 0x3f10     // to 0x3f20
 
+// Master cycles per CPU and PPU cycles. This determines their
+// synchronization.. NTSC and Dendy is 3:1, PAL is 3.2:1.
+// See http://nesdev.parodius.com/bbs/viewtopic.php?p=61467
+const NTSC_CPU_CYCLES, NTSC_PPU_CYCLES = 12, 4
+const DENDY_CPU_CYCLES, DENDY_PPU_CYCLES = 15, 5
+const PAL_CPU_CYCLES, PAL_PPU_CYCLES = 15, 6
+
 type PPU struct {
     Pixel int
     Scanline int
 
     CycleCount uint             // PPU cycle count
-    masterCycles uint           // "Master cycle" count for CPU synchronization
+    masterCycles uint           // Current "master cycle" count for CPU synchronization
+    ppuMasterCycles uint        // Master cycles per PPU cycle
+    cpuMasterCycles uint        // Master cycles per CPU cycle
     CPU *cpu6502.CPU
 
     // Set by PPU_CTRL
@@ -102,20 +106,24 @@ const VRAM_ADDRESS_MASK = 0x3fff    // Mask off valid address range
 func (ppu *PPU) Run() {
     ppu.masterCycles = 0
 
-    ppu.CPU.CycleCallback = func(cpuMasterCycles uint) {
-        // for every CPU cycle... (TODO: remove argument, only knowledge of NTSC/PAL in PPU!)
-        ppu.masterCycles += cpuMasterCycles
+    ppu.cpuMasterCycles = NTSC_CPU_CYCLES
+    ppu.ppuMasterCycles = NTSC_PPU_CYCLES
 
-        for ppu.masterCycles > PPU_MASTER_CYCLES {
-            ppu.masterCycles -= ppu.RunOne()
+    ppu.CPU.CycleCallback = func() {
+        // for every CPU cycle... (TODO: remove argument, only knowledge of NTSC/PAL in PPU!)
+        ppu.masterCycles += ppu.cpuMasterCycles
+
+        for ppu.masterCycles > ppu.ppuMasterCycles {
+            ppu.RunOne()
+            ppu.masterCycles -= ppu.ppuMasterCycles
         }
     }
 
     ppu.CPU.Run()
 }
 
-// Run the PPU for one PPU cycle; return number of master cycles executed
-func (ppu *PPU) RunOne() (masterCycles uint) {
+// Run the PPU for one PPU cycle
+func (ppu *PPU) RunOne() {
     ppu.CycleCount += 1
     
     //fmt.Printf("PPU(%d): %d,%d\n", ppu.CycleCount, ppu.Pixel, ppu.Scanline)
@@ -144,9 +152,6 @@ func (ppu *PPU) RunOne() (masterCycles uint) {
     }*/
 
     // TODO: render
-    
-    // Tick.. synchronized with CPU 
-    return PPU_MASTER_CYCLES
 }
 
 // Vertical blank

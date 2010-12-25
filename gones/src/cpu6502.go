@@ -26,7 +26,7 @@ type CPU struct {
     P uint8     // Processor Status (7-0 = N V - B D I Z C)
 
     CycleCount uint         // CPU cycle count
-    CycleCallback func(uint)// Called on every CPU cycle
+    CycleCallback func()    // Called on every CPU cycle
     PendingNMI bool         // Run non-maskable interrupt after next instr finishes
 
     Verbose bool
@@ -59,10 +59,6 @@ const (
     RESET_VECTOR = 0xfffc
     BRK_VECTOR   = 0xfffe
 )
-
-// "Master cycles" for each CPU cycle
-const CPU_MASTER_CYCLES_NTSC = 15
-const CPU_MASTER_CYCLES_PAL = 16
 
 
 // Read byte from memory, advancing program counter
@@ -508,9 +504,7 @@ func (cpu *CPU) Tick(reason string) {
 
     // TODO: remove check, but test suites don't setup channel
     if cpu.CycleCallback != nil {
-        //cpu.CycleChannel <- CPU_MASTER_CYCLES_NTSC   // TODO: or PAL
-        //cpu.CycleCallback(CPU_MASTER_CYCLES_NTSC)
-        cpu.CycleCallback(CPU_MASTER_CYCLES_PAL)
+        cpu.CycleCallback()
     }
 }
 
