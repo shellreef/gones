@@ -1,15 +1,14 @@
 // Created:20101212
 // By Jeff Connelly
 
-// Leggo my Allegro: an Allegro 5 wrapper for Go
+// Leggo my Allegro: an Allegro 5 run_main for Go
 
 package leggo
 
 import "fmt"
 
 // extern int user_main(int argc, char **argv);
-// extern void wrapper();
-// #define ALLEGRO_NO_MAGIC_MAIN
+// extern void run_main();
 // #include <allegro5/allegro.h>
 import "C"
 
@@ -18,9 +17,7 @@ func GoFoo() {
     fmt.Printf("*** It worked! In GoFoo()\n")
 }
 
-// Get things going
-//export LeggoMain
-func LeggoMain() {
-    fmt.Printf("LeggoMain: about to call wrapper\n")
-    C.wrapper()
+func GoRunMain() {
+    fmt.Printf("GoRunMain: about to call run_main\n")
+    C.run_main()
 }

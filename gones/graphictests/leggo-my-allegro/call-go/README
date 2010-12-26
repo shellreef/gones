@@ -1,0 +1,52 @@
+Calling Go from C 
+JC20101226
+
+This example is a reduced test case to demonstrate a problem encountered
+while wrapping the Allegro gaming library <http://allegro5.org/> (written in C)
+for Go.  
+
+Background:
+Allegro on Mac OS X requires wrapping the user's main in a Cocoa application 
+delegate (other graphical libraries like SDL have the same requirement). 
+Fortunately, it is possible to disable the magic main redefinition and call
+al_run_main() directly with the user's main function, so this is not a problem
+in itself.
+
+The Problem:
+C code in user_main() crashes when calling back into Go code. This occurs because
+user_main() is called from Cocoa, in the app delegate. C code can call into Go
+out of user_main with no problems.
+
+To Reproduce:
+Run `make try`:
+./leggo
+GoRunMain: about to call run_main
+run_main(): about to call GoFoo() -- this works
+*** It worked! In GoFoo()
+run_main(): about to call al_run_main()
+user_main(): about to call GoFoo() -- this hangs
+
+
+Running under gdb (6.3.50 on 10.6.5) shows:
+
+Program received signal EXC_BAD_ACCESS, Could not access memory.
+Reason: KERN_INVALID_ADDRESS at address: 0x0000000000000000
+[Switching to process 66495]
+0x000000000001e367 in ?? ()
+
+
+http://blog.golang.org/2010/11/debugging-go-code-status-report.html says that 
+gdb 7 can debug Go on OS X, but at least gdb-7.2 itself crashed when trying to
+debug this test case.
+
+The Solution?
+This example relies on cgo's //export to make the Go functions visible from C.
+It was introduced by Ian Lance Taylor in <http://groups.google.com/group/golang-nuts/browse_thread/thread/abd0e30dafdbf297/d78bf0e03c38299c>
+But he notes in <http://groups.google.com/group/golang-nuts/browse_thread/thread/9e8d976cf2115636/b85f8b7b1f6e5c1a> that 
+callbacks cannot be called from other threads, and crosscall2 might have to be modified
+to fix this problem. 
+
+A workaround in the meantime is to use some kind of IPC to communicate from C
+back to Go. This is not ideal, but works. pthread conditions, pipes, sockets,
+mmap are some options. For more details see: 
+Beej's Guide to Unix Interprocess Communication: http://beej.us/guide/bgipc/

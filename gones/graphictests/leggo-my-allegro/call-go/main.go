@@ -11,8 +11,7 @@ import (
     "leggo")
 
 func main() {
-    // never returns
-    leggo.LeggoMain()
+    leggo.GoRunMain()
 
-    fmt.Printf("returned?!\n")
+    fmt.Printf("returned from GoRunMain?!")
 }
