@@ -68,6 +68,8 @@ func LeggoServer() {
             if buffer[0] == 'x' {
                 fmt.Printf("Exiting\n")
                 os.Exit(0)
+            } else if buffer[0] == ' ' {
+                C.clear_red();
             }
         }
     }
@@ -76,6 +78,8 @@ func LeggoServer() {
 // Get things going
 //export LeggoMain
 func LeggoMain() {
+    // TODO: mmap anonymous for pixel communication
+
     go LeggoServer()
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")

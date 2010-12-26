@@ -18,6 +18,8 @@
 
 #define SOCKET_FILENAME "/tmp/leggo.sock"
 
+static ALLEGRO_DISPLAY *g_display;
+
 // Connect to the Unix domain socket used for communication with Go
 int connect_socket() {
     struct sockaddr_un address;
@@ -55,15 +57,13 @@ int leggo_user_main(int argc, char **argv) {
     
     fd = connect_socket();
 
-    ALLEGRO_DISPLAY *display;
-    
     if (!al_init()) {
         fprintf(stderr, "failed to initialize Allegro\n");
         exit(EXIT_FAILURE);
     }
 
-    display = al_create_display(640, 480);
-    if (!display) {
+    g_display = al_create_display(640, 480);
+    if (!g_display) {
         fprintf(stderr, "failed to create display\n");
         exit(EXIT_FAILURE);
     }
@@ -74,9 +74,12 @@ int leggo_user_main(int argc, char **argv) {
     }
 
     // Draw a green background as a test
-    al_set_target_bitmap(al_get_backbuffer(display));
+    al_set_target_bitmap(al_get_backbuffer(g_display));
     al_clear_to_color(al_map_rgb(128, 255, 128));
     al_flip_display();
+
+    // TODO: al_lock_bitmap() http://alleg.sourceforge.net/a5docs/5.0.0/graphics.html#al_lock_bitmap
+    // to get at raw pixel data in mmap'd region, then unlock to update
 
     // Main event loop
     ALLEGRO_EVENT_QUEUE *queue;
@@ -87,15 +90,27 @@ int leggo_user_main(int argc, char **argv) {
     while(1) {
         al_wait_for_event(queue, &event);
 
-        if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            printf("leggo_user_main: sending event\n");
-            send(fd, "x", 1, 0);
+        // TODO: proper dispatching
+        if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                printf("leggo_user_main: sending event\n");
+                send(fd, "x", 1, 0);
+            } else if (event.keyboard.keycode == ALLEGRO_KEY_SPACE) {
+                send(fd, " ", 1, 0);
+            }
         }
     }
 
     return 0;
 }
 
+// Test function to clear everything red
+void clear_red() {
+    al_set_target_bitmap(al_get_backbuffer(g_display));
+    al_clear_to_color(al_map_rgb(128, 0, 0));
+    al_flip_display();
+}
+ 
 // Wrap calling Allegro's al_run_main(), with our own leggo_main. 
 // This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {
