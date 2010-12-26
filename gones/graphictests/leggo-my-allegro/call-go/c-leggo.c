@@ -16,35 +16,6 @@
 #include "leggo.h"
 #include "_cgo_export.h"
 
-#define SOCKET_FILENAME "/tmp/leggo.sock"
-
-// Connect to the Unix domain socket used for communication with Go
-int connect_socket() {
-    struct sockaddr_un address;
-    size_t length;
-    int fd;
-
-    printf("connect_socket(): connecting...\n");
-
-    fd = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (fd < 0) {
-        perror("socket() failed");
-        exit(EXIT_FAILURE);
-    }
-
-    address.sun_family = AF_UNIX;
-    strlcpy(address.sun_path, SOCKET_FILENAME, sizeof(address.sun_path));
-    length = sizeof(address.sun_family) + strlen(address.sun_path) + 1;
-    
-    if (connect(fd, (struct sockaddr *)&address, length) == -1) {
-        perror("connect() failed");
-        exit(EXIT_FAILURE);
-    }
-
-    return fd;
-}
-
-
 // The "user-defined" callback function given to al_run_main()
 // Allegro will call this as part of its UI wrapper, so when it 
 // returns, the program will exit. All code is invoked from here.
@@ -53,8 +24,6 @@ int leggo_user_main(int argc, char **argv) {
 
     printf("leggo_user_main: starting up\n");
     
-    fd = connect_socket();
-
     ALLEGRO_DISPLAY *display;
     
     if (!al_init()) {
@@ -88,8 +57,8 @@ int leggo_user_main(int argc, char **argv) {
         al_wait_for_event(queue, &event);
 
         if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            printf("leggo_user_main: sending event\n");
-            send(fd, "x", 1, 0);
+            printf("leggo_user_main: got escape key, calling into Go code...\n");
+            GoLeggoExit();
         }
     }
 
