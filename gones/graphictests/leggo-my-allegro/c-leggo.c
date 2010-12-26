@@ -18,8 +18,6 @@
 
 #define SOCKET_FILENAME "/tmp/leggo.sock"
 
-static ALLEGRO_DISPLAY *g_display;
-
 // Connect to the Unix domain socket used for communication with Go
 int connect_socket() {
     struct sockaddr_un address;
@@ -57,13 +55,15 @@ int leggo_user_main(int argc, char **argv) {
     
     fd = connect_socket();
 
+    ALLEGRO_DISPLAY *display;
+    
     if (!al_init()) {
         fprintf(stderr, "failed to initialize Allegro\n");
         exit(EXIT_FAILURE);
     }
 
-    g_display = al_create_display(640, 480);
-    if (!g_display) {
+    display = al_create_display(640, 480);
+    if (!display) {
         fprintf(stderr, "failed to create display\n");
         exit(EXIT_FAILURE);
     }
@@ -74,7 +74,7 @@ int leggo_user_main(int argc, char **argv) {
     }
 
     // Draw a green background as a test
-    al_set_target_bitmap(al_get_backbuffer(g_display));
+    al_set_target_bitmap(al_get_backbuffer(display));
     al_clear_to_color(al_map_rgb(128, 255, 128));
     al_flip_display();
 
@@ -97,6 +97,11 @@ int leggo_user_main(int argc, char **argv) {
                 send(fd, "x", 1, 0);
             } else if (event.keyboard.keycode == ALLEGRO_KEY_SPACE) {
                 send(fd, " ", 1, 0);
+
+                al_set_target_bitmap(al_get_backbuffer(display));
+                al_clear_to_color(al_map_rgb(0, 0, 255));
+                al_flip_display();
+
             }
         }
     }
@@ -104,13 +109,6 @@ int leggo_user_main(int argc, char **argv) {
     return 0;
 }
 
-// Test function to clear everything red
-void clear_red() {
-    al_set_target_bitmap(al_get_backbuffer(g_display));
-    al_clear_to_color(al_map_rgb(128, 0, 0));
-    al_flip_display();
-}
- 
 // Wrap calling Allegro's al_run_main(), with our own leggo_main. 
 // This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {

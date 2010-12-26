@@ -69,7 +69,7 @@ func LeggoServer() {
                 fmt.Printf("Exiting\n")
                 os.Exit(0)
             } else if buffer[0] == ' ' {
-                C.clear_red();
+                fmt.Printf("TODO: do something\n")
             }
         }
     }
