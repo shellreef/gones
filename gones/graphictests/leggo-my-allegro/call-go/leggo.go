@@ -5,20 +5,16 @@
 
 package leggo
 
-import ("fmt"
-    "runtime")
+import "fmt"
 
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
 import "C"
 
-const SOCKET_FILE = "/tmp/leggo.sock"   // TODO: stop using insecure temporary directory
-
-//export GoLeggoExit
-func GoLeggoExit() {
-    // Note: don't call this GoExit! It will cause dyld to fail to find anything here.
-    fmt.Printf("in LeggoExit!\n");
+//export GoFoo
+func GoFoo() {
+    fmt.Printf("in GoFoo()!\n")
 }
 
 // Get things going
@@ -27,9 +23,3 @@ func LeggoMain() {
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
-
-func init() {
-    runtime.GOMAXPROCS(2)
-}
-
-
