@@ -15,7 +15,9 @@ CLEANFILES += leggo
 
 include $(GOROOT)/src/Make.pkg
 
-leggo: install try.go
-	$(GC) try.go
-	$(LD) -o $@ try.$O
+leggo: install main.go
+	$(GC) main.go
+	$(LD) -o $@ main.$O
 
+try: leggo
+	./leggo
