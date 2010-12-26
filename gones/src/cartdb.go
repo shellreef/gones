@@ -27,32 +27,32 @@ type CHR struct {
 }
 
 type VRAM struct {
-    Size string
+    Size string "attr"
 }
 
 type Pad struct {
-    H int
-    V int
+    H string "attr"
+    V string "attr"
 }
 
 type Chip struct {
-    Type string
+    Type string "attr"
 }
 
 type CIC struct {
-    Type string
+    Type string "attr"
 }
 
 type Board struct {
     Type string "attr"
     PCB string "attr"
-    Mapper int
+    Mapper string "attr"
     PRG []PRG
     CHR []CHR
     VRAM []VRAM
     Pad []Pad
-    Chip []Chip
     CIC []CIC
+    Chip []Chip
 }
 
 type Cartridge struct {
@@ -96,12 +96,21 @@ func main() {
 
     xml.Unmarshal(r, &database)
 
+    fmt.Printf("Loaded %d games\n", len(database.Game))
+
     for i, game := range database.Game {
-        fmt.Printf("#%d. %s - %s\n", i, game.Developer, game.Name)
+        fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
         for _, cart := range game.Cartridge {
             for _, board := range cart.Board {
+                fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
                 for _, chip := range board.Chip { 
-                    fmt.Printf("\t%s\n", chip.Type)
+                    fmt.Printf("\t\tChip: %s\n", chip.Type)
+                }
+                for _, prg := range board.PRG {
+                    fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
+                }
+                for _, chr := range board.CHR {
+                    fmt.Printf("\t\tCHR (%s): %s\n", chr.Size, chr.SHA1)
                 }
             }
         }
