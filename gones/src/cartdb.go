@@ -4,7 +4,7 @@
 // Load NES cartridge database
 // XML from http://bootgod.dyndns.org:7777/
 
-package main
+package cartdb
 
 import ("fmt"
         "os"
@@ -13,7 +13,7 @@ import ("fmt"
         "time"
         "crypto/sha1"
         
-        "./nesfile"
+        "nesfile"
         )
 
 // See schema http://bootgod.dyndns.org:7777/downloads/nesdb.xsd

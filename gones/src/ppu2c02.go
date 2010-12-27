@@ -146,8 +146,9 @@ func (ppu *PPU) RunOne() {
         ppu.CycleCount = 0
         ppu.VBlank()
 
+        /*
         fmt.Printf("\033[H\033[2J")  // ANSI clear screen
-        ppu.ShowNametable()
+        ppu.ShowNametable()*/
     }
 
 
