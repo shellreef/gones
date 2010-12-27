@@ -7,8 +7,9 @@ package main
 
 import (
     "fmt"
-
     "unsafe"
+    "runtime"
+
     "leggo")
 
 func something(screen unsafe.Pointer) {
@@ -31,4 +32,8 @@ func main() {
     leggo.LeggoMain(start)
 
     fmt.Printf("returned?!\n")
+}
+
+func init() {
+    runtime.GOMAXPROCS(2)
 }
