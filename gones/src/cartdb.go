@@ -97,6 +97,12 @@ type Database struct {
     Game []Game
 }
 
+// Search result matches - matches on cart, but includes game information too
+type CartMatches struct {
+    Cartridge Cartridge
+    Game Game
+}
+
 // Load game database from gob if possible; if not, load from XML
 // then create gob for faster future loading
 func Load() (*Database) {
@@ -176,44 +182,53 @@ func Dump(database *Database) {
     }
 }
 
-// Show game information
-// TODO: make cart-specific
+// Show information on all carts for game
 func DumpGame(game Game) {
     fmt.Printf("[%s] %s - %s\n", game.Region, game.Developer, game.Name)
     for _, cart := range game.Cartridge {
-        rev := ""
-        if len(cart.Revision) != 0 {
-            rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
-        } 
-        fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
-        for _, board := range cart.Board {
-            fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
-            for _, chip := range board.Chip { 
-                fmt.Printf("\t\tChip: %s\n", chip.Type)
-            }
-            for j, prg := range board.PRG {
-                fmt.Printf("\t\tPRG %d (%s): %s\n", j, prg.Size, prg.SHA1)
-            }
-            for k, chr := range board.CHR {
-                fmt.Printf("\t\tCHR %d (%s): %s\n", k, chr.Size, chr.SHA1)
-            }
+        DumpCart(cart)
+    }
+}
+
+// Show information on a cartridge
+func DumpCart(cart Cartridge) {
+    rev := ""
+    if len(cart.Revision) != 0 {
+        rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
+    } 
+    fmt.Printf("\tCartridge%s for %s (%s)\n", rev, cart.System, cart.SHA1)
+    for _, board := range cart.Board {
+        fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
+        for _, chip := range board.Chip { 
+            fmt.Printf("\t\tChip: %s\n", chip.Type)
+        }
+        for j, prg := range board.PRG {
+            fmt.Printf("\t\tPRG %d: %s\n", j, prg.Size)
+        }
+        for k, chr := range board.CHR {
+            fmt.Printf("\t\tCHR %d: %s\n", k, chr.Size)
         }
     }
 }
 
 // Find games matching hashes
-func Identify(database *Database, cart *nesfile.Cartridge) {
+func Identify(database *Database, cart *nesfile.Cartridge) ([]CartMatches) {
+    var found []CartMatches
+
     hash := cartHash(cart)
+
+    fmt.Printf("Cartridge SHA-1 = %s\n", hash)
 
     for _, game := range database.Game {
         for _, cart := range game.Cartridge {
             if cart.SHA1 == hash {
-                fmt.Printf("Found match: %s\n", game.Name)
-                DumpGame(game)
-                // TODO: save details
+                // Match on the cart, but return the game too, which has more details
+                found = append(found, CartMatches{cart, game})
             }
         }
     }
+
+    return found
 }
 
 // Get SHA-1 digest of cartridge PRG and CHR
@@ -251,6 +266,11 @@ func main() {
 
     c := nesfile.Open(os.Args[1])
 
-    Identify(db, c)
+    finds := Identify(db, c)
 
+    for _, found := range finds {
+        game, cart := found.Game, found.Cartridge
+        fmt.Printf("[%s] %s - %s\n", game.Region, game.Developer, game.Name)
+        DumpCart(cart)
+    }
 }
