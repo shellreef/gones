@@ -8,7 +8,7 @@ package leggo
 import ("fmt"
     "net"
     "os"
-    "runtime")
+    "unsafe")
 
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
@@ -36,7 +36,7 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // http://blog.labix.org/2010/12/10/integrating-go-with-c-the-zookeeper-binding-experience
 // and https://github.com/0xe2-0x9a-0x9b/Go-SDL/tree/master/sdl/audio/
 // and http://bazaar.launchpad.net/%7Eensemble/gozk/trunk/annotate/head%3A/helpers.c
-func LeggoServer() {
+func LeggoServer(start func()) {
     os.Remove(SOCKET_FILE)
 
     listener, err := net.Listen("unix", SOCKET_FILE)
@@ -45,6 +45,9 @@ func LeggoServer() {
         return
     }
     fmt.Printf("listener = %s\n", listener)
+    fmt.Printf("calling start\n")
+    start()
+    fmt.Printf("returned\n")
 
     for {
         fmt.Printf("LeggoServer: waiting for connection\n")
@@ -76,9 +79,7 @@ func LeggoServer() {
     }
 }
 
-// Get things going
-//export LeggoMain
-func LeggoMain() {
+func LeggoSetup() (unsafe.Pointer) {
     // We use mmap'd memory to communicate what to display;
     // leggo will copy this to the screen each frame
     screenMap := C.mmap(nil, 640*480*4, C.PROT_READ | C.PROT_WRITE, 
@@ -90,14 +91,15 @@ func LeggoMain() {
 
     fmt.Printf("sm = %s\n", screenMap)
 
-    go LeggoServer()
+    return screenMap
+}
+
+// Get things going. start() will be called when setup.
+//export LeggoMain
+func LeggoMain(start func()) {
+    go LeggoServer(start)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
-
-func init() {
-    runtime.GOMAXPROCS(2)
-}
-
 
