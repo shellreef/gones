@@ -14,7 +14,6 @@ import ("fmt"
         )
 
 // See schema http://bootgod.dyndns.org:7777/downloads/nesdb.xsd
-
 type PRG struct {
     Name string "attr"
     Size string "attr"  // like "256k", TODO: integer bytes
@@ -88,12 +87,37 @@ type Game struct {
     Cartridge []Cartridge
 }
 
+// Top-level database tag
 type Database struct {
     XMLName xml.Name "database"
     
     Game []Game
 }
 
+// Read game database from gob if possible; if not, load from XML
+// then create gob for faster future loading
+func Read() (*Database) {
+    fastFile := "/tmp/gob"
+    slowFile := "../NesCarts (2010-11-29).xml"
+
+    database, err := ReadGob(fastFile)
+    if database == nil {
+        fmt.Printf("Loading from XML %s -> gob %s\n", slowFile, fastFile)
+        database = ReadXML(slowFile)
+        WriteGob(fastFile, database)
+
+        database, err = ReadGob(fastFile)
+    }
+
+    if err != nil {
+        panic(fmt.Sprintf("Failed to load %s: %s\n", fastFile, err))
+    }
+
+    return database
+}
+
+
+// Read the game database in XML (the original source format, but slow)
 func ReadXML(filename string) (*Database) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
@@ -111,10 +135,23 @@ func ReadXML(filename string) (*Database) {
     return &database
 }
 
-func ReadGob(filename string) (*Database) {
+// Write the game database in a fast binary Go-specific format
+func WriteGob(filename string, database *Database) {
+    f, err := os.Open(filename, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
+    if err != nil {
+        panic(fmt.Sprintf("error saving %s: %s", filename, err))
+    }
+
+    e := gob.NewEncoder(f)
+    e.Encode(database)
+}
+
+// Read the gob written by WriteGob. This is 12x as fast as ReadXML(),
+// taking less than 1/10 s while ReadXML takes >1 s, so it is preferred.
+func ReadGob(filename string) (*Database, os.Error) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
-        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
+        return nil, err
     }
 
     database := Database{}
@@ -126,19 +163,10 @@ func ReadGob(filename string) (*Database) {
 
     fmt.Printf("Gob: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
-    return &database
+    return &database, nil
 }
 
-func WriteGob(filename string, database *Database) {
-    f, err := os.Open(filename, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
-    if err != nil {
-        panic(fmt.Sprintf("error saving %s: %s", filename, err))
-    }
-
-    e := gob.NewEncoder(f)
-    e.Encode(database)
-}
-
+// Show the salient parts of the database in human-readable format
 func Dump(database *Database) {
     for i, game := range database.Game {
         fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
@@ -165,11 +193,8 @@ func Dump(database *Database) {
 }
 
 func main() {
-    database := ReadXML("../NesCarts (2010-11-29).xml")
-    WriteGob("/tmp/gob", database)
+    db := Read()
 
-    db2 := ReadGob("/tmp/gob")
-
-    Dump(db2)
+    Dump(db)
 
 }
