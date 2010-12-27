@@ -171,25 +171,31 @@ func LoadGob(filename string) (*Database, os.Error) {
 
 // Show the salient parts of the database in human-readable format
 func Dump(database *Database) {
-    for i, game := range database.Game {
-        fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
-        for _, cart := range game.Cartridge {
-            rev := ""
-            if len(cart.Revision) != 0 {
-                rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
-            } 
-            fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
-            for _, board := range cart.Board {
-                fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
-                for _, chip := range board.Chip { 
-                    fmt.Printf("\t\tChip: %s\n", chip.Type)
-                }
-                for j, prg := range board.PRG {
-                    fmt.Printf("\t\tPRG %d (%s): %s\n", j, prg.Size, prg.SHA1)
-                }
-                for k, chr := range board.CHR {
-                    fmt.Printf("\t\tCHR %d (%s): %s\n", k, chr.Size, chr.SHA1)
-                }
+    for _, game := range database.Game {
+        DumpGame(game)
+    }
+}
+
+// Show game information
+// TODO: make cart-specific
+func DumpGame(game Game) {
+    fmt.Printf("[%s] %s - %s\n", game.Region, game.Developer, game.Name)
+    for _, cart := range game.Cartridge {
+        rev := ""
+        if len(cart.Revision) != 0 {
+            rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
+        } 
+        fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
+        for _, board := range cart.Board {
+            fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
+            for _, chip := range board.Chip { 
+                fmt.Printf("\t\tChip: %s\n", chip.Type)
+            }
+            for j, prg := range board.PRG {
+                fmt.Printf("\t\tPRG %d (%s): %s\n", j, prg.Size, prg.SHA1)
+            }
+            for k, chr := range board.CHR {
+                fmt.Printf("\t\tCHR %d (%s): %s\n", k, chr.Size, chr.SHA1)
             }
         }
     }
@@ -200,32 +206,12 @@ func Identify(database *Database, cart *nesfile.Cartridge) {
     hash := cartHash(cart)
 
     for _, game := range database.Game {
-        //fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
         for _, cart := range game.Cartridge {
-            /*
-            rev := ""
-            if len(cart.Revision) != 0 {
-                rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
-            } */
-            //fmt.Printf("\tCartridge%s for %s (%s)\n", rev, cart.System, cart.SHA1)
             if cart.SHA1 == hash {
                 fmt.Printf("Found match: %s\n", game.Name)
+                DumpGame(game)
                 // TODO: save details
             }
-                /*
-            for _, board := range cart.Board {
-                //fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
-                for _, chip := range board.Chip { 
-                    fmt.Printf("\t\tChip: %s\n", chip.Type)
-                }
-                for _, prg := range board.PRG {
-                    fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
-                }
-                for _, chr := range board.CHR {
-                    //fmt.Printf("\t\tCHR (%s): %s\n", chr.Size, chr.SHA1)
-                }
-            }
-                */
         }
     }
 }
