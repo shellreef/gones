@@ -11,6 +11,9 @@ import ("fmt"
         "xml"
         "gob"
         "time"
+        "crypto/sha1"
+        
+        "./nesfile"
         )
 
 // See schema http://bootgod.dyndns.org:7777/downloads/nesdb.xsd
@@ -192,9 +195,26 @@ func Dump(database *Database) {
     }
 }
 
+// Get SHA-1 digest of input as an uppercase hexadecimal string
+func hexDigest(input []uint8) (string) {
+    digester := sha1.New()
+    digester.Write(input)
+    hex := ""
+    for _, octet := range digester.Sum() {
+        hex += fmt.Sprintf("%.2X", octet)
+    }
+    return hex
+    // TODO: compute CRC-32 also (hash/crc32)? The database has both,
+    // but they should be equivalent.. though checking CRC-32 might help
+    // detect database inconsistencies. Maybe CRC-32 only; faster, and
+    // no unintentional collisions in NES games (but could be fabricated easily!)
+}
+
 func main() {
     db := Load()
-
     Dump(db)
 
+    c := nesfile.Open(os.Args[1])
+
+    fmt.Printf("PRG[0] = %s\n", hexDigest(c.Prg[0]))
 }
