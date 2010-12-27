@@ -30,6 +30,10 @@ type VRAM struct {
     Size string "attr"
 }
 
+type WRAM struct {
+    Size string "attr"
+}
+
 type Pad struct {
     H string "attr"
     V string "attr"
@@ -50,6 +54,7 @@ type Board struct {
     PRG []PRG
     CHR []CHR
     VRAM []VRAM
+    WRAM []WRAM
     Pad []Pad
     CIC []CIC
     Chip []Chip
@@ -61,6 +66,7 @@ type Cartridge struct {
     SHA1 string "attr"
     Dump string "attr"
     Dumper string "attr"
+    Revision string "attr"
     DateDumped string "attr"  // TODO: date format
     Board []Board
 }
@@ -101,6 +107,11 @@ func main() {
     for i, game := range database.Game {
         fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
         for _, cart := range game.Cartridge {
+            rev := ""
+            if len(cart.Revision) != 0 {
+                rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
+            } 
+            fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
             for _, board := range cart.Board {
                 fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
                 for _, chip := range board.Chip { 
