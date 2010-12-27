@@ -18,6 +18,25 @@
 
 #define SOCKET_FILENAME "/tmp/leggo.sock"
 
+static void *screen_map;
+
+// Set pointer to mmap'd memory for displaying screen from Go
+void set_screen_map(void *p) {
+    screen_map = p;
+}
+
+// Update the screen with the contents of screen_map
+// TODO: is direct access possible, avoiding copying?
+void refresh(ALLEGRO_DISPLAY *display) {
+    ALLEGRO_LOCKED_REGION *locked;
+    
+    locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
+    // TODO: right dimensions
+    memcpy(locked->data, screen_map, 1000);
+    al_unlock_bitmap(al_get_backbuffer(display));
+    al_flip_display();
+}
+
 // Connect to the Unix domain socket used for communication with Go
 int connect_socket() {
     struct sockaddr_un address;
@@ -94,16 +113,6 @@ int leggo_user_main(int argc, char **argv) {
     al_clear_to_color(al_map_rgb(128, 255, 128));
     al_flip_display();
 
-    ALLEGRO_LOCKED_REGION *locked;
-    
-    locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
-    int i;
-    for (i = 0; i < 10000; i += 1) {
-        *((char *)locked->data + i) = i;
-    }
-    al_unlock_bitmap(al_get_backbuffer(display));
-    al_flip_display();
-
     // TODO: al_lock_bitmap() http://alleg.sourceforge.net/a5docs/5.0.0/graphics.html#al_lock_bitmap
     // to get at raw pixel data in mmap'd region, then unlock to update
 
@@ -130,8 +139,7 @@ int leggo_user_main(int argc, char **argv) {
                 al_flip_display();
             }
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
-            // TODO: refresh
-            printf("TODO: refresh\n");
+            refresh(display);
         } else {
             printf("ignored event %d\n", event.type);
         }

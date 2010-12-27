@@ -13,6 +13,7 @@ import ("fmt"
 // #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
+// #include <sys/mman.h>
 import "C"
 
 const SOCKET_FILE = "/tmp/leggo.sock"   // TODO: stop using insecure temporary directory
@@ -78,7 +79,16 @@ func LeggoServer() {
 // Get things going
 //export LeggoMain
 func LeggoMain() {
-    // TODO: mmap anonymous for pixel communication
+    // We use mmap'd memory to communicate what to display;
+    // leggo will copy this to the screen each frame
+    screenMap := C.mmap(nil, 640*480*4, C.PROT_READ | C.PROT_WRITE, 
+                       C.MAP_ANON | C.MAP_SHARED, 
+        // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
+                       -1, 0)
+
+    C.set_screen_map(screenMap)
+
+    fmt.Printf("sm = %s\n", screenMap)
 
     go LeggoServer()
 
