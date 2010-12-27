@@ -8,7 +8,10 @@ package main
 
 import ("fmt"
         "os"
-        "xml")
+        "xml"
+        "json"
+        "time"
+        )
 
 // See schema http://bootgod.dyndns.org:7777/downloads/nesdb.xsd
 
@@ -100,10 +103,13 @@ func main() {
 
     database := Database{}
 
+    start := time.Nanoseconds()
     xml.Unmarshal(r, &database)
+    took := time.Nanoseconds() - start
 
-    fmt.Printf("Loaded %d games\n", len(database.Game))
+    fmt.Printf("Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
+    /*
     for i, game := range database.Game {
         fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
         for _, cart := range game.Cartridge {
@@ -125,5 +131,12 @@ func main() {
                 }
             }
         }
+    }*/
+
+    j, err := json.Marshal(database)
+    if err != nil {
+        panic(fmt.Sprintf("json Marshal error: %s", err))
     }
+
+    fmt.Printf("%s\n", j)
 }
