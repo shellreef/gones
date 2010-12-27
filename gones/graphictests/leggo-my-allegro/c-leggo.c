@@ -74,7 +74,8 @@ int leggo_user_main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-   double speed_secs = 1.0f / 60;
+   float speed_secs = 1.0f / 60;
+   // This is really bizarre. Removing this call corrupts speed_secs.
    printf("before call (%f) %g %d - %.2x%.2x%.2x%.2x %.2x%.2x%.2x%.2x\n", speed_secs, speed_secs, speed_secs > 0, 
             *(unsigned char*)(&speed_secs + 0),
             *(unsigned char*)(&speed_secs + 1),
@@ -130,6 +131,7 @@ int leggo_user_main(int argc, char **argv) {
             }
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             // TODO: refresh
+            printf("TODO: refresh\n");
         } else {
             printf("ignored event %d\n", event.type);
         }
