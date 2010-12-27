@@ -1,7 +1,7 @@
 // Created:20101226
 // By Jeff Connelly
 //
-// Read NES cartridge database
+// Load NES cartridge database
 // XML from http://bootgod.dyndns.org:7777/
 
 package main
@@ -94,19 +94,19 @@ type Database struct {
     Game []Game
 }
 
-// Read game database from gob if possible; if not, load from XML
+// Load game database from gob if possible; if not, load from XML
 // then create gob for faster future loading
-func Read() (*Database) {
+func Load() (*Database) {
     fastFile := "/tmp/gob"
     slowFile := "../NesCarts (2010-11-29).xml"
 
-    database, err := ReadGob(fastFile)
+    database, err := LoadGob(fastFile)
     if database == nil {
         fmt.Printf("Loading from XML %s -> gob %s\n", slowFile, fastFile)
-        database = ReadXML(slowFile)
+        database = LoadXML(slowFile)
         WriteGob(fastFile, database)
 
-        database, err = ReadGob(fastFile)
+        database, err = LoadGob(fastFile)
     }
 
     if err != nil {
@@ -117,8 +117,8 @@ func Read() (*Database) {
 }
 
 
-// Read the game database in XML (the original source format, but slow)
-func ReadXML(filename string) (*Database) {
+// Load the game database in XML (the original source format, but slow)
+func LoadXML(filename string) (*Database) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
@@ -146,9 +146,9 @@ func WriteGob(filename string, database *Database) {
     e.Encode(database)
 }
 
-// Read the gob written by WriteGob. This is 12x as fast as ReadXML(),
-// taking less than 1/10 s while ReadXML takes >1 s, so it is preferred.
-func ReadGob(filename string) (*Database, os.Error) {
+// Load the gob written by WriteGob. This is 12x as fast as LoadXML(),
+// taking less than 1/10 s while LoadXML takes >1 s, so it is preferred.
+func LoadGob(filename string) (*Database, os.Error) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         return nil, err
@@ -193,7 +193,7 @@ func Dump(database *Database) {
 }
 
 func main() {
-    db := Read()
+    db := Load()
 
     Dump(db)
 
