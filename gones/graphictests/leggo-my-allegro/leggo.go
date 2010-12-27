@@ -110,7 +110,9 @@ func LeggoMain(start func(unsafe.Pointer)) {
 // Do something to the screen
 func Fill(screen unsafe.Pointer) {
     base := (*uintptr)(screen)
-    _ = rand.Uint32()
-    *base = 255 //uintptr(rand.Uint32())
-    // TODO: all
+    if rand.Uint32() % 2 == 0 {
+        *base = 255 
+    } else {
+        *base = 0 
+    }
 }

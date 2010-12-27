@@ -14,8 +14,9 @@ import (
 func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
 
-    leggo.Fill(screen)
-    //for{}
+    for {
+        leggo.Fill(screen)
+    }
 }
 
 func start(screen unsafe.Pointer) {
