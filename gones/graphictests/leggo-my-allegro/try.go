@@ -18,6 +18,11 @@ func something(screen unsafe.Pointer) {
 
     for {
         base := (*uintptr)(screen)
+       
+        x := uintptr(screen) + uintptr(1)
+        p := unsafe.Pointer(x)
+        *(*uintptr)(p) = 128
+        fmt.Printf("base = %x, x = %x\n", base, x)
         if rand.Uint32() % 2 == 0 {
             *base = 255 
         } else {
