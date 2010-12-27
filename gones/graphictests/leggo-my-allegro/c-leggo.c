@@ -29,12 +29,23 @@ void set_screen_map(void *p) {
 // TODO: is direct access possible, avoiding copying?
 void refresh(ALLEGRO_DISPLAY *display) {
     ALLEGRO_LOCKED_REGION *locked;
-    
+
+    static float last_time = 0;
+
+    float took = al_get_time() - last_time;
+
+    printf("refresh: %f s/frame\n", took);
+    // TODO: calculate this.. for some reason, it is horribly broken,
+    // 1.0f/0.013222 is printing 19768790745088.000000 on release.2010-12-22
+    //printf("\tfps: %f\n", 1.0f / took);
+
     locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
     // TODO: right dimensions
     memcpy(locked->data, screen_map, 1000);
     al_unlock_bitmap(al_get_backbuffer(display));
     al_flip_display();
+
+    last_time = al_get_time();
 }
 
 // Connect to the Unix domain socket used for communication with Go
