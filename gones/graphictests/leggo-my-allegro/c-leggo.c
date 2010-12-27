@@ -49,13 +49,14 @@ int connect_socket() {
 // Allegro will call this as part of its UI wrapper, so when it 
 // returns, the program will exit. All code is invoked from here.
 int leggo_user_main(int argc, char **argv) {
+    ALLEGRO_DISPLAY *display;
+    ALLEGRO_TIMER *timer;
     int fd;
 
     printf("leggo_user_main: starting up\n");
     
     fd = connect_socket();
 
-    ALLEGRO_DISPLAY *display;
     
     if (!al_init()) {
         fprintf(stderr, "failed to initialize Allegro\n");
@@ -72,6 +73,10 @@ int leggo_user_main(int argc, char **argv) {
         fprintf(stderr, "failed to install keyboard\n");
         exit(EXIT_FAILURE);
     }
+
+    double speed = 1e9;
+    timer = al_create_timer(speed);
+    al_start_timer(timer);
 
     // Draw a green background as a test
     al_set_target_bitmap(al_get_backbuffer(display));
@@ -111,8 +116,9 @@ int leggo_user_main(int argc, char **argv) {
                 al_set_target_bitmap(al_get_backbuffer(display));
                 al_clear_to_color(al_map_rgb(0, 0, 255));
                 al_flip_display();
-
             }
+        } else {
+            printf("ignored event %d\n", event.type);
         }
     }
 
