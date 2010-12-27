@@ -9,7 +9,7 @@
 # counts, so you can isolate the errors more easily.
 
 open(A, "<data/nestest.log")||die;
-open(B, "</tmp/log.actual")||die;
+open(B, "<data/nestest.log-actual")||die;
 
 $failed = 0;
 while()
