@@ -74,8 +74,18 @@ int leggo_user_main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    double speed = 1e9;
-    timer = al_create_timer(speed);
+   double speed_secs = 1.0f / 60;
+   printf("before call (%f) %g %d - %.2x%.2x%.2x%.2x %.2x%.2x%.2x%.2x\n", speed_secs, speed_secs, speed_secs > 0, 
+            *(unsigned char*)(&speed_secs + 0),
+            *(unsigned char*)(&speed_secs + 1),
+            *(unsigned char*)(&speed_secs + 2),
+            *(unsigned char*)(&speed_secs + 3),
+            *(unsigned char*)(&speed_secs + 4),
+            *(unsigned char*)(&speed_secs + 5),
+            *(unsigned char*)(&speed_secs + 6),
+            *(unsigned char*)(&speed_secs + 7)
+            );
+    timer = al_create_timer(speed_secs);
     al_start_timer(timer);
 
     // Draw a green background as a test
@@ -102,6 +112,7 @@ int leggo_user_main(int argc, char **argv) {
 
     queue = al_create_event_queue();
     al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE *)al_get_keyboard_event_source());
+    al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE *)timer);
     while(1) {
         al_wait_for_event(queue, &event);
 
@@ -117,6 +128,8 @@ int leggo_user_main(int argc, char **argv) {
                 al_clear_to_color(al_map_rgb(0, 0, 255));
                 al_flip_display();
             }
+        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            // TODO: refresh
         } else {
             printf("ignored event %d\n", event.type);
         }
