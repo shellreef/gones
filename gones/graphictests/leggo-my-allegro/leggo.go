@@ -8,6 +8,7 @@ package leggo
 import ("fmt"
     "net"
     "os"
+    "rand"
     "unsafe")
 
 // #include "leggo.h"
@@ -96,10 +97,20 @@ func LeggoSetup() (unsafe.Pointer) {
 
 // Get things going. start() will be called when setup.
 //export LeggoMain
-func LeggoMain(start func()) {
-    go LeggoServer(start)
+func LeggoMain(start func(unsafe.Pointer)) {
+    screen := LeggoSetup()
+
+    go LeggoServer(func() { start(screen) })
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
 
+
+// Do something to the screen
+func Fill(screen unsafe.Pointer) {
+    base := (*uintptr)(screen)
+    _ = rand.Uint32()
+    *base = 255 //uintptr(rand.Uint32())
+    // TODO: all
+}

@@ -8,27 +8,24 @@ package main
 import (
     "fmt"
 
-    //"unsafe"
+    "unsafe"
     "leggo")
 
-func something() {
+func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
+
+    leggo.Fill(screen)
+    //for{}
 }
 
-func start() {
+func start(screen unsafe.Pointer) {
     fmt.Printf("starting\n")
+    fmt.Printf("with %x\n", screen)
 
-    go something()
+    go something(screen)
 }
 
 func main() {
-    //screen := leggo.LeggoSetup()
-    //go something(screen)
-    
-    _ = leggo.LeggoSetup()
-
-    //go something()
-
     // never returns
     leggo.LeggoMain(start)
 
