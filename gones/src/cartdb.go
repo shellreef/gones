@@ -184,11 +184,11 @@ func Dump(database *Database) {
                 for _, chip := range board.Chip { 
                     fmt.Printf("\t\tChip: %s\n", chip.Type)
                 }
-                for _, prg := range board.PRG {
-                    fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
+                for j, prg := range board.PRG {
+                    fmt.Printf("\t\tPRG %d (%s): %s\n", j, prg.Size, prg.SHA1)
                 }
-                for _, chr := range board.CHR {
-                    fmt.Printf("\t\tCHR (%s): %s\n", chr.Size, chr.SHA1)
+                for k, chr := range board.CHR {
+                    fmt.Printf("\t\tCHR %d (%s): %s\n", k, chr.Size, chr.SHA1)
                 }
             }
         }
@@ -197,10 +197,7 @@ func Dump(database *Database) {
 
 // Find games matching hashes
 func Identify(database *Database, cart *nesfile.Cartridge) {
-    prgSHA1 := hexSHA1(cart.Prg)
-    chrSHA1 := hexSHA1(cart.Chr)   // note: may be "" if game has no CHR-ROM
-
-    fmt.Printf("PRG = %s\nCHR = %s\n", prgSHA1, chrSHA1)
+    hash := cartHash(cart)
 
     for _, game := range database.Game {
         //fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
@@ -210,44 +207,47 @@ func Identify(database *Database, cart *nesfile.Cartridge) {
             if len(cart.Revision) != 0 {
                 rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
             } */
-            //fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
+            //fmt.Printf("\tCartridge%s for %s (%s)\n", rev, cart.System, cart.SHA1)
+            if cart.SHA1 == hash {
+                fmt.Printf("Found match: %s\n", game.Name)
+                // TODO: save details
+            }
+                /*
             for _, board := range cart.Board {
                 //fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
-                /*
                 for _, chip := range board.Chip { 
                     fmt.Printf("\t\tChip: %s\n", chip.Type)
-                }*/
+                }
                 for _, prg := range board.PRG {
-                    if prg.SHA1 == prgSHA1 {
-                        fmt.Printf("Found PRG in %s\n", game.Name)
-                        // TODO: save details
-                    }
-                    //fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
+                    fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
                 }
                 for _, chr := range board.CHR {
                     //fmt.Printf("\t\tCHR (%s): %s\n", chr.Size, chr.SHA1)
-                    if chr.SHA1 == chrSHA1 {
-                        fmt.Printf("Found CHR in %s\n", game.Name)
-                    }
-                    // TODO: save details. Partial matches? CHR might match but not PRG. 
-                    // PRG is more important, but want both.
                 }
             }
+                */
         }
     }
 }
-// Get SHA-1 digest of array of byte arrays as an uppercase hexadecimal string
-func hexSHA1(inputs [][]uint8) (string) {
-    if len(inputs) == 0 {
-        // If empty array, return "" instead of the SHA-1 of an
-        // empty string (DA39A3EE5E6B4B0D3255BFEF95601890AFD80709)
-        return ""
+
+// Get SHA-1 digest of cartridge PRG and CHR
+func cartHash(cart *nesfile.Cartridge) (string) {
+    digester := sha1.New()
+
+    // First PRG.. note, some games have multiple PRG chips (such as Action-52,
+    // having 3 x 512k), but the nesfile format stores the data in 8k banks,
+    // so there is not enough information to calculate individual chip hashes.
+    // So we calculate the overall cartridge hash instead, including everything.
+    // (Note: it might be interesting to calculate PRG/CHR and match individually
+    // to find differences, since most games have only one chip.)
+    for _, prg := range cart.Prg {
+        digester.Write(prg)
     }
 
-    digester := sha1.New()
-    for _, input := range inputs {
-        digester.Write(input)
+    for _, chr := range cart.Chr {
+        digester.Write(chr)
     }
+
     hex := ""
     for _, octet := range digester.Sum() {
         hex += fmt.Sprintf("%.2X", octet)
