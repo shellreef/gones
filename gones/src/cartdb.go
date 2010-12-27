@@ -107,7 +107,26 @@ func ReadXML() (*Database) {
     xml.Unmarshal(r, &database)
     took := time.Nanoseconds() - start
 
-    fmt.Printf("Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
+    fmt.Printf("XML: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
+
+    return &database
+}
+
+func ReadGob() (*Database) {
+    filename := "/tmp/j"
+    r, err := os.Open(filename, os.O_RDONLY, 0)
+    if r == nil {
+        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
+    }
+
+    database := Database{}
+
+    start := time.Nanoseconds()
+    decoder := gob.NewDecoder(r)
+    decoder.Decode(&database)
+    took := time.Nanoseconds() - start
+
+    fmt.Printf("Gob: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
     return &database
 }
@@ -138,7 +157,8 @@ func Dump(database *Database) {
 }
 
 func main() {
-    database := ReadXML()
+    _ = ReadXML()
+    database := ReadGob()
 
     Dump(database)
 
