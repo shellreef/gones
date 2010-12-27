@@ -94,8 +94,7 @@ type Database struct {
     Game []Game
 }
 
-func ReadXML() (*Database) {
-    filename := "../NesCarts (2010-11-29).xml"
+func ReadXML(filename string) (*Database) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
@@ -112,8 +111,7 @@ func ReadXML() (*Database) {
     return &database
 }
 
-func ReadGob() (*Database) {
-    filename := "/tmp/j"
+func ReadGob(filename string) (*Database) {
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
@@ -129,6 +127,16 @@ func ReadGob() (*Database) {
     fmt.Printf("Gob: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
     return &database
+}
+
+func WriteGob(filename string, database *Database) {
+    f, err := os.Open(filename, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
+    if err != nil {
+        panic(fmt.Sprintf("error saving %s: %s", filename, err))
+    }
+
+    e := gob.NewEncoder(f)
+    e.Encode(database)
 }
 
 func Dump(database *Database) {
@@ -157,15 +165,11 @@ func Dump(database *Database) {
 }
 
 func main() {
-    _ = ReadXML()
-    database := ReadGob()
+    database := ReadXML("../NesCarts (2010-11-29).xml")
+    WriteGob("/tmp/gob", database)
 
-    Dump(database)
+    db2 := ReadGob("/tmp/gob")
 
-    f, err := os.Open("/tmp/j", os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
-    if err != nil {
-        panic(fmt.Sprintf("error saving: %s", err))
-    }
-    e := gob.NewEncoder(f)
-    e.Encode(database)
+    Dump(db2)
+
 }

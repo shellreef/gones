@@ -874,6 +874,9 @@ func (cpu *CPU) NMI() {
     cpu.PendingNMI = true
 }
 
+// TODO: IRQ, it is same as NMI except uses $FFFE vector
+// http://www.pagetable.com/?p=410 "Internals of BRK/IRQ/NMI/RESET on a MOS 6502"
+
 // Check for incoming NMI, and if it is present, run it
 func (cpu *CPU) CheckNMI() {
     if !cpu.PendingNMI {
