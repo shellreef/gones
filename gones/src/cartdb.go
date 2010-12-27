@@ -94,7 +94,7 @@ type Database struct {
     Game []Game
 }
 
-func main() {
+func ReadXML() (*Database) {
     filename := "../NesCarts (2010-11-29).xml"
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
@@ -109,7 +109,10 @@ func main() {
 
     fmt.Printf("Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
-    /*
+    return &database
+}
+
+func Dump(database *Database) {
     for i, game := range database.Game {
         fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
         for _, cart := range game.Cartridge {
@@ -131,7 +134,13 @@ func main() {
                 }
             }
         }
-    }*/
+    }
+}
+
+func main() {
+    database := ReadXML()
+
+    Dump(database)
 
     f, err := os.Open("/tmp/j", os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
     if err != nil {
