@@ -82,7 +82,7 @@ func LeggoServer(start func()) {
 func LeggoSetup() (unsafe.Pointer) {
     // We use mmap'd memory to communicate what to display;
     // leggo will copy this to the screen each frame
-    screenMap := C.mmap(nil, 640*480*4, C.PROT_READ | C.PROT_WRITE, 
+    screenMap := C.mmap(nil, C.RESOLUTION_W*C.RESOLUTION_H*4, C.PROT_READ | C.PROT_WRITE, 
                        C.MAP_ANON | C.MAP_SHARED, 
         // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
                        -1, 0)

@@ -93,7 +93,7 @@ int leggo_user_main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    display = al_create_display(640, 480);
+    display = al_create_display(RESOLUTION_W, RESOLUTION_H);
     if (!display) {
         fprintf(stderr, "failed to create display\n");
         exit(EXIT_FAILURE);
