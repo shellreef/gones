@@ -361,6 +361,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
     bank8000 = 0
     bankC000 = len(cart.Prg) - 1
 
+    // TODO: use cartdb (see main.Load()) if possible; fall back to MapperCode otherwise
     switch cart.MapperCode {
     case 0: // NROM - nothing else needed
     case 1: // SxROM, MMC-1 
@@ -368,7 +369,7 @@ func (cpu *CPU) Load(cart *Cartridge) {
 
 
     default:
-        panic(fmt.Sprintf("sorry, no support for mapper %d", cart.MapperCode))
+        fmt.Printf("WARNING: no support for mapper %d\n", cart.MapperCode)
     }
 
     // TODO: pointers instead of copying, so can switch banks easier
