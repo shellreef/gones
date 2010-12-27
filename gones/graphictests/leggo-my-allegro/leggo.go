@@ -8,7 +8,6 @@ package leggo
 import ("fmt"
     "net"
     "os"
-    "rand"
     "unsafe")
 
 // #include "leggo.h"
@@ -107,12 +106,3 @@ func LeggoMain(start func(unsafe.Pointer)) {
 }
 
 
-// Do something to the screen
-func Fill(screen unsafe.Pointer) {
-    base := (*uintptr)(screen)
-    if rand.Uint32() % 2 == 0 {
-        *base = 255 
-    } else {
-        *base = 0 
-    }
-}

@@ -9,6 +9,7 @@ import (
     "fmt"
     "unsafe"
     "runtime"
+    "rand"
 
     "leggo")
 
@@ -16,7 +17,12 @@ func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
 
     for {
-        leggo.Fill(screen)
+        base := (*uintptr)(screen)
+        if rand.Uint32() % 2 == 0 {
+            *base = 255 
+        } else {
+            *base = 0 
+        }
     }
 }
 
