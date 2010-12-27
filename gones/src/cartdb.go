@@ -195,10 +195,59 @@ func Dump(database *Database) {
     }
 }
 
-// Get SHA-1 digest of input as an uppercase hexadecimal string
-func hexDigest(input []uint8) (string) {
+// Find games matching hashes
+func Identify(database *Database, cart *nesfile.Cartridge) {
+    prgSHA1 := hexSHA1(cart.Prg)
+    chrSHA1 := hexSHA1(cart.Chr)   // note: may be "" if game has no CHR-ROM
+
+    fmt.Printf("PRG = %s\nCHR = %s\n", prgSHA1, chrSHA1)
+
+    for _, game := range database.Game {
+        //fmt.Printf("#%d. [%s] %s - %s\n", i, game.Region, game.Developer, game.Name)
+        for _, cart := range game.Cartridge {
+            /*
+            rev := ""
+            if len(cart.Revision) != 0 {
+                rev = fmt.Sprintf(" (rev. %s)", cart.Revision)
+            } */
+            //fmt.Printf("\tCartridge%s for %s\n", rev, cart.System)
+            for _, board := range cart.Board {
+                //fmt.Printf("\tBoard: %s (%s)\n", board.PCB, board.Type)
+                /*
+                for _, chip := range board.Chip { 
+                    fmt.Printf("\t\tChip: %s\n", chip.Type)
+                }*/
+                for _, prg := range board.PRG {
+                    if prg.SHA1 == prgSHA1 {
+                        fmt.Printf("Found PRG in %s\n", game.Name)
+                        // TODO: save details
+                    }
+                    //fmt.Printf("\t\tPRG (%s): %s\n", prg.Size, prg.SHA1)
+                }
+                for _, chr := range board.CHR {
+                    //fmt.Printf("\t\tCHR (%s): %s\n", chr.Size, chr.SHA1)
+                    if chr.SHA1 == chrSHA1 {
+                        fmt.Printf("Found CHR in %s\n", game.Name)
+                    }
+                    // TODO: save details. Partial matches? CHR might match but not PRG. 
+                    // PRG is more important, but want both.
+                }
+            }
+        }
+    }
+}
+// Get SHA-1 digest of array of byte arrays as an uppercase hexadecimal string
+func hexSHA1(inputs [][]uint8) (string) {
+    if len(inputs) == 0 {
+        // If empty array, return "" instead of the SHA-1 of an
+        // empty string (DA39A3EE5E6B4B0D3255BFEF95601890AFD80709)
+        return ""
+    }
+
     digester := sha1.New()
-    digester.Write(input)
+    for _, input := range inputs {
+        digester.Write(input)
+    }
     hex := ""
     for _, octet := range digester.Sum() {
         hex += fmt.Sprintf("%.2X", octet)
@@ -212,9 +261,10 @@ func hexDigest(input []uint8) (string) {
 
 func main() {
     db := Load()
-    Dump(db)
+    //Dump(db)
 
     c := nesfile.Open(os.Args[1])
 
-    fmt.Printf("PRG[0] = %s\n", hexDigest(c.Prg[0]))
+    Identify(db, c)
+
 }
