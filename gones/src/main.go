@@ -17,6 +17,7 @@ import (
     "cpu6502"
     //"dis6502"
     "ppu2c02"
+    "cartdb"
     "gamegenie"
 )
 
@@ -33,6 +34,17 @@ func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {
     cpu.Load(cart)
     ppu.Load(cart)
 
+    // Check ROM against known hashes
+    // TODO: maybe this should be in nesfile, or in controldeck?
+    matches := cartdb.Identify(cartdb.Load(), cart)
+    if len(matches) != 0 {
+        fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
+    }
+    for i, match := range matches {
+        fmt.Printf("%d. ", i)
+        cartdb.DumpMatch(match)
+    }
+    // TODO: use info here, to display title/image, or use mapper
 }
 
 // Run a command to do something with the unit

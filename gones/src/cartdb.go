@@ -106,8 +106,8 @@ type CartMatches struct {
 // Load game database from gob if possible; if not, load from XML
 // then create gob for faster future loading
 func Load() (*Database) {
-    fastFile := "/tmp/gob"
-    slowFile := "../NesCarts (2010-11-29).xml"
+    fastFile := "data/cartdb.gob"
+    slowFile := "data/cartdb.xml"
 
     database, err := LoadGob(fastFile)
     if database == nil {
@@ -209,6 +209,33 @@ func DumpCart(cart Cartridge) {
             fmt.Printf("\t\tCHR %d: %s\n", k, chr.Size)
         }
     }
+}
+
+// Print a short summary of the search result match
+func DumpMatch(match CartMatches) {
+    game := match.Game
+    cart := match.Cartridge
+    fmt.Printf("%s ", game.Name)
+     if len(cart.Revision) != 0 {
+        fmt.Printf(" (rev. %s) ", cart.Revision)
+    } 
+
+    fmt.Printf(" by %s/%s - %s - ", game.Developer, game.Publisher, game.Region)
+
+    for _, board := range cart.Board {
+        fmt.Printf("board %s (%s); ", board.PCB, board.Type)
+        for _, chip := range board.Chip { 
+            fmt.Printf("chip %s; ", chip.Type)
+        }
+        for j, prg := range board.PRG {
+            fmt.Printf("PRG %d: %s; ", j, prg.Size)
+        }
+        for k, chr := range board.CHR {
+            fmt.Printf("CHR %d: %s; ", k, chr.Size)
+        }
+    }
+
+    fmt.Printf("\n")
 }
 
 // Find games matching hashes
