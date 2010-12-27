@@ -17,16 +17,13 @@ func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
 
     for {
-        base := (*uintptr)(screen)
-       
-        x := uintptr(screen) + uintptr(1)
-        p := unsafe.Pointer(x)
-        *(*uintptr)(p) = 128
-        fmt.Printf("base = %x, x = %x\n", base, x)
+        offset := 100
+        ptr := unsafe.Pointer(uintptr(screen) + uintptr(offset))
+        pixel := (*uintptr)(ptr) 
         if rand.Uint32() % 2 == 0 {
-            *base = 255 
+            *pixel = 255 
         } else {
-            *base = 0 
+            *pixel= 0 
         }
     }
 }
