@@ -9,7 +9,7 @@ package main
 import ("fmt"
         "os"
         "xml"
-        "json"
+        "gob"
         "time"
         )
 
@@ -133,10 +133,10 @@ func main() {
         }
     }*/
 
-    j, err := json.Marshal(database)
+    f, err := os.Open("/tmp/j", os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0x1a4) // 0644
     if err != nil {
-        panic(fmt.Sprintf("json Marshal error: %s", err))
+        panic(fmt.Sprintf("error saving: %s", err))
     }
-
-    fmt.Printf("%s\n", j)
+    e := gob.NewEncoder(f)
+    e.Encode(database)
 }
