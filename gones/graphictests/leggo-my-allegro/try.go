@@ -18,12 +18,10 @@ func something(screen unsafe.Pointer) {
 
     for {
         offset := 100
-        ptr := unsafe.Pointer(uintptr(screen) + uintptr(offset))
-        pixel := (*uintptr)(ptr) 
         if rand.Uint32() % 2 == 0 {
-            *pixel = 255 
+            leggo.WriteByte(screen, offset, 255)
         } else {
-            *pixel= 0 
+            leggo.WriteByte(screen, offset, 0)
         }
     }
 }
