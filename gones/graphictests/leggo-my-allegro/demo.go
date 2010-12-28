@@ -7,28 +7,29 @@ package main
 
 import (
     "fmt"
-    "runtime"
     "rand"
     "os"
-    //"time"
+    "time"
 
     "leggo")
 
 var mode byte = 0
 
-func something() {
-    fmt.Printf("... doing something\n")
-
+// Continuously update the screen with something interesting
+func render() {
     for {
         w, h := 256, 240
 
         for y := 0; y < h; y += 1 {
             for x := 0; x < w; x += 1 {
-                r, g, b := byte(0), byte(0), byte(0)
-                switch mode % 3 {
+                var r, g, b byte
+                // Some random things to look at
+                switch mode % 5 {
                 case 0: r = byte(rand.Uint32()); g = r; b = r
                 case 1: r = byte(rand.Uint32()); g = byte(rand.Uint32()); b = byte(rand.Uint32())
                 case 2: r = byte(x*y)
+                case 3: r = byte(x*y - int(rand.Uint32()) % 50)
+                case 4: g = byte(rand.Uint32()); time.Sleep(1000)
                 }
 
                 leggo.WritePixel(x, y, r,g,b,0)
@@ -37,12 +38,7 @@ func something() {
     }
 }
 
-func start() {
-    fmt.Printf("starting\n")
-
-    go something()
-}
-
+// Handle events
 func event(kind int, code int) {
     fmt.Printf("got event: %d,%d\n", kind, code);
 
@@ -65,11 +61,9 @@ func event(kind int, code int) {
 
 func main() {
     // never returns
-    leggo.LeggoMain(start, event)
+    leggo.LeggoMain(render, event)
 
     fmt.Printf("returned?!\n")
 }
 
-func init() {
-    runtime.GOMAXPROCS(2)
-}
+

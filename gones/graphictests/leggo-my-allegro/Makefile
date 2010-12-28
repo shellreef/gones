@@ -15,9 +15,9 @@ CLEANFILES += leggo
 
 include $(GOROOT)/src/Make.pkg
 
-demo: install main.go
-	$(GC) main.go
-	$(LD) -o $@ main.$O
+demo: install demo.go
+	$(GC) demo.go
+	$(LD) -o $@ demo.$O
 
 # Pure C test program, for comparison
 hello1::

@@ -8,7 +8,9 @@ package leggo
 import ("fmt"
     "net"
     "os"
-    "unsafe")
+    "unsafe"
+    "runtime"
+    )
 
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
@@ -84,9 +86,8 @@ func LeggoServer(start func(), event func(int, int)) {
         return
     }
     fmt.Printf("listener = %s\n", listener)
-    fmt.Printf("calling start\n")
-    start()
-    fmt.Printf("returned\n")
+    fmt.Printf("go start()\n")
+    go start()
 
     for {
         fmt.Printf("LeggoServer: waiting for connection\n")
@@ -113,7 +114,7 @@ func LeggoServer(start func(), event func(int, int)) {
             kind := byte(buffer[0])
             keycode := byte(buffer[1])
 
-            fmt.Printf(">>> Read event from client: %d,%d\n", kind, keycode)
+            //fmt.Printf(">>> Read event from client: %d,%d\n", kind, keycode)
 
             // TODO: dispatch events to Go channel instead of callback?
             event(int(kind), int(keycode))
@@ -151,6 +152,7 @@ func LeggoMain(start func(), event func(int, int)) {
 }
 
 // Write to an arbitrary byte in memory
+// This has been moved to C.write_byte because it is too complex in Go
 /*
 func WriteByte(screen unsafe.Pointer, offset int, value byte) {
     ptr := unsafe.Pointer(uintptr(screen) + uintptr(offset))
@@ -158,6 +160,8 @@ func WriteByte(screen unsafe.Pointer, offset int, value byte) {
     *pixel = uintptr(value)
 }*/
 
+// Set a pixel through direct memory access
+// TODO: higher-level functions
 func WritePixel(x int, y int, r byte, g byte, b byte, a byte) {
     if x > C.RESOLUTION_W || y > C.RESOLUTION_H {
         // This is important, because write_byte has no bounds checking!
@@ -170,6 +174,11 @@ func WritePixel(x int, y int, r byte, g byte, b byte, a byte) {
     C.write_byte(C.off_t(offset + 3), C.uint8_t(a))
 }
 
+// Get frames per second
 func FPS() (float) {
     return 1.0 / float(C.get_seconds_per_frame())
+}
+
+func init() {
+    runtime.GOMAXPROCS(2)
 }
