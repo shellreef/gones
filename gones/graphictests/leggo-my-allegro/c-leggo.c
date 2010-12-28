@@ -143,9 +143,17 @@ int leggo_user_main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-   float speed_secs = 1.0f / 60;
-   // This is really bizarre. Removing this call corrupts speed_secs.
-   printf("before call (%f) %g %d - %.2x%.2x%.2x%.2x %.2x%.2x%.2x%.2x\n", speed_secs, speed_secs, speed_secs > 0, 
+    // Use monitor refresh rate if applicable; otherwise default to 60 Hz
+    int hz = al_get_display_refresh_rate(display);
+    float speed_secs;
+   
+    if (hz == 0) { 
+        speed_secs = 1.0f / 60;
+    } else {
+        speed_secs = 1.0f / hz;
+    }
+    // This is really bizarre. Removing this call corrupts speed_secs.
+    printf("Leggo my Allegro: before call: (%f) %g %d - %.2x%.2x%.2x%.2x %.2x%.2x%.2x%.2x\n", speed_secs, speed_secs, speed_secs > 0, 
             *(unsigned char*)(&speed_secs + 0),
             *(unsigned char*)(&speed_secs + 1),
             *(unsigned char*)(&speed_secs + 2),
