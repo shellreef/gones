@@ -442,27 +442,28 @@ func (ppu *PPU) ShowNametable() {
                     // TODO: load attributes too
                     screen[row + i][column + j] = pattern[i][j]
 
-                    // TODO: palette
-                    // This is not real
-                    var r, g, b byte
-                    switch pattern[i][j] {
-                    case 0: r=255
-                    case 1: g=255
-                    case 2: b=255
-                    case 3: r=255; g=255; b=255
-                    }
-
-                    leggo.WritePixel(row+i, column+j, r,g,b,0)
                 }
             }
         }
     }
 
-          /*
     for x := 0; x < 30*8; x += 1 {
         for y := 0; y < 32*8; y += 1 {
-            fmt.Printf("%d", screen[x][y])
+            //fmt.Printf("%d", screen[x][y])
+            // TODO: palette
+            // This is not real
+            var r, g, b byte
+            switch screen[x][y] {
+            case 0: r=255
+            case 1: g=255
+            case 2: b=255
+            case 3: r=255; g=255; b=255
+            }
+
+            // TODO: clipping
+            leggo.WritePixel(x%256, y%240, r,g,b,0)
+
         }
-        fmt.Printf("\n")
-    }*/
+        //fmt.Printf("\n")
+    }
 }
