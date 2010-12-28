@@ -97,13 +97,20 @@ var OPCODES_OFFICIAL = [
 
 // Format an integer as hexadecimal
 function hex(x, width, bare) {
-    var s = Math.abs(x).toString(16);
-    while (s.length < width) {
-        s = "0" + s;
-    }
-    if (x < 0) {
-        // Negative sign doesn't count as part of width
-        s = "-" + s;
+    var s;
+    if (isNaN(x)) {
+        // Special case: NaN is ?s
+        s = new Array(width + 1).join("?");
+    } else {
+        s = Math.abs(x).toString(16);
+        // Pad
+        while (s.length < width) {
+            s = "0" + s;
+        }
+        if (x < 0) {
+            // Negative sign doesn't count as part of width
+            s = "-" + s;
+        }
     }
     if (!bare) {
         // Assembly has $ to indicate hex (vs % for binary,
