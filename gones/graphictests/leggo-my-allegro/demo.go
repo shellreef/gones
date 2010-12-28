@@ -39,22 +39,28 @@ func render() {
 }
 
 // Handle events
-func event(kind int, code int) {
-    fmt.Printf("got event: %d,%d\n", kind, code);
+func event(ch chan leggo.Event) {
+    for {
+        e := <-ch
 
-    if kind == leggo.EVENT_KEY_DOWN {
-        switch code {
-        case leggo.KEY_ESCAPE:
-            fmt.Printf("Exiting\n")
-            os.Exit(0)
-        case leggo.KEY_DOWN:
-            fmt.Printf("mode = %d\n", mode)
-            mode += 1
-        case leggo.KEY_UP:
-            fmt.Printf("mode = %d\n", mode)
-            mode -= 1
-        case leggo.KEY_SPACE:
-            fmt.Printf("FPS = %f\n", leggo.FPS())
+        kind, code := e.Type, e.Keycode
+
+        fmt.Printf("got event: %d,%d\n", kind, code);
+
+        if kind == leggo.EVENT_KEY_DOWN {
+            switch code {
+            case leggo.KEY_ESCAPE:
+                fmt.Printf("Exiting\n")
+                os.Exit(0)
+            case leggo.KEY_DOWN:
+                fmt.Printf("mode = %d\n", mode)
+                mode += 1
+            case leggo.KEY_UP:
+                fmt.Printf("mode = %d\n", mode)
+                mode -= 1
+            case leggo.KEY_SPACE:
+                fmt.Printf("FPS = %f\n", leggo.FPS())
+            }
         }
     }
 }

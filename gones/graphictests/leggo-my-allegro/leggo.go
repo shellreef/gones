@@ -51,13 +51,21 @@ KEY_UP; KEY_DOWN; KEY_PAD_SLASH; KEY_PAD_ASTERISK; KEY_PAD_MINUS;
 KEY_PAD_PLUS; KEY_PAD_DELETE; KEY_PAD_ENTER; KEY_PRINTSCREEN; KEY_PAUSE;
 KEY_ABNT_C1; KEY_YEN; KEY_KANA; KEY_CONVERT; KEY_NOCONVERT;
 KEY_AT; KEY_CIRCUMFLEX; KEY_COLON2; KEY_KANJI; KEY_EQUALS_PAD;
-KEY_BACKQUOTE; KEY_SEMICOLON2; KEY_COMMAND; KEY_UNKNOWN)
+KEY_BACKQUOTE; KEY_SEMICOLON2; KEY_COMMAND; KEY_UNKNOWN;
 
-const (KEY_MODIFIERS=iota + C.ALLEGRO_KEY_MODIFIERS;
+KEY_MODIFIERS=iota + C.ALLEGRO_KEY_MODIFIERS;
 KEY_LSHIFT; KEY_RSHIFT; KEY_LCTRL; KEY_RCTRL;
 KEY_ALT; KEY_ALTGR; KEY_LWIN; KEY_RWIN;
 KEY_MENU; KEY_SCROLLLOCK; KEY_NUMLOCK; KEY_CAPSLOCK;
 KEY_MAX);
+
+// TODO: more fields from Allegro's events, wrap directly if can
+// (but would still need to serialize over socket)
+type Event struct {
+    Type uint8
+    Keycode uint8
+}
+    
 
 //export GoLeggoExit
 func GoLeggoExit() {
@@ -77,7 +85,7 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // http://blog.labix.org/2010/12/10/integrating-go-with-c-the-zookeeper-binding-experience
 // and https://github.com/0xe2-0x9a-0x9b/Go-SDL/tree/master/sdl/audio/
 // and http://bazaar.launchpad.net/%7Eensemble/gozk/trunk/annotate/head%3A/helpers.c
-func LeggoServer(start func(), event func(int, int)) {
+func LeggoServer(start func(), event func(chan Event)) {
     os.Remove(SOCKET_FILE)
 
     listener, err := net.Listen("unix", SOCKET_FILE)
@@ -88,6 +96,9 @@ func LeggoServer(start func(), event func(int, int)) {
     fmt.Printf("listener = %s\n", listener)
     fmt.Printf("go start()\n")
     go start()
+
+    ch := make(chan Event)
+    go event(ch)
 
     for {
         fmt.Printf("LeggoServer: waiting for connection\n")
@@ -113,11 +124,14 @@ func LeggoServer(start func(), event func(int, int)) {
 
             kind := byte(buffer[0])
             keycode := byte(buffer[1])
+            e := Event{kind, keycode}
+
+            ch <- e
 
             //fmt.Printf(">>> Read event from client: %d,%d\n", kind, keycode)
 
             // TODO: dispatch events to Go channel instead of callback?
-            event(int(kind), int(keycode))
+            //event(int(kind), int(keycode))
 
         }
     }
@@ -142,7 +156,7 @@ func LeggoSetup() (unsafe.Pointer) {
 
 // Get things going. start() will be called when setup.
 //export LeggoMain
-func LeggoMain(start func(), event func(int, int)) {
+func LeggoMain(start func(), event func(chan Event)) {
     _ = LeggoSetup()
 
     go LeggoServer(start, event)
