@@ -58,10 +58,10 @@ void refresh(ALLEGRO_DISPLAY *display) {
         for (y = 0; y < RESOLUTION_H; y += 1) {
             uint8_t *ptr = locked->data + (locked->pixel_size * x + locked->pitch * y);
             // RGBA
-            *(ptr + 0) = *(screen_map + x + RESOLUTION_W * y + 0);
-            *(ptr + 1) = *(screen_map + x + RESOLUTION_W * y + 1);
-            *(ptr + 2) = *(screen_map + x + RESOLUTION_W * y + 2);
-            *(ptr + 3) = *(screen_map + x + RESOLUTION_W * y + 3);
+            *(ptr + 0) = *(screen_map + 4*x + RESOLUTION_W * y + 0);
+            *(ptr + 1) = *(screen_map + 4*x + RESOLUTION_W * y + 1);
+            *(ptr + 2) = *(screen_map + 4*x + RESOLUTION_W * y + 2);
+            *(ptr + 3) = *(screen_map + 4*x + RESOLUTION_W * y + 3);
         }
     }
     // locked->data always points to first visual scanline
