@@ -128,7 +128,34 @@ function disasm(data) {
             break;
         }
 
-        console.log(i, opcode, opcodeByte, operandBytes,  addrMode, operand);
+        function hex8(x) {
+            return "$" + x;  // TODO: %.2X
+        }
+        function hex16(x) {
+            return "$" + x; // TODO: %.4X
+        }
+
+        // Format operand
+        var operandString;
+        switch (addrMode) {
+        case Imd: operandString = "#" + hex8(operand); break;
+        case Zpg: operandString = hex8(operand); break;
+        case Zpx: operandString = hex8(operand) + ",X"; break;
+        case Zpy: operandString = hex8(operand) + ",Y"; break;
+        case Abs: operandString = hex16(operand); break;
+        case Abx: operandString = hex16(operand) + ",X"; break;
+        case Aby: operandString = hex16(operand) + ",Y"; break;
+        case Ndx: operandString = "(" + hex8(operand) + ",X)"; break;
+        case Ndy: operandString = "(" + hex8(operand) + "),Y"; break;
+        case Imp: operandString = ""; break;
+        case Acc: operandString = "A"; break;
+        case Ind: operandString = "(" + hex16(operand) + ")"; break;
+        case Rel: operandString = hex16(operand); break; // TODO: calculate relative
+        }
+
+        var s = opcode + " " + operandString;
+
+        console.log(i, opcodeByte, operandBytes, s);
 
         i += 1;
     }
