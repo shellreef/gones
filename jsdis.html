@@ -2,6 +2,9 @@
 <html>
 <head>
 <title></title>
+<style>
+span.changed { background-color: yellow; }
+</style>
 <script>
 // Addressing modes
 var Imd = "Imd";      // Immediate 
@@ -220,6 +223,11 @@ function parseHex(inputString) {
 // Show a disassembled list of instructions
 function showInstructions(instructions, elementName, compareInstructions) {
     var text = "";
+
+    // highlight and end
+    var hl = '<span class="changed">';
+    var hle = '</span>';
+
     for (var i = 0; i < instructions.length; ++i) {
         var instr = instructions[i];
         var instr2 = compareInstructions ? compareInstructions[i] : null;
@@ -228,13 +236,12 @@ function showInstructions(instructions, elementName, compareInstructions) {
         line += hex(instr.offset, 4, true) + "    ";
 
         // Opcode and operand bytes in hex, aligned properly
-        if (0 && instr2 && instr.opcodeByte !== instr2.opcodeByte) {
-            // TODO: highlight differences
-            line += "|" + hex(instr.opcodeByte, 2, true) + "|";
+        if (instr2 && instr.opcodeByte !== instr2.opcodeByte) {
+            line += hl + hex(instr.opcodeByte, 2, true) + hle;
         } else {
             line += hex(instr.opcodeByte, 2, true);
         }
-        line += + " ";
+        line += " ";
         for (var j = 0; j < 2; ++j) {
             if (j < instr.operandBytes.length) {
                 line += hex(instr.operandBytes[j], 2, true);
@@ -253,7 +260,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
         text += line + "\n";
     }
 
-    document.getElementById(elementName).textContent = text;
+    document.getElementById(elementName).innerHTML = text;
 }
 
 function update() {
