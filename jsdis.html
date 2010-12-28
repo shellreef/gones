@@ -186,11 +186,10 @@ function disasm(data) {
     return instructions;
 }
 
-// Show disassembly from user input
-function disasmInput() {
+// Parse an ASCII string of hex bytes into an array of integers
+function parseHex(inputString) {
     var inputString, i, bytes;
 
-    inputString = document.getElementById("in").value;
     i = 0;
     // TODO: use WebKit's compact byte arrays
     bytes = [];
@@ -215,7 +214,7 @@ function disasmInput() {
         }
 
     }
-    showInstructions(disasm(bytes));
+    return bytes;
 }
 
 // Show a disassembled list of instructions
@@ -249,9 +248,16 @@ function showInstructions(instructions) {
 
     document.getElementById("out").textContent = text;
 }
+
+function update() {
+    var inputString = document.getElementById("in").value;
+    var bytes = parseHex(inputString);
+    var instructions = disasm(bytes);
+    showInstructions(instructions);
+}
 </script>
 </head>
-<body onload="disasmInput()">
+<body onload="update()">
 <textarea id="in" rows="25" cols="50">
 78
 d8
@@ -264,7 +270,7 @@ ad 02 20
 10 fb
 ff ff ff
 </textarea>
-<button accesskey="d" onclick="disasmInput()">Disassemble</button>
+<button accesskey="d" onclick="update()">Disassemble</button>
 <pre id="out"></pre>
 </body>
 </html>
