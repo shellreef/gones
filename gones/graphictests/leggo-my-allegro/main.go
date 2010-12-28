@@ -25,11 +25,6 @@ func something(screen unsafe.Pointer) {
 
         for y := 0; y < h; y += 1 {
             for x := 0; x < w; x += 1 {
-                offset := 4*(x + y*w)
-                if offset > w*h*4 {
-                    panic(fmt.Sprintf("out of range for (%d,%d): %d > %d",
-                                x,y,offset,w*h*4))
-                }
                 r, g, b := byte(0), byte(0), byte(0)
                 switch mode % 3 {
                 case 0: r = byte(rand.Uint32()); g = r; b = r
@@ -37,10 +32,7 @@ func something(screen unsafe.Pointer) {
                 case 2: r = byte(offset)
                 }
 
-                leggo.WriteByte(offset + 0, r)
-                leggo.WriteByte(offset + 1, g)
-                leggo.WriteByte(offset + 2, b)
-                leggo.WriteByte(offset + 3, 0)
+                leggo.WritePixel(x, y, r,g,b,0)
             }
         }
     }

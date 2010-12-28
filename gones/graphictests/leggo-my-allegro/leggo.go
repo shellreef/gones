@@ -16,6 +16,10 @@ import ("fmt"
 // #include "leggo.h"
 import "C"
 
+type Screen struct {
+    data unsafe.Pointer
+}
+
 const SOCKET_FILE = "/tmp/leggo.sock"   // TODO: stop using insecure temporary directory
 
 // TODO: all events in include/allegro5/events.h
@@ -154,7 +158,15 @@ func WriteByte(screen unsafe.Pointer, offset int, value byte) {
     *pixel = uintptr(value)
 }*/
 
-func WriteByte(offset int, value byte) {
-    C.write_byte(C.off_t(offset), C.uint8_t(value))
+func WritePixel(x int, y int, r byte, g byte, b byte, a byte) {
+    if x > C.RESOLUTION_W || y > C.RESOLUTION_H {
+        // This is important, because write_byte has no bounds checking!
+        panic(fmt.Sprintf("WritePixel out of range: (%d,%d)\n", x, y))
+    }
+    offset := 4*(x + y*C.RESOLUTION_W)
+    C.write_byte(C.off_t(offset + 0), C.uint8_t(r))
+    C.write_byte(C.off_t(offset + 1), C.uint8_t(g))
+    C.write_byte(C.off_t(offset + 2), C.uint8_t(b))
+    C.write_byte(C.off_t(offset + 3), C.uint8_t(a))
 }
 
