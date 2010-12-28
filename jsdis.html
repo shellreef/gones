@@ -104,6 +104,7 @@ function hex(x, width) {
     return "$" + s;
 }
 
+// Disassemble a string in 6502 machine code
 function disasm(data) {
     var instructions = [];
     var i = 0;
@@ -170,21 +171,52 @@ function disasm(data) {
     }
 }
 
-// TODO: use WebKit's compact byte arrays
-disasm([
-    0x78,
-    0xd8,
-    0xa9, 0x10,
-    0x8d, 0x00, 0x20,
-    0xa2, 0xff,
-    0x9a,
-    0xad, 0x02, 0x20,
-    0x10, 0xfb,
-    0xff, 0xff, 0xff
-    ]);
+// Show disassembly from user input
+function showDisasm() {
+    var inputString, i, bytes;
+
+    inputString = document.getElementById("in").value;
+    i = 0;
+    // TODO: use WebKit's compact byte arrays
+    bytes = [];
+    while (i < inputString.length) {
+        var ch, hexString;
+
+        ch = inputString[i++];
+        if (ch.match(/[a-fA-F0-9]/)) {
+            hexString = ch;
+            ch = inputString[i++];
+            if (ch.match(/[a-fA-F0-9]/)) {
+                hexString += ch;
+                bytes.push(parseInt(hexString, 16));
+            } else {
+                throw("Incomplete hex at " +
+                        i + ", first digit '" + hexString + 
+                        "' is OK but second is non-hex '" +
+                        ch + "'");
+            }
+        } else {
+            // ignore non-hex
+        }
+
+    }
+    disasm(bytes);
+}
 </script>
 </head>
 <body>
-
+<textarea id="in" rows="25" cols="50">
+78
+d8
+a9
+10
+8d 00 20
+a2 ff
+9a
+ad 02 20
+10 fb
+ff ff ff
+</textarea>
+<button accesskey="d" onclick="showDisasm()">Disassemble</button>
 </body>
 </html>
