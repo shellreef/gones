@@ -125,6 +125,8 @@ function disasm(data) {
     var instructions = [];
     var i = 0;
     while (i < data.length) {
+        var startOffset = i;
+
         var opcodeByte = data[i++];
         if (opcodeByte === undefined) {
             break;
@@ -190,7 +192,7 @@ function disasm(data) {
         }
 
         instructions.push({
-            offset: i - 1,
+            offset: startOffset,
             opcodeByte: opcodeByte,
             operandBytes: operandBytes,
             opcode: opcode,
@@ -243,27 +245,41 @@ function parseHex(inputString) {
 // Show a disassembled list of instructions
 function showInstructions(instructions, elementName, compareInstructions) {
     var text = "";
+    var i = 0, i2 = 0;
 
-    for (var i = 0; i < instructions.length; ++i) {
+    while (i < instructions.length) {
         var instr = instructions[i];
-        // TODO: re-synchronize instruction stream at offset; it might rejoin but
-        // with fewer instructions previously. We should show this as the same,
-        // but it currently shows all future instructions changed even though they didn't.
-        var instr2 = compareInstructions ? compareInstructions[i] : null;
+        var instr2 = compareInstructions ? compareInstructions[i2] : null;
         var line = "";
 
         // Return HTML highlighting something if it differs (was patched by code)
         function hl(s, key, offset) {
-            var a = instr[key];
-            var b = instr2 && instr2[key];
-            if (instr2 && offset !== undefined) { a = a[offset]; b = b[offset]; }
+            if (!instr2) {
+                return s; // not comparing
+            }
 
-            if (instr2 && a !== b) {
+            var a = instr[key];
+            var b = instr2[key];
+            if (offset !== undefined) { a = a[offset]; b = b[offset]; }
+
+            if (a !== b) {
                 return '<span class="changed">' + s + '</span>';
             } 
             return s;
         }
 
+
+        // If the opcode change gobbled up an instruction, then resynchronize
+        // the instruction stream; i.e., show a blank line for the missing 
+        // instruction, and compare from the next. TODO: multiple?
+        if (instr2 && instr.offset !== instr2.offset) {
+            var nextInstr2 = compareInstructions[i2 + 1];
+            if (nextInstr2.offset === instr.offset) {
+                i2 += 1;
+                instr2 = nextInstr2;
+                text += "\n";
+            }
+        }
 
         line += hl(hex(instr.offset, 4, true), "offset") + "    ";
 
@@ -286,6 +302,9 @@ function showInstructions(instructions, elementName, compareInstructions) {
 
         //console.log(instr.offset, instr.opcodeByte, instr.operandBytes, s);
         text += line + "\n";
+
+        i += 1;
+        i2 += 1;
     }
     // TODO: show extra instructions in instr2 beyond instr
 
