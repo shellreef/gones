@@ -247,9 +247,28 @@ function showInstructions(instructions, elementName, compareInstructions) {
     var text = "";
     var i = 0, i2 = 0;
 
+    // Lookup table of instructions to compare with, by their memory offset
+    // This is needed to resynchronize the instruction stream
+    var compareByOffset = {};
+    if (compareInstructions) {
+        for (i = 0; i < compareInstructions.length; ++i) {
+            compareByOffset[compareInstructions[i].offset] = compareInstructions[i];
+        }
+    }
+
+
+    i = 0;
     while (i < instructions.length) {
         var instr = instructions[i];
-        var instr2 = compareInstructions ? compareInstructions[i2] : null;
+        var instr2;
+
+        if (compareInstructions) {
+            //instr2 = compareByOffset[instr.offset];
+            //if (!instr2) {
+                instr2 = compareInstructions[i2];
+            //}
+        }
+
         var line = "";
 
         // Return HTML highlighting something if it differs (was patched by code)
@@ -269,12 +288,9 @@ function showInstructions(instructions, elementName, compareInstructions) {
         }
 
 
-        // If the opcode change gobbled up an instruction, then resynchronize
-        // the instruction stream; i.e., show a blank line for the missing 
-        // instruction, and compare from the next. TODO: multiple?
         if (instr2 && instr.offset !== instr2.offset) {
             var nextInstr2 = compareInstructions[i2 + 1];
-            if (nextInstr2.offset === instr.offset) {
+            if (nextInstr2 && nextInstr2.offset === instr.offset) {
                 i2 += 1;
                 instr2 = nextInstr2;
                 text += "\n";
@@ -348,8 +364,16 @@ function init() {
 </script>
 </head>
 <body onload="init()">
-<input id="patchOffset" value="0018" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="ff" size="2" maxlength="2"><br>
+<input id="patchOffset" value="0002" size="4">: <!-- offset within the disassembly, not the CPU address! -->
+<input id="patchValue" value="00" size="2" maxlength="2"><br>
+<!-- example codes for below:
+0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
+0000:01 changes opcode and size 1->2, SEI -> LDA, consumes 2-1=1 extra bytes
+        since next instruction is 1 byte (CLD), only affects one extra instruction (2 total)
+0000:ad changes opcode and size 1->3, SEI -> LDA, affects 4 instructions (can be unbounded)
+0002:00 changes opcode and size 2->1, TODO: fix overzealous highlighting
+ TODO: 
+-->
 <textarea id="in" rows="25" cols="50">
 78
 d8
