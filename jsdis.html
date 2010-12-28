@@ -220,13 +220,6 @@ function parseHex(inputString) {
     return bytes;
 }
 
-// Return HTML highlighting something if it differs (was patched by code)
-function hl(s, instr, instr2, key) {
-    if (instr2 && instr[key] !== instr2[key]) {
-        return '<span class="changed">' + s + '</span>';
-    } 
-    return s;
-}
 
 // Show a disassembled list of instructions
 function showInstructions(instructions, elementName, compareInstructions) {
@@ -237,15 +230,27 @@ function showInstructions(instructions, elementName, compareInstructions) {
         var instr2 = compareInstructions ? compareInstructions[i] : null;
         var line = "";
 
-        line += hex(instr.offset, 4, true) + "    ";
+        // Return HTML highlighting something if it differs (was patched by code)
+        function hl(s, key, offset) {
+            var a = instr[key];
+            var b = instr2 && instr2[key];
+            if (instr2 && offset !== undefined) { a = a[offset]; b = b[offset]; }
+
+            if (instr2 && a !== b) {
+                return '<span class="changed">' + s + '</span>';
+            } 
+            return s;
+        }
+
+
+        line += hl(hex(instr.offset, 4, true), "offset") + "    ";
 
         // Opcode and operand bytes in hex, aligned properly
-        line += hl(hex(instr.opcodeByte, 2, true), instr, instr2, "opcodeByte");
+        line += hl(hex(instr.opcodeByte, 2, true), "opcodeByte") + " ";
 
-        line += " ";
         for (var j = 0; j < 2; ++j) {
             if (j < instr.operandBytes.length) {
-                line += hex(instr.operandBytes[j], 2, true);
+                line += hl(hex(instr.operandBytes[j], 2, true), "operandBytes", j);
             } else {
                 line += "  ";
             }
@@ -253,8 +258,8 @@ function showInstructions(instructions, elementName, compareInstructions) {
         }
 
         // Instruction disassembly, starred if unofficial
-        line += instr.unofficial ? "*" : " ";
-        line += instr.opcode + " " + instr.operandString;
+        line += hl(instr.unofficial ? "*" : " ", "unofficial");
+        line += hl(instr.opcode, "opcode") + " " + hl(instr.operandString, "operandString");
 
 
         //console.log(instr.offset, instr.opcodeByte, instr.operandBytes, s);
