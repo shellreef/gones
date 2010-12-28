@@ -56,12 +56,13 @@ void refresh(ALLEGRO_DISPLAY *display) {
     // extra uncopied space. The pitch can even be negative.
     for (x = 0; x < RESOLUTION_W; x += 1) {
         for (y = 0; y < RESOLUTION_H; y += 1) {
-            uint8_t *ptr = locked->data + (locked->pixel_size * x + locked->pitch * y);
+            uint8_t *dst = (uint8_t *)locked->data + (locked->pixel_size * x + locked->pitch * y);
+            uint8_t *src = screen_map + (4 * x + RESOLUTION_W * y);
             // RGBA
-            *(ptr + 0) = *(screen_map + 4*x + RESOLUTION_W * y + 0);
-            *(ptr + 1) = *(screen_map + 4*x + RESOLUTION_W * y + 1);
-            *(ptr + 2) = *(screen_map + 4*x + RESOLUTION_W * y + 2);
-            *(ptr + 3) = *(screen_map + 4*x + RESOLUTION_W * y + 3);
+            *(dst + 0) = *(src + 0);
+            *(dst + 1) = *(src + 1);
+            *(dst + 2) = *(src + 2);
+            *(dst + 3) = *(src + 3);
         }
     }
     // locked->data always points to first visual scanline

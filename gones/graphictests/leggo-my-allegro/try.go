@@ -26,20 +26,24 @@ func something(screen unsafe.Pointer) {
             leggo.WriteByte(screen, offset, 0)
         }*/
 
-        for x := 0; x < 256; x += 1 {
-            for y := 0; y < 240; y += 1 {
-                offset := x + y*256
-                if offset > 256*240*4 {
+        w, h := 256, 240
+
+        for x := 0; x < w; x += 1 {
+            for y := 0; y < h; y += 1 {
+                offset := x + y*w
+                if offset > w*h*4 {
                     panic(fmt.Sprintf("out of range for (%d,%d): %d > %d",
-                                x,y,offset,256*240*4))
+                                x,y,offset,w*h*4))
                 }
-                leggo.WriteByte(screen, offset, 200)
+                leggo.WriteByte(screen, offset + 0, 200)
                 time.Sleep(100000)
+
                 //leggo.WriteByte(screen, offset+1, 0)
                 //leggo.WriteByte(screen, offset+2, 0)
                 //leggo.WriteByte(screen, offset+3, 0)
             }
         }
+        break
     }
 }
 
