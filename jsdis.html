@@ -101,26 +101,30 @@ function disasm(data) {
         var opcode = pair[0];
         var addrMode = pair[1];
         var operand = null;
-        var operandBytes;
+        var operandBytes = [];
 
         // Read operand
         switch (addrMode) {
         case Imd: case Zpg: case Zpx: case Zpy: case Ndx: case Ndy:
+            // 8 bits unsigned
             operandBytes = [data[++i]];
             operand = operandBytes[0];
             break;
         case Abs: case Abx: case Aby: case Ind:
+            // 16 bits unsigned
             operandBytes = [data[++i]];
             operandBytes.push(data[++i]);
             operand = operandBytes[0] + 256 * operandBytes[1];
             break;
-        case Imp: case Acc:
-            operandBytes = [];
-            operand = null;
-            break;
         case Rel:
+            // 8 bits signed
             operandBytes = [data[++i]];
-            operand = [operandBytes[0]]; // TODO: signed
+            operand = [operandBytes[0]];
+            if (operand > 127) {
+                operand -= 256;
+            }
+            break;
+        case Imp: case Acc: 
             break;
         }
 
