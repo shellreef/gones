@@ -23,8 +23,8 @@ var Rel = "Rel";      // Relative
 
 var OPCODES = [
 // Indexed by opcode, value is (mneumonic, addressing mode code) 
-// x0         x1         x2         x3         x4        x5          x6         x7   
-// x8         x9         xa         xb         xc        xd          xe         xf   
+//   x0           x1           x2           x3           x4          x5            x6           x7   
+//   x8           x9           xa           xb           xc          xd            xe           xf   
 ["BRK", Imp],["ORA", Ndx],["KIL", Imp],["SLO", Ndx],["DOP", Zpg],["ORA", Zpg],["ASL", Zpg],["SLO", Zpg], // 0x 
 ["PHP", Imp],["ORA", Imd],["ASL", Acc],["AAC", Imd],["TOP", Abs],["ORA", Abs],["ASL", Abs],["SLO", Abs], 
 ["BPL", Rel],["ORA", Ndy],["KIL", Imp],["SLO", Ndy],["DOP", Zpx],["ORA", Zpx],["ASL", Zpx],["SLO", Zpx], // 1x 
@@ -60,8 +60,8 @@ var OPCODES = [
 
 // Only official opcodes
 var OPCODES_OFFICIAL = [
-// x0         x1         x2         x3         x4        x5          x6         x7   
-// x8         x9         xa         xb         xc        xd          xe         xf   
+//   x0           x1           x2           x3           x4          x5            x6           x7   
+//   x8           x9           xa           xb           xc          xd            xe           xf   
 ["BRK", Imp],["ORA", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpg],["ASL", Zpg],[null,  Imp], // 0x 
 ["PHP", Imp],["ORA", Imd],["ASL", Acc],[null,  Imp],[null,  Imp],["ORA", Abs],["ASL", Abs],[null,  Imp], 
 ["BPL", Rel],["ORA", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpx],["ASL", Zpx],[null,  Imp], // 1x 
@@ -307,6 +307,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
         i2 += 1;
     }
     // TODO: show extra instructions in instr2 beyond instr
+    // are there any?
 
     document.getElementById(elementName).innerHTML = text;
 }
@@ -329,9 +330,9 @@ function update() {
         patchValue = 0;
         document.getElementById("patchValue").value = "";
     }
-    if (patchOffset > bytes.length) {
-        patchOffset = bytes.length;
-        document.getElementById("patchOffset").value = patchOffset;
+    if (patchOffset > bytes.length - 1) {
+        patchOffset = bytes.length - 1;
+        document.getElementById("patchOffset").value = hex(patchOffset, 4, true);
     }
 
     bytes[patchOffset] = patchValue;
@@ -347,7 +348,7 @@ function init() {
 </script>
 </head>
 <body onload="init()">
-<input id="patchOffset" value="0001" size="4">: <!-- offset within the disassembly, not the CPU address! -->
+<input id="patchOffset" value="0018" size="4">: <!-- offset within the disassembly, not the CPU address! -->
 <input id="patchValue" value="ff" size="2" maxlength="2"><br>
 <textarea id="in" rows="25" cols="50">
 78
@@ -360,6 +361,7 @@ a2 ff
 ad 02 20
 10 fb
 ff ff ff
+f2
 </textarea>
 <button accesskey="d" onclick="update()">Disassemble</button>
 <div style="width: 40%; margin: auto">
