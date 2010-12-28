@@ -93,28 +93,26 @@ func LeggoServer(start func(), process func(chan Event)) {
         fmt.Printf("LeggoServer: failed to listen on socket %s: %s\n", SOCKET_FILE, err)
         return
     }
-    fmt.Printf("listener = %s\n", listener)
-    fmt.Printf("go start()\n")
+    //fmt.Printf("listener = %s\n", listener)
     go start()
 
     ch := make(chan Event)
     go process(ch)
 
     for {
-        fmt.Printf("LeggoServer: waiting for connection\n")
+        //fmt.Printf("LeggoServer: waiting for connection\n")
         conn, err := listener.Accept()
         if err != nil {
             panic(fmt.Sprintf("LeggoServer: Accept() failed: %s", err))
         }
 
-        fmt.Printf("Established connection: %s\n", conn)
+        //fmt.Printf("Established connection: %s\n", conn)
    
         for {
             var buffer [2]byte
             bytesRead, err := conn.Read(buffer[:])
             if err != nil {
-                fmt.Printf("Error reading from client: %s\n", err)
-                continue
+                panic(fmt.Sprintf("Error reading from client: %s\n", err))
             }
 
             if bytesRead != 2 {
@@ -141,14 +139,17 @@ func LeggoSetup() (unsafe.Pointer) {
     // c-leggo.c refresh() will copy this to the screen each frame
     
     size := C.RESOLUTION_H * C.RESOLUTION_W * 4 // RGBA
-    screenMap := C.mmap(nil, C.size_t(size), C.PROT_READ | C.PROT_WRITE, 
+    screenMap, err := C.mmap(nil, C.size_t(size), C.PROT_READ | C.PROT_WRITE, 
                        C.MAP_ANON | C.MAP_SHARED, 
         // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
                        -1, 0)
+    if err != nil {
+        panic(fmt.Sprintf("LeggoSetup(): failed to mmap: %s\n", err))
+    }
 
     C.set_screen_map(screenMap, C.size_t(size))
 
-    fmt.Printf("sm = %s\n", screenMap)
+    //fmt.Printf("sm = %s\n", screenMap)
 
     return screenMap
 }
@@ -160,7 +161,7 @@ func LeggoMain(start func(), process func(chan Event)) {
 
     go LeggoServer(start, process)
 
-    fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
+    //fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
 }
 

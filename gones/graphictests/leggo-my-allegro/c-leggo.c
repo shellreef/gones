@@ -93,7 +93,7 @@ int connect_socket() {
     size_t length;
     int fd;
 
-    printf("connect_socket(): connecting...\n");
+    //printf("connect_socket(): connecting...\n");
 
     fd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (fd < 0) {
@@ -122,7 +122,7 @@ int leggo_user_main(int argc, char **argv) {
     ALLEGRO_TIMER *timer;
     int fd;
 
-    printf("leggo_user_main: starting up\n");
+    //printf("leggo_user_main: starting up\n");
     
     fd = connect_socket();
 
@@ -197,7 +197,7 @@ int leggo_user_main(int argc, char **argv) {
 // Wrap calling Allegro's al_run_main(), with our own leggo_main. 
 // This is a C function so Go can call it using cgo, in leggo.Main().
 void al_run_main_wrapper() {
-    printf("al_run_main_wrapper(): about to call al_run_main()\n");
+    //printf("al_run_main_wrapper(): about to call al_run_main()\n");
     al_run_main(0, 0, leggo_user_main);
 }
 
