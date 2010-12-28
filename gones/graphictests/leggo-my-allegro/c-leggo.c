@@ -170,22 +170,18 @@ int leggo_user_main(int argc, char **argv) {
     while(1) {
         al_wait_for_event(queue, &event);
 
-        // TODO: proper dispatching
-        if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-            if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-                printf("leggo_user_main: sending event\n");
-                send(fd, "x", 1, 0);
-            } else if (event.keyboard.keycode == ALLEGRO_KEY_SPACE) {
-                send(fd, " ", 1, 0);
-
-                al_set_target_bitmap(al_get_backbuffer(display));
-                al_clear_to_color(al_map_rgb(0, 0, 255));
-                al_flip_display();
-            }
-        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+        if (event.type == ALLEGRO_EVENT_TIMER) {
             refresh(display);
+            // TODO: pass to Go too? only if not our update timer?
         } else {
-            printf("ignored event %d\n", event.type);
+            char buf[2];
+
+            buf[0] = event.type;
+            // TODO: more events; this is only useful for ALLEGRO_EVENT_KEY_{UP,DOWN}
+            buf[1] = event.keyboard.keycode;
+
+            // Received by LeggoServer()
+            send(fd, buf, 2, 0);
         }
     }
 

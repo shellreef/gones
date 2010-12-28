@@ -36,7 +36,7 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // http://blog.labix.org/2010/12/10/integrating-go-with-c-the-zookeeper-binding-experience
 // and https://github.com/0xe2-0x9a-0x9b/Go-SDL/tree/master/sdl/audio/
 // and http://bazaar.launchpad.net/%7Eensemble/gozk/trunk/annotate/head%3A/helpers.c
-func LeggoServer(start func()) {
+func LeggoServer(start func(), event func(int, int)) {
     os.Remove(SOCKET_FILE)
 
     listener, err := net.Listen("unix", SOCKET_FILE)
@@ -60,22 +60,26 @@ func LeggoServer(start func()) {
         fmt.Printf("Established connection: %s\n", conn)
    
         for {
-            var buffer [1024]byte
+            var buffer [2]byte
             bytesRead, err := conn.Read(buffer[:])
             if err != nil {
                 fmt.Printf("Error reading from client: %s\n", err)
                 continue
             }
-            fmt.Printf(">>> Read %d bytes from client: %s\n", bytesRead, buffer)
 
-            // TODO: dispatch events to Go channel
-            if buffer[0] == 'x' {
-                fmt.Printf("Exiting\n")
-                os.Exit(0)
-            } else if buffer[0] == ' ' {
-                fmt.Printf("TODO: do something\n")
+            if bytesRead != 2 {
+                panic(fmt.Sprintf("Read unexpected number of bytes from client: %d\n", bytesRead));
+            } 
+
+            kind := byte(buffer[0])
+            keycode := byte(buffer[1])
+
+            fmt.Printf(">>> Read event from client: %d,%d\n", kind, keycode)
+
+            // TODO: dispatch events to Go channel instead of callback?
+            event(int(kind), int(keycode))
+
             }
-        }
     }
 }
 
@@ -98,10 +102,10 @@ func LeggoSetup() (unsafe.Pointer) {
 
 // Get things going. start() will be called when setup.
 //export LeggoMain
-func LeggoMain(start func(unsafe.Pointer)) {
+func LeggoMain(start func(unsafe.Pointer), event func(int, int)) {
     screen := LeggoSetup()
 
-    go LeggoServer(func() { start(screen) })
+    go LeggoServer(func() { start(screen) }, event)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()

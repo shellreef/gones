@@ -10,6 +10,7 @@ import (
     "unsafe"
     "runtime"
     "rand"
+    "os"
     //"time"
 
     "leggo")
@@ -44,9 +45,22 @@ func start(screen unsafe.Pointer) {
     go something(screen)
 }
 
+func event(kind int, code int) {
+    fmt.Printf("got event: %d,%d\n", kind, code);
+
+    // TODO: constants
+    ALLEGRO_EVENT_KEY_DOWN                    := 10
+    ALLEGRO_KEY_ESCAPE   := 59
+
+    if kind == ALLEGRO_EVENT_KEY_DOWN && code == ALLEGRO_KEY_ESCAPE {
+        fmt.Printf("Exiting\n")
+        os.Exit(0)
+    }
+}
+
 func main() {
     // never returns
-    leggo.LeggoMain(start)
+    leggo.LeggoMain(start, event)
 
     fmt.Printf("returned?!\n")
 }

@@ -17,7 +17,7 @@ include $(GOROOT)/src/Make.pkg
 
 demo: install main.go
 	$(GC) main.go
-	$(LD) -o $@ try.$O
+	$(LD) -o $@ main.$O
 
 # Pure C test program, for comparison
 hello1::
