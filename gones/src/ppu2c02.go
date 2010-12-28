@@ -442,7 +442,6 @@ func (ppu *PPU) ShowNametable() {
                     // TODO: load attributes too
                     screen[row + i][column + j] = pattern[i][j]
 
-                        /*
                     // TODO: palette
                     // This is not real
                     var r, g, b byte
@@ -453,8 +452,7 @@ func (ppu *PPU) ShowNametable() {
                     case 3: r=255; g=255; b=255
                     }
 
-                    leggo.WritePixel(row+i, column+j, r,g,b,0)*/
-                    leggo.WritePixel(row+i, column+j, 0,pattern[i][j]*100,0,0)
+                    leggo.WritePixel(row+i, column+j, r,g,b,0)
                 }
             }
         }
