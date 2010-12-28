@@ -31,6 +31,7 @@ func processKeystroke(ch chan leggo.Event) {
         if e.Type == leggo.EVENT_KEY_DOWN {
             switch e.Keycode {
             case leggo.KEY_ESCAPE: os.Exit(0)
+            case leggo.KEY_SPACE: fmt.Printf("display FPS = %f\n", leggo.FPS()) // not PPU FPS (TODO)
             }
         }
     }

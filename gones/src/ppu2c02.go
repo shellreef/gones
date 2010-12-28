@@ -13,6 +13,7 @@ import (
     "time"
 
     "cpu6502"
+    "leggo"
 )
 
 import . "nesfile"
@@ -146,9 +147,7 @@ func (ppu *PPU) RunOne() {
         ppu.CycleCount = 0
         ppu.VBlank()
 
-        /*
-        fmt.Printf("\033[H\033[2J")  // ANSI clear screen
-        ppu.ShowNametable()*/
+        ppu.ShowNametable()
     }
 
 
@@ -165,6 +164,10 @@ func (ppu *PPU) RunOne() {
     }*/
 
     // TODO: render
+    /*
+    if ppu.Pixel < 256 && ppu.Scanline < 240 {
+        leggo.WritePixel(ppu.Pixel, ppu.Scanline, 255,0,0,0)
+    }*/
 }
 
 // Set video mode for CPU synchronization
@@ -438,15 +441,30 @@ func (ppu *PPU) ShowNametable() {
                 for j := 0; j < 8; j += 1 {
                     // TODO: load attributes too
                     screen[row + i][column + j] = pattern[i][j]
+
+                        /*
+                    // TODO: palette
+                    // This is not real
+                    var r, g, b byte
+                    switch pattern[i][j] {
+                    case 0: r=255
+                    case 1: g=255
+                    case 2: b=255
+                    case 3: r=255; g=255; b=255
+                    }
+
+                    leggo.WritePixel(row+i, column+j, r,g,b,0)*/
+                    leggo.WritePixel(row+i, column+j, 0,pattern[i][j]*100,0,0)
                 }
             }
         }
     }
 
+          /*
     for x := 0; x < 30*8; x += 1 {
         for y := 0; y < 32*8; y += 1 {
             fmt.Printf("%d", screen[x][y])
         }
         fmt.Printf("\n")
-    }
+    }*/
 }
