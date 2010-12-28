@@ -12,6 +12,7 @@ import (
     "strings"
     
     "readline"  // http://bitbucket.org/taruti/go-readline/
+    "leggo" // install from ../leggo-my-allegro
 
     "nesfile"
     "cpu6502"
@@ -195,7 +196,7 @@ func Shell(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     }
 }
 
-func main() {
+func start() {
     cpu := new(cpu6502.CPU)
     ppu := new(ppu2c02.PPU)
 
@@ -215,4 +216,15 @@ func main() {
     if len(os.Args) < 2 {
         Shell(cpu, ppu)
     }
+}
+
+func process(ch chan leggo.Event) {
+    for {
+        e := <-ch
+        fmt.Printf("got event %d\n", e);
+    }
+}
+
+func main() {
+    leggo.LeggoMain(start, process);
 }
