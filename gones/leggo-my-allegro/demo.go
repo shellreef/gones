@@ -18,7 +18,7 @@ var mode byte = 0
 // Continuously update the screen with something interesting
 func render() {
     for {
-        w, h := 256, 240
+        w, h := leggo.Dimensions()
 
         for y := 0; y < h; y += 1 {
             for x := 0; x < w; x += 1 {

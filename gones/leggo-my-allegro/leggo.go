@@ -193,6 +193,11 @@ func FPS() (float) {
     return 1.0 / float(C.get_seconds_per_frame())
 }
 
+// Get width and height (TODO: user defined)
+func Dimensions() (int, int) {
+    return C.RESOLUTION_W, C.RESOLUTION_H
+}
+
 func init() {
     runtime.GOMAXPROCS(2)
 }
