@@ -21,6 +21,7 @@
 
 static unsigned char *screen_map;
 static size_t screen_map_size;
+static float seconds_per_frame;
 
 // Set pointer to mmap'd memory for displaying screen from Go
 void set_screen_map(void *p, size_t s) {
@@ -35,6 +36,10 @@ void write_byte(off_t offset, uint8_t value) {
     *(screen_map + offset) = value;
 }
 
+float get_seconds_per_frame() {
+    return seconds_per_frame;
+}
+
 // Update the screen with the contents of screen_map
 // TODO: is direct access possible, avoiding copying?
 void refresh(ALLEGRO_DISPLAY *display) {
@@ -43,12 +48,12 @@ void refresh(ALLEGRO_DISPLAY *display) {
 
     static float last_time = 0;
 
-    float took = al_get_time() - last_time;
+    seconds_per_frame = al_get_time() - last_time;
 
-    //printf("refresh: %.8f s/frame\n", took);
+    //printf("refresh: %.8f s/frame\n", seconds_per_frame);
     // TODO: calculate this.. for some reason, it is horribly broken,
     // 1.0f/0.013222 is printing 19768790745088.000000 on release.2010-12-22
-    //printf("\tfps: %f\n", 1.0f / took);
+    //printf("\tfps: %f\n", 1.0f / seconds_per_frame);
 
     bitmap = al_get_backbuffer(display);
     locked = al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);

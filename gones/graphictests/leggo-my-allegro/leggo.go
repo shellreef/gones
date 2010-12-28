@@ -142,9 +142,9 @@ func LeggoSetup() (unsafe.Pointer) {
 // Get things going. start() will be called when setup.
 //export LeggoMain
 func LeggoMain(start func(), event func(int, int)) {
-    screen := LeggoSetup()
+    _ = LeggoSetup()
 
-    go LeggoServer(screen, event)
+    go LeggoServer(start, event)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
@@ -170,3 +170,6 @@ func WritePixel(x int, y int, r byte, g byte, b byte, a byte) {
     C.write_byte(C.off_t(offset + 3), C.uint8_t(a))
 }
 
+func FPS() (float) {
+    return 1.0 / float(C.get_seconds_per_frame())
+}

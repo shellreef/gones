@@ -28,7 +28,7 @@ func something() {
                 switch mode % 3 {
                 case 0: r = byte(rand.Uint32()); g = r; b = r
                 case 1: r = byte(rand.Uint32()); g = byte(rand.Uint32()); b = byte(rand.Uint32())
-                case 2: r = byte(offset)
+                case 2: r = byte(x*y)
                 }
 
                 leggo.WritePixel(x, y, r,g,b,0)
@@ -57,6 +57,8 @@ func event(kind int, code int) {
         case leggo.KEY_UP:
             fmt.Printf("mode = %d\n", mode)
             mode -= 1
+        case leggo.KEY_SPACE:
+            fmt.Printf("FPS = %f\n", leggo.FPS())
         }
     }
 }
