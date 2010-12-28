@@ -39,7 +39,7 @@ func render() {
 }
 
 // Handle events
-func event(ch chan leggo.Event) {
+func process(ch chan leggo.Event) {
     for {
         e := <-ch
 
@@ -67,7 +67,7 @@ func event(ch chan leggo.Event) {
 
 func main() {
     // never returns
-    leggo.LeggoMain(render, event)
+    leggo.LeggoMain(render, process)
 
     fmt.Printf("returned?!\n")
 }

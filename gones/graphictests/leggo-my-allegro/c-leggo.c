@@ -13,6 +13,7 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "leggo.h"
 #include "_cgo_export.h"
@@ -101,7 +102,7 @@ int connect_socket() {
     }
 
     address.sun_family = AF_UNIX;
-    strlcpy(address.sun_path, SOCKET_FILENAME, sizeof(address.sun_path));
+    strncpy(address.sun_path, SOCKET_FILENAME, sizeof(address.sun_path));
     length = sizeof(address.sun_family) + strlen(address.sun_path) + 1;
     
     if (connect(fd, (struct sockaddr *)&address, length) == -1) {

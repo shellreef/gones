@@ -85,7 +85,7 @@ func CreateDisplay(width int, height int) (*C.ALLEGRO_DISPLAY) {
 // http://blog.labix.org/2010/12/10/integrating-go-with-c-the-zookeeper-binding-experience
 // and https://github.com/0xe2-0x9a-0x9b/Go-SDL/tree/master/sdl/audio/
 // and http://bazaar.launchpad.net/%7Eensemble/gozk/trunk/annotate/head%3A/helpers.c
-func LeggoServer(start func(), event func(chan Event)) {
+func LeggoServer(start func(), process func(chan Event)) {
     os.Remove(SOCKET_FILE)
 
     listener, err := net.Listen("unix", SOCKET_FILE)
@@ -98,14 +98,13 @@ func LeggoServer(start func(), event func(chan Event)) {
     go start()
 
     ch := make(chan Event)
-    go event(ch)
+    go process(ch)
 
     for {
         fmt.Printf("LeggoServer: waiting for connection\n")
         conn, err := listener.Accept()
         if err != nil {
-            fmt.Printf("LeggoServer: Accept() failed: %s", err)
-            return
+            panic(fmt.Sprintf("LeggoServer: Accept() failed: %s", err))
         }
 
         fmt.Printf("Established connection: %s\n", conn)
@@ -156,10 +155,10 @@ func LeggoSetup() (unsafe.Pointer) {
 
 // Get things going. start() will be called when setup.
 //export LeggoMain
-func LeggoMain(start func(), event func(chan Event)) {
+func LeggoMain(start func(), process func(chan Event)) {
     _ = LeggoSetup()
 
-    go LeggoServer(start, event)
+    go LeggoServer(start, process)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()
