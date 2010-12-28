@@ -1,2 +1,6 @@
 hello1
+demo
 _obj
+_cgo*
+*.cgo?.*
+
