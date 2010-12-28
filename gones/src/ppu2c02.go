@@ -147,7 +147,8 @@ func (ppu *PPU) RunOne() {
         ppu.CycleCount = 0
         ppu.VBlank()
 
-        ppu.ShowNametable()
+        //ppu.ShowNametable()
+        ppu.DrawPatterns()
     }
 
 
@@ -423,6 +424,37 @@ func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
         fmt.Printf("\n")
     }
 }
+
+// Draw patterns for debugging purposes
+// TODO
+func (ppu *PPU) DrawPatterns() {
+    for i := 0; i < 255; i += 1 {
+        ppu.DrawPattern(ppu.GetPattern(0, i), i % 16, i / 16)
+        time.Sleep(1000000000)
+    }
+}
+
+// Draw pattern to screen for debugging purposes
+func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
+    for row := 0; row < 8; row += 1 {
+        for column := 0; column < 8; column += 1 {
+            // TODO: palette
+            // This is not real
+            var r, g, b byte
+            switch pattern[row][column] {
+            case 0: r=255
+            case 1: g=255
+            case 2: b=255
+            case 3: r=255; g=255; b=255
+            }
+
+            // TODO: clipping
+            leggo.WritePixel(row+offX, column+offY, r,g,b,0)
+        }
+    }
+}
+
+
 
 func (ppu *PPU) ShowNametable() {
     // http://wiki.nesdev.com/w/index.php/PPU_nametables 
