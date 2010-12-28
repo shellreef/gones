@@ -174,7 +174,7 @@ function disasm(data) {
         }
 
         instructions.push({
-            offset: i,
+            offset: i - 1,
             opcodeByte: opcodeByte,
             operandBytes: operandBytes,
             opcode: opcode,
@@ -218,16 +218,23 @@ function parseHex(inputString) {
 }
 
 // Show a disassembled list of instructions
-function showInstructions(instructions) {
+function showInstructions(instructions, elementName, compareInstructions) {
     var text = "";
     for (var i = 0; i < instructions.length; ++i) {
         var instr = instructions[i];
+        var instr2 = compareInstructions ? compareInstructions[i] : null;
         var line = "";
 
         line += hex(instr.offset, 4, true) + "    ";
 
         // Opcode and operand bytes in hex, aligned properly
-        line += hex(instr.opcodeByte, 2, true) + " ";
+        if (0 && instr2 && instr.opcodeByte !== instr2.opcodeByte) {
+            // TODO: highlight differences
+            line += "|" + hex(instr.opcodeByte, 2, true) + "|";
+        } else {
+            line += hex(instr.opcodeByte, 2, true);
+        }
+        line += + " ";
         for (var j = 0; j < 2; ++j) {
             if (j < instr.operandBytes.length) {
                 line += hex(instr.operandBytes[j], 2, true);
@@ -246,14 +253,19 @@ function showInstructions(instructions) {
         text += line + "\n";
     }
 
-    document.getElementById("out").textContent = text;
+    document.getElementById(elementName).textContent = text;
 }
 
 function update() {
     var inputString = document.getElementById("in").value;
     var bytes = parseHex(inputString);
-    var instructions = disasm(bytes);
-    showInstructions(instructions);
+    var before;
+    showInstructions(before = disasm(bytes), "disasm-before");
+
+    // Patch (TODO: decoded code; snippet offset)
+    bytes[0x0001] = 0xa9;
+
+    showInstructions(disasm(bytes), "disasm-after", before);
 }
 </script>
 </head>
@@ -271,6 +283,10 @@ ad 02 20
 ff ff ff
 </textarea>
 <button accesskey="d" onclick="update()">Disassemble</button>
-<pre id="out"></pre>
+<div style="width: 40%; margin: auto">
+<pre id="disasm-before" style="float: left"></pre>
+<pre id="disasm-after" style="float: right"></pre>
+</div>
+
 </body>
 </html>
