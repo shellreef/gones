@@ -41,7 +41,7 @@ void refresh(ALLEGRO_DISPLAY *display) {
 
     float took = al_get_time() - last_time;
 
-    printf("refresh: %f s/frame\n", took);
+    printf("refresh: %.8f s/frame\n", took);
     // TODO: calculate this.. for some reason, it is horribly broken,
     // 1.0f/0.013222 is printing 19768790745088.000000 on release.2010-12-22
     //printf("\tfps: %f\n", 1.0f / took);
@@ -51,27 +51,27 @@ void refresh(ALLEGRO_DISPLAY *display) {
 
     int x, y;
 
-    for (x = 0; x < al_get_bitmap_width(bitmap); x += 1) {
-        for (y = 0; y < al_get_bitmap_height(bitmap); y += 1) {
+    // Copy the screen map, which is a WxHx4 bitmap beginning at 0x0, into the 
+    // locked region buffer, which can have a different pitch, meaning there is 
+    // extra uncopied space. The pitch can even be negative.
+    for (x = 0; x < RESOLUTION_W; x += 1) {
+        for (y = 0; y < RESOLUTION_H; y += 1) {
             uint8_t *ptr = locked->data + (locked->pixel_size * x + locked->pitch * y);
             // RGBA
-            *ptr = rand();
-            *(ptr + 1) = x;
-            *(ptr + 2) = y;
-            *(ptr + 3) = 0;
+            *(ptr + 0) = *(screen_map + x + RESOLUTION_W * y + 0);
+            *(ptr + 1) = *(screen_map + x + RESOLUTION_W * y + 1);
+            *(ptr + 2) = *(screen_map + x + RESOLUTION_W * y + 2);
+            *(ptr + 3) = *(screen_map + x + RESOLUTION_W * y + 3);
         }
     }
     // locked->data always points to first visual scanline
     // but, if pitch < 0, then it is the last scanline in memory, and
     // we have to copy into the memory *before* locked->data
     //TODO: memcpy(locked->data - screen_map_size + (-locked->pitch), screen_map, screen_map_size);
+    // This is not a simple memcpy, but getting it right may be faster (TODO: for performance)
     
     al_unlock_bitmap(bitmap);
     al_flip_display();
-
-    int i;
-    for (i = 0; i < screen_map_size; i += 1)
-        *(screen_map + i) = i + rand();
 
     last_time = al_get_time();
 }

@@ -81,15 +81,9 @@ func LeggoServer(start func()) {
 
 func LeggoSetup() (unsafe.Pointer) {
     // We use mmap'd memory to communicate what to display;
-    // leggo will copy this to the screen each frame
+    // c-leggo.c refresh() will copy this to the screen each frame
     
-    //size := C.RESOLUTION_W*C.RESOLUTION_H*4
-   
-    // TODO: stop hardcoding, and get info from locked
-    pitch := 1024       // size in bytes of a single line, abs(locked->pitch)
-    pixel_size := 4     // locked->pixel_size
-    size := C.RESOLUTION_H * pitch * pixel_size
-    fmt.Printf("size = %d\n", size);
+    size := C.RESOLUTION_H * C.RESOLUTION_W * 4 // RGBA
     screenMap := C.mmap(nil, C.size_t(size), C.PROT_READ | C.PROT_WRITE, 
                        C.MAP_ANON | C.MAP_SHARED, 
         // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
