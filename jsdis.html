@@ -227,6 +227,9 @@ function showInstructions(instructions, elementName, compareInstructions) {
 
     for (var i = 0; i < instructions.length; ++i) {
         var instr = instructions[i];
+        // TODO: re-synchronize instruction stream at offset; it might rejoin but
+        // with fewer instructions previously. We should show this as the same,
+        // but it currently shows all future instructions changed even though they didn't.
         var instr2 = compareInstructions ? compareInstructions[i] : null;
         var line = "";
 
@@ -276,13 +279,23 @@ function update() {
     showInstructions(before = disasm(bytes), "disasm-before");
 
     // Patch (TODO: decoded code; snippet offset)
-    bytes[0x0001] = 0xa9;
+    var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
+    var patchValue = parseInt(document.getElementById("patchValue").value, 16);
+    bytes[patchOffset] = patchValue;
 
     showInstructions(disasm(bytes), "disasm-after", before);
 }
+
+function init() {
+    document.onkeypress = update;
+
+    update();
+}
 </script>
 </head>
-<body onload="update()">
+<body onload="init()">
+<input id="patchOffset" value="0001" size="4">: <!-- offset within the disassembly, not the CPU address! -->
+<input id="patchValue" value="a9" size="2"><br>
 <textarea id="in" rows="25" cols="50">
 78
 d8
