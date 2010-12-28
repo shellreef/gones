@@ -119,7 +119,13 @@ function disasm(data) {
     var i = 0;
     while (i < data.length) {
         var opcodeByte = data[i++];
+        if (opcodeByte === undefined) {
+            break;
+        }
         var pair = OPCODES[opcodeByte];
+        if (pair === undefined) {
+            console.log("undef",opcodeByte,pair);
+        }
         var opcode = pair[0];
         var addrMode = pair[1];
         var operand = null;
@@ -205,8 +211,14 @@ function parseHex(inputString) {
             ch = inputString[i++];
             if (ch.match(/[a-fA-F0-9]/)) {
                 hexString += ch;
-                bytes.push(parseInt(hexString, 16));
+                var octet = parseInt(hexString, 16);
+                if (isNaN(octet) || octet === undefined || octet === null) {
+                    console.log("Ignored invalid hex: " + hexString);
+                    continue;
+                }
+                bytes.push(octet);
             } else {
+                // TODO: accept one-digit input?
                 throw("Incomplete hex at " +
                         i + ", first digit '" + hexString + 
                         "' is OK but second is non-hex '" +
@@ -281,13 +293,27 @@ function update() {
     // Patch (TODO: decoded code; snippet offset)
     var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
     var patchValue = parseInt(document.getElementById("patchValue").value, 16);
+
+    if (isNaN(patchOffset) || patchOffset === undefined || patchOffset === null) {
+        patchOffset = 0;
+        document.getElementById("patchOffset").value = patchOffset;
+    }
+    if (isNaN(patchValue) || patchValue === undefined || patchValue === null) {
+        patchValue = 0;
+        document.getElementById("patchValue").value = patchValue;
+    }
+    if (patchOffset > bytes.length) {
+        patchOffset = bytes.length;
+        document.getElementById("patchOffset").value = patchOffset;
+    }
+
     bytes[patchOffset] = patchValue;
 
     showInstructions(disasm(bytes), "disasm-after", before);
 }
 
 function init() {
-    document.onkeypress = update;
+    document.onkeyup = update;
 
     update();
 }
@@ -295,7 +321,7 @@ function init() {
 </head>
 <body onload="init()">
 <input id="patchOffset" value="0001" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="a9" size="2"><br>
+<input id="patchValue" value="a9" size="2" maxlength="2"><br>
 <textarea id="in" rows="25" cols="50">
 78
 d8
