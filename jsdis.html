@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<title></title>
+<script>
+// Addressing modes
+var Imd = "Imd";      // Immediate 
+var Zpg = "Zpg";      // Zero Page 
+var Zpx = "Zpx";      // Zero Page,X 
+var Zpy = "Zpy";      // Zero Page,Y 
+var Abs = "Abs";      // Absolute 
+var Abx = "Abx";      // Absolute,X 
+var Aby = "Aby";      // Absolute, Y 
+var Ndx = "Ndx";      // (Indirect,X) 
+var Ndy = "Ndy";      // (Indirect),Y 
+var Imp = "Imp";      // Implied 
+var Acc = "Acc";      // Accumulator 
+var Ind = "Ind";      // (Indirect) 
+var Rel = "Rel";      // Relative 
+
+var OPCODES = [
+// Indexed by opcode, value is (mneumonic, addressing mode code) 
+// x0         x1         x2         x3         x4        x5          x6         x7   
+// x8         x9         xa         xb         xc        xd          xe         xf   
+["BRK", Imp],["ORA", Ndx],["KIL", Imp],["SLO", Ndx],["DOP", Zpg],["ORA", Zpg],["ASL", Zpg],["SLO", Zpg], // 0x 
+["PHP", Imp],["ORA", Imd],["ASL", Acc],["AAC", Imd],["TOP", Abs],["ORA", Abs],["ASL", Abs],["SLO", Abs], 
+["BPL", Rel],["ORA", Ndy],["KIL", Imp],["SLO", Ndy],["DOP", Zpx],["ORA", Zpx],["ASL", Zpx],["SLO", Zpx], // 1x 
+["CLC", Imp],["ORA", Aby],["NOP", Imp],["SLO", Aby],["TOP", Abx],["ORA", Abx],["ASL", Abx],["SLO", Abx], 
+["JSR", Abs],["AND", Ndx],["KIL", Imp],["RLA", Ndx],["BIT", Zpg],["AND", Zpg],["ROL", Zpg],["RLA", Zpg], // 2x 
+["PLP", Imp],["AND", Imd],["ROL", Acc],["AAC", Imd],["BIT", Abs],["AND", Abs],["ROL", Abs],["RLA", Abs], 
+["BMI", Rel],["AND", Ndy],["KIL", Imp],["RLA", Ndy],["DOP", Zpx],["AND", Zpx],["ROL", Zpx],["RLA", Zpx], // 3x 
+["SEC", Imp],["AND", Aby],["NOP", Imp],["RLA", Aby],["TOP", Abx],["AND", Abx],["ROL", Abx],["RLA", Abx], 
+["RTI", Imp],["EOR", Ndx],["KIL", Imp],["SRE", Ndx],["DOP", Zpg],["EOR", Zpg],["LSR", Zpg],["SRE", Zpg], // 4x 
+["PHA", Imp],["EOR", Imd],["LSR", Acc],["ASR", Imd],["JMP", Abs],["EOR", Abs],["LSR", Abs],["SRE", Abs],
+["BVC", Rel],["EOR", Ndy],["KIL", Imp],["SRE", Ndy],["DOP", Zpx],["EOR", Zpx],["LSR", Zpx],["SRE", Zpx], // 5x 
+["CLI", Imp],["EOR", Aby],["NOP", Imp],["SRE", Aby],["TOP", Abx],["EOR", Abx],["LSR", Abx],["SRE", Abx],
+["RTS", Imp],["ADC", Ndx],["KIL", Imp],["RRA", Ndx],["DOP", Zpg],["ADC", Zpg],["ROR", Zpg],["RRA", Zpg], // 6x 
+["PLA", Imp],["ADC", Imd],["ROR", Acc],["ARR", Imd],["JMP", Ind],["ADC", Abs],["ROR", Abs],["RRA", Abs],
+["BVS", Rel],["ADC", Ndy],["KIL", Imp],["RRA", Ndy],["DOP", Zpx],["ADC", Zpx],["ROR", Zpx],["RRA", Zpx], // 7x 
+["SEI", Imp],["ADC", Aby],["NOP", Imp],["RRA", Aby],["TOP", Abx],["ADC", Abx],["ROR", Abx],["RRA", Abx],
+["DOP", Imd],["STA", Ndx],["DOP", Imd],["SAX", Ndx],["STY", Zpg],["STA", Zpg],["STX", Zpg],["SAX", Zpg], // 8x 
+["DEY", Imp],["DOP", Imd],["TXA", Imp],["XAA", Imd],["STY", Abs],["STA", Abs],["STX", Abs],["SAX", Abs],
+["BCC", Rel],["STA", Ndy],["KIL", Imp],["AXA", Ndy],["STY", Zpx],["STA", Zpx],["STX", Zpy],["SAX", Zpy], // 9x 
+["TYA", Imp],["STA", Aby],["TXS", Imp],["XAS", Aby],["SYA", Abx],["STA", Abx],["SXA", Aby],["AXA", Aby],
+["LDY", Imd],["LDA", Ndx],["LDX", Imd],["LAX", Ndx],["LDY", Zpg],["LDA", Zpg],["LDX", Zpg],["LAX", Zpg], // ax 
+["TAY", Imp],["LDA", Imd],["TAX", Imp],["ATX", Imd],["LDY", Abs],["LDA", Abs],["LDX", Abs],["LAX", Abs],
+["BCS", Rel],["LDA", Ndy],["KIL", Imp],["LAX", Ndy],["LDY", Zpx],["LDA", Zpx],["LDX", Zpy],["LAX", Zpy], // bx 
+["CLV", Imp],["LDA", Aby],["TSX", Imp],["LAR", Aby],["LDY", Abx],["LDA", Abx],["LDX", Aby],["LAX", Aby],
+["CPY", Imd],["CMP", Ndx],["DOP", Imd],["DCP", Ndx],["CPY", Zpg],["CMP", Zpg],["DEC", Zpg],["DCP", Zpg], // cx 
+["INY", Imp],["CMP", Imd],["DEX", Imp],["AXS", Imd],["CPY", Abs],["CMP", Abs],["DEC", Abs],["DCP", Abs],
+["BNE", Rel],["CMP", Ndy],["KIL", Imp],["DCP", Ndy],["DOP", Zpx],["CMP", Zpx],["DEC", Zpx],["DCP", Zpx], // dx 
+["CLD", Imp],["CMP", Aby],["NOP", Imp],["DCP", Aby],["TOP", Abx],["CMP", Abx],["DEC", Abx],["DCP", Abx],
+["CPX", Imd],["SBC", Ndx],["DOP", Imd],["ISB", Ndx],["CPX", Zpg],["SBC", Zpg],["INC", Zpg],["ISB", Zpg], // ex 
+["INX", Imp],["SBC", Imd],["NOP", Imp],["SBC", Imd],["CPX", Abs],["SBC", Abs],["INC", Abs],["ISB", Abs],
+["BEQ", Rel],["SBC", Ndy],["KIL", Imp],["ISB", Ndy],["DOP", Zpx],["SBC", Zpx],["INC", Zpx],["ISB", Zpx], // fx 
+["SED", Imp],["SBC", Aby],["NOP", Imp],["ISB", Aby],["TOP", Abx],["SBC", Abx],["INC", Abx],["ISB", Abx]];
+
+// Only official opcodes
+var OPCODES_OFFICIAL = [
+// x0         x1         x2         x3         x4        x5          x6         x7   
+// x8         x9         xa         xb         xc        xd          xe         xf   
+["BRK", Imp],["ORA", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpg],["ASL", Zpg],[null,  Imp], // 0x 
+["PHP", Imp],["ORA", Imd],["ASL", Acc],[null,  Imp],[null,  Imp],["ORA", Abs],["ASL", Abs],[null,  Imp], 
+["BPL", Rel],["ORA", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpx],["ASL", Zpx],[null,  Imp], // 1x 
+["CLC", Imp],["ORA", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Abx],["ASL", Abx],[null,  Imp], 
+["JSR", Abs],["AND", Ndx],[null,  Imp],[null,  Imp],["BIT", Zpg],["AND", Zpg],["ROL", Zpg],[null,  Imp], // 2x 
+["PLP", Imp],["AND", Imd],["ROL", Acc],[null,  Imp],["BIT", Abs],["AND", Abs],["ROL", Abs],[null,  Imp], 
+["BMI", Rel],["AND", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["AND", Zpx],["ROL", Zpx],[null,  Imp], // 3x 
+["SEC", Imp],["AND", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["AND", Abx],["ROL", Abx],[null,  Imp], 
+["RTI", Imp],["EOR", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Zpg],["LSR", Zpg],[null,  Imp], // 4x 
+["PHA", Imp],["EOR", Imd],["LSR", Acc],[null,  Imp],["JMP", Abs],["EOR", Abs],["LSR", Abs],[null,  Imp],
+["BVC", Rel],["EOR", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Zpx],["LSR", Zpx],[null,  Imp], // 5x 
+["CLI", Imp],["EOR", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Abx],["LSR", Abx],[null,  Imp],
+["RTS", Imp],["ADC", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Zpg],["ROR", Zpg],[null,  Imp], // 6x 
+["PLA", Imp],["ADC", Imd],["ROR", Acc],[null,  Imp],["JMP", Ind],["ADC", Abs],["ROR", Abs],[null,  Imp],
+["BVS", Rel],["ADC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Zpx],["ROR", Zpx],[null,  Imp], // 7x 
+["SEI", Imp],["ADC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Abx],["ROR", Abx],[null,  Imp],
+[null,  Imp],["STA", Ndx],[null,  Imp],[null,  Imp],["STY", Zpg],["STA", Zpg],["STX", Zpg],[null,  Imp], // 8x 
+["DEY", Imp],[null,  Imp],["TXA", Imp],[null,  Imp],["STY", Abs],["STA", Abs],["STX", Abs],[null,  Imp],
+["BCC", Rel],["STA", Ndy],[null,  Imp],[null,  Imp],["STY", Zpx],["STA", Zpx],["STX", Zpy],[null,  Imp], // 9x 
+["TYA", Imp],["STA", Aby],["TXS", Imp],[null,  Imp],[null,  Imp],["STA", Abx],[null,  Imp],[null,  Imp],
+["LDY", Imd],["LDA", Ndx],["LDX", Imd],[null,  Imp],["LDY", Zpg],["LDA", Zpg],["LDX", Zpg],[null,  Imp], // ax 
+["TAY", Imp],["LDA", Imd],["TAX", Imp],[null,  Imp],["LDY", Abs],["LDA", Abs],["LDX", Abs],[null,  Imp],
+["BCS", Rel],["LDA", Ndy],[null,  Imp],[null,  Imp],["LDY", Zpx],["LDA", Zpx],["LDX", Zpy],[null,  Imp], // bx 
+["CLV", Imp],["LDA", Aby],["TSX", Imp],[null,  Imp],["LDY", Abx],["LDA", Abx],["LDX", Aby],[null,  Imp],
+["CPY", Imd],["CMP", Ndx],[null,  Imp],[null,  Imp],["CPY", Zpg],["CMP", Zpg],["DEC", Zpg],[null,  Imp], // cx 
+["INY", Imp],["CMP", Imd],["DEX", Imp],[null,  Imp],["CPY", Abs],["CMP", Abs],["DEC", Abs],[null,  Imp],
+["BNE", Rel],["CMP", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["CMP", Zpx],["DEC", Zpx],[null,  Imp], // dx 
+["CLD", Imp],["CMP", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["CMP", Abx],["DEC", Abx],[null,  Imp],
+["CPX", Imd],["SBC", Ndx],[null,  Imp],[null,  Imp],["CPX", Zpg],["SBC", Zpg],["INC", Zpg],[null,  Imp], // ex 
+["INX", Imp],["SBC", Imd],["NOP", Imp],[null,  Imp],["CPX", Abs],["SBC", Abs],["INC", Abs],[null,  Imp],
+["BEQ", Rel],["SBC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Zpx],["INC", Zpx],[null,  Imp], // fx 
+["SED", Imp],["SBC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Abx],["INC", Abx],[null,  Imp]];
+
+// TODO: disasm
+</script>
+</head>
+<body>
+
+</body>
+</html>
