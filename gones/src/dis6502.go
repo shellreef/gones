@@ -273,7 +273,7 @@ func (addrMode AddrMode) formatOperand(operand int) (string) {
     case Ind: return fmt.Sprintf("($%.4X)", operand)
     case Rel: return fmt.Sprintf("$%.4X", operand)   // TODO: return sign_num(operand)+offset, it really needs to be relative current offset 
     }
-    panic(fmt.Sprintf("fotmatOperand unknown addressing mode: %s", addrMode))
+    panic(fmt.Sprintf("formatOperand unknown addressing mode: %s", addrMode))
 }
 
 // Get number of bytes an operand addressing mode requires, useful for disassembly

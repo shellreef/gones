@@ -92,7 +92,44 @@ var OPCODES_OFFICIAL = [
 ["BEQ", Rel],["SBC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Zpx],["INC", Zpx],[null,  Imp], // fx 
 ["SED", Imp],["SBC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Abx],["INC", Abx],[null,  Imp]];
 
-// TODO: disasm
+function disasm(data) {
+    var instructions = [];
+    for (var i = 0; i < data.length; i += 1) {
+        var opcodeByte = data[i];
+        var pair = OPCODES[opcodeByte];
+        var opcode = pair[0];
+        var addrMode = pair[1];
+        var operand;
+
+        switch (addrMode) {
+        case Imd, Zpg, Zpx, Zpy, Ndx, Ndy:
+            operand = data[++i]; 
+            break;
+        case Abs, Abx, Aby, Ind:
+            operand = data[++i] + (256 * data[++i]); 
+            break;
+        case Imp, Acc:
+            operand = null;
+            break;
+        case Rel:
+            operand = data[++i];  // TODO: signed
+            break;
+        }
+
+        console.log(opcode, operand);
+    }
+}
+
+// TODO: use WebKit's compact byte arrays
+disasm([
+    0x78,
+    0xd8,
+    0xa9, 0x10,
+    0x8d, 0x00, 0x20,
+    0xa2, 0xff,
+    0x9a,
+    0xad, 0x02, 0x20,
+    0x10, 0xfb]);
 </script>
 </head>
 <body>
