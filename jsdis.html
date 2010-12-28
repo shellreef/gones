@@ -104,16 +104,11 @@ function hex(x, width) {
     return "$" + s;
 }
 
-// Format 8-bit and 16-bit hex
-function hex8(x) { return hex(x, 2); }
-function hex16(x) { return hex(x, 4); }
-
-
 function disasm(data) {
     var instructions = [];
     var i = 0;
     while (i < data.length) {
-        var opcodeByte = data[i];
+        var opcodeByte = data[i++];
         var pair = OPCODES[opcodeByte];
         var opcode = pair[0];
         var addrMode = pair[1];
@@ -124,18 +119,18 @@ function disasm(data) {
         switch (addrMode) {
         case Imd: case Zpg: case Zpx: case Zpy: case Ndx: case Ndy:
             // 8 bits unsigned
-            operandBytes = [data[++i]];
+            operandBytes = [data[i++]];
             operand = operandBytes[0];
             break;
         case Abs: case Abx: case Aby: case Ind:
             // 16 bits unsigned
-            operandBytes = [data[++i]];
-            operandBytes.push(data[++i]);
+            operandBytes = [data[i++]];
+            operandBytes.push(data[i++]);
             operand = operandBytes[0] + 256 * operandBytes[1];
             break;
         case Rel:
             // 8 bits signed
-            operandBytes = [data[++i]];
+            operandBytes = [data[i++]];
             operand = [operandBytes[0]];
             if (operand > 127) {
                 operand -= 256;
@@ -144,29 +139,28 @@ function disasm(data) {
         case Imp: case Acc: 
             break;
         }
+
         // Format operand
         var operandString;
         switch (addrMode) {
-        case Imd: operandString = "#" + hex8(operand); break;
-        case Zpg: operandString = hex8(operand); break;
-        case Zpx: operandString = hex8(operand) + ",X"; break;
-        case Zpy: operandString = hex8(operand) + ",Y"; break;
-        case Abs: operandString = hex16(operand); break;
-        case Abx: operandString = hex16(operand) + ",X"; break;
-        case Aby: operandString = hex16(operand) + ",Y"; break;
-        case Ndx: operandString = "(" + hex8(operand) + ",X)"; break;
-        case Ndy: operandString = "(" + hex8(operand) + "),Y"; break;
+        case Imd: operandString = "#" + hex(operand, 2); break;
+        case Zpg: operandString = hex(operand, 2); break;
+        case Zpx: operandString = hex(operand, 2) + ",X"; break;
+        case Zpy: operandString = hex(operand, 2) + ",Y"; break;
+        case Abs: operandString = hex(operand, 4); break;
+        case Abx: operandString = hex(operand, 4) + ",X"; break;
+        case Aby: operandString = hex(operand, 4) + ",Y"; break;
+        case Ndx: operandString = "(" + hex(operand, 2) + ",X)"; break;
+        case Ndy: operandString = "(" + hex(operand, 2) + "),Y"; break;
         case Imp: operandString = ""; break;
         case Acc: operandString = "A"; break;
-        case Ind: operandString = "(" + hex16(operand) + ")"; break;
-        case Rel: operandString = hex16(operand); break; // TODO: calculate relative
+        case Ind: operandString = "(" + hex(operand, 4) + ")"; break;
+        case Rel: operandString = hex(operand, 4); break; // TODO: calculate relative
         }
 
         var s = opcode + " " + operandString;
 
         console.log(i, opcodeByte, operandBytes, s);
-
-        i += 1;
     }
 }
 
