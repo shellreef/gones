@@ -31,6 +31,10 @@ void set_screen_map(void *p, size_t s) {
     memset(screen_map, 120, screen_map_size);
 }
 
+void write_byte(off_t offset, uint8_t value) {
+    *(screen_map + offset) = value;
+}
+
 // Update the screen with the contents of screen_map
 // TODO: is direct access possible, avoiding copying?
 void refresh(ALLEGRO_DISPLAY *display) {

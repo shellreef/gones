@@ -108,9 +108,14 @@ func LeggoMain(start func(unsafe.Pointer)) {
 }
 
 // Write to an arbitrary byte in memory
+/*
 func WriteByte(screen unsafe.Pointer, offset int, value byte) {
     ptr := unsafe.Pointer(uintptr(screen) + uintptr(offset))
     pixel := (*uintptr)(ptr) 
     *pixel = uintptr(value)
+}*/
+
+func WriteByte(offset int, value byte) {
+    C.write_byte(C.off_t(offset), C.uint8_t(value))
 }
 

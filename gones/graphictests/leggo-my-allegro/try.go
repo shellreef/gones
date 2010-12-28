@@ -9,7 +9,7 @@ import (
     "fmt"
     "unsafe"
     "runtime"
-    //"rand"
+    "rand"
     "time"
 
     "leggo")
@@ -28,14 +28,17 @@ func something(screen unsafe.Pointer) {
 
         w, h := 256, 240
 
-        for x := 0; x < w; x += 1 {
-            for y := 0; y < h; y += 1 {
-                offset := x + y*w
+        for y := 0; y < h; y += 1 {
+            for x := 0; x < w; x += 1 {
+                offset := 4*(x + y*w)
                 if offset > w*h*4 {
                     panic(fmt.Sprintf("out of range for (%d,%d): %d > %d",
                                 x,y,offset,w*h*4))
                 }
-                leggo.WriteByte(screen, offset + 0, 200)
+                leggo.WriteByte(offset + 0, 200)
+                leggo.WriteByte(offset + 1, byte(rand.Uint32()))
+                leggo.WriteByte(offset + 2, 0)
+                leggo.WriteByte(offset + 3, 0)
                 time.Sleep(100000)
 
                 //leggo.WriteByte(screen, offset+1, 0)
