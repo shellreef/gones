@@ -220,25 +220,27 @@ function parseHex(inputString) {
     return bytes;
 }
 
+// Return HTML highlighting something if it differs (was patched by code)
+function hl(s, instr, instr2, key) {
+    if (instr2 && instr[key] !== instr2[key]) {
+        return '<span class="changed">' + s + '</span>';
+    } 
+    return s;
+}
+
 // Show a disassembled list of instructions
 function showInstructions(instructions, elementName, compareInstructions) {
     var text = "";
-
-    // highlight and end
-    var hlb = '<span class="changed">';
-    var hle = '</span>';
 
     for (var i = 0; i < instructions.length; ++i) {
         var instr = instructions[i];
         var instr2 = compareInstructions ? compareInstructions[i] : null;
         var line = "";
-        var hl;
 
         line += hex(instr.offset, 4, true) + "    ";
 
         // Opcode and operand bytes in hex, aligned properly
-        hl = instr2 && instr.opcodeByte !== instr2.opcodeByte;
-        line += (hl?hlb:"") + hex(instr.opcodeByte, 2, true) + (hl?hle:"");
+        line += hl(hex(instr.opcodeByte, 2, true), instr, instr2, "opcodeByte");
 
         line += " ";
         for (var j = 0; j < 2; ++j) {
