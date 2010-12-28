@@ -15,6 +15,8 @@ import (
 
     "leggo")
 
+var mode byte = 0
+
 func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
 
@@ -28,10 +30,16 @@ func something(screen unsafe.Pointer) {
                     panic(fmt.Sprintf("out of range for (%d,%d): %d > %d",
                                 x,y,offset,w*h*4))
                 }
-                value := byte(rand.Uint32())
-                leggo.WriteByte(offset + 0, value)
-                leggo.WriteByte(offset + 1, value)
-                leggo.WriteByte(offset + 2, value)
+                r, g, b := byte(0), byte(0), byte(0)
+                switch mode % 3 {
+                case 0: r = byte(rand.Uint32()); g = r; b = r
+                case 1: r = byte(rand.Uint32()); g = byte(rand.Uint32()); b = byte(rand.Uint32())
+                case 2: r = byte(offset)
+                }
+
+                leggo.WriteByte(offset + 0, r)
+                leggo.WriteByte(offset + 1, g)
+                leggo.WriteByte(offset + 2, b)
                 leggo.WriteByte(offset + 3, 0)
             }
         }
@@ -48,13 +56,18 @@ func start(screen unsafe.Pointer) {
 func event(kind int, code int) {
     fmt.Printf("got event: %d,%d\n", kind, code);
 
-    // TODO: constants
-    ALLEGRO_EVENT_KEY_DOWN                    := 10
-    ALLEGRO_KEY_ESCAPE   := 59
-
-    if kind == ALLEGRO_EVENT_KEY_DOWN && code == ALLEGRO_KEY_ESCAPE {
-        fmt.Printf("Exiting\n")
-        os.Exit(0)
+    if kind == leggo.EVENT_KEY_DOWN {
+        switch code {
+        case leggo.KEY_ESCAPE:
+            fmt.Printf("Exiting\n")
+            os.Exit(0)
+        case leggo.KEY_DOWN:
+            fmt.Printf("mode = %d\n", mode)
+            mode += 1
+        case leggo.KEY_UP:
+            fmt.Printf("mode = %d\n", mode)
+            mode -= 1
+        }
     }
 }
 

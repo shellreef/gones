@@ -45,7 +45,7 @@ void refresh(ALLEGRO_DISPLAY *display) {
 
     float took = al_get_time() - last_time;
 
-    printf("refresh: %.8f s/frame\n", took);
+    //printf("refresh: %.8f s/frame\n", took);
     // TODO: calculate this.. for some reason, it is horribly broken,
     // 1.0f/0.013222 is printing 19768790745088.000000 on release.2010-12-22
     //printf("\tfps: %f\n", 1.0f / took);
