@@ -141,10 +141,10 @@ func LeggoSetup() (unsafe.Pointer) {
 
 // Get things going. start() will be called when setup.
 //export LeggoMain
-func LeggoMain(start func(unsafe.Pointer), event func(int, int)) {
+func LeggoMain(start func(), event func(int, int)) {
     screen := LeggoSetup()
 
-    go LeggoServer(func() { start(screen) }, event)
+    go LeggoServer(screen, event)
 
     fmt.Printf("LeggoMain: about to call al_run_main_wrapper\n")
     C.al_run_main_wrapper()

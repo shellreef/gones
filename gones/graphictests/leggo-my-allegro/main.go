@@ -7,7 +7,6 @@ package main
 
 import (
     "fmt"
-    "unsafe"
     "runtime"
     "rand"
     "os"
@@ -17,7 +16,7 @@ import (
 
 var mode byte = 0
 
-func something(screen unsafe.Pointer) {
+func something() {
     fmt.Printf("... doing something\n")
 
     for {
@@ -38,11 +37,10 @@ func something(screen unsafe.Pointer) {
     }
 }
 
-func start(screen unsafe.Pointer) {
+func start() {
     fmt.Printf("starting\n")
-    fmt.Printf("with %x\n", screen)
 
-    go something(screen)
+    go something()
 }
 
 func event(kind int, code int) {
