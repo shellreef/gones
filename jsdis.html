@@ -117,7 +117,7 @@ function hex(x, width, bare) {
         // nothing for decimal); but otherwise its implied
         s = "$" + s;
     }
-    return s;
+    return s.toUpperCase();
 }
 
 // Disassemble a string in 6502 machine code
@@ -287,6 +287,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
         //console.log(instr.offset, instr.opcodeByte, instr.operandBytes, s);
         text += line + "\n";
     }
+    // TODO: show extra instructions in instr2 beyond instr
 
     document.getElementById(elementName).innerHTML = text;
 }
@@ -303,11 +304,11 @@ function update() {
 
     if (isNaN(patchOffset) || patchOffset === undefined || patchOffset === null) {
         patchOffset = 0;
-        document.getElementById("patchOffset").value = patchOffset;
+        document.getElementById("patchOffset").value = "";
     }
     if (isNaN(patchValue) || patchValue === undefined || patchValue === null) {
         patchValue = 0;
-        document.getElementById("patchValue").value = patchValue;
+        document.getElementById("patchValue").value = "";
     }
     if (patchOffset > bytes.length) {
         patchOffset = bytes.length;
@@ -328,7 +329,7 @@ function init() {
 </head>
 <body onload="init()">
 <input id="patchOffset" value="0001" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="a9" size="2" maxlength="2"><br>
+<input id="patchValue" value="ff" size="2" maxlength="2"><br>
 <textarea id="in" rows="25" cols="50">
 78
 d8
