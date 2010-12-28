@@ -24,12 +24,30 @@ import (
 
 // TODO: move to a NES Control Deck abstraction?
 
-func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
-    ppu.CPU = cpu
-
-    ppu.Run()
+// Handle keystrokes from GUI
+func processKeystroke(ch chan leggo.Event) {
+    for {
+        e := <-ch
+        if e.Type == leggo.EVENT_KEY_DOWN {
+            switch e.Keycode {
+            case leggo.KEY_ESCAPE: os.Exit(0)
+            }
+        }
+    }
 }
 
+// Start emulation
+func Start(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, showGui bool) {
+    ppu.CPU = cpu
+
+    if showGui {
+        leggo.LeggoMain(func() { ppu.Run() }, processKeystroke)
+    } else {
+        ppu.Run()
+    }
+}
+
+// Load a game
 func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {
     cart := nesfile.Open(filename)
     cpu.Load(cart)
@@ -48,6 +66,8 @@ func Load(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, filename string) {
     // TODO: use info here, to display title/image, or use mapper
 }
 
+var showGui bool = true
+
 // Run a command to do something with the unit
 // TODO: in shell module
 func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
@@ -56,7 +76,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         _, err := os.Stat(cmd)
         if err == nil {
             Load(cpu, ppu, cmd)
-            Start(cpu, ppu)
+            Start(cpu, ppu, showGui)
         } // have to ignore non-existing files, since might be a command
     }
 
@@ -76,7 +96,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
 
             cpu.PC = uint16(startInt)
         }
-        Start(cpu, ppu)
+        Start(cpu, ppu, showGui)
     // load
     case "l":
         if len(args) > 0 {
@@ -85,6 +105,9 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         } else {
             fmt.Printf("usage: l <filename>\n")
         }
+    // hide GUI
+    case "h": showGui = false
+
     // interactive
     case "i": Shell(cpu, ppu)
     // registers
@@ -196,7 +219,7 @@ func Shell(cpu *cpu6502.CPU, ppu *ppu2c02.PPU) {
     }
 }
 
-func start() {
+func main() {
     cpu := new(cpu6502.CPU)
     ppu := new(ppu2c02.PPU)
 
@@ -218,13 +241,3 @@ func start() {
     }
 }
 
-func process(ch chan leggo.Event) {
-    for {
-        e := <-ch
-        fmt.Printf("got event %d\n", e);
-    }
-}
-
-func main() {
-    leggo.LeggoMain(start, process);
-}
