@@ -12,23 +12,30 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
+#include <stddef.h>
 
 #include "leggo.h"
 #include "_cgo_export.h"
 
 #define SOCKET_FILENAME "/tmp/leggo.sock"
 
-static void *screen_map;
+static unsigned char *screen_map;
+static size_t screen_map_size;
 
 // Set pointer to mmap'd memory for displaying screen from Go
-void set_screen_map(void *p) {
+void set_screen_map(void *p, size_t s) {
     screen_map = p;
+    screen_map_size = s;
+
+    // initialize to a pleasant default gray
+    memset(screen_map, 120, screen_map_size);
 }
 
 // Update the screen with the contents of screen_map
 // TODO: is direct access possible, avoiding copying?
 void refresh(ALLEGRO_DISPLAY *display) {
     ALLEGRO_LOCKED_REGION *locked;
+    ALLEGRO_BITMAP *bitmap;
 
     static float last_time = 0;
 
@@ -39,11 +46,32 @@ void refresh(ALLEGRO_DISPLAY *display) {
     // 1.0f/0.013222 is printing 19768790745088.000000 on release.2010-12-22
     //printf("\tfps: %f\n", 1.0f / took);
 
-    locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
-    // TODO: right dimensions
-    memcpy(locked->data, screen_map, 1000);
-    al_unlock_bitmap(al_get_backbuffer(display));
+    bitmap = al_get_backbuffer(display);
+    locked = al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
+
+    int x, y;
+
+    for (x = 0; x < al_get_bitmap_width(bitmap); x += 1) {
+        for (y = 0; y < al_get_bitmap_height(bitmap); y += 1) {
+            uint8_t *ptr = locked->data + (locked->pixel_size * x + locked->pitch * y);
+            // RGBA
+            *ptr = rand();
+            *(ptr + 1) = x;
+            *(ptr + 2) = y;
+            *(ptr + 3) = 0;
+        }
+    }
+    // locked->data always points to first visual scanline
+    // but, if pitch < 0, then it is the last scanline in memory, and
+    // we have to copy into the memory *before* locked->data
+    //TODO: memcpy(locked->data - screen_map_size + (-locked->pitch), screen_map, screen_map_size);
+    
+    al_unlock_bitmap(bitmap);
     al_flip_display();
+
+    int i;
+    for (i = 0; i < screen_map_size; i += 1)
+        *(screen_map + i) = i + rand();
 
     last_time = al_get_time();
 }

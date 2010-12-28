@@ -17,7 +17,7 @@ func something(screen unsafe.Pointer) {
     fmt.Printf("... doing something\n")
 
     for {
-        offset := int(rand.Uint32()) % 1000
+        offset := int(rand.Uint32()) % 80000
         if rand.Uint32() % 2 == 0 {
             leggo.WriteByte(screen, offset, 255)
         } else {

@@ -10,10 +10,10 @@ import ("fmt"
     "os"
     "unsafe")
 
-// #include "leggo.h"
 // #define ALLEGRO_NO_MAGIC_MAIN
 // #include <allegro5/allegro.h>
 // #include <sys/mman.h>
+// #include "leggo.h"
 import "C"
 
 const SOCKET_FILE = "/tmp/leggo.sock"   // TODO: stop using insecure temporary directory
@@ -82,12 +82,20 @@ func LeggoServer(start func()) {
 func LeggoSetup() (unsafe.Pointer) {
     // We use mmap'd memory to communicate what to display;
     // leggo will copy this to the screen each frame
-    screenMap := C.mmap(nil, C.RESOLUTION_W*C.RESOLUTION_H*4, C.PROT_READ | C.PROT_WRITE, 
+    
+    //size := C.RESOLUTION_W*C.RESOLUTION_H*4
+   
+    // TODO: stop hardcoding, and get info from locked
+    pitch := 1024       // size in bytes of a single line, abs(locked->pitch)
+    pixel_size := 4     // locked->pixel_size
+    size := C.RESOLUTION_H * pitch * pixel_size
+    fmt.Printf("size = %d\n", size);
+    screenMap := C.mmap(nil, C.size_t(size), C.PROT_READ | C.PROT_WRITE, 
                        C.MAP_ANON | C.MAP_SHARED, 
         // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
                        -1, 0)
 
-    C.set_screen_map(screenMap)
+    C.set_screen_map(screenMap, C.size_t(size))
 
     fmt.Printf("sm = %s\n", screenMap)
 

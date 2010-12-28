@@ -19,3 +19,6 @@ leggo: install try.go
 	$(GC) try.go
 	$(LD) -o $@ try.$O
 
+# Pure C test program, for comparison
+hello1::
+	gcc hello1.c -o hello1 -lallegro -lallegro_main 

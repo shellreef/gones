@@ -12,6 +12,7 @@
 int main(int argc, char *argv[]) {
 	ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *queue;
+    ALLEGRO_LOCKED_REGION *locked;
 	
 	ALLEGRO_COLOR bright_green;
 
@@ -26,7 +27,7 @@ int main(int argc, char *argv[]) {
 	
 	
 	// Create a window to display things on: 640x480 pixels
-	display = al_create_display(640, 480);
+	display = al_create_display(256, 240);
 	if(!display) {
 		printf("Error creating display.\n");
 		return 1;
@@ -36,6 +37,12 @@ int main(int argc, char *argv[]) {
 	// Draw a green background as a test
     al_set_target_bitmap(al_get_backbuffer(display));
     al_clear_to_color(al_map_rgb(128, 255, 128));
+    al_flip_display();
+
+    
+    locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE);
+    printf("locked pixel_size = %d, pitch = %d\n", locked->pixel_size, locked->pitch);
+    al_unlock_bitmap(al_get_backbuffer(display));
     al_flip_display();
 
 	// Start the event queue to handle keyboard input
