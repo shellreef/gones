@@ -92,6 +92,23 @@ var OPCODES_OFFICIAL = [
 ["BEQ", Rel],["SBC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Zpx],["INC", Zpx],[null,  Imp], // fx 
 ["SED", Imp],["SBC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Abx],["INC", Abx],[null,  Imp]];
 
+// Format an integer as hexadecimal
+function hex(x, width) {
+    var s = Math.abs(x).toString(16);
+    while (s.length < width) {
+        s = "0" + s;
+    }
+    if (x < 0) {
+        s = "-" + s;
+    }
+    return "$" + s;
+}
+
+// Format 8-bit and 16-bit hex
+function hex8(x) { return hex(x, 2); }
+function hex16(x) { return hex(x, 4); }
+
+
 function disasm(data) {
     var instructions = [];
     var i = 0;
@@ -127,14 +144,6 @@ function disasm(data) {
         case Imp: case Acc: 
             break;
         }
-
-        function hex8(x) {
-            return "$" + x;  // TODO: %.2X
-        }
-        function hex16(x) {
-            return "$" + x; // TODO: %.4X
-        }
-
         // Format operand
         var operandString;
         switch (addrMode) {
