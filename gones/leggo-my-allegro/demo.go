@@ -13,7 +13,7 @@ import (
 
     "leggo")
 
-var mode byte = 0
+var mode byte = 5
 
 // Continuously update the screen with something interesting
 func render() {
@@ -24,12 +24,15 @@ func render() {
             for x := 0; x < w; x += 1 {
                 var r, g, b byte
                 // Some random things to look at
-                switch mode % 5 {
+                switch mode % 8 {
                 case 0: r = byte(rand.Uint32()); g = r; b = r
                 case 1: r = byte(rand.Uint32()); g = byte(rand.Uint32()); b = byte(rand.Uint32())
                 case 2: r = byte(x*y)
                 case 3: r = byte(x*y - int(rand.Uint32()) % 50)
                 case 4: g = byte(rand.Uint32()); time.Sleep(1000)
+                case 5: if x == w / 2 { g = 255 } // vertical line
+                case 6: if y == 10 { r = 255 } // horizontal
+                case 7: if x == y { b = 255 } // diagonal
                 }
 
                 leggo.WritePixel(x, y, r,g,b,0)
