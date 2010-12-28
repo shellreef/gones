@@ -94,29 +94,39 @@ var OPCODES_OFFICIAL = [
 
 function disasm(data) {
     var instructions = [];
-    for (var i = 0; i < data.length; i += 1) {
+    var i = 0;
+    while (i < data.length) {
         var opcodeByte = data[i];
         var pair = OPCODES[opcodeByte];
         var opcode = pair[0];
         var addrMode = pair[1];
-        var operand;
+        var operand = null;
+        var operandBytes;
 
+        // Read operand
         switch (addrMode) {
-        case Imd, Zpg, Zpx, Zpy, Ndx, Ndy:
-            operand = data[++i]; 
+        case Imd: case Zpg: case Zpx: case Zpy: case Ndx: case Ndy:
+            operandBytes = [data[++i]];
+            operand = operandBytes[0];
             break;
-        case Abs, Abx, Aby, Ind:
-            operand = data[++i] + (256 * data[++i]); 
+        case Abs: case Abx: case Aby: case Ind:
+            operandBytes = [data[++i]];
+            operandBytes.push(data[++i]);
+            operand = operandBytes[0] + 256 * operandBytes[1];
             break;
-        case Imp, Acc:
+        case Imp: case Acc:
+            operandBytes = [];
             operand = null;
             break;
         case Rel:
-            operand = data[++i];  // TODO: signed
+            operandBytes = [data[++i]];
+            operand = [operandBytes[0]]; // TODO: signed
             break;
         }
 
-        console.log(opcode, operand);
+        console.log(i, opcode, opcodeByte, operandBytes,  addrMode, operand);
+
+        i += 1;
     }
 }
 
