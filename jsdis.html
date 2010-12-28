@@ -93,15 +93,21 @@ var OPCODES_OFFICIAL = [
 ["SED", Imp],["SBC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Abx],["INC", Abx],[null,  Imp]];
 
 // Format an integer as hexadecimal
-function hex(x, width) {
+function hex(x, width, bare) {
     var s = Math.abs(x).toString(16);
     while (s.length < width) {
         s = "0" + s;
     }
     if (x < 0) {
+        // Negative sign doesn't count as part of width
         s = "-" + s;
     }
-    return "$" + s;
+    if (!bare) {
+        // Assembly has $ to indicate hex (vs % for binary,
+        // nothing for decimal); but otherwise its implied
+        s = "$" + s;
+    }
+    return s;
 }
 
 // Disassemble a string in 6502 machine code
@@ -215,23 +221,37 @@ function disasmInput() {
 // Show a disassembled list of instructions
 function showInstructions(instructions) {
     var text = "";
-    for (var i = 0; i < instructions.length; i += 1) {
+    for (var i = 0; i < instructions.length; ++i) {
         var instr = instructions[i];
+        var line = "";
 
-        var s = instr.opcode + " " + instr.operandString;
-        if (instr.unofficial) { 
-            s = "*" + s;
+        line += hex(instr.offset, 4, true) + "    ";
+
+        // Opcode and operand bytes in hex, aligned properly
+        line += hex(instr.opcodeByte, 2, true) + " ";
+        for (var j = 0; j < 2; ++j) {
+            if (j < instr.operandBytes.length) {
+                line += hex(instr.operandBytes[j], 2, true);
+            } else {
+                line += "  ";
+            }
+            line += " ";
         }
 
+        // Instruction disassembly, starred if unofficial
+        line += instr.unofficial ? "*" : " ";
+        line += instr.opcode + " " + instr.operandString;
+
+
         //console.log(instr.offset, instr.opcodeByte, instr.operandBytes, s);
-        text += s + "\n";
+        text += line + "\n";
     }
 
     document.getElementById("out").textContent = text;
 }
 </script>
 </head>
-<body>
+<body onload="disasmInput()">
 <textarea id="in" rows="25" cols="50">
 78
 d8
