@@ -29,11 +29,13 @@ const PPU_ADDRESS   = 0x2006
 const PPU_DATA      = 0x2007
 
 const PIXELS_PER_SCANLINE = 341
+const PIXELS_VISIBLE = 256
 
 const SCANLINES_INIT = 20
 const SCANLINES_DUMMY = 1
 const SCANLINES_DATA = 240
 const SCANLINES_PER_FRAME = SCANLINES_INIT + SCANLINES_DUMMY + SCANLINES_DATA + SCANLINES_DUMMY // 262 total
+const SCANLINES_VISIBLE = SCANLINES_DATA
 
 const SPRITE_SIZE_8x8 = false
 const SPRITE_SIZE_8x16 = true
@@ -147,8 +149,8 @@ func (ppu *PPU) RunOne() {
         ppu.CycleCount = 0
         ppu.VBlank()
 
-        //ppu.ShowNametable()
-        ppu.DrawPatterns()
+        ppu.ShowNametable()
+        //ppu.DrawPatterns()
     }
 
 
@@ -166,7 +168,7 @@ func (ppu *PPU) RunOne() {
 
     // TODO: render
     /*
-    if ppu.Pixel < 256 && ppu.Scanline < 240 {
+    if ppu.Pixel < PIXELS_VISIBLE && ppu.Scanline < SCANLINES_VISIBLE {
         leggo.WritePixel(ppu.Pixel, ppu.Scanline, 255,0,0,0)
     }*/
 }
@@ -448,7 +450,12 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             case 3: r=255; g=255; b=255
             }
 
-            // TODO: clipping
+            // Clipping
+            // TODO: stop hardcoding
+            if row+offX > PIXELS_VISIBLE || column+offY > SCANLINES_VISIBLE {
+                continue
+            }
+
             leggo.WritePixel(row+offX, column+offY, r,g,b,0)
         }
     }
@@ -461,41 +468,12 @@ func (ppu *PPU) ShowNametable() {
     // TODO: mirroring, access other nametables (4)
     base := 0x2000
     patternTable := 0
-    var screen [30*8][32*8]uint8    // pixels
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
             tile := ppu.Memory[base + row*30 + column]
             pattern := ppu.GetPattern(patternTable, int(tile))
 
-            // Load pattern into screen
-            // TODO: bitblt?
-            for i := 0; i < 8; i += 1 {
-                for j := 0; j < 8; j += 1 {
-                    // TODO: load attributes too
-                    screen[row + i][column + j] = pattern[i][j]
-
-                }
-            }
+            ppu.DrawPattern(pattern, row*8, column*8)
         }
-    }
-
-    for x := 0; x < 30*8; x += 1 {
-        for y := 0; y < 32*8; y += 1 {
-            //fmt.Printf("%d", screen[x][y])
-            // TODO: palette
-            // This is not real
-            var r, g, b byte
-            switch screen[x][y] {
-            case 0: r=255
-            case 1: g=255
-            case 2: b=255
-            case 3: r=255; g=255; b=255
-            }
-
-            // TODO: clipping
-            leggo.WritePixel(x%256, y%240, r,g,b,0)
-
-        }
-        //fmt.Printf("\n")
     }
 }
