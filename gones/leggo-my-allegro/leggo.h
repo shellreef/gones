@@ -8,3 +8,5 @@ float get_seconds_per_frame();
 // TODO: custom
 #define RESOLUTION_W 256
 #define RESOLUTION_H 240
+#define SCALE_W 2
+#define SCALE_Y 2

@@ -150,7 +150,7 @@ func (ppu *PPU) RunOne() {
         ppu.VBlank()
 
         ppu.ShowNametable()
-        //ppu.DrawPatterns()
+        //ppu.ShowPatterns()
     }
 
 
@@ -427,9 +427,8 @@ func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
     }
 }
 
-// Draw patterns for debugging purposes
-// TODO
-func (ppu *PPU) DrawPatterns() {
+// Show pattern table for debugging purposes
+func (ppu *PPU) ShowPatterns() {
     for i := 0; i < 255; i += 1 {
         ppu.DrawPattern(ppu.GetPattern(0, i), (i % 16) * 8, (i / 16) * 8)
         //time.Sleep(1000000000)
@@ -451,7 +450,6 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             }
 
             // Clipping
-            // TODO: stop hardcoding
             if row+offX > PIXELS_VISIBLE || column+offY > SCANLINES_VISIBLE {
                 continue
             }
