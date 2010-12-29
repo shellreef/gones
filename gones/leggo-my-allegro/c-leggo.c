@@ -67,7 +67,7 @@ void refresh(ALLEGRO_DISPLAY *display) {
     for (x = 0; x < RESOLUTION_W; x += 1) {
         for (y = 0; y < RESOLUTION_H; y += 1) {
             uint8_t *dst = (uint8_t *)locked->data + (locked->pixel_size * x + locked->pitch * y);
-            uint8_t *src = screen_map + (4 * x + RESOLUTION_W * y);
+            uint8_t *src = screen_map + 4 * (x + RESOLUTION_W * y);
             // RGBA
             *(dst + 0) = *(src + 0);
             *(dst + 1) = *(src + 1);
