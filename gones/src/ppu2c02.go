@@ -429,8 +429,8 @@ func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
 // TODO
 func (ppu *PPU) DrawPatterns() {
     for i := 0; i < 255; i += 1 {
-        ppu.DrawPattern(ppu.GetPattern(0, i), i % 16, i / 16)
-        time.Sleep(1000000000)
+        ppu.DrawPattern(ppu.GetPattern(0, i), (i % 16) * 8, (i / 16) * 8)
+        //time.Sleep(1000000000)
     }
 }
 
