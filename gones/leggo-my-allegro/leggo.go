@@ -138,7 +138,7 @@ func LeggoSetup() (unsafe.Pointer) {
     // We use mmap'd memory to communicate what to display;
     // c-leggo.c refresh() will copy this to the screen each frame
     
-    size := C.RESOLUTION_H * C.RESOLUTION_W * 4 // RGBA
+    size := (C.RESOLUTION_H + 1) * (C.RESOLUTION_W + 1) * 4 // RGBA
     screenMap, err := C.mmap(nil, C.size_t(size), C.PROT_READ | C.PROT_WRITE, 
                        C.MAP_ANON | C.MAP_SHARED, 
         // TODO: on Mach, use VM_MAKE_TAG() in fd so vmmap can distinguish it
