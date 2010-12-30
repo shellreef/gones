@@ -1,0 +1,263 @@
+Examining the Super Mario Bros. 3 code: AOSUZI
+JC20101229
+
+The Game Genie code AOSUZI lets Mario throw the background tiles as if
+they were blocks. Very cool. How does this work?
+
+First of all, AOSUZI is encoded to be an 8-letter Game Genie code. This
+means when you enter it, the Game Genie will not advance to the next
+line. The code behaves the same, but the proper 6-letter code is AOIUZI.
+
+Decodes to 35DA:10
+
+Super Mario Bros. 3 (U) (PRG0) [!].nes
+look at around $35DA+$10=$35EA (adding to skip iNES header)
+
+PRG is 16 banks of 16k (16,384 = $4000) each
+CHR is 16 banks of 8k (8,192 = $2000) each
+
+1. 0035E0+
+0000    A5 0E     LDA $0E
+0002    99 03 02  STA $0203,Y
+0005    18        CLC 
+0006    69 08     ADC #$08
+0008    85 0E     STA $0E               ...
+000A    C8        INY                   000A    10 C8     BPL $-0038        (C8 -> 10)
+000B    C8        INY                   [consumed]
+000C    C8        INY                   ...
+000D    C8        INY 
+000E    CA        DEX 
+000F    10 E0     BPL $-0020
+0011    A9 F7     LDA #$F7
+0013    99 FD 01  STA $01FD,Y
+0016    A9 41     LDA #$41
+0018    99 FE 01  STA $01FE,Y
+001B    A6 02     LDX $02
+001D    BC 8F 05  LDY $058F,X
+
+
+
+2. then next bank, around +$8000 = $B5EA
+
+00B5E0+
+0000    B5 B5     LDA $B5,X
+0002    00        BRK 
+0003    48        PHA 
+0004    18        CLC 
+0005    65 0B     ADC $0B
+0007    85 0B     STA $0B               ...
+0009    A6 0E     LDX $0E               0009    A6 00     LDX $00           (0E -> 10)
+000B    84 0F     STY $0F               ...
+000D    A0 00     LDY #$00
+000F    68        PLA 
+0010    10 01     BPL $0001
+0012    88        DEY 
+0013    98        TYA 
+0014    65 0A     ADC $0A
+0016    85 0A     STA $0A
+0018    A4 0F     LDY $0F
+001A    C8        INY 
+001B    C0 07     CPY #$07
+001D    D0 CC     BNE $-0034
+001F    B5 ??     LDA $??,X
+
+3. then next, around $135EA - appears to be data:
+00135EA+
+68 4c 17 b1 60 00 01 04 03 b9 bb 99 9b 89 8b 01
+                              10
+
+4. next, $1B5EA - also looks like data:
+001B5E0+
+6a 80 34 69 80 35 68 80 e3 61 64 e5 11 a3 e6 61
+                              10
+
+5. 00235E0+
+39 60 13 32 6c 10 33 6c 10 34 6c 10 37 6f 12 11      world 1 level 4 data?
+                              10
+datacrystal says 227E0-24005 is ice-sky level defs
+
+6. 0025BE0+
+ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                              10
+
+7. 00335E0
+ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                              10
+
+8. 003B5E0
+02 0e 02 02 02 fe 02 fe 03 04 02 01 ad 71 05 29
+                              10
+
+9. 00435E0
+8c 86 83 40 60 38 1f 07 70 78 7c 3f 3f 1f 07 00
+                              10
+$4000 offsets?
+0075E0
+0000    DD 85 0F  CMP $0F85,X
+0003    A5 0F     LDA $0F
+0005    C9 10     CMP #$10
+0007    B0 16     BCS $0016
+0009    A5 A2     LDA $A2               LDA $10         A2->10
+000B    C9 70     CMP #$70
+000D    90 10     BCC $0010
+000F    FE ?? ??  INC $????,X
+
+00F5E1
+0000    4C 60 B6  JMP $B660
+0003    10 06     BPL $0006
+0005    20 8E B3  JSR $B38E
+0008    4C 8E B6  JMP $B68E             0008    4C 10 B6  JMP $B610 (8E -> 10)
+000B    AC 53 05  LDY $0553
+000E    D0 ??     BNE $0000
+
+0175E0
+0000    98        TYA 
+0001    02       *KIL 
+0002    99 9C 02  STA $029C,Y
+0005    BD 0F 05  LDA $050F,X
+0008    38        SEC 
+0009    E5 FD     SBC $FD               0009    E5 10     SBC $10
+000B    99 9B 02  STA $029B,Y
+000E    18        CLC 
+000F    69 ??     ADC #$??
+
+001F5E0
+e3 11 60 e2 36 62 82 12 66 02 36 6c 82 19 6d 92
+                              10
+00275E0
+22 02 14 14 02 11 1f 02 10 12 02 0f 1d 02 0b 1d
+                              10
+
+002F5E0
+0b 07 ba 75 0a ba 79 0d bc 73 09 cf 1d 0a cc 1f
+                              10
+
+00335E0
+ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                              10
+
+00375E0
+37 21 30 0f 30 3c 30 0f 36 27 30 0f 12 21 30 0f
+                              10
+
+003F5E0
+00 85 5e ad 02 20 a9 3f 8d 06 20 a9 00 8d 06 20
+                              10
+
+00475E0
+80 81 01 01 23 9e e1 ff ff ff ff ff ff 7f 9e e1
+                              10
+
+004F5E0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+                              00
+>>> "%.4x"%(0x35da+0x10+0x4000*19)
+'4f5ea'
+
+00535E0
+80 b0 1f 40 5f 88 77 f0 80 8f a0 df c0 87 50 00
+                              10
+
+00575ea
+e0 9d 65 59 6d b5 cb f0 e0 9c 04 00 00 80 c0 f0
+                              10
+
+005b5e0
+80 81 01 01 23 9e 61 1e ff ff ff ff ff 7f 1e 00
+                              10
+
+005f5e0
+00 00 00 00 00 00 00 00 ff ff ff ff ff ff ff ff
+                              10
+end 00600010
+
+This 6-letter code will affect everything loaded at $35DA (lower 15 bits
+of address), which may be causing the hang in level 4 of world 1. Lets try
+isolating the code to only one bank at a time.
+
+No apparent effect: can't throw background, no hang on level 4.
+35DA:10?C8 = AOSUZSEG
+35DA:10?0E = AOSUZSTA
+35DA:10?29 = AOSUZSPZ
+35DA:10?BB = AOSUZSUL
+35DA:10?64 = AOSUZIGT
+35DA:10?FF = AOSUZSNY
+35DA:10?A2 = AOSUZIXZ
+35DA:10?8E = AOSUZSVA
+35DA:10?FD = AOSUZSSY
+35DA:10?02 = AOSUZIZA
+35DA:10?36 = AOSUZITL
+35DA:10?02 = AOSUZIZA
+35DA:10?09 = AOSUZSPA
+35DA:10?30 = AOSUZIAL
+35DA:10?20 = AOSUZIAZ
+35DA:10?7C = AOSUZSGY
+35DA:10?A0 = AOSUZIEZ
+35DA:10?04 = AOSUZIGA
+35DA:10?01 = AOSUZIPA
+35DA:10?BC = AOSUZSKL
+35DA:10?05 = AOSUZIIA
+35DA:10?12 = AOSUZIZP
+35DA:10?FC = AOSUZSKY
+35DA:10?F7 = AOSUZINY
+35DA:10?1E = AOSUZSTP
+
+
+35DA:10?6C = AOSUZSGT Adds an extra block to world 1 level 4
+ This is a subset of AOIUZI. Modifications:
+35DA:11?6C = POSUZSGT Adds an extra block to world 1 level 4 slightly to the right
+35DA:12?6C = ZOSUZSGT Adds an extra block to world 1 level 4 more to the right
+35DA:0F?6C = YESUZSGV Adds an extra block to world 1 level 4 to the left
+
+35DA:10 = AOIUZI
+$10 is BPL,Rel
+lets try some other values..
+35DA:60 = AVIUZI - hangs on first level with corrupted graphics
+35DA:00 = AEIUZI - able to throw scenary, but overlaps status window over play field, making play difficult
+35DA:FF = {NNIUZS} - mix-up power-ups: all boxes give stars, can't get coins, pows are pink music notes which when hit give flower; multiple-coin blocks give mushrooms; music notes give flower, some pipes turn into green music notes. Hangs on level 4 world 1
+^ Interesting code, but same hang as AOIUZI
+
+35DA:A2 = XXIUZI - no player, screen frozen, but music continues
+35DA:11 = {POIUZI} - randomly pick up blocks; still hangs on level 4
+35DA:12 = ZOIUZI - hangs with corrupted screen on level 1
+35DA:0F = {YEIUZS} - invisible platforms, hidden coins on green plates, boxes become pows, music boxes giving mushrooms/feathers come out of plants; crashes on level 4
+
+Other addresses:
+35DB:10 = AOIULI - corrupts player on world 1 screen, hangs
+35D9:10 = AOIUPI - normal play, then hangs after 2nd level
+35DC:10 = AOIUGI - ant is split on world 1 screen, in two places at once; level 4 hangs on black screen
+
+
+Keyed codes tried in order, no effect if not mentioned
+35DA:10?01 = AOSUZIPA
+35DA:10?02 = AOSUZIZA
+35DA:10?03 = AOSUZILA
+35DA:10?04 = AOSUZIGA
+35DA:10?05 = AOSUZIIA
+35DA:10?06 = AOSUZITA
+35DA:10?09 = AOSUZSPA
+35DA:10?0E = AOSUZSTA
+35DA:10?12 = AOSUZIZP
+35DA:10?1E = AOSUZSTP
+35DA:10?20 = AOSUZIAZ
+35DA:10?29 = AOSUZSPZ
+35DA:10?30 = AOSUZIAL
+35DA:10?36 = AOSUZITL
+35DA:10?64 = AOSUZIGT
+35DA:10?6C = AOSUZSGT Adds an extra block to world 1 level 4
+35DA:10?7C = AOSUZSGY
+35DA:10?8E = AOSUZSVA
+35DA:10?A0 = AOSUZIEZ
+35DA:10?A2 = AOSUZIXZ
+35DA:10?BB = AOSUZSUL
+35DA:10?BC = AOSUZSKL
+35DA:10?BF = AOSUZSNL
+35DA:10?C8 = AOSUZSEG
+35DA:10?F7 = AOSUZINY
+35DA:10?FC = AOSUZSKY
+35DA:10?FD = AOSUZSSY
+35DA:10?FF = AOSUZSNY
+
+Conclusion
+None of these keyed (8-letter) codes isolate the block-throwing effect of AOSUZI
+without the level corruption... further research is needed.
