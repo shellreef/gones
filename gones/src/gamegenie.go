@@ -100,6 +100,8 @@ func (c GameGenieCode) String() (string) {
 func (c GameGenieCode) Encode() (s string) {
     var digits [8]uint8
 
+    c.Address &= 0x7fff
+
     digits[0]=uint8((c.Value&7)+((c.Value>>4)&8))
     digits[1]=uint8(((c.Value>>4)&7)+uint8((c.Address>>4)&8))
     digits[2]=uint8(((c.Address>>4)&7))
