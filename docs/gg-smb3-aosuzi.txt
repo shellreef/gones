@@ -294,8 +294,57 @@ accordingly. But instead we'll do static searching of $2000 offsets in the
 
 35DA:10?76 = AOSUZITY - no apparent affect
 
-***This is the code!**
+***This is the isolated code!**
 35DA:10?DD = {AOSUZSSI} - able to throw blocks of scenery, but doesn't crash at at world 1 level 4 like AOIUZI (AOSUZI)
+
+It is at ROM offset 00e000 + 35DA, or file offset $00e000+$35da+$10=$0115ea. What does it do?
+
+file off
+00115f0 60 98 48 ac 77 05 d0 2c a9 32[dd]03 06 d0 25 24
+0011600 b6 8a 0a 68 aa b0 0d a9 00 8d 17 05 a9 02 20 81
+
+00115f0+
+0000    60        RTS 
+0001    98        TYA 
+0002    48        PHA 
+0003    AC 77 05  LDY $0577
+0006    D0 2C     BNE $002C
+0008    A9 32     LDA #$32              ...
+000A    DD 03 06  CMP $0603,X           000A    10 03     BPL $0003
+000D    D0 25     BNE $0025             000C    06 D0     ASL $D0
+000F    24 18     BIT $18               000E    25 24     AND $24
+                                        0010    18        CLC
+0011    50 21     BVC $0021             ....
+
+CMP -> BPL shrinks the size of the instruction, and changes the next BNE
+and BIT instructions to ASL, AND, and CLC--but only if BPL is not followed,
+meaning if $0603,X > #$32; it resumes at BIT $18, effectively skipping the BNE.
+
+BIT $03..   35DA:24?DD ={GXSUZSSI}  can sometimes throw scenery blocks, but not always; wraps around
+TOP out CMP 35DA:0C?DD = GESUZSSS   no apparent effect
+
+What if the BNE is changed?
+DOP 35DD:0C?D0 = {GESUIIES} able to throw scenery when jumping; wraps around
+BEQ 35DD:F0?D0 = {ENSUIIEI} able to throw scenery, but not pick up shells (instead throws as blocks, unlike AOSUZSSI)
+CLC 35DD:18?D0 = AOSUIIES can randomly throw blocks from ground or when jumping
+
+Or changing LDA #$32 to some other value?
+no apparent effects:
+35D9:31?32 = PUSUPIZL
+35D9:00?32 = AESUPIZL
+35D9:FF?32 = NNSUPIZU
+
+changing CMP $0603,X 
+no apparent effects:
+CMP $0604,X 35DB:04?03 = GESULILA
+CMP $0603   35DA:CD?DD = SKSUZSSS
+CMP $0504,X 35DC:05?06 = IESUGITA
+CMP $0004,X 35DC:00?06 = AESUGITA
+STA $0604,X 35DA:81?DD = OESUZSSI corrupted level, partially playable then hangs
+LDA $0604,X 35DA:A1?DD = {OXSUZSSI} no shells, can sometimes throw different parts of scenery, including ground. an interesting challenge.
+
+CMP $0603,Y 35DA:D1?DD = {OSSUZSSI} can sometimes dig from ground, make sure not to fall in!
+
 
 Conclusion:
 35DA:10 = AOIUZI (aka AOSUZI) makes 64 ROM modifications, including at least:
@@ -303,4 +352,5 @@ Conclusion:
 35DA:10?D6 = AOSUZIVI - hangs world 1 level 4 with corruption. Want to avoid this subcode.
 35DA:10?6C = AOSUZSGT - adds an extra block to world 1 level 4
 35DA:10?DD ={AOSUZSSI}- able to throw blocks of scenery - this is the better code you are looking for!
+
 
