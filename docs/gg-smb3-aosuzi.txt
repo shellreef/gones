@@ -211,6 +211,9 @@ No apparent effect: can't throw background, no hang on level 4.
 
 35DA:10 = AOIUZI
 $10 is BPL,Rel
+
+
+
 lets try some other values..
 35DA:60 = AVIUZI - hangs on first level with corrupted graphics
 35DA:00 = AEIUZI - able to throw scenary, but overlaps status window over play field, making play difficult
@@ -258,6 +261,46 @@ Keyed codes tried in order, no effect if not mentioned
 35DA:10?FD = AOSUZSSY
 35DA:10?FF = AOSUZSNY
 
-Conclusion
-None of these keyed (8-letter) codes isolate the block-throwing effect of AOSUZI
-without the level corruption... further research is needed.
+A More Informed Approach
+SMB3 uses MMC3, which switches in 8 KB ($2000) banks. Some can be fixed, so
+the best approach would be to find out which are, and only search those banks
+accordingly. But instead we'll do static searching of $2000 offsets in the 
+.nes file, in each of the 16 x $8000 PRG banks, or 64 x $2000.
+
+   002000	d6      ->10 hangs world 1 level 4
+   006000	76
+   00e000	dd      ->10 block scenary throwing
+   016000	81
+   01e000	60
+   020000	6c
+   022000	80
+   026000	8a
+   028000	06
+   02a000	8d
+   02e000	c9
+   036000	93
+   03a000	ad
+   042000	66
+   046000	03
+   048000	bf
+   04a000	f0
+   04c000	00
+   04e000	c0
+   052000	88
+---05a000	66
+---05e000	00
+
+35DA:10?D6 = AOSUZIVI - hangs world 1 level 4 with corruption. Want to avoid this subcode.
+
+35DA:10?76 = AOSUZITY - no apparent affect
+
+***This is the code!**
+35DA:10?DD = {AOSUZSSI} - able to throw blocks of scenery, but doesn't crash at at world 1 level 4 like AOIUZI (AOSUZI)
+
+Conclusion:
+35DA:10 = AOIUZI (aka AOSUZI) makes 64 ROM modifications, including at least:
+
+35DA:10?D6 = AOSUZIVI - hangs world 1 level 4 with corruption. Want to avoid this subcode.
+35DA:10?6C = AOSUZSGT - adds an extra block to world 1 level 4
+35DA:10?DD ={AOSUZSSI}- able to throw blocks of scenery - this is the better code you are looking for!
+
