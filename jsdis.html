@@ -329,6 +329,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
 }
 
 // Return bytes with applied ROM patch
+// TODO: refactor
 function applyPatch(bytes) {
     // Patch (TODO: decoded code; snippet offset)
     var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
@@ -349,6 +350,10 @@ function applyPatch(bytes) {
 
     bytes[patchOffset] = patchValue;
 
+    // TODO: start at an offset
+    document.getElementById("encoded").textContent = encodeGG(
+            {Address: patchOffset, Value:patchValue});
+
     return bytes;
 }
 
@@ -364,6 +369,90 @@ function update() {
     showInstructions(after, "disasm-after", before);
 }
 
+// Position in this string corresponds to numerical value of code
+var LETTERS = "APZLGITYEOXUKSVN";
+
+// Convert Game Genie letter to its numerical value
+function letterToDigit(letter) {
+    var digit = LETTERS.indexOf(letter.toUpperCase());
+    if (digit === -1) {
+        throw "letterToDigit(" + letter + "): invalid";
+    }
+    return digit;
+}
+
+// Decode a Game Genie code to an object
+// Based on gones/src/gamegenie.go
+function decodeGG(s) {
+    var digits, c;
+    
+    digits = [];
+    for (var i = 0; i < s.length; i += 1) {
+        digits.push(letterToDigit(s[i]));
+    }
+
+    c = {};
+    c.Value = (((digits[0]&8)<<4)+((digits[1]&7)<<4)+(digits[0]&7));
+    c.Address = (((digits[3]&7)<<12)+((digits[4]&8)<<8)+((digits[5]&7)<<8)+
+            ((digits[1]&8)<<4)+((digits[2]&7)<<4)+(digits[3]&8)+(digits[4]&7));
+    if (s.length === 8) {
+        c.Value += (digits[7] & 8);
+        c.Key = (((digits[6]&8)<<4)+((digits[7]&7)<<4)+(digits[5]&8)+(digits[6]&7));
+        c.HasKey = true;
+    } else {
+        c.Value += (digits[5] & 8);
+    }
+
+    // Codes like this don't automagically go to the next line when the sixth 
+    // letter is typed. They should be 8 letters, but if you only type 6, they'll
+    // still take affect. This only matters for code entry.
+    // NOTE: When patching, use HasKey to tell whether to apply Key! 
+    // .. not WantsKey, because the code doesn't always get what it wants.
+    c.WantsKey = digits[2] >> 3 !== 0;
+
+    return c;
+}
+
+// Encode a Game Genie code
+function encodeGG(c) {
+    var length, s, digits;
+
+
+    c.Address &= 0x7fff;
+
+    digits = []
+    digits[0]=((c.Value&7)+((c.Value>>4)&8));
+    digits[1]=(((c.Value>>4)&7)+((c.Address>>4)&8));
+    digits[2]=(((c.Address>>4)&7));
+    digits[3]=((c.Address>>12)+(c.Address&8));
+    digits[4]=((c.Address&7)+((c.Address>>8)&8));
+    digits[5]=(((c.Address>>8)&7));
+
+    if (c.HasKey) {
+        digits[2]+=8;
+        digits[5]+=(c.Key&8);
+        digits[6]=((c.Key&7)+((c.Key>>4)&8));
+        digits[7]=(((c.Key>>4)&7)+(c.Value&8));
+        length = 8;
+    } else {
+        digits[5]+=(c.Value&8);
+        length = 6;
+    }
+    // TODO: encoding WantsKey without HasKey?
+    // Currently, this function will only encode canonicalized
+    // codes, so that for example SLXPLO which has WantsKey set
+    // but is only 6 digits will be, if decoded and re-encoded,
+    // changed to SLZPLO which is more correct, and will in
+    // a real Game Genie automatically advance to the next code entry line.
+
+    s = "";
+    for (var i = 0; i < length; i += 1) {
+        s += LETTERS[digits[i]];
+    }
+
+    return s;
+}
+
 function init() {
     document.onkeyup = update;
 
@@ -373,7 +462,8 @@ function init() {
 </head>
 <body onload="init()">
 <input id="patchOffset" value="0002" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="00" size="2" maxlength="2"><br>
+<input id="patchValue" value="00" size="2" maxlength="2"> 
+<span id="encoded"></span><br> <!-- TODO: user-editable -->
 <!-- example codes for below:
 0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
 0000:01 changes opcode and size 1->2, SEI -> LDA, consumes 2-1=1 extra bytes
