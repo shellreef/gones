@@ -303,18 +303,170 @@ file off
 00115f0 60 98 48 ac 77 05 d0 2c a9 32[dd]03 06 d0 25 24
 0011600 b6 8a 0a 68 aa b0 0d a9 00 8d 17 05 a9 02 20 81
 
-00115f0+
+00115e0+ (file offset), 115d0 (ROM offset)
 0000    60        RTS 
 0001    98        TYA 
 0002    48        PHA 
 0003    AC 77 05  LDY $0577
 0006    D0 2C     BNE $002C
-0008    A9 32     LDA #$32              ...
-000A    DD 03 06  CMP $0603,X           000A    10 03     BPL $0003
+0008    A9 32     LDA #$32              ...     is $0603,X != #$32?
+
+35D9:40?32 = AKSUPIZL no apparent effect
+
+ appears to check if is a throwable white block (#$32)
+000A<->[DD]03 06  CMP $0603,X           000A   [10]03     BPL $0003      -->35DA:10?DD<---
 000D    D0 25     BNE $0025             000C    06 D0     ASL $D0
-000F    24 18     BIT $18               000E    25 24     AND $24
+000F    24 18     BIT $18 (%0001_1000)  000E    25 24     AND $24
                                         0010    18        CLC
 0011    50 21     BVC $0021             ....
+BVS 35E1:70?50 = ANVLPIAI no apparent effect
+BNE 35E1:D0?50 = ESVLPIAI no apparent effect
+
+0013    E0 03     CPX #$03
+0015    F0 1D     BEQ $001D
+0017    AD 64 05  LDA $0564
+001A    D0 18     BNE $0018
+001C    8A        TXA 
+001D    48        PHA 
+001E    20 55 B6  JSR $B655
+0021    8A        TXA 
+0022    0A        ASL A
+0023    68        PLA 
+0024    AA        TAX 
+0025    B0 0D     BCS $000D
+0027    A9 00     LDA #$00
+0029    8D 17 05  STA $0517
+002C    A9 02     LDA #$02
+002E    20 81 BF  JSR $BF81
+0031    4C 52 B6  JMP $B652
+
+0034    BD 03 06  LDA $0603,X       ; something about level data
+0037    C9 40     CMP #$40              is $0603,X == #$40?         3608:xx?40     computes A-$40
+ appears to check if is a coin (#$40)
+
+CMP #$00  3608:00?40 = {AAEUATAG} black area in end of level is coins, cannot get normal coins
+ black area #$00 where get card to complete level
+
+3608:01?40 = {PAEUATAG} edge between night and day at end of level is coins, cannot get normal coins
+tested, but couldn't determine what these affect (at least in world 1 level 1):
+3608:02?40 = ZAEUATAG
+3608:03?40 = LAEUATAG
+3608:04?40 = GAEUATAG
+3608:10?40 = APEUATAG
+3608:30?40 = ALEUATAG
+3608:31?40 = PLEUATAG
+3608:60?40 = ATEUATAG
+3608:81?40 = OAEUATAG
+3608:82?40 = XAEUATAG
+3608:B0?40 = ELEUATAG
+3608:D0?40 = EIEUATAG
+3608:FF?40 = NYEUATAK + 3609:10?D0 = APEUPTEI (>80) = most everything is coins including pipes, but not ground 
+
+
+3608:50?40 = AIEUATAG top of pink blocks are coins
+3608:70?40 = AYEUATAG pow blocks are coins
+3608:90?40 = EPEUATAG left crescent of large green plants is coins
+3608:A0?40 = EZEUATAG top of green platforms is coins
+3608:C0?40 = EGEUATAG edge of shadows is coins
+3608:80?40 = {EAEUATAG} empty space is coins
+3608:20?40 = AZEUATAG tops of clouds are coins
+
+deduced tile codes:
+00 black area in night time at end of level
+01 edge between night and day
+02 ??
+03 ??
+04 ??
+10 ??
+20 tops of clouds
+30 ??
+31 ??
+32 throwable blocks (white)
+40 coins
+50 top of pink blocks
+60 ??
+70 pow blocks
+80 empty space
+81 ??
+82 ??
+90 left crescent of large green plants
+a0 tops of green platforms
+b0 ??
+c0 edge of shadows
+d0 ??
+ff ??
+
+0039    D0 18     BNE $0018
+
+BEQ 3609:F0?D0 = EYEUPTEI everything is coins, which sounds cool but this includes the floor so you fall through!
+BPL 3609:10?D0 = {APEUPTEI} clouds, white/blue platforms, green shadows, end of level and other things are coins; cannot get normal coins
+
+003B    A9 01     LDA #$01
+003D    20 81 BF  JSR $BF81     ; removes coin and adds to player's coin counter
+TOP 360D:0C?20 = GAEUITAX   can't get coins, although they do ring
+
+0040    20 AA 99  JSR $99AA     ; unknown
+TOP 3610:0C?20 = GAOLATAX   no apparent effect
+
+0043    AD F2 04  LDA $04F2
+0046    09 01     ORA #$01      ; sound effect 
+DOP 3616:04?09 = GAOLTVPA no apparent effect
+ORA #$00 3617:00?01 = {AAOLYTPA} no sound when getting coins
+ORA #$01 3617:02?01 = {ZAOLYTPA} power up soudn when getting coins
+ORA #$FF 3617:FF?01 = {NYOLYTPE} cool jingle when getting coins
+
+0048    8D F2 04  STA $04F2
+004B    A9 00     LDA #$00
+LDA #$FF 361C:FF?00 = {NYOUGTAE} coins push back
+
+004D    8D 04 06  STA $0604     ; store points (0?)
+LDA 361D:AD?8D = SZOUIVSE       don't add points when get coins
+
+0050    4C 52 B6  JMP $B652
+TOP 3620:0C?4C = GAXLAVGK no apparent effect
+
+something about loading level background:
+0053    C9 F2     CMP #$F2
+RTS 3623:60?C9 = ATXLLVOG corrupts background of level
+0055    D0 28     BNE $0028
+0057    E0 02     CPX #$02
+0059    10 24     BPL $0024
+005B    A9 09     LDA #$09
+005D    CD 64 05  CMP $0564
+0060    F0 1D     BEQ $001D
+0062    20 81 BF  JSR $BF81
+0065    A9 10     LDA #$10
+0067    8D F3 7C  STA $7CF3
+006A    AD F2 04  LDA $04F2
+006D    09 08     ORA #$08
+006F    8D F2 04  STA $04F2
+0072    A9 80     LDA #$80
+0074    8D 67 05  STA $0567
+0077    A9 A0     LDA #$A0
+0079    8D F5 04  STA $04F5
+007C    4C 52 B6  JMP $B652
+007F    20 D8 B6  JSR $B6D8
+0082    68        PLA 
+0083    A8        TAY 
+0084    60        RTS 
+
+0085    A2 04     LDX #$04
+RTS 3655:60?A2 = ATSLITXZ no apparent affect
+0087    BD 61 06  LDA $0661,X
+008A    F0 04     BEQ $0004
+008C    CA        DEX 
+008D    10 F8     BPL $-0008
+008F    60        RTS 
+
+0090    20 99 D4  JSR $D499
+RTS 3660:60?20 = ATVLATAZ no apparent affect
+0093    A9 04     LDA #$04
+0095    9D 61 06  STA $0661,X
+0098    A9 5C     LDA #$5C
+009A    9D 71 06  STA $0671,X
+009D    A9 80     LDA #$80
+009F    9D A6 06  STA $06A6,X
+00A2    60        RTS 
 
 CMP -> BPL shrinks the size of the instruction, and changes the next BNE
 and BIT instructions to ASL, AND, and CLC--but only if BPL is not followed,
@@ -345,6 +497,8 @@ LDA $0604,X 35DA:A1?DD = {OXSUZSSI} no shells, can sometimes throw different par
 
 CMP $0603,Y 35DA:D1?DD = {OSSUZSSI} can sometimes dig from ground, make sure not to fall in!
 
+changing BNE +$0025
+BNE +$00 35DE:00?25 = {AESUTIIZ} another scenery block throwing code
 
 Conclusion:
 35DA:10 = AOIUZI (aka AOSUZI) makes 64 ROM modifications, including at least:

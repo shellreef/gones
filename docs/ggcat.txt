@@ -95,8 +95,8 @@ in ascending order of approximated potential disruptiveness:
 
 0. No operation     NOP TOP DOP 
 1. Flags            CLC CLD CLI CLV SEC SED SEI
-2. Move             CPX CPY LDA LDX LDY STA STX STY TAX TAY TSX TXA TXS TYA
-3. Arithmetic       ADC AND ASL BIT DEC DEX DEY EOR INC INX INY CMP LSR ORA ROL ROR SBC 
+2. Move             LDA LDX LDY STA STX STY TAX TAY TSX TXA TXS TYA
+3. Arithmetic       ADC AND ASL BIT DEC DEX DEY EOR INC INX INY CMP CPX CPY LSR ORA ROL ROR SBC 
 4. Arithmetic UO    AAC SAX ARR ASR ATX AXS DCP ISB LAX RLA RRA SLO SRE
 5. Stack            PHA PHP PLA PLP
 6. Inconsistent     XAA(8B) AXA(93 9F) XAS(9B), LAR(BB), SXA(9E), SYA(9C)
