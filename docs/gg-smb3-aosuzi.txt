@@ -305,10 +305,14 @@ file off
 
 00115e0+ (file offset), 115d0 (ROM offset)
 0000    60        RTS 
+
 0001    98        TYA 
 0002    48        PHA 
-0003    AC 77 05  LDY $0577
-0006    D0 2C     BNE $002C
+0003    AC 77 05  LDY $0577         ; datacrystal says: $0577=whether Mario has Kuribo's boot (0=no, 1=yes)
+0006    D0 2C     BNE $002C         ; if has boot (aka Goomba's shoe), skip white block throwing
+BEQ 35D6:F0?D0 = {ENSLTIEI} throw blocks when in Kuribo's boot, but not without it (try it with AOSUZSSI)
+DOP 35D6:04?D0 = {GESLTIEI} able to throw blocks when out of or in Kuribo's boot (try it with AOSUZSSI) 
+
 0008    A9 32     LDA #$32              ...     is $0603,X != #$32?
 
 35D9:40?32 = AKSUPIZL no apparent effect
@@ -318,14 +322,18 @@ file off
 000D    D0 25     BNE $0025             000C    06 D0     ASL $D0
 000F    24 18     BIT $18 (%0001_1000)  000E    25 24     AND $24
                                         0010    18        CLC
-0011    50 21     BVC $0021             ....
-BVS 35E1:70?50 = ANVLPIAI no apparent effect
-BNE 35E1:D0?50 = ESVLPIAI no apparent effect
+0011    50 21     BVC $0021             ....  ; trying to pick up a block
+BVS 35E1:70?50 = {ANVLPIAI} remove throwable blocks without holding B, but don't throw them (try it with AOSUZSSI)
+BNE 35E1:D0?50 = ESVLPIAI always removes blocks, but doesn't throw unless holding B (try it with AOSUZSSI)
 
 0013    E0 03     CPX #$03
 0015    F0 1D     BEQ $001D
-0017    AD 64 05  LDA $0564
-001A    D0 18     BNE $0018
+BNE 35E5:D0?F0 = ESVLIIEY no apparent effect, even with AOSUZSSI
+
+0017    AD 64 05  LDA $0564     ; [unknown & not on datacrystal] if $0564 != 0, skip to 002E below
+001A    D0 18     BNE $0018     
+BEQ 35EA:D0?F0 = ESVUZIEY no apparent effect
+
 001C    8A        TXA 
 001D    48        PHA 
 001E    20 55 B6  JSR $B655
@@ -338,7 +346,7 @@ BNE 35E1:D0?50 = ESVLPIAI no apparent effect
 0029    8D 17 05  STA $0517
 002C    A9 02     LDA #$02
 002E    20 81 BF  JSR $BF81
-0031    4C 52 B6  JMP $B652
+0031    4C 52 B6  JMP $B652         ; BNE'd here from 0006 if has boot
 
 0034    BD 03 06  LDA $0603,X       ; something about level data
 0037    C9 40     CMP #$40              is $0603,X == #$40?         3608:xx?40     computes A-$40
@@ -467,6 +475,8 @@ RTS 3660:60?20 = ATVLATAZ no apparent affect
 009D    A9 80     LDA #$80
 009F    9D A6 06  STA $06A6,X
 00A2    60        RTS 
+
+
 
 CMP -> BPL shrinks the size of the instruction, and changes the next BNE
 and BIT instructions to ASL, AND, and CLC--but only if BPL is not followed,
