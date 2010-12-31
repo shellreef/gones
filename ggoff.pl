@@ -5,7 +5,7 @@ use warnings;
 open(FH, "</Users/jeff/games/nese/roms/own/Super\ Mario\ Bros.\ 3\ \(U\)\ \(PRG0\)\ \[\!\].nes") || die "cannot open: $!";
 my $offset = 0x35da;
 my $size = 0x2000;  # 8kb
-my $banks = (16 * 0x8000 / 0x2000);   # 16 x $8000 PRG in header, but mapper switches out $2000
+my $banks = (16 * 0x4000 / 0x2000);   # 16 x $4000 PRG in header, but mapper switches out $2000
 my %keys;
 my %tried = (
 0xC8 => 'AOSUZSEG',
@@ -45,8 +45,8 @@ for my $i (0..$banks) {
     $/ = \1;
     my $key = ord(<FH>);
 
-    next if exists($tried{$key}); # already
-    print exists($keys{$key}) ? "---" : "   "; # already saw this key (but affects this bank too!)
+    #next if exists($tried{$key}); # already
+    #print exists($keys{$key}) ? "---" : "   "; # already saw this key (but affects this bank too!)
 
     printf "%.6x\t%.2x\n", ($i * $size), $key;
 

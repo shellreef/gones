@@ -1,0 +1,111 @@
+Categorizing Game Genie Codes
+=============================
+JC20101230
+
+This document explores how one may classify Game Genie codes.
+
+
+Behavorial
+----------
+The Galoob Game Genie Programming Manual and Codebook (1991), pg. 16, 
+shows the following behavioral effect categories:
+
+Ammunition
+Change Rules
+Energy/Food/Fuel
+Expert-Makes game harder
+Extra Continues/Credits
+Handicap-Gives one player an advantage or disadvantage
+In-Game Money/Currency/Points
+Infinite Lives
+Invincibility/Protection/Almost Invincible
+Keep Weapons/Equipment/Power-Ups
+Lives
+Magic
+Mega Power
+Super Mega Power (and sometimes Infinite Lives)
+Mystery/Weird/Special/Defies Categories
+Speed
+Super Flying
+Super/Mega Jumping
+Timer
+Weapons/Equipment
+World, Level, and Stage Warps
+
+
+Technical
+---------
+Letters
+ 6-letter (unkeyed, ####:##)
+ Potentially more disruptive, especially on larger games
+ (Codes can be 6 letters yet expect to be 8; they don't have the proper
+ bit set, and this can be fixed by re-encoding--but they are the same code)
+
+ 8-letter (keyed, ####:##?##)
+ Less disruptive, since key reduces ROM addresses the code affects
+
+Spread #N, number of modifications code makes to the ROM
+ This depends on what mapper the cartridge uses. Since the GG works
+ by intercepting partial (15-bit, up to $7FFF) addresses from the cart to the
+ NES (which is all that is sent), one code can modify more than one address. 
+
+ Spread 1
+ NROM ("mapper 0") games have up to 2 x $4000 (16k) PRG banks, which map 
+ directly to CPU addresses $8000-$BFFF and $C000-$FFFF.  A 6-letter code 
+ can uniquely modify each of the individual ROM addresses without ambiguity 
+ in this case, which is why Super Mario Bros. and other smaller games only 
+ need 6-letter codes.
+
+ Spread 32
+ Larger games use memory mappers to select the high address bits of the ROM chip
+ (selecting the memory "bank"). The Game Genie has no knowledge of mappers. It will
+ intercept ROM access based on the lower 15 bits of the address, so a 6-letter code
+ in a game like Super Mario Bros. 3 (which uses MMC3, and has 16 x 16k PRG banks =
+ $40000) will affect many addresses. MMC3 switches in 8k banks ($2000), so although 
+ some are fixed, depending on how the game configures the mapper registers... but
+ ignoring that, there are up to $40000/$2000 = 32 addresses that would be modified 
+ by this code. 
+
+ 6-letter codes can therefore be broken down into multiple 8-letter codes, to 
+ isolate or reduce their effects.
+
+ Spread 1
+ 8-letter (keyed) codes restrict what is modified based on the previous value. To
+ find the modified bank(s), test the possible addresses and comparing the key value.
+ In many cases there will only be one ROM address modified, but >1 is possible.
+
+ Spread 0
+ Affecting zero ROM addresses is also possible, if no keys match anywhere. Such 
+ codes can be found by entering letters randomly, and they have no effect.
+
+
+For each byte changed by the code ("ROM patch"), further classify as follows:
+
+ROM patches categorization
+A. Operand mutation
+B. Opcode mutation, same operand size (0, 1, or 2 bytes)
+C. Opcode mutation, different operand size (disrupts instruction stream)
+ Shrink: 2->1, 2->0, 1->0
+ Grow: 0->1, 0->2, 1->2
+ Disrupt N instructions until resynchronizes (N can be small, or potentially infinite)
+D. Data mutation - modifying data, not code
+
+Opcode mutation codes can be further categorized by operation, 
+in ascending order of approximated potential disruptiveness:
+
+0. No operation     NOP TOP DOP 
+1. Flags            CLC CLD CLI CLV SEC SED SEI
+2. Move             CPX CPY LDA LDX LDY STA STX STY TAX TAY TSX TXA TXS TYA
+3. Arithmetic       ADC AND ASL BIT DEC DEX DEY EOR INC INX INY CMP LSR ORA ROL ROR SBC 
+4. Arithmetic UO    AAC SAX ARR ASR ATX AXS DCP ISB LAX RLA RRA SLO SRE
+5. Stack            PHA PHP PLA PLP
+6. Inconsistent     XAA(8B) AXA(93 9F) XAS(9B), LAR(BB), SXA(9E), SYA(9C)
+7. Control Flow     BCS BEQ BMI BPL BVC BCC BNE BVS BRK JMP JSR RTI RTS
+8. Halt             KIL(02 12 22 32 42 52 62 72 92 B2 D2 F2)
+
+Fixed addresses
+    CPU        GG
+FFFA,FFFB  7FFA,7FFB - NMI vector, points to address jumped to on vertical blanking
+FFFC,FFFD  7FFC,7FFD - Reset vector, points to address jumped to on power up and reset
+FFFE,FFFF  7FFE,7FFF - Break vector, points to address jumped to on BRK instruction 
+
