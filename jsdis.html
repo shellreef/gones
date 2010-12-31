@@ -287,13 +287,17 @@ function showInstructions(instructions, elementName, compareInstructions) {
             return s;
         }
 
-
+        // Instruction stream synchronization
         if (instr2 && instr.offset !== instr2.offset) {
             var nextInstr2 = compareInstructions[i2 + 1];
             if (nextInstr2 && nextInstr2.offset === instr.offset) {
+                // Other side has more instructions..leave a gap
                 i2 += 1;
                 instr2 = nextInstr2;
                 text += "\n";
+            } else if (instructions[i + 1].offset === instr2.offset) {
+                // We are far ahead, back up 
+                i2 -= 1;
             }
         }
 
@@ -461,8 +465,8 @@ function init() {
 </script>
 </head>
 <body onload="init()">
-<input id="patchOffset" value="0002" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="00" size="2" maxlength="2"> 
+<input id="patchOffset" value="0000" size="4">: <!-- offset within the disassembly, not the CPU address! -->
+<input id="patchValue" value="01" size="2" maxlength="2"> 
 <span id="encoded"></span><br> <!-- TODO: user-editable -->
 <!-- example codes for below:
 0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
