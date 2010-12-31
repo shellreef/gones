@@ -328,12 +328,8 @@ function showInstructions(instructions, elementName, compareInstructions) {
     document.getElementById(elementName).innerHTML = text;
 }
 
-function update() {
-    var inputString = document.getElementById("in").value;
-    var bytes = parseHex(inputString);
-    var before;
-    showInstructions(before = disasm(bytes), "disasm-before");
-
+// Return bytes with applied ROM patch
+function applyPatch(bytes) {
     // Patch (TODO: decoded code; snippet offset)
     var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
     var patchValue = parseInt(document.getElementById("patchValue").value, 16);
@@ -353,7 +349,19 @@ function update() {
 
     bytes[patchOffset] = patchValue;
 
-    showInstructions(disasm(bytes), "disasm-after", before);
+    return bytes;
+}
+
+function update() {
+    var inputString = document.getElementById("in").value;
+    var bytes = parseHex(inputString);
+    var before, after;
+
+    before = disasm(bytes);
+    after = disasm(applyPatch(bytes));
+    
+    showInstructions(before, "disasm-before");
+    showInstructions(after, "disasm-after", before);
 }
 
 function init() {
