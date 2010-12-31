@@ -360,7 +360,7 @@ function update() {
     before = disasm(bytes);
     after = disasm(applyPatch(bytes));
     
-    showInstructions(before, "disasm-before");
+    showInstructions(before, "disasm-before", after);
     showInstructions(after, "disasm-after", before);
 }
 
