@@ -466,9 +466,37 @@ function encodeGG(c) {
     return s;
 }
 
+function loadCart() {
+    dojo.xhrGet({url:"../roms/own/Super Mario Bros. 3 (U) (PRG0) [!].nes", 
+            load:function(data) {
+                parseNesFile(data);
+            }
+        });
+}
+
+// Read an iNES file (.nes)
+function parseNesFile(data) {
+    var header, prg, chr;
+    var magic, prgCount, chrCount;
+
+    header = data.substring(0, 0x10);
+    magic = header.substring(0, 4);
+
+    if (magic !== "NES\x1a") {
+        throw "Invalid .nes file signature: " + magic;
+    }
+    prgCount = header.substring(5, 6).charCodeAt(0);
+    // Other header info not read yet
+
+    // PRG stored in 16384-byte ($4000, 16k) pages
+    prg = data.substring(0x10, 0x10 + prgCount * 16384);
+    console.log("PRG",prgCount,prg.length);
+}
+
 function init() {
     document.onkeyup = update;
 
+    loadCart();
     update();
 }
 </script>
