@@ -473,17 +473,23 @@ function encodeGG(c) {
 
 // Load ROM data from a .nes file
 function loadNesFile() {
-    var url;
+    var url, req;
 
     url = dojo.byId(filename).value;
-    // TODO: need to use XHR overrideMimeType to get binary data;
-    // otherwise non-text characters replaced with \ufffd. Seems that
-    // dojo doesn't support it?
-    dojo.xhrGet({url:url, overrideMimeType:"application/octet-stream",
-            load:function(data) {
-                parseNesFile(data);
-            }
-        });
+
+    req = new XMLHttpRequest();
+    req.open("GET", url, false);
+
+    // Binary data transfer. Using request manually because dojo doesn't
+    // seem to support this, but it is required to not mangle UTF-8.
+    req.overrideMimeType("text/plain; charset=x-user-defined");
+    req.send(null);
+
+    if (req.status !== 200) {
+        throw "Failed to GET URL: " + url + ", status = " + status;
+    }
+
+    parseNesFile(req.responseText);
 }
 
 // Read an iNES file (.nes)
@@ -504,9 +510,10 @@ function parseNesFile(data) {
     prg = data.substring(0x10, 0x10 + prgCount * 16384);
     console.log("PRG",prgCount,prg.length);
 
-    ROM_DATA = prg.split("").map(function(x) { return x.charCodeAt(0); });
-    console.log(ROM_DATA[1]);
-    console.log(prg.substring(0,10));
+    ROM_DATA = prg.split("").map(function(x) { 
+            // Binary data from XHR has to be masked to 8 bits
+            return x.charCodeAt(0) & 0xff; 
+    });
     ROM_USE_FILE = true;
 
     update();
@@ -545,7 +552,7 @@ ff ff ff
 f2
 </textarea><br>
 <!-- <input type=file id=f1> --> <!-- TODO: file element, can't seem to access locally directly -->
-<input id="filename" size="50" value="../roms/own/Super Mario Bros. 3 (U) (PRG0) [!].nes"><button onclick="loadNesFile()">Load file</button><br>
+<input id="filename" size="50" value="http://localhost/magic/smb3.nes"><button onclick="loadNesFile()">Load file</button><br>
 <button accesskey="d" onclick="update()">Disassemble</button>
 <div style="width: 40%; margin: auto">
 <pre id="disasm-before" style="float: left"></pre>
