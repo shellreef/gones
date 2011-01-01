@@ -1,0 +1,507 @@
+<!doctype html>
+<html>
+<head>
+<title></title>
+<style>
+span.changed { background-color: yellow; }
+</style>
+<script>
+// Addressing modes
+var Imd = "Imd";      // Immediate 
+var Zpg = "Zpg";      // Zero Page 
+var Zpx = "Zpx";      // Zero Page,X 
+var Zpy = "Zpy";      // Zero Page,Y 
+var Abs = "Abs";      // Absolute 
+var Abx = "Abx";      // Absolute,X 
+var Aby = "Aby";      // Absolute, Y 
+var Ndx = "Ndx";      // (Indirect,X) 
+var Ndy = "Ndy";      // (Indirect),Y 
+var Imp = "Imp";      // Implied 
+var Acc = "Acc";      // Accumulator 
+var Ind = "Ind";      // (Indirect) 
+var Rel = "Rel";      // Relative 
+
+var OPCODES = [
+// Indexed by opcode, value is (mneumonic, addressing mode code) 
+//   x0           x1           x2           x3           x4          x5            x6           x7   
+//   x8           x9           xa           xb           xc          xd            xe           xf   
+["BRK", Imp],["ORA", Ndx],["KIL", Imp],["SLO", Ndx],["DOP", Zpg],["ORA", Zpg],["ASL", Zpg],["SLO", Zpg], // 0x 
+["PHP", Imp],["ORA", Imd],["ASL", Acc],["AAC", Imd],["TOP", Abs],["ORA", Abs],["ASL", Abs],["SLO", Abs], 
+["BPL", Rel],["ORA", Ndy],["KIL", Imp],["SLO", Ndy],["DOP", Zpx],["ORA", Zpx],["ASL", Zpx],["SLO", Zpx], // 1x 
+["CLC", Imp],["ORA", Aby],["NOP", Imp],["SLO", Aby],["TOP", Abx],["ORA", Abx],["ASL", Abx],["SLO", Abx], 
+["JSR", Abs],["AND", Ndx],["KIL", Imp],["RLA", Ndx],["BIT", Zpg],["AND", Zpg],["ROL", Zpg],["RLA", Zpg], // 2x 
+["PLP", Imp],["AND", Imd],["ROL", Acc],["AAC", Imd],["BIT", Abs],["AND", Abs],["ROL", Abs],["RLA", Abs], 
+["BMI", Rel],["AND", Ndy],["KIL", Imp],["RLA", Ndy],["DOP", Zpx],["AND", Zpx],["ROL", Zpx],["RLA", Zpx], // 3x 
+["SEC", Imp],["AND", Aby],["NOP", Imp],["RLA", Aby],["TOP", Abx],["AND", Abx],["ROL", Abx],["RLA", Abx], 
+["RTI", Imp],["EOR", Ndx],["KIL", Imp],["SRE", Ndx],["DOP", Zpg],["EOR", Zpg],["LSR", Zpg],["SRE", Zpg], // 4x 
+["PHA", Imp],["EOR", Imd],["LSR", Acc],["ASR", Imd],["JMP", Abs],["EOR", Abs],["LSR", Abs],["SRE", Abs],
+["BVC", Rel],["EOR", Ndy],["KIL", Imp],["SRE", Ndy],["DOP", Zpx],["EOR", Zpx],["LSR", Zpx],["SRE", Zpx], // 5x 
+["CLI", Imp],["EOR", Aby],["NOP", Imp],["SRE", Aby],["TOP", Abx],["EOR", Abx],["LSR", Abx],["SRE", Abx],
+["RTS", Imp],["ADC", Ndx],["KIL", Imp],["RRA", Ndx],["DOP", Zpg],["ADC", Zpg],["ROR", Zpg],["RRA", Zpg], // 6x 
+["PLA", Imp],["ADC", Imd],["ROR", Acc],["ARR", Imd],["JMP", Ind],["ADC", Abs],["ROR", Abs],["RRA", Abs],
+["BVS", Rel],["ADC", Ndy],["KIL", Imp],["RRA", Ndy],["DOP", Zpx],["ADC", Zpx],["ROR", Zpx],["RRA", Zpx], // 7x 
+["SEI", Imp],["ADC", Aby],["NOP", Imp],["RRA", Aby],["TOP", Abx],["ADC", Abx],["ROR", Abx],["RRA", Abx],
+["DOP", Imd],["STA", Ndx],["DOP", Imd],["SAX", Ndx],["STY", Zpg],["STA", Zpg],["STX", Zpg],["SAX", Zpg], // 8x 
+["DEY", Imp],["DOP", Imd],["TXA", Imp],["XAA", Imd],["STY", Abs],["STA", Abs],["STX", Abs],["SAX", Abs],
+["BCC", Rel],["STA", Ndy],["KIL", Imp],["AXA", Ndy],["STY", Zpx],["STA", Zpx],["STX", Zpy],["SAX", Zpy], // 9x 
+["TYA", Imp],["STA", Aby],["TXS", Imp],["XAS", Aby],["SYA", Abx],["STA", Abx],["SXA", Aby],["AXA", Aby],
+["LDY", Imd],["LDA", Ndx],["LDX", Imd],["LAX", Ndx],["LDY", Zpg],["LDA", Zpg],["LDX", Zpg],["LAX", Zpg], // ax 
+["TAY", Imp],["LDA", Imd],["TAX", Imp],["ATX", Imd],["LDY", Abs],["LDA", Abs],["LDX", Abs],["LAX", Abs],
+["BCS", Rel],["LDA", Ndy],["KIL", Imp],["LAX", Ndy],["LDY", Zpx],["LDA", Zpx],["LDX", Zpy],["LAX", Zpy], // bx 
+["CLV", Imp],["LDA", Aby],["TSX", Imp],["LAR", Aby],["LDY", Abx],["LDA", Abx],["LDX", Aby],["LAX", Aby],
+["CPY", Imd],["CMP", Ndx],["DOP", Imd],["DCP", Ndx],["CPY", Zpg],["CMP", Zpg],["DEC", Zpg],["DCP", Zpg], // cx 
+["INY", Imp],["CMP", Imd],["DEX", Imp],["AXS", Imd],["CPY", Abs],["CMP", Abs],["DEC", Abs],["DCP", Abs],
+["BNE", Rel],["CMP", Ndy],["KIL", Imp],["DCP", Ndy],["DOP", Zpx],["CMP", Zpx],["DEC", Zpx],["DCP", Zpx], // dx 
+["CLD", Imp],["CMP", Aby],["NOP", Imp],["DCP", Aby],["TOP", Abx],["CMP", Abx],["DEC", Abx],["DCP", Abx],
+["CPX", Imd],["SBC", Ndx],["DOP", Imd],["ISB", Ndx],["CPX", Zpg],["SBC", Zpg],["INC", Zpg],["ISB", Zpg], // ex 
+["INX", Imp],["SBC", Imd],["NOP", Imp],["SBC", Imd],["CPX", Abs],["SBC", Abs],["INC", Abs],["ISB", Abs],
+["BEQ", Rel],["SBC", Ndy],["KIL", Imp],["ISB", Ndy],["DOP", Zpx],["SBC", Zpx],["INC", Zpx],["ISB", Zpx], // fx 
+["SED", Imp],["SBC", Aby],["NOP", Imp],["ISB", Aby],["TOP", Abx],["SBC", Abx],["INC", Abx],["ISB", Abx]];
+
+// Only official opcodes
+var OPCODES_OFFICIAL = [
+//   x0           x1           x2           x3           x4          x5            x6           x7   
+//   x8           x9           xa           xb           xc          xd            xe           xf   
+["BRK", Imp],["ORA", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpg],["ASL", Zpg],[null,  Imp], // 0x 
+["PHP", Imp],["ORA", Imd],["ASL", Acc],[null,  Imp],[null,  Imp],["ORA", Abs],["ASL", Abs],[null,  Imp], 
+["BPL", Rel],["ORA", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Zpx],["ASL", Zpx],[null,  Imp], // 1x 
+["CLC", Imp],["ORA", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["ORA", Abx],["ASL", Abx],[null,  Imp], 
+["JSR", Abs],["AND", Ndx],[null,  Imp],[null,  Imp],["BIT", Zpg],["AND", Zpg],["ROL", Zpg],[null,  Imp], // 2x 
+["PLP", Imp],["AND", Imd],["ROL", Acc],[null,  Imp],["BIT", Abs],["AND", Abs],["ROL", Abs],[null,  Imp], 
+["BMI", Rel],["AND", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["AND", Zpx],["ROL", Zpx],[null,  Imp], // 3x 
+["SEC", Imp],["AND", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["AND", Abx],["ROL", Abx],[null,  Imp], 
+["RTI", Imp],["EOR", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Zpg],["LSR", Zpg],[null,  Imp], // 4x 
+["PHA", Imp],["EOR", Imd],["LSR", Acc],[null,  Imp],["JMP", Abs],["EOR", Abs],["LSR", Abs],[null,  Imp],
+["BVC", Rel],["EOR", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Zpx],["LSR", Zpx],[null,  Imp], // 5x 
+["CLI", Imp],["EOR", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["EOR", Abx],["LSR", Abx],[null,  Imp],
+["RTS", Imp],["ADC", Ndx],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Zpg],["ROR", Zpg],[null,  Imp], // 6x 
+["PLA", Imp],["ADC", Imd],["ROR", Acc],[null,  Imp],["JMP", Ind],["ADC", Abs],["ROR", Abs],[null,  Imp],
+["BVS", Rel],["ADC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Zpx],["ROR", Zpx],[null,  Imp], // 7x 
+["SEI", Imp],["ADC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["ADC", Abx],["ROR", Abx],[null,  Imp],
+[null,  Imp],["STA", Ndx],[null,  Imp],[null,  Imp],["STY", Zpg],["STA", Zpg],["STX", Zpg],[null,  Imp], // 8x 
+["DEY", Imp],[null,  Imp],["TXA", Imp],[null,  Imp],["STY", Abs],["STA", Abs],["STX", Abs],[null,  Imp],
+["BCC", Rel],["STA", Ndy],[null,  Imp],[null,  Imp],["STY", Zpx],["STA", Zpx],["STX", Zpy],[null,  Imp], // 9x 
+["TYA", Imp],["STA", Aby],["TXS", Imp],[null,  Imp],[null,  Imp],["STA", Abx],[null,  Imp],[null,  Imp],
+["LDY", Imd],["LDA", Ndx],["LDX", Imd],[null,  Imp],["LDY", Zpg],["LDA", Zpg],["LDX", Zpg],[null,  Imp], // ax 
+["TAY", Imp],["LDA", Imd],["TAX", Imp],[null,  Imp],["LDY", Abs],["LDA", Abs],["LDX", Abs],[null,  Imp],
+["BCS", Rel],["LDA", Ndy],[null,  Imp],[null,  Imp],["LDY", Zpx],["LDA", Zpx],["LDX", Zpy],[null,  Imp], // bx 
+["CLV", Imp],["LDA", Aby],["TSX", Imp],[null,  Imp],["LDY", Abx],["LDA", Abx],["LDX", Aby],[null,  Imp],
+["CPY", Imd],["CMP", Ndx],[null,  Imp],[null,  Imp],["CPY", Zpg],["CMP", Zpg],["DEC", Zpg],[null,  Imp], // cx 
+["INY", Imp],["CMP", Imd],["DEX", Imp],[null,  Imp],["CPY", Abs],["CMP", Abs],["DEC", Abs],[null,  Imp],
+["BNE", Rel],["CMP", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["CMP", Zpx],["DEC", Zpx],[null,  Imp], // dx 
+["CLD", Imp],["CMP", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["CMP", Abx],["DEC", Abx],[null,  Imp],
+["CPX", Imd],["SBC", Ndx],[null,  Imp],[null,  Imp],["CPX", Zpg],["SBC", Zpg],["INC", Zpg],[null,  Imp], // ex 
+["INX", Imp],["SBC", Imd],["NOP", Imp],[null,  Imp],["CPX", Abs],["SBC", Abs],["INC", Abs],[null,  Imp],
+["BEQ", Rel],["SBC", Ndy],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Zpx],["INC", Zpx],[null,  Imp], // fx 
+["SED", Imp],["SBC", Aby],[null,  Imp],[null,  Imp],[null,  Imp],["SBC", Abx],["INC", Abx],[null,  Imp]];
+
+// Format an integer as hexadecimal
+function hex(x, width, bare) {
+    var s;
+    if (isNaN(x)) {
+        // Special case: NaN is ?s
+        s = new Array(width + 1).join("?");
+    } else {
+        s = Math.abs(x).toString(16);
+        // Pad
+        while (s.length < width) {
+            s = "0" + s;
+        }
+        if (x < 0) {
+            // Negative sign doesn't count as part of width
+            s = "-" + s;
+        }
+    }
+    if (!bare) {
+        // Assembly has $ to indicate hex (vs % for binary,
+        // nothing for decimal); but otherwise its implied
+        s = "$" + s;
+    }
+    return s.toUpperCase();
+}
+
+// Disassemble a string in 6502 machine code
+function disasm(data) {
+    var instructions = [];
+    var i = 0;
+    while (i < data.length) {
+        var startOffset = i;
+
+        var opcodeByte = data[i++];
+        if (opcodeByte === undefined) {
+            break;
+        }
+        var pair = OPCODES[opcodeByte];
+        if (pair === undefined) {
+            console.log("undef",opcodeByte,pair);
+        }
+        var opcode = pair[0];
+        var addrMode = pair[1];
+        var operand = null;
+        var operandBytes = [];
+
+        // Read operand
+        switch (addrMode) {
+        case Imd: case Zpg: case Zpx: case Zpy: case Ndx: case Ndy:
+            // 8 bits unsigned
+            operandBytes = [data[i++]];
+            operand = operandBytes[0];
+            break;
+        case Abs: case Abx: case Aby: case Ind:
+            // 16 bits unsigned
+            operandBytes = [data[i++]];
+            operandBytes.push(data[i++]);
+            operand = operandBytes[0] + 256 * operandBytes[1];
+            break;
+        case Rel:
+            // 8 bits signed
+            operandBytes = [data[i++]];
+            operand = [operandBytes[0]];
+            if (operand > 127) {
+                operand -= 256;
+            }
+            break;
+        case Imp: case Acc: 
+            break;
+        }
+
+        // Format operand
+        var operandString;
+        switch (addrMode) {
+        case Imd: operandString = "#" + hex(operand, 2); break;
+        case Zpg: operandString = hex(operand, 2); break;
+        case Zpx: operandString = hex(operand, 2) + ",X"; break;
+        case Zpy: operandString = hex(operand, 2) + ",Y"; break;
+        case Abs: operandString = hex(operand, 4); break;
+        case Abx: operandString = hex(operand, 4) + ",X"; break;
+        case Aby: operandString = hex(operand, 4) + ",Y"; break;
+        case Ndx: operandString = "(" + hex(operand, 2) + ",X)"; break;
+        case Ndy: operandString = "(" + hex(operand, 2) + "),Y"; break;
+        case Imp: operandString = ""; break;
+        case Acc: operandString = "A"; break;
+        case Ind: operandString = "(" + hex(operand, 4) + ")"; break;
+        case Rel: operandString = hex(operand, 4); break; // TODO: calculate relative
+        }
+
+        var unofficial = OPCODES_OFFICIAL[opcodeByte][0] === null;
+
+        var s = opcode + " " + operandString;
+
+        if (unofficial) {
+            s = "*" + s;
+        }
+
+        instructions.push({
+            offset: startOffset,
+            opcodeByte: opcodeByte,
+            operandBytes: operandBytes,
+            opcode: opcode,
+            operand: operand,
+            operandString: operandString,
+            unofficial: unofficial
+            });
+    }
+    return instructions;
+}
+
+// Parse an ASCII string of hex bytes into an array of integers
+function parseHex(inputString) {
+    var inputString, i, bytes;
+
+    i = 0;
+    // TODO: use WebKit's compact byte arrays
+    bytes = [];
+    while (i < inputString.length) {
+        var ch, hexString;
+
+        ch = inputString[i++];
+        if (ch.match(/[a-fA-F0-9]/)) {
+            hexString = ch;
+            ch = inputString[i++];
+            if (ch.match(/[a-fA-F0-9]/)) {
+                hexString += ch;
+                var octet = parseInt(hexString, 16);
+                if (isNaN(octet) || octet === undefined || octet === null) {
+                    console.log("Ignored invalid hex: " + hexString);
+                    continue;
+                }
+                bytes.push(octet);
+            } else {
+                // TODO: accept one-digit input?
+                throw("Incomplete hex at " +
+                        i + ", first digit '" + hexString + 
+                        "' is OK but second is non-hex '" +
+                        ch + "'");
+            }
+        } else {
+            // ignore non-hex
+        }
+
+    }
+    return bytes;
+}
+
+
+// Show a disassembled list of instructions
+function showInstructions(instructions, elementName, compareInstructions) {
+    var text = "";
+    var i = 0, i2 = 0;
+    var stats = {instructionsChanged:0};
+
+    // Lookup table of instructions to compare with, by their memory offset
+    // This is needed to resynchronize the instruction stream
+    var compareByOffset = {};
+    if (compareInstructions) {
+        for (i = 0; i < compareInstructions.length; ++i) {
+            compareByOffset[compareInstructions[i].offset] = compareInstructions[i];
+        }
+    }
+
+
+    i = 0;
+    while (i < instructions.length) {
+        var instr = instructions[i];
+        var instr2;
+        var line = "";
+        var instructionDiffered = false;
+
+        if (compareInstructions) {
+            instr2 = compareInstructions[i2];
+        }
+
+        // Return HTML highlighting something if it differs (was patched by code)
+        function hl(s, key, offset) {
+            if (!instr2) {
+                return s; // not comparing
+            }
+
+            var a = instr[key];
+            var b = instr2[key];
+            if (offset !== undefined) { a = a[offset]; b = b[offset]; }
+
+            if (a !== b) {
+                instructionDiffered = true;
+
+                return '<span class="changed">' + s + '</span>';
+            } 
+            return s;
+        }
+
+        // Instruction stream synchronization
+        if (instr2 && instr.offset !== instr2.offset) {
+            var nextInstr2 = compareInstructions[i2 + 1];
+            if (nextInstr2 && nextInstr2.offset === instr.offset) {
+                // Other side has more instructions..leave a gap
+                i2 += 1;
+                instr2 = nextInstr2;
+                text += "\n";
+            } else if (instructions[i + 1].offset === instr2.offset) {
+                // We are far ahead, back up 
+                i2 -= 1;
+            }
+        }
+
+        line += hl(hex(instr.offset, 4, true), "offset") + "    ";
+
+        // Opcode and operand bytes in hex, aligned properly
+        line += hl(hex(instr.opcodeByte, 2, true), "opcodeByte") + " ";
+
+        for (var j = 0; j < 2; ++j) {
+            if (j < instr.operandBytes.length) {
+                line += hl(hex(instr.operandBytes[j], 2, true), "operandBytes", j);
+            } else {
+                line += "  ";
+            }
+            line += " ";
+        }
+
+        // Instruction disassembly, starred if unofficial
+        line += hl(instr.unofficial ? "*" : " ", "unofficial");
+        line += hl(instr.opcode, "opcode") + " " + hl(instr.operandString, "operandString");
+
+
+        //console.log(instr.offset, instr.opcodeByte, instr.operandBytes, s);
+        text += line + "\n";
+
+        i += 1;
+        i2 += 1;
+
+        if (instructionDiffered) {
+            stats.instructionsChanged += 1;
+        }
+    }
+    // TODO: show extra instructions in instr2 beyond instr
+    // are there any?
+
+    document.getElementById(elementName).innerHTML = text;
+
+    return stats;
+}
+
+// Return bytes with applied ROM patch
+// TODO: refactor
+function applyPatch(bytes) {
+    // Patch (TODO: decoded code; snippet offset)
+    var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
+    var patchValue = parseInt(document.getElementById("patchValue").value, 16);
+
+    if (isNaN(patchOffset) || patchOffset === undefined || patchOffset === null) {
+        patchOffset = 0;
+        document.getElementById("patchOffset").value = "";
+    }
+    if (isNaN(patchValue) || patchValue === undefined || patchValue === null) {
+        patchValue = 0;
+        document.getElementById("patchValue").value = "";
+    }
+    if (patchOffset > bytes.length - 1) {
+        patchOffset = bytes.length - 1;
+        document.getElementById("patchOffset").value = hex(patchOffset, 4, true);
+    }
+
+    bytes[patchOffset] = patchValue;
+
+    // TODO: start at an offset
+    document.getElementById("encoded").textContent = encodeGG(
+            {Address: patchOffset, Value:patchValue});
+
+    return bytes;
+}
+
+function update() {
+    var inputString = document.getElementById("in").value;
+    var bytes = parseHex(inputString);
+    var before, after, stats1, stats2;
+
+    before = disasm(bytes);
+    after = disasm(applyPatch(bytes));
+    
+    stats1 = showInstructions(before, "disasm-before", after);
+    stats2 = showInstructions(after, "disasm-after", before);
+
+    console.log(JSON.stringify(stats1), JSON.stringify(stats2));
+}
+
+// Position in this string corresponds to numerical value of code
+var LETTERS = "APZLGITYEOXUKSVN";
+
+// Convert Game Genie letter to its numerical value
+function letterToDigit(letter) {
+    var digit = LETTERS.indexOf(letter.toUpperCase());
+    if (digit === -1) {
+        throw "letterToDigit(" + letter + "): invalid";
+    }
+    return digit;
+}
+
+// Decode a Game Genie code to an object
+// Based on gones/src/gamegenie.go
+function decodeGG(s) {
+    var digits, c;
+    
+    digits = [];
+    for (var i = 0; i < s.length; i += 1) {
+        digits.push(letterToDigit(s[i]));
+    }
+
+    c = {};
+    c.Value = (((digits[0]&8)<<4)+((digits[1]&7)<<4)+(digits[0]&7));
+    c.Address = (((digits[3]&7)<<12)+((digits[4]&8)<<8)+((digits[5]&7)<<8)+
+            ((digits[1]&8)<<4)+((digits[2]&7)<<4)+(digits[3]&8)+(digits[4]&7));
+    if (s.length === 8) {
+        c.Value += (digits[7] & 8);
+        c.Key = (((digits[6]&8)<<4)+((digits[7]&7)<<4)+(digits[5]&8)+(digits[6]&7));
+        c.HasKey = true;
+    } else {
+        c.Value += (digits[5] & 8);
+    }
+
+    // Codes like this don't automagically go to the next line when the sixth 
+    // letter is typed. They should be 8 letters, but if you only type 6, they'll
+    // still take affect. This only matters for code entry.
+    // NOTE: When patching, use HasKey to tell whether to apply Key! 
+    // .. not WantsKey, because the code doesn't always get what it wants.
+    c.WantsKey = digits[2] >> 3 !== 0;
+
+    return c;
+}
+
+// Encode a Game Genie code
+function encodeGG(c) {
+    var length, s, digits;
+
+
+    c.Address &= 0x7fff;
+
+    digits = []
+    digits[0]=((c.Value&7)+((c.Value>>4)&8));
+    digits[1]=(((c.Value>>4)&7)+((c.Address>>4)&8));
+    digits[2]=(((c.Address>>4)&7));
+    digits[3]=((c.Address>>12)+(c.Address&8));
+    digits[4]=((c.Address&7)+((c.Address>>8)&8));
+    digits[5]=(((c.Address>>8)&7));
+
+    if (c.HasKey) {
+        digits[2]+=8;
+        digits[5]+=(c.Key&8);
+        digits[6]=((c.Key&7)+((c.Key>>4)&8));
+        digits[7]=(((c.Key>>4)&7)+(c.Value&8));
+        length = 8;
+    } else {
+        digits[5]+=(c.Value&8);
+        length = 6;
+    }
+    // TODO: encoding WantsKey without HasKey?
+    // Currently, this function will only encode canonicalized
+    // codes, so that for example SLXPLO which has WantsKey set
+    // but is only 6 digits will be, if decoded and re-encoded,
+    // changed to SLZPLO which is more correct, and will in
+    // a real Game Genie automatically advance to the next code entry line.
+
+    s = "";
+    for (var i = 0; i < length; i += 1) {
+        s += LETTERS[digits[i]];
+    }
+
+    return s;
+}
+
+function init() {
+    document.onkeyup = update;
+
+    update();
+}
+</script>
+</head>
+<body onload="init()">
+<input id="patchOffset" value="0000" size="4">: <!-- offset within the disassembly, not the CPU address! -->
+<input id="patchValue" value="01" size="2" maxlength="2"> 
+<span id="encoded"></span><br> <!-- TODO: user-editable -->
+<!-- example codes for below:
+0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
+0000:01 changes opcode and size 1->2, SEI -> LDA, consumes 2-1=1 extra bytes
+        since next instruction is 1 byte (CLD), only affects one extra instruction (2 total)
+0000:ad changes opcode and size 1->3, SEI -> LDA, affects 4 instructions (can be unbounded)
+0002:00 changes opcode and size 2->1, TODO: fix overzealous highlighting
+ TODO: 
+-->
+<textarea id="in" rows="25" cols="50">
+78
+d8
+a9
+10
+8d 00 20
+a2 ff
+9a
+ad 02 20
+10 fb
+ff ff ff
+f2
+</textarea>
+<button accesskey="d" onclick="update()">Disassemble</button>
+<div style="width: 40%; margin: auto">
+<pre id="disasm-before" style="float: left"></pre>
+<pre id="disasm-after" style="float: right"></pre>
+</div>
+
+</body>
+</html>
