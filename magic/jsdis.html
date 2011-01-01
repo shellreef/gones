@@ -7,6 +7,9 @@ span.changed { background-color: yellow; }
 </style>
 <script src="dojo.xd.js"></script>
 <script>
+var ROM_DATA = null;  // Data of ROM
+var ROM_USE_FILE;     // Load data from file instead of raw bytes
+
 // Addressing modes
 var Imd = "Imd";      // Immediate 
 var Zpg = "Zpg";      // Zero Page 
@@ -370,11 +373,13 @@ function applyPatch(bytes) {
 
 function update() {
     var inputString = dojo.byId("in").value;
-    var bytes = parseHex(inputString);
+    if (!ROM_USE_FILE) {
+        ROM_DATA = parseHex(inputString);
+    }
     var before, after, stats1, stats2;
 
-    before = disasm(bytes);
-    after = disasm(applyPatch(bytes));
+    before = disasm(ROM_DATA);
+    after = disasm(applyPatch(ROM_DATA));
     
     stats1 = showInstructions(before, "disasm-before", after);
     stats2 = showInstructions(after, "disasm-after", before);
@@ -466,8 +471,15 @@ function encodeGG(c) {
     return s;
 }
 
-function loadCart() {
-    dojo.xhrGet({url:"../roms/own/Super Mario Bros. 3 (U) (PRG0) [!].nes", 
+// Load ROM data from a .nes file
+function loadNesFile() {
+    var url;
+
+    url = dojo.byId(filename).value;
+    // TODO: need to use XHR overrideMimeType to get binary data;
+    // otherwise non-text characters replaced with \ufffd. Seems that
+    // dojo doesn't support it?
+    dojo.xhrGet({url:url, overrideMimeType:"application/octet-stream",
             load:function(data) {
                 parseNesFile(data);
             }
@@ -477,13 +489,13 @@ function loadCart() {
 // Read an iNES file (.nes)
 function parseNesFile(data) {
     var header, prg, chr;
-    var magic, prgCount, chrCount;
+    var signature, prgCount, chrCount;
 
     header = data.substring(0, 0x10);
-    magic = header.substring(0, 4);
+    signature = header.substring(0, 4);
 
-    if (magic !== "NES\x1a") {
-        throw "Invalid .nes file signature: " + magic;
+    if (signature !== "NES\x1a") {
+        throw "Invalid .nes file signature: " + signature;
     }
     prgCount = header.substring(5, 6).charCodeAt(0);
     // Other header info not read yet
@@ -491,12 +503,18 @@ function parseNesFile(data) {
     // PRG stored in 16384-byte ($4000, 16k) pages
     prg = data.substring(0x10, 0x10 + prgCount * 16384);
     console.log("PRG",prgCount,prg.length);
+
+    ROM_DATA = prg.split("").map(function(x) { return x.charCodeAt(0); });
+    console.log(ROM_DATA[1]);
+    console.log(prg.substring(0,10));
+    ROM_USE_FILE = true;
+
+    update();
 }
 
 function init() {
     document.onkeyup = update;
 
-    loadCart();
     update();
 }
 </script>
@@ -513,7 +531,7 @@ function init() {
 0002:00 changes opcode and size 2->1, TODO: fix overzealous highlighting
  TODO: 
 -->
-<textarea id="in" rows="25" cols="50">
+<textarea id="in" rows="25" cols="50" onchange="ROM_USE_FILE = false;">
 78
 d8
 a9
@@ -525,7 +543,9 @@ ad 02 20
 10 fb
 ff ff ff
 f2
-</textarea>
+</textarea><br>
+<!-- <input type=file id=f1> --> <!-- TODO: file element, can't seem to access locally directly -->
+<input id="filename" size="50" value="../roms/own/Super Mario Bros. 3 (U) (PRG0) [!].nes"><button onclick="loadNesFile()">Load file</button><br>
 <button accesskey="d" onclick="update()">Disassemble</button>
 <div style="width: 40%; margin: auto">
 <pre id="disasm-before" style="float: left"></pre>
