@@ -5,6 +5,7 @@
 <style>
 span.changed { background-color: yellow; }
 </style>
+<script src="dojo.xd.js"></script>
 <script>
 // Addressing modes
 var Imd = "Imd";      // Immediate 
@@ -333,7 +334,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
     // TODO: show extra instructions in instr2 beyond instr
     // are there any?
 
-    document.getElementById(elementName).innerHTML = text;
+    dojo.byId(elementName).innerHTML = text;
 
     return stats;
 }
@@ -342,33 +343,33 @@ function showInstructions(instructions, elementName, compareInstructions) {
 // TODO: refactor
 function applyPatch(bytes) {
     // Patch (TODO: decoded code; snippet offset)
-    var patchOffset = parseInt(document.getElementById("patchOffset").value, 16);
-    var patchValue = parseInt(document.getElementById("patchValue").value, 16);
+    var patchOffset = parseInt(dojo.byId("patchOffset").value, 16);
+    var patchValue = parseInt(dojo.byId("patchValue").value, 16);
 
     if (isNaN(patchOffset) || patchOffset === undefined || patchOffset === null) {
         patchOffset = 0;
-        document.getElementById("patchOffset").value = "";
+        dojo.byId("patchOffset").value = "";
     }
     if (isNaN(patchValue) || patchValue === undefined || patchValue === null) {
         patchValue = 0;
-        document.getElementById("patchValue").value = "";
+        dojo.byId("patchValue").value = "";
     }
     if (patchOffset > bytes.length - 1) {
         patchOffset = bytes.length - 1;
-        document.getElementById("patchOffset").value = hex(patchOffset, 4, true);
+        dojo.byId("patchOffset").value = hex(patchOffset, 4, true);
     }
 
     bytes[patchOffset] = patchValue;
 
     // TODO: start at an offset
-    document.getElementById("encoded").textContent = encodeGG(
+    dojo.byId("encoded").textContent = encodeGG(
             {Address: patchOffset, Value:patchValue});
 
     return bytes;
 }
 
 function update() {
-    var inputString = document.getElementById("in").value;
+    var inputString = dojo.byId("in").value;
     var bytes = parseHex(inputString);
     var before, after, stats1, stats2;
 
