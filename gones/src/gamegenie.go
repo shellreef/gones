@@ -95,7 +95,7 @@ func decodePatch(s string) (c GameGenieCode) {
 // String representation of hex addresses and value
 func (c GameGenieCode) String() (string) {
     if c.HasKey {
-        return fmt.Sprintf("%.4X:%.2X?%.2X", c.Address, c.Value, c.Key)
+        return fmt.Sprintf("%.4X?%.2X:%.2X", c.Address, c.Key, c.Value)
     } 
     return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
 }
