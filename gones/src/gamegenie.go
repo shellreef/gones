@@ -79,7 +79,7 @@ func decodeGG(s string) (c GameGenieCode) {
 // some emulators, and convenient when making/changing codes as it avoids the scrambling.
 func decodePatch(s string) (c GameGenieCode) {
     // First allow aaaa?kk:vv format (key first, which I think is more logical)
-    items, _ := fmt.Sscanf(s, "%x?%x:%x", &c.Address, &c.Value, &c.Key)
+    items, _ := fmt.Sscanf(s, "%x?%x:%x", &c.Address, &c.Key, &c.Value)
     if items != 3 {
         // Then more conventional aaaa:vv?kk format
         // and also 6-letter aaaa:vv. Ignore errors, since can convert partially.

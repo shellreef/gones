@@ -372,8 +372,8 @@ function applyPatch(bytes) {
 }
 
 function update() {
-    var inputString = dojo.byId("in").value;
     if (!ROM_USE_FILE) {
+        var inputString = dojo.byId("in").value;
         ROM_DATA = parseHex(inputString);
     }
     var before, after, stats1, stats2;
