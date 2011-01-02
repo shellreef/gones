@@ -442,7 +442,7 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             // TODO: palette
             // This is not real
             var r, g, b byte
-            switch pattern[column][row] {
+            switch pattern[7-column][7-row] {
             case 0: r=255
             case 1: g=255
             case 2: b=255
@@ -454,7 +454,7 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
                 continue
             }
 
-            leggo.WritePixel(row+offX, column+offY, r,g,b,0)
+            leggo.WritePixel(row+offX, (7-column)+offY, r,g,b,0)
         }
     }
 }
