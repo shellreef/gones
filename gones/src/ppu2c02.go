@@ -442,7 +442,7 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             // TODO: palette
             // This is not real
             var r, g, b byte
-            switch pattern[row][column] {
+            switch pattern[column][row] {
             case 0: r=255
             case 1: g=255
             case 2: b=255
@@ -471,7 +471,7 @@ func (ppu *PPU) ShowNametable() {
             tile := ppu.Memory[base + row*30 + column]
             pattern := ppu.GetPattern(patternTable, int(tile))
 
-            ppu.DrawPattern(pattern, row*8, column*8)
+            ppu.DrawPattern(pattern, column*8, row*8)
         }
     }
 }

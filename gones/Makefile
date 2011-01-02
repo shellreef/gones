@@ -5,8 +5,7 @@ test: nestest unittest timingtest
 
 fulltest: test instr_test_v3
 
-# Run without GUI
-EMU=./gones h
+EMU=./gones
 
 # CPU functionality test
 nestest: gones

@@ -37,7 +37,7 @@ func TestDecode8(t *testing.T) {
     expect(t, c.HasKey)
     expect(t, c.WantsKey)
     expect(t, c.Key == 0xde)
-    expect(t, c.String() == "1123:BD?DE")
+    expect(t, c.String() == "1123?DE:BD")
     expect(t, c.Encode() == "SLXPLOVS")
 }
 

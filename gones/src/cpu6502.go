@@ -845,6 +845,8 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Running blargg's emulator tests?
     // TODO: post-execute instruction hook for debugging?
+    // TODO: add these tests as a mapper??
+    /* XXX JC ENABLE FOR AUTOMATED TESTING!
     if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
         status := cpu.Memory[0x6000]
         if cpu.Verbose || status != 0x80 {
@@ -860,7 +862,7 @@ func (cpu *CPU) ExecuteInstruction() {
         if status < 0x80  {
             os.Exit(int(status))
         }
-    }
+    }*/
 }
 
 // Start execution
