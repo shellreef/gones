@@ -82,11 +82,12 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     }
 
     // TODO: better cmd parsing. real scripting language?
-    name := string(cmd[0])
-    args := strings.Split(cmd, " ", -1)[1:]
+    tokens := strings.Split(cmd, " ", -1)
+    name := tokens[0]
+    args := tokens[1:]
     switch name {
     // go (not to be confused with the programming language)
-    case "g": 
+    case "g", "go": 
         if len(args) > 0 {
             // optional start address to override RESET vector
             startInt, err := strconv.Btoui64(args[0], 0)
@@ -97,9 +98,11 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
 
             cpu.PC = uint16(startInt)
         }
+        // TODO: number of instructions, cycles, pixels, or frames to execute
+        // (2i, 2c, 2p, 2f)
         Start(cpu, ppu, showGui)
     // load
-    case "l":
+    case "l", "load":
         if len(args) > 0 {
             Load(cpu, ppu, strings.Join(args, " ")) // TODO: use cmd directly instead of rejoining
             // TODO: verbose load
@@ -107,17 +110,17 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
             fmt.Printf("usage: l <filename>\n")
         }
     // hide GUI
-    case "h": showGui = false
+    case "h", "hide": showGui = false
 
     // interactive
-    case "i": Shell(cpu, ppu)
+    case "i", "shell": Shell(cpu, ppu)
     // registers
-    case "r": cpu.DumpRegisters()
+    case "r", "registers": cpu.DumpRegisters()
     // TODO: search
     // TODO: unassemble
 
     // pattern table
-    case "p":
+    case "p", "show-pattern":
         if len(args) < 2 {
             fmt.Printf("usage: p <table-number> <tile-number>\n")
             return
@@ -133,8 +136,13 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         }
         ppu.PrintPattern(ppu.GetPattern(int(table), int(tile)))
 
+    /* TODO: be able to interact with shell when GUI is open, so could do this
+    case "draw-patterns":
+        ppu.ShowPatterns()
+    */
+
     // enter
-    case "e":
+    case "e", "enter":
         if len(args) < 2 {
             fmt.Printf("usage: e <address> <byte0> [<byte1> [<byteN...]]\n")
             return
@@ -162,7 +170,7 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
     // assemble
     // TODO: get string -> Opcode/AddrMode working again
     /*
-    case "a":
+    case "a", "assemble":
         if len(args) != 2 {
             fmt.Printf("usage: a <opcode> <addrmode>\n")
             return
@@ -174,13 +182,18 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
         // TODO: read operands and actually assemble and write
     */
     // trace
-    case "t":
+    case "t", "trace":
         // TODO: optional argument of instructions to execute
         cpu.ExecuteInstruction()
         cpu.DumpRegisters()
     // cheat code
-    case "c": 
+    case "c", "code": 
         for _, code := range(args) {
+            // TODO: PAR codes (RAM patches), FCEU ("emulator PAR"; 001234 FF) and PAR format (1234 FF)
+            // TODO: ROM patches, complete addresses in PRG chip to patch, more precise than
+            //  GG codes since can specify entire address (rXXXXX:XX?)
+            // TODO: maybe CHR ROM patches too? vXXXXX:XX
+
             patch := gamegenie.Decode(code)
             fmt.Printf("%s = %s\n", patch, patch.Encode())
             // TODO: apply
@@ -191,9 +204,9 @@ func RunCommand(cpu *cpu6502.CPU, ppu *ppu2c02.PPU, cmd string) {
 
 
     // verbose
-    case "v": cpu.Verbose = true; ppu.Verbose = true
-    case "b": ppu.Verbose = true
-    case "V": cpu.InstrTrace = true
+    case "v", "show-cycles": cpu.Verbose = true; ppu.Verbose = true
+    case "b", "show-vblank": ppu.Verbose = true
+    case "V", "show-trace": cpu.InstrTrace = true
 
     // TODO: breakpoints
     // TODO: watch
