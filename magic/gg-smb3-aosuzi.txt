@@ -322,6 +322,8 @@ DOP 35D6:04?D0 = {GESLTIEI} able to throw blocks when out of or in Kuribo's boot
  appears to check if is a throwable white block (#$32)
 000A<->[DD]03 06  CMP $0603,X           000A   [10]03     BPL $0003      -->35DA:10?DD<---
 000D    D0 25     BNE $0025             000C    06 D0     ASL $D0
+DOP 35DD?D0:04 = GESUIIEI equivalent throwable blocks code, still has graphical glitches
+
 000F    24 18     BIT $18 (%0001_1000)  000E    25 24     AND $24
                                         0010    18        CLC
 0011    50 21     BVC $0021             ....  ; trying to pick up a block
