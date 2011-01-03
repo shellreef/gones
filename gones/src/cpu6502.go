@@ -86,13 +86,6 @@ func (cpu *CPU) NextSInt8() (b int8) {
     return b
 }
 
-// Read unsigned 16-bits, advancing program counter
-func (cpu *CPU) NextUInt16() (w uint16) {
-    low := cpu.NextUInt8()
-    high := cpu.NextUInt8()
-    return uint16(high) << 8 + uint16(low)
-}
-
 // Get the address an operand refers to
 func (cpu *CPU) AddressOperand() (address uint16) {
    
@@ -324,7 +317,10 @@ func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
     case Imd, Zpg, Zpx, Zpy, Ndx, Ndy: // read 8 bits
         return int(cpu.NextUInt8())
     case Abs, Abx, Aby, Ind:           // read 16 bits
-        return int(cpu.NextUInt16())
+        low := cpu.NextUInt8()
+        high := cpu.NextUInt8()
+        address := uint16(high) << 8 + uint16(low)
+        return int(address)
     case Imp, Acc: 
         // all others fetch next byte and use it
         cpu.Tick("read next instruction byte (and throw it away, Imp/Acc)")
