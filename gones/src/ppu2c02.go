@@ -212,7 +212,7 @@ func (ppu *PPU) VBlank() {
 
 
 // Read registers
-func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
+func (ppu *PPU) ReadRegister(operAddr uint16) (wants bool, ret uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
             if ppu.Verbose { 
                 fmt.Printf("mapper: PPU doesn't care about read %.4X\n", operAddr)
@@ -221,6 +221,7 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
         }
 
         // $2000-2007 is mirrored every 8 bytes
+        // TODO: replace with & 7!
         operAddr &^= 0x1ff8
 
         wants = true
@@ -271,7 +272,7 @@ func (ppu *PPU) ReadMapper(operAddr uint16) (wants bool, ret uint8) {
 }
 
 // Write registers
-func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
+func (ppu *PPU) WriteRegister(operAddr uint16, b uint8) (bool) {
         if operAddr > 0x3fff {
             // Not our territory
             if ppu.Verbose {
@@ -281,6 +282,7 @@ func (ppu *PPU) WriteMapper(operAddr uint16, b uint8) (bool) {
         }
 
         // $2000-2007 is mirrored every 8 bytes up to $3FFF
+        // TODO: replace with & 7!
         operAddr &^= 0x1ff8 
 
         if ppu.Verbose {

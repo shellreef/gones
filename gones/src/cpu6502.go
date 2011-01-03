@@ -18,7 +18,17 @@ import (
 )
 
 type CPU struct {
+    // Functions to read and write to memory, indexed by each 4 KB,
+    // using the upper 4 bits of the address. Most mappers use 
+    // 8 KB, 16 KB, or 32 KB banks (NSF uses 4 KB) so they'll map multiple.
+    MemRead  [16](func(address uint16)(value uint8))
+    MemWrite [16](func(address uint16, value uint8))
+
+    // TODO: kill this
     Memory [0x10000]uint8          // $0000-$FFFF
+    ReadMappers [10](func(uint16) (bool, uint8))
+    WriteMappers [10](func(uint16, uint8) (bool))
+
     PC uint16   // Program counter
     S uint8     // Stack pointer, offset from $0100
     A uint8     // Accumulator
@@ -36,9 +46,6 @@ type CPU struct {
     OperPtr *uint8  // Pointer to operand of current instruction
     HaveCalculatedAddress bool
     CalculatedAddress uint16
-
-    ReadMappers [10](func(uint16) (bool, uint8))
-    WriteMappers [10](func(uint16, uint8) (bool))
 }
 
 // Processor status bits
@@ -846,7 +853,6 @@ func (cpu *CPU) ExecuteInstruction() {
     // Running blargg's emulator tests?
     // TODO: post-execute instruction hook for debugging?
     // TODO: add these tests as a mapper??
-    /* XXX JC ENABLE FOR AUTOMATED TESTING!
     if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
         status := cpu.Memory[0x6000]
         if cpu.Verbose || status != 0x80 {
@@ -862,7 +868,7 @@ func (cpu *CPU) ExecuteInstruction() {
         if status < 0x80  {
             os.Exit(int(status))
         }
-    }*/
+    }
 }
 
 // Start execution
@@ -894,4 +900,30 @@ func (cpu *CPU) CheckNMI() {
     cpu.PC = cpu.ReadUInt16(NMI_VECTOR)
  
     cpu.PendingNMI = false
+}
+
+
+// Map an address in memory
+// TODO
+func (cpu *CPU) Map4K(start uint16, end uint16, 
+        read func(address uint16) (value uint8), 
+        write func(address uint16, value uint8)) {
+
+    index := (start & 0xf000) >> 12
+    expectEnd := (start & 0xf000) | 0x0fff
+    if end != expectEnd {
+        panic(fmt.Sprintf("Map4K(%.4X, %.4X): address range is not 4 KB, expected %.4X",
+                    start, end, expectEnd))
+    }
+
+    cpu.MemRead[index] = read
+    cpu.MemWrite[index] = write
+}
+
+// TODO
+func (cpu *CPU) Map8K(start uint16, end uint16, 
+        read func(address uint16) (value uint8), 
+        write func(address uint16, value uint8)) {
+    cpu.Map4K(start, start+0x0fff, read, write)
+    cpu.Map4K(start+0x1000, end, read, write)
 }

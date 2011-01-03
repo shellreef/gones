@@ -241,8 +241,8 @@ func main() {
     //cpu.ReadMappers[0] = ppu.ReadMapper
     //cpu.WriteMappers[0] = ppu.WriteMapper
     // so I have to wrap it in a closure:
-    cpu.ReadMappers[0] = func(address uint16) (wants bool, ret uint8) { return ppu.ReadMapper(address) }
-    cpu.WriteMappers[0] = func(address uint16, b uint8) (bool) { return ppu.WriteMapper(address, b) }
+    cpu.ReadMappers[0] = func(address uint16) (wants bool, ret uint8) { return ppu.ReadRegister(address) }
+    cpu.WriteMappers[0] = func(address uint16, b uint8) (bool) { return ppu.WriteRegister(address, b) }
 
     cpu.PowerUp()
 
