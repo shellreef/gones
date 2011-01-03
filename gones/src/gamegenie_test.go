@@ -61,8 +61,10 @@ func TestDecodeExtraKey(t *testing.T) {
 
 // Other forms of codes
 func TestDecodeOther(t *testing.T) {
+    expect(t, Decode("1123?DE:BD").Encode() == "SLXPLOVS")
     expect(t, Decode("1123:BD?DE").Encode() == "SLXPLOVS")
     expect(t, Decode("1123:BD").Encode() == "SLZPLO")
+    expect(t, Decode("1123?de:bd").Encode() == "SLXPLOVS")
     expect(t, Decode("1123:bd?de").Encode() == "SLXPLOVS")
     expect(t, Decode("1123:bd").Encode() == "SLZPLO")
     expect(t, Decode("SLZPLO").Encode() == "SLZPLO")
