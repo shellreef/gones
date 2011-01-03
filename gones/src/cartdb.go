@@ -13,6 +13,7 @@ import ("fmt"
         "time"
         "crypto/sha1"
         
+        "cartridge"
         "nesfile"
         )
 
@@ -239,7 +240,7 @@ func DumpMatch(match CartMatches) {
 }
 
 // Find games matching hashes
-func Identify(database *Database, cart *nesfile.Cartridge) ([]CartMatches) {
+func Identify(database *Database, cart *cartridge.Cartridge) ([]CartMatches) {
     var found []CartMatches
 
     hash := cartHash(cart)
@@ -259,7 +260,7 @@ func Identify(database *Database, cart *nesfile.Cartridge) ([]CartMatches) {
 }
 
 // Get SHA-1 digest of cartridge PRG and CHR
-func cartHash(cart *nesfile.Cartridge) (string) {
+func cartHash(cart *cartridge.Cartridge) (string) {
     digester := sha1.New()
 
     // First PRG.. note, some games have multiple PRG chips (such as Action-52,

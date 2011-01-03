@@ -9,11 +9,12 @@
 
 package cpu6502
 
-import . "nesfile"
 import . "dis6502"
 import (
     "fmt"
     "os"
+
+    "cartridge"
 
 )
 
@@ -309,7 +310,7 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
 
 // Load a game cartridge
 // TODO: move to controldeck?
-func (cpu *CPU) Load(cart *Cartridge) {
+func (cpu *CPU) Load(cart *cartridge.Cartridge) {
     if len(cart.Prg) == 0 {
         panic("No PRG found")
     }

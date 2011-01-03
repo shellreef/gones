@@ -12,11 +12,11 @@ import (
     "fmt"
     "time"
 
-    "cpu6502"
     "leggo"
-)
 
-import . "nesfile"
+    "cartridge"
+    "cpu6502"
+)
 
 // Registers
 const PPU_CTRL      = 0x2000
@@ -384,7 +384,7 @@ func (ppu *PPU) WriteRegister(operAddr uint16, b uint8) (bool) {
 }
 
 // Initialize the PPU with a game cartridge
-func (ppu *PPU) Load(cart *Cartridge) {
+func (ppu *PPU) Load(cart *cartridge.Cartridge) {
     if len(cart.Chr) > 0 { 
         // Load CHR ROM pattern tables #0 and #1 from cartridge, if present, into $0000-1FFF
         // Note that not all games have this, some use CHR RAM instead, but 
