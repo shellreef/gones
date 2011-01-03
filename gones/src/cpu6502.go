@@ -77,6 +77,7 @@ func (cpu *CPU) ReadFrom(address uint16) (value uint8) {
 
 // Write to CPU address
 func (cpu *CPU) WriteTo(address uint16, value uint8) {
+    //fmt.Printf("WRITE %.4x:%.2x\n", address, value)
     cpu.MemWrite[(address & 0xf000) >> 12](address, value)
 }
 
@@ -167,42 +168,13 @@ func (cpu *CPU) WriteOperand(b uint8) {
     case Zpg, Zpx, Zpy, Ndx, Ndy:
         cpu.Tick("write to effective address")
         // TODO: only can access zero page, so write directly from memory
-        //cpu.Memory[cpu.AddressOperand()] = b
-        cpu.MemWrite[0](cpu.AddressOperand(), b)
+        cpu.WriteTo(cpu.AddressOperand(), b)
 
     case Abs, Abx, Aby:
         cpu.Tick("write to effective address")
 
         address := cpu.AddressOperand()
         cpu.WriteTo(address, b)
-
-        /*
-        switch {
-        case address < 0x2000:
-            // $0000-07ff is mirrored three times up to $2000, and is always RAM
-            address &^= 0x1800
-            cpu.Memory[address] = b
-        
-        case address >= 0x6000 && address <= 0x7fff:
-            // Save RAM (SRAM)
-            cpu.Memory[address] = b
-
-        default:
-            // Find a mapper that cares
-            handled := false
-            for _, mapper := range cpu.WriteMappers {
-                if mapper != nil && mapper(address, b) {
-                    handled = true
-                    break
-                }
-            }
-            if !handled {
-                if cpu.Verbose {
-                    fmt.Printf("No mapper claimed write: %.4X -> %.2X, ignored\n", address, b)
-                }
-            }
-        }
-        */
 
     // Can't write to implied, immediate, etc.
     default: panic(fmt.Sprintf("WriteOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
@@ -218,7 +190,7 @@ func (cpu *CPU) ReadOperand() (b uint8) {
     case Zpg, Zpx, Zpy, Ndx, Ndy:
         // TODO: only can access zero page, so read directly from memory
         cpu.Tick("read from effective address")
-        return cpu.MemRead[0](cpu.AddressOperand())
+        return cpu.ReadFrom(cpu.AddressOperand())
 
     case Abs, Abx, Aby:
         cpu.Tick("read from effective address")
@@ -289,7 +261,7 @@ func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
 
 // Read unsigned 16-bits from zero page
 func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
-    low := cpu.ReadFrom(uint16(uint8(address)))
+    low := cpu.ReadFrom(uint16(address))
     cpu.Tick("fetch effective address low (zero page)")
     high := cpu.ReadFrom(uint16(uint8(address + 1)))    // 0xff + 1 wraps around
     cpu.Tick("fetch effective address high (zero page)")
