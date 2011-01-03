@@ -16,6 +16,7 @@ import (
     "leggo" // install from ../leggo-my-allegro
 
     "nesfile"
+    "unifile"
     "cpu6502"
     //"dis6502"
     "ppu2c02"
@@ -78,6 +79,10 @@ func New() (*ControlDeck) {
 
 // Load a game
 func (deck *ControlDeck) Load(filename string) {
+    // TODO: abstract loader for .nes/.unf/whatever
+    u := unifile.Open(filename)
+    fmt.Printf("UNIF? %s\n", u)
+
     cart := nesfile.Open(filename)
     deck.CPU.Load(cart)
     deck.PPU.Load(cart)
@@ -121,7 +126,9 @@ func (deck *ControlDeck) Start() {
 // Run a command to do something with the unit
 func (deck *ControlDeck) RunCommand(cmd string) {
     // If given filename (no command), load and run it
-    if strings.HasSuffix(cmd, ".nes") || strings.HasSuffix(cmd, ".NES") {
+    if strings.HasSuffix(cmd, ".nes") || strings.HasSuffix(cmd, ".NES") ||
+       strings.HasSuffix(cmd, ".unf") || strings.HasSuffix(cmd, ".UNF") ||
+       strings.HasSuffix(cmd, ".unif") || strings.HasSuffix(cmd, ".UNIF") {
         _, err := os.Stat(cmd)
         if err == nil {
             deck.Load(cmd)
