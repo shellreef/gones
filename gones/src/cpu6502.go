@@ -67,11 +67,15 @@ const (
 // Note: instructions use *Operand methods instead
 // Read from CPU address
 func (cpu *CPU) ReadFrom(address uint16) (value uint8) {
-    return cpu.MemRead[(address & 0xf000) >> 12](address)
+    value = cpu.MemRead[(address & 0xf000) >> 12](address)
+    // TODO: breakpoints on read (bpr), execute (bpx), logging 
+    //fmt.Printf("read from %.4x -> %.2x\n", address, value)
+    return value
 }
 
 // Write to CPU address
 func (cpu *CPU) WriteTo(address uint16, value uint8) {
+    // TODO: breakpoints on write (bpw)
     //fmt.Printf("WRITE %.4x:%.2x\n", address, value)
     cpu.MemWrite[(address & 0xf000) >> 12](address, value)
 }
@@ -310,9 +314,6 @@ func (cpu *CPU) Load(cart *Cartridge) {
         panic("No PRG found")
     }
    
-    // TODO: remove assumption of 16 KB "banks", just because .nes stores in 16 KB chunks
-    lastBank := len(cart.Prg) - 1
-
     // TODO: use cartdb (see main.Load()) if possible; fall back to MapperCode otherwise
     switch cart.MapperCode {
     case 0: // NROM - nothing else needed
@@ -320,18 +321,29 @@ func (cpu *CPU) Load(cart *Cartridge) {
         fmt.Printf("WARNING: no support for mapper %d\n", cart.MapperCode)
     }
 
-    // Wire up 
-    // TODO: for NROM-256, just map one 32 KB (instead of 2 x 16 KB for NROM-128)
-    cpu.Map(0x8000, 0xbfff, 
-            func(address uint16)(value uint8) { return cart.Prg[0][address & 0x3fff] },
-            func(address uint16, value uint8) { cart.Prg[0][address & 0x3fff] = value },
-            // TODO: store offset within PRG ROM in name
-            fmt.Sprintf("NROM (16 KB chunk #%d)", 0))
-    cpu.Map(0xc000, 0xffff,
-            func(address uint16)(value uint8) { return cart.Prg[lastBank][address & 0x3fff] },
-            func(address uint16, value uint8) { cart.Prg[lastBank][address & 0x3fff] = value },
-            fmt.Sprintf("NROM (16 KB chunk #%d)", lastBank))
+    // Wire up NROM
+    if len(cart.Prg) == 0x4000 {
+        // NROM-128
+        cpu.Map(0x8000, 0xbfff, 
+                func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
+                func(address uint16, value uint8) { /* write ignored */ },
+                // TODO: store offset within PRG ROM in name
+                "NROM-128")
+        cpu.Map(0xc000, 0xffff,
+                func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
+                func(address uint16, value uint8) { /* write ignored */ },
+                "NROM-128 (mirror)")
+    } else if len(cart.Prg) == 0x8000 {
+        // NROM-256
+        cpu.Map(0x8000, 0xffff,
+                func(address uint16)(value uint8) { return cart.Prg[address & 0x7fff] },
+                func(address uint16, value uint8) { /* write ignored */ },
+                "NROM-256")
+    } else {
+        panic(fmt.Sprintf("invalid NROM size: %.4x\n", len(cart.Prg)))
+    }
 
+    // SRAM (assumed)
     cpu.Map(0x6000, 0x7fff,
             func(address uint16)(value uint8) { return cart.PrgRam[address & 0x7ff] },
             func(address uint16, value uint8) { cart.PrgRam[address & 0x7ff] = value },

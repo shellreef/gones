@@ -268,13 +268,9 @@ func cartHash(cart *nesfile.Cartridge) (string) {
     // So we calculate the overall cartridge hash instead, including everything.
     // (Note: it might be interesting to calculate PRG/CHR and match individually
     // to find differences, since most games have only one chip.)
-    for _, prg := range cart.Prg {
-        digester.Write(prg)
-    }
+    digester.Write(cart.Prg)
 
-    for _, chr := range cart.Chr {
-        digester.Write(chr)
-    }
+    digester.Write(cart.Chr)
 
     hex := ""
     for _, octet := range digester.Sum() {

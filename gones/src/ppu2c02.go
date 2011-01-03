@@ -390,7 +390,7 @@ func (ppu *PPU) Load(cart *Cartridge) {
         // Note that not all games have this, some use CHR RAM instead, but 
         // in either case it is wired in the cartridge, not the NES itself
         // TODO: pointers instead of copying, so can switch CHR banks easily
-        copy(ppu.Memory[0:0x2000], cart.Chr[0])
+        copy(ppu.Memory[0:0x2000], cart.Chr[0:0x2000])
         // TODO: what if there are more CHR banks, which one to load first?
     }
 }

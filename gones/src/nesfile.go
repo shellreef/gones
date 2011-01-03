@@ -65,9 +65,9 @@ const (
 
 // Represents a game cartridge
 type Cartridge struct {
-    Prg []([]byte)                  // Program data     TODO: make a flat string
+    Prg []byte                      // Program data 
     PrgRam [0x7ff]byte              // Cartridge RAM (could be save RAM) TODO: abstract out of nesfile
-    Chr []([]byte)                  // Character data   TODO: make a flat string
+    Chr []byte                      // Character data
     Platform Platform               // Platform to run on
     DisplayType DisplayType
     MapperCode, SubmapperCode int   // Extra hardware inside the cart
@@ -397,7 +397,7 @@ func Open(filename string) (*Cartridge) {
 
     if header.Flags6 & 4 == 4 {
         // "512-byte trainer at $7000-$71FF (stored before PRG data)"
-        cart.Trainer = readPages(buffer, TRAINER_SIZE, 1)[0]
+        cart.Trainer = readChunks(buffer, TRAINER_SIZE, 1)
     }
 
     
@@ -503,12 +503,12 @@ func Open(filename string) (*Cartridge) {
     }
 
     // Read banks
-    cart.Prg = readPages(buffer, PRG_PAGE_SIZE, prgPageCount)
-    cart.Chr = readPages(buffer, CHR_PAGE_SIZE, chrPageCount)
+    cart.Prg = readChunks(buffer, PRG_PAGE_SIZE, prgPageCount)
+    cart.Chr = readChunks(buffer, CHR_PAGE_SIZE, chrPageCount)
 
     if cart.Platform == PlatformPlayChoice {
         // "PlayChoice-10 (8KB of Hint Screen data stored after CHR data)"
-        cart.HintScreen = readPages(buffer, HINTSCREEN_SIZE, 1)[0]
+        cart.HintScreen = readChunks(buffer, HINTSCREEN_SIZE, 1)
     }
    
     fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperCode)
@@ -516,22 +516,19 @@ func Open(filename string) (*Cartridge) {
     return cart
 }
 
-// Read chunks of data from a buffer
-func readPages(buffer *bytes.Buffer, size int, pageCount int) ([]([]byte)) {
-    pages := make([]([]byte), pageCount)
+// Read fixed-size chunks of data from a buffer
+func readChunks(buffer *bytes.Buffer, size int, pageCount int) ([]byte) {
+    data := make([]byte, pageCount * size)
 
     for i := 0; i < pageCount; i++ {
-        page := make([]byte, size)
-        readLength, err := buffer.Read(page)
+        readLength, err := buffer.Read(data[i * size:(i + 1) * size])
         //fmt.Printf("read page %d size=%d\n", i, readLength)
         if err != nil {
-            panic(fmt.Sprintf("readPages(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err))
+            panic(fmt.Sprintf("readChunks(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err))
         }
-
-        pages[i] = page
     }
 
-    return pages
+    return data
 }
 
 // Read all the bytes from a file, terminating if an error occurs
