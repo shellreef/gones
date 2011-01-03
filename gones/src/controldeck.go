@@ -155,6 +155,9 @@ func (deck *ControlDeck) RunCommand(cmd string) {
     case "i", "shell": deck.Shell()
     // registers
     case "r", "registers": deck.CPU.DumpRegisters()
+
+    case "m", "memory": deck.CPU.DumpMemoryMap()
+
     // TODO: search
     // TODO: unassemble
 
@@ -207,6 +210,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                 fmt.Printf("bad value: %s: %s\n", arg, err)
             }
         }
+
     // assemble
     // TODO: get string -> Opcode/AddrMode working again
     /*

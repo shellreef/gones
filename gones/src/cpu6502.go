@@ -410,6 +410,23 @@ func (cpu *CPU) DumpRegisters() {
     // TODO: show disassembly of next/current instruction
 }
 
+// Show current memory map for debugging purposes
+func (cpu *CPU) DumpMemoryMap() {
+    fmt.Printf("Start\tEnd\tMapped to\n")
+    // TODO: coalesce 4 KB chunks?
+    for i, name := range cpu.MemName {
+        fmt.Printf("%.4x\t%.4x\t%s\n",
+                i << 12,
+                (i << 12) + 0xfff,
+                /* haven't figured out a useful way to show
+                cpu.MemRead[i],
+                cpu.MemWrite[i],
+                */
+                name,
+                )
+    }
+}
+
 // Show 256-byte stack for debugging purposes
 func (cpu *CPU) DumpStack() {
     for i := 0; i < 0x100; i += 1 {
