@@ -309,50 +309,6 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
 }
 
 // Load a game cartridge
-// TODO: move to controldeck?
-func (cpu *CPU) Load(cart *cartridge.Cartridge) {
-    if len(cart.Prg) == 0 {
-        panic("No PRG found")
-    }
-   
-    // TODO: use cartdb (see main.Load()) if possible; fall back to mapper from file otherwise
-   
-    // Wire up mappers
-    switch cart.MapperName {
-    case "NES-NROM-128":
-        cpu.Map(0x8000, 0xbfff, 
-                func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
-                func(address uint16, value uint8) { /* write ignored */ },
-                // TODO: store offset within PRG ROM in name
-                "NROM-128")
-        cpu.Map(0xc000, 0xffff,
-                func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
-                func(address uint16, value uint8) { /* write ignored */ },
-                "NROM-128 (mirror)")
-
-    case "NES-NROM-256":
-        cpu.Map(0x8000, 0xffff,
-                func(address uint16)(value uint8) { return cart.Prg[address & 0x7fff] },
-                func(address uint16, value uint8) { /* write ignored */ },
-                "NROM-256")
-    default:
-        fmt.Printf("WARNING: no support for mapper %s\n", cart.MapperName)
-    }
-
-    // SRAM (assumed)
-    cpu.Map(0x6000, 0x7fff,
-            func(address uint16)(value uint8) { return cart.PrgRam[address & 0x7ff] },
-            func(address uint16, value uint8) { cart.PrgRam[address & 0x7ff] = value },
-            "Cartridge RAM")
-
-    // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
-    pcl := cpu.ReadFrom(RESET_VECTOR)
-    pch := cpu.ReadFrom(RESET_VECTOR + 1)
-    cpu.PC = uint16(pch) << 8 + uint16(pcl)
-
-    cpu.CycleCount = 0
-}
-
 // Return string representation of truth value, for bit flags
 func bitize(b uint8) (string) {
     if b != 0 {

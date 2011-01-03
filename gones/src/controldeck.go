@@ -88,8 +88,8 @@ func (deck *ControlDeck) Load(filename string) {
         panic(fmt.Sprintf("unrecognizable file: %s", filename))
     }
 
-    deck.CPU.Load(cart)
-    deck.PPU.Load(cart)
+    cart.LoadPRG(deck.CPU)
+    cart.LoadCHR(deck.PPU)
 
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?

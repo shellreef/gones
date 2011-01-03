@@ -383,17 +383,6 @@ func (ppu *PPU) WriteRegister(operAddr uint16, b uint8) (bool) {
         return true
 }
 
-// Initialize the PPU with a game cartridge
-func (ppu *PPU) Load(cart *cartridge.Cartridge) {
-    if len(cart.Chr) > 0 { 
-        // Load CHR ROM pattern tables #0 and #1 from cartridge, if present, into $0000-1FFF
-        // Note that not all games have this, some use CHR RAM instead, but 
-        // in either case it is wired in the cartridge, not the NES itself
-        // TODO: pointers instead of copying, so can switch CHR banks easily
-        copy(ppu.Memory[0:0x2000], cart.Chr[0:0x2000])
-        // TODO: what if there are more CHR banks, which one to load first?
-    }
-}
 
 // Get a pattern from the pattern table
 // table: 0 or 1
