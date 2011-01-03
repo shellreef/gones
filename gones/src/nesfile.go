@@ -448,7 +448,9 @@ func Open(filename string) (*Cartridge) {
     }
 
     cart.Prg = read(f, PRG_PAGE_SIZE * prgPageCount)
-    cart.Chr = read(f, CHR_PAGE_SIZE * chrPageCount)
+    if chrPageCount != 0 {
+        cart.Chr = read(f, CHR_PAGE_SIZE * chrPageCount)
+    }
 
     if cart.Platform == PlatformPlayChoice {
         // "PlayChoice-10 (8KB of Hint Screen data stored after CHR data)"
@@ -465,10 +467,11 @@ func Open(filename string) (*Cartridge) {
         }
     default:
         cart.MapperName = fmt.Sprintf("iNes Mapper %d", mapperCode)
-        fmt.Printf("WARNING: no support for mapper %d! (sub %d)\n", mapperCode, submapperCode)
+        fmt.Printf("WARNING: nesfile: unrecognized iNES mapper %d (sub %d)\n", mapperCode, submapperCode)
     }
 
-    fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperName)
+    fmt.Printf("ROM: %d, VROM: %d, Mapper %s (%d:%d)\n", len(cart.Prg), len(cart.Chr), cart.MapperName,
+            mapperCode, submapperCode)
 
     f.Close()
 
@@ -481,10 +484,10 @@ func read(buffer *os.File, size int) ([]byte) {
 
     readLength, err := buffer.Read(data)
     if err != nil {
-        panic(fmt.Sprintf("readChunks error: %s", err))
+        panic(fmt.Sprintf("nesfile read error (when reading %d): %s", size, err))
     }
     if readLength != size { 
-        panic(fmt.Sprintf("readChunks incomplete: %d != %d", readLength, size))
+        panic(fmt.Sprintf("nesfile read incomplete: %d != %d", readLength, size))
     }
 
     return data

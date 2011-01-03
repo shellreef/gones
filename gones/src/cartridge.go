@@ -101,7 +101,13 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
                 func(address uint16, value uint8) { /* write ignored */ },
                 "NROM-256")
     default:
-        fmt.Printf("WARNING: no support for mapper %s\n", cart.MapperName)
+        fmt.Printf("WARNING: no support for mapper %s!\n", cart.MapperName)
+
+        // Take a wild guess
+        cpu.Map(0x8000, 0xffff,
+                func(address uint16)(value uint8) { return cart.Prg[address & 0x7fff] },
+                func(address uint16, value uint8) { },
+                fmt.Sprintf("Unknown mapper %s\n", cart.MapperName))
     }
 
     // SRAM (assumed)  TODO: assume nothing

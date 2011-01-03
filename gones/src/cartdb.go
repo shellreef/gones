@@ -166,12 +166,12 @@ func LoadGob(filename string) (*Database, os.Error) {
 
     database := Database{}
 
-    start := time.Nanoseconds()
+    //start := time.Nanoseconds()
     decoder := gob.NewDecoder(r)
     decoder.Decode(&database)
-    took := time.Nanoseconds() - start
+    //took := time.Nanoseconds() - start
 
-    fmt.Printf("Gob: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
+    //fmt.Printf("Gob: Loaded %d games in %.4f s\n", len(database.Game), float(took) / 1e9)
 
     return &database, nil
 }
