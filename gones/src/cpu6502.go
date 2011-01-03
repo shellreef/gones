@@ -770,7 +770,7 @@ func (cpu *CPU) ExecuteInstruction() {
 
     // Running blargg's emulator tests?
     // TODO: post-execute instruction hook for debugging?
-    // TODO: add these tests as a mapper??
+    // TODO: move to an automation-specific mapper, invoked on writing to 0x6000, for instr tests only
     if cpu.ReadFrom(0x6001) == 0xde && cpu.ReadFrom(0x6002) == 0xb0 && cpu.ReadFrom(0x6003) == 0x61 {
         status := cpu.ReadFrom(0x6000)
         if cpu.Verbose || status != 0x80 {

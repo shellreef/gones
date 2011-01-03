@@ -36,29 +36,31 @@ const HINTSCREEN_SIZE = 8192
 // TODO: match up with UNIF board names
 // TODO: populate this mapper name from the code, and use it instead
 // TODO: see ines_convert.c from libunif from http://www.codef00.com/projects.php
+// TODO: and also MESS src/machine/nes_ines.c
 var INesMapperCode2Name = []string{
+    // Most common mappers
     /*000*/ "NROM",
-    // TODO: others
     /*001*/ "MMC1", // SxROM
     /*002*/ "UxROM",
     /*003*/ "CNROM",
     /*004*/ "MMC3", // TxROM, (MMC6), (HxROM)
+
     /*005*/ "MMC5", // ExROM
-    /*006*/ "",
+    /*006*/ "FFE-FK4",
     /*007*/ "AxROM",
-    /*008*/ "",
+    /*008*/ "FFE-F3K",
     /*009*/ "MMC2", // PxROM
     /*010*/ "MMC4",
     /*011*/ "ColorDreams",
-    /*012*/ "",
+    /*012*/ "Magic Series", // http://mess.dorando.at/svn/?rev=8384
     /*013*/ "CPROM",
-    /*014*/ "",
+    /*014*/ "Sachen SA72008", // http://mess.dorando.at/svn/?rev=8354
     /*015*/ "100-in-1",
     /*016*/ "Bandai",
-    /*017*/ "",
-    /*018*/ "",
+    /*017*/ "FFE-Mapper17",
+    /*018*/ "JALECO-SS88006",
     /*019*/ "Namcot106",
-    /*020*/ "",
+    /*020*/ "FDS",  // http://nocash.emubase.de/everynes.htm#mapper20disksystemprgrambiosdiskirqsound
     /*021*/ "VRC4",
     /*022*/ "VRC2",
     /*023*/ "VRC4/2 variant",
