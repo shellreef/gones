@@ -315,16 +315,11 @@ func (cpu *CPU) Load(cart *cartridge.Cartridge) {
         panic("No PRG found")
     }
    
-    // TODO: use cartdb (see main.Load()) if possible; fall back to MapperCode otherwise
-    switch cart.MapperCode {
-    case 0: // NROM - nothing else needed
-    default:
-        fmt.Printf("WARNING: no support for mapper %d\n", cart.MapperCode)
-    }
-
-    // Wire up NROM
-    if len(cart.Prg) == 0x4000 {
-        // NROM-128
+    // TODO: use cartdb (see main.Load()) if possible; fall back to mapper from file otherwise
+   
+    // Wire up mappers
+    switch cart.MapperName {
+    case "NES-NROM-128":
         cpu.Map(0x8000, 0xbfff, 
                 func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
                 func(address uint16, value uint8) { /* write ignored */ },
@@ -334,14 +329,14 @@ func (cpu *CPU) Load(cart *cartridge.Cartridge) {
                 func(address uint16)(value uint8) { return cart.Prg[address & 0x3fff] },
                 func(address uint16, value uint8) { /* write ignored */ },
                 "NROM-128 (mirror)")
-    } else if len(cart.Prg) == 0x8000 {
-        // NROM-256
+
+    case "NES-NROM-256":
         cpu.Map(0x8000, 0xffff,
                 func(address uint16)(value uint8) { return cart.Prg[address & 0x7fff] },
                 func(address uint16, value uint8) { /* write ignored */ },
                 "NROM-256")
-    } else {
-        panic(fmt.Sprintf("invalid NROM size: %.4x\n", len(cart.Prg)))
+    default:
+        fmt.Printf("WARNING: no support for mapper %s\n", cart.MapperName)
     }
 
     // SRAM (assumed)

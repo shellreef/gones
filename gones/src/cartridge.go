@@ -53,8 +53,7 @@ type Cartridge struct {
     Chr []byte                      // Character data
     Platform Platform               // Platform to run on
     DisplayType DisplayType
-    MapperName string               // Name of mapper, authoritive over MapperCode
-    MapperCode, SubmapperCode int   // Extra hardware inside the cart
+    MapperName string               // Name of mapper
     Mirroring Mirroring
     SRAMBacked bool                 // "SRAM in CPU $6000-$7FFF, if present, is battery backed"
     NoSRAM bool                     // "SRAM in CPU $6000-$7FFF is 0: present; 1: not present"

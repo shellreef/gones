@@ -35,8 +35,10 @@ const HINTSCREEN_SIZE = 8192
 // and http://web.archive.org/web/20040614053901/www.parodius.com/~veilleux/boardtable.txt
 // TODO: match up with UNIF board names
 // TODO: populate this mapper name from the code, and use it instead
+// TODO: see ines_convert.c from libunif from http://www.codef00.com/projects.php
 var INesMapperCode2Name = []string{
     /*000*/ "NROM",
+    // TODO: others
     /*001*/ "MMC1", // SxROM
     /*002*/ "UxROM",
     /*003*/ "CNROM",
@@ -321,7 +323,8 @@ func Open(filename string) (*Cartridge) {
     }
 
     // This is weird, but the mapper nibbles are spread across two bytes
-    cart.MapperCode = int(header.Flags7 & 0xf0 | header.Flags6 & 0xf0 >> 4)
+    mapperCode := int(header.Flags7 & 0xf0 | header.Flags6 & 0xf0 >> 4)
+    submapperCode := 0
 
     // http://wiki.nesdev.com/w/index.php/INES
     // Flags 6: mirroring, battery backed, trainer
@@ -358,8 +361,8 @@ func Open(filename string) (*Cartridge) {
         // Flags 8-15 http://wiki.nesdev.com/w/index.php/NES_2.0
 
         // Mapper variant
-        cart.MapperCode |= int(header.Flags8) & 0x0f << 11
-        cart.SubmapperCode = int(header.Flags8) & 0x0f >> 4
+        mapperCode |= int(header.Flags8) & 0x0f << 11
+        submapperCode = int(header.Flags8) & 0x0f >> 4
 
         // Upper bits of ROM size
         prgPageCount |= int(header.Flags9) & 0x0f << 9
@@ -451,8 +454,21 @@ func Open(filename string) (*Cartridge) {
         // "PlayChoice-10 (8KB of Hint Screen data stored after CHR data)"
         cart.HintScreen = read(f, HINTSCREEN_SIZE)
     }
-   
-    fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperCode)
+
+    // Decode the mapper code to a descriptive name (TODO: use INesMapperCode2Name)
+    switch mapperCode {
+    case 0:
+        switch len(cart.Prg) {
+        case 0x4000: cart.MapperName = "NES-NROM-128"
+        case 0x8000: cart.MapperName = "NES-NROM-256"
+        default: panic(fmt.Sprintf("invalid NROM size: %.4x\n", len(cart.Prg)))
+        }
+    default:
+        cart.MapperName = fmt.Sprintf("iNes Mapper %d", mapperCode)
+        fmt.Printf("WARNING: no support for mapper %d! (sub %d)\n", mapperCode, submapperCode)
+    }
+
+    fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperName)
 
     f.Close()
 
