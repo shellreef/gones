@@ -25,11 +25,6 @@ type CPU struct {
     MemWrite [16](func(address uint16, value uint8))
     MemName  [16]string     // informational
 
-    // TODO: kill this
-    Memory [0x10000]uint8
-    ReadMappers [10](func(uint16) (bool, uint8))
-    WriteMappers [10](func(uint16, uint8) (bool))
-
     PC uint16   // Program counter
     S uint8     // Stack pointer, offset from $0100
     A uint8     // Accumulator
@@ -198,30 +193,6 @@ func (cpu *CPU) ReadOperand() (b uint8) {
         address := cpu.AddressOperand()
 
         return cpu.ReadFrom(address)
-        /*
-
-        switch {
-        case address < 0x2000:
-            address &^= 0x1800
-            return cpu.Memory[address] 
-
-        case address >= 0x6000 && address <= 0x7fff:
-            return cpu.Memory[address]
-
-        default:
-            for _, mapper := range cpu.ReadMappers {
-                if mapper != nil {
-                    wanted, b := mapper(address)
-                    if wanted {
-                        return b
-                    }
-                }
-            }
-            // If there isn't any mapper, read from ROM
-            return cpu.Memory[address]
-        }
-
-        return cpu.Memory[address]*/
 
     // Can't read from implied (nothing to read from), indirect or relative (no instruction does)
     default: panic(fmt.Sprintf("ReadOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
@@ -339,36 +310,15 @@ func (cpu *CPU) Load(cart *Cartridge) {
         panic("No PRG found")
     }
    
-    var bank8000, bankC000, lastBank int
-
-    // By default, load first PRG into 0x8000 bank and 
-    // last PRG into 0xC000. This covers many mappers, including:
-    // (#0) NROM-64K: one PRG loaded into both banks (http://nesdev.parodius.com/NESDoc.pdf)
-    // (#0) NROM-128K: two PRGs, one loaded into each
-    // MMC1, MMC3
-    // TODO: Any other mappers with different default banks??
-    // Answer: yes. VRC4 (021) in PRG mode 1 loads $8000 with -2. Assume nothing (TODO).
-    // TODO: remove bank8000/bankC000 junk
     // TODO: remove assumption of 16 KB "banks", just because .nes stores in 16 KB chunks
-    bank8000 = 0
-    bankC000 = len(cart.Prg) - 1
-
-    lastBank = len(cart.Prg) - 1
+    lastBank := len(cart.Prg) - 1
 
     // TODO: use cartdb (see main.Load()) if possible; fall back to MapperCode otherwise
     switch cart.MapperCode {
     case 0: // NROM - nothing else needed
-    case 1: // SxROM, MMC-1 
-    // TODO
-
-
     default:
         fmt.Printf("WARNING: no support for mapper %d\n", cart.MapperCode)
     }
-
-    // TODO: pointers instead of copying, so can switch banks easier
-    copy(cpu.Memory[0x8000:], cart.Prg[bank8000])
-    copy(cpu.Memory[0xC000:], cart.Prg[bankC000])
 
     // Wire up 
     // TODO: for NROM-256, just map one 32 KB (instead of 2 x 16 KB for NROM-128)
@@ -421,10 +371,6 @@ func (cpu *CPU) DumpMemoryMap() {
         fmt.Printf("%.4x\t%.4x\t%s\n",
                 i << 12,
                 (i << 12) + 0xfff,
-                /* haven't figured out a useful way to show
-                cpu.MemRead[i],
-                cpu.MemWrite[i],
-                */
                 name,
                 )
     }

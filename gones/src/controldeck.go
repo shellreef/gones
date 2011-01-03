@@ -68,13 +68,8 @@ func New() (*ControlDeck) {
     deck.CPU.Map(0x8000, 0xffff,
         func(address uint16)(value uint8) { /*fmt.Printf("PRG read unmapped: %.4x\n", address);*/ return 0 },
         func(address uint16, value uint8) { /*fmt.Printf("PRG write unmapped: %.4x:%.2x\n", address, value)*/ },
-        "Open bus")
+        "Missing Game Pak")
 
-
-
-    // XXX: Remove this old stuff, use above instead
-    deck.CPU.ReadMappers[0] = func(address uint16) (wants bool, ret uint8) { return deck.PPU.ReadRegister(address) }
-    deck.CPU.WriteMappers[0] = func(address uint16, b uint8) (bool) { return deck.PPU.WriteRegister(address, b) }
 
     deck.CPU.PowerUp()
 
@@ -218,8 +213,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
                 fmt.Printf("%.4X = %X\n", writeAddress, writeByte)
 
-                // TODO: use WriteMemory()!
-                deck.CPU.Memory[writeAddress] = writeByte
+                deck.CPU.WriteTo(writeAddress, writeByte)
             } else {
                 fmt.Printf("bad value: %s: %s\n", arg, err)
             }
