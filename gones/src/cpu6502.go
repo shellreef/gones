@@ -26,7 +26,7 @@ type CPU struct {
     MemName  [16]string     // informational
 
     // TODO: kill this
-    Memory [0x10000]uint8          // $0000-$FFFF
+    Memory [0x10000]uint8
     ReadMappers [10](func(uint16) (bool, uint8))
     WriteMappers [10](func(uint16, uint8) (bool))
 
@@ -68,11 +68,21 @@ const (
     BRK_VECTOR   = 0xfffe
 )
 
+// Low-level read/write functions, which do not increment cycles.
+// Note: instructions use *Operand methods instead
+// Read from CPU address
+func (cpu *CPU) ReadFrom(address uint16) (value uint8) {
+    return cpu.MemRead[(address & 0xf000) >> 12](address)
+}
+
+// Write to CPU address
+func (cpu *CPU) WriteTo(address uint16, value uint8) {
+    cpu.MemWrite[(address & 0xf000) >> 12](address, value)
+}
 
 // Read byte from memory, advancing program counter
 func (cpu *CPU) NextUInt8() (b uint8) {
-    //b = cpu.Memory[cpu.PC]
-    b = cpu.MemRead[(cpu.PC & 0xf000) >> 12](cpu.PC)
+    b = cpu.ReadFrom(cpu.PC)
     cpu.PC += 1
 
     cpu.Tick("fetch byte, increment PC")
@@ -164,7 +174,7 @@ func (cpu *CPU) WriteOperand(b uint8) {
         cpu.Tick("write to effective address")
 
         address := cpu.AddressOperand()
-        cpu.MemRead[(address & 0xf000) >> 12](address)
+        cpu.WriteTo(address, b)
 
         /*
         switch {
@@ -215,7 +225,7 @@ func (cpu *CPU) ReadOperand() (b uint8) {
 
         address := cpu.AddressOperand()
 
-        return cpu.MemRead[(address & 0xf000) >> 12](address)
+        return cpu.ReadFrom(address)
         /*
 
         switch {
@@ -270,18 +280,18 @@ func (cpu *CPU) Modify(modify func(in uint8) (out uint8)) (out uint8) {
 
 // Read unsigned 16-bits at given address, not advancing PC
 func (cpu *CPU) ReadUInt16(address uint16) (w uint16) {
-    low := cpu.Memory[address]
+    low := cpu.ReadFrom(address)
     cpu.Tick("fetch ReadUInt16 low")
-    high := cpu.Memory[uint16(address + 1)]
+    high := cpu.ReadFrom(uint16(address + 1))
     cpu.Tick("fetch ReadUInt16 high")
     return uint16(high) << 8 + uint16(low)
 }
 
 // Read unsigned 16-bits from zero page
 func (cpu *CPU) ReadUInt16ZeroPage(address uint8) (w uint16) {
-    low := cpu.Memory[address]
+    low := cpu.ReadFrom(uint16(uint8(address)))
     cpu.Tick("fetch effective address low (zero page)")
-    high := cpu.Memory[uint8(address + 1)]    // 0xff + 1 wraps around
+    high := cpu.ReadFrom(uint16(uint8(address + 1)))    // 0xff + 1 wraps around
     cpu.Tick("fetch effective address high (zero page)")
     return uint16(high) << 8 + uint16(low)
 }
@@ -303,9 +313,9 @@ func (cpu *CPU) AddIndex(baseAddress uint16, offset uint16) (effectiveAddress ui
 // JMP ($20FF) jumps the address at $20FF low and $2000 high (not $2100)
 // TODO: replace ReadUInt16ZeroPage with this, and maybe ReadUInt16 entirely?
 func (cpu *CPU) ReadUInt16Wraparound(address uint16) (w uint16) {
-    low := cpu.Memory[address]
+    low := cpu.ReadFrom(address)
     cpu.Tick("fetch low address ReadUInt16Wraparound")
-    high := cpu.Memory[(address & 0xff00) | (address + 1) & 0xff]
+    high := cpu.ReadFrom((address & 0xff00) | (address + 1) & 0xff)
     cpu.Tick("fetch high address ReadUInt16Wraparound")
     return uint16(high) << 8 + uint16(low)
 }
@@ -396,16 +406,18 @@ func (cpu *CPU) Load(cart *Cartridge) {
             // TODO: store offset within PRG ROM in name
             fmt.Sprintf("NROM (16 KB chunk #%d)", 0))
     cpu.Map(0xc000, 0xffff,
-            func(address uint16)(value uint8) { 
-                fmt.Printf("read NROM %.4x (%.4x) of %.4x\n", address, address & 0x3fff,
-                    len(cart.Prg[lastBank]))
-                return cart.Prg[lastBank][address & 0x3fff] },
+            func(address uint16)(value uint8) { return cart.Prg[lastBank][address & 0x3fff] },
             func(address uint16, value uint8) { cart.Prg[lastBank][address & 0x3fff] = value },
             fmt.Sprintf("NROM (16 KB chunk #%d)", lastBank))
 
+    cpu.Map(0x6000, 0x7fff,
+            func(address uint16)(value uint8) { return cart.PrgRam[address & 0x7ff] },
+            func(address uint16, value uint8) { cart.PrgRam[address & 0x7ff] = value },
+            "Cartridge RAM")
+
     // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
-    pcl := cpu.Memory[RESET_VECTOR]
-    pch := cpu.Memory[RESET_VECTOR + 1]
+    pcl := cpu.ReadFrom(RESET_VECTOR)
+    pch := cpu.ReadFrom(RESET_VECTOR + 1)
     cpu.PC = uint16(pch) << 8 + uint16(pcl)
 
     cpu.CycleCount = 0
@@ -448,11 +460,12 @@ func (cpu *CPU) DumpMemoryMap() {
 
 // Show 256-byte stack for debugging purposes
 func (cpu *CPU) DumpStack() {
-    for i := 0; i < 0x100; i += 1 {
-        if i == int(cpu.S) {
-            fmt.Printf(">%.2x<", cpu.Memory[0x100 + i]) // indicate stack pointer
+    var i uint16
+    for i = 0; i < 0x100; i += 1 {
+        if uint8(i) == cpu.S {
+            fmt.Printf(">%.2x<", cpu.ReadFrom(0x100 + i)) // indicate stack pointer
         } else {
-            fmt.Printf(" %.2x ", cpu.Memory[0x100 + i])
+            fmt.Printf(" %.2x ", cpu.ReadFrom(0x100 + i))
         }
         // TODO: show addresses, multi-column?
     }
@@ -506,7 +519,7 @@ func (cpu* CPU) BranchIf(address uint16 , flag bool) {
 func (cpu *CPU) Pull() (b uint8) {
     cpu.S += 1
     cpu.Tick("increment S")
-    b = cpu.Memory[0x100 + uint16(cpu.S)]
+    b = cpu.ReadFrom(0x100 + uint16(cpu.S))
     cpu.Tick("pull stack")
     return b
 }
@@ -517,11 +530,11 @@ func (cpu *CPU) Pull16() (w uint16) {
     cpu.S += 1
     cpu.Tick("increment S")
 
-    low := cpu.Memory[0x100 + uint16(cpu.S)]
+    low := cpu.ReadFrom(0x100 + uint16(cpu.S))
     cpu.S += 1
     cpu.Tick("pull low from stack, increment S")
 
-    high := cpu.Memory[0x100 + uint16(cpu.S)]
+    high := cpu.ReadFrom(0x100 + uint16(cpu.S))
     cpu.Tick("pull high from stack")
 
     return uint16(high) * 0x100 + uint16(low)
@@ -529,7 +542,7 @@ func (cpu *CPU) Pull16() (w uint16) {
 
 // Push 8 bits onto stack
 func (cpu *CPU) Push(b uint8) {
-    cpu.Memory[0x100 + uint16(cpu.S)] = b 
+    cpu.WriteTo(0x100 + uint16(cpu.S), b)
     cpu.S -= 1
     cpu.Tick("push stack, decrement S")
 }
@@ -637,13 +650,13 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("%.4X  ", start)
         fmt.Printf("%.2X ", cpu.Instruction.OpcodeByte)
         if cpu.Instruction.AddrMode.OperandSize() >= 1 {
-           fmt.Printf("%.2X ", cpu.Memory[start + 1])
+           fmt.Printf("%.2X ", cpu.ReadFrom(start + 1))
         } else {
            fmt.Printf("   ")
         }
 
         if cpu.Instruction.AddrMode.OperandSize() >= 2 {
-           fmt.Printf("%.2X ", cpu.Memory[start + 2])
+           fmt.Printf("%.2X ", cpu.ReadFrom(start + 2))
         } else {
            fmt.Printf("   ")
         }
@@ -827,18 +840,18 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.S += 1
         cpu.Tick("RTI increment S")
 
-        cpu.P = cpu.Memory[0x100 + uint16(cpu.S)] | FLAG_R
+        cpu.P = cpu.ReadFrom(0x100 + uint16(cpu.S)) | FLAG_R
         cpu.P &^= FLAG_B
         cpu.S += 1
         cpu.Tick("RTI pull P from stack, increment S")
         
         // For cycle accuracy, since pulling PC is pipelined with
         // incrementing for pulling P, do manually instead of Pull16()
-        pcl := cpu.Memory[0x100 + uint16(cpu.S)]
+        pcl := cpu.ReadFrom(0x100 + uint16(cpu.S))
         cpu.S += 1
         cpu.Tick("RTI pull PCL from stack, increment S")
 
-        pch := cpu.Memory[0x100 + uint16(cpu.S)]
+        pch := cpu.ReadFrom(0x100 + uint16(cpu.S))
         cpu.Tick("RTI pull PCH from stack")
 
         cpu.PC = uint16(pch) << 8 + uint16(pcl)
@@ -858,7 +871,7 @@ func (cpu *CPU) ExecuteInstruction() {
         // So interpret this as a graceful termination. Only up to $C66E will be compared by tracediff.pl anyways.
         fmt.Printf("Halting on KIL instruction\n")
         // http://nesdev.com/bbs/viewtopic.php?t=7130
-        result := cpu.Memory[2] << 8 | cpu.Memory[3]
+        result := cpu.ReadFrom(2) << 8 | cpu.ReadFrom(3)
         if result == 0 {
             fmt.Printf("Nestest automation: Pass\n")
         } else {
@@ -890,14 +903,14 @@ func (cpu *CPU) ExecuteInstruction() {
     // Running blargg's emulator tests?
     // TODO: post-execute instruction hook for debugging?
     // TODO: add these tests as a mapper??
-    if cpu.Memory[0x6001] == 0xde && cpu.Memory[0x6002] == 0xb0 && cpu.Memory[0x6003] == 0x61 {
-        status := cpu.Memory[0x6000]
+    if cpu.ReadFrom(0x6001) == 0xde && cpu.ReadFrom(0x6002) == 0xb0 && cpu.ReadFrom(0x6003) == 0x61 {
+        status := cpu.ReadFrom(0x6000)
         if cpu.Verbose || status != 0x80 {
             fmt.Printf("@@ Status Code: %.2X\n", status)
-            p := 0x6004
+            p := uint16(0x6004)
             fmt.Printf("@@ Status Text: ")
-            for cpu.Memory[p] != 0 {
-                fmt.Printf("%s", string(cpu.Memory[p]))
+            for cpu.ReadFrom(p) != 0 {
+                fmt.Printf("%s", string(cpu.ReadFrom(p)))
                 p += 1
             }
             fmt.Printf("\n")

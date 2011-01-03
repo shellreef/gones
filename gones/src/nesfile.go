@@ -66,6 +66,7 @@ const (
 // Represents a game cartridge
 type Cartridge struct {
     Prg []([]byte)                  // Program data     TODO: make a flat string
+    PrgRam [0x7ff]byte              // Cartridge RAM (could be save RAM) TODO: abstract out of nesfile
     Chr []([]byte)                  // Character data   TODO: make a flat string
     Platform Platform               // Platform to run on
     DisplayType DisplayType
