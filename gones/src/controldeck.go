@@ -80,10 +80,14 @@ func New() (*ControlDeck) {
 // Load a game
 func (deck *ControlDeck) Load(filename string) {
     // TODO: abstract loader for .nes/.unf/whatever
-    u := unifile.Open(filename)
-    fmt.Printf("UNIF? %s\n", u)
-
     cart := nesfile.Open(filename)
+    if cart == nil {
+        cart = unifile.Open(filename)
+    }
+    if cart == nil {
+        panic(fmt.Sprintf("unrecognizable file: %s", filename))
+    }
+
     deck.CPU.Load(cart)
     deck.PPU.Load(cart)
 

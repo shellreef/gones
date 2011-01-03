@@ -307,7 +307,8 @@ func Open(filename string) (*Cartridge) {
     binary.Read(buffer, binary.LittleEndian, header)
 
     if header.Magic != NESFILE_MAGIC {
-        panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
+        return nil
+        //panic(fmt.Sprintf("invalid nesfile signature: %x != %x", header.Magic, NESFILE_MAGIC))
     }
 
     prgPageCount := int(header.PrgPageCount)

@@ -24,7 +24,7 @@ type UnifFileHeader struct {
 }
 
 type ChunkHeader struct {
-    ID uint32
+    ID [4]byte
     Length uint32
 }
 
@@ -36,14 +36,42 @@ func Open(filename string) (*Cartridge) {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
     }
 
+    // Header
     header := new(UnifFileHeader)
-
     binary.Read(f, binary.LittleEndian, header)
     if header.Magic != UNIF_MAGIC {
         fmt.Printf("invalid unif signature: %.4x\n", header.Magic)
         // TODO: negotiate to other loaders?
-        return cart
+        return nil
+    }
+
+    for {
+        id, data := readChunk(f)
+        if len(data) == 0 {
+            break
+        }
+        fmt.Printf("chunk: %s: %d bytes\n", id, len(data))
+
+        switch id {
+        case "MAPR": cart.MapperName = string(data[:])
+        case "NAME": fmt.Printf("Name: %s\n", string(data[:])) // TODO: use somewhere
+        //case "MIRR": // TODO: read mirroring
+
+        // TODO: read more chips
+        case "PRG0": cart.Prg = data
+        case "CHR0": cart.Chr = data
+        }
     }
 
     return cart
+}
+
+func readChunk(f *os.File) (ID string, data []byte) {
+    header := new(ChunkHeader)
+    binary.Read(f, binary.LittleEndian, header)
+    data = make([]byte, header.Length)
+
+    binary.Read(f, binary.LittleEndian, data)
+
+    return string(header.ID[:]), data
 }
