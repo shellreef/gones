@@ -24,7 +24,7 @@ import (
 )
 
 type ControlDeck struct {
-    InternalRAM [0x7ff]uint8
+    InternalRAM [0x800]uint8      // 2 KB
 
     CPU *cpu6502.CPU
     PPU *ppu2c02.PPU
@@ -57,7 +57,19 @@ func New() (*ControlDeck) {
     // TODO: APU & I/O registers, $4000-4017
 
     // $4018-FFFF are available to cartridge
-    
+  
+    // TODO: properly emulate open bus (especially for missing SRAM), reads last value on bus
+    deck.CPU.Map(0x4000, 0x7fff,
+        func(address uint16)(value uint8) { fmt.Printf("read unmapped: %.4x\n", address); return 0 },
+        func(address uint16, value uint8) { fmt.Printf("write unmapped: %.4x:%.2x\n", address, value) },
+        "Open bus")
+
+    deck.CPU.Map(0x8000, 0xffff,
+        func(address uint16)(value uint8) { fmt.Printf("PRG read unmapped: %.4x\n", address); return 0 },
+        func(address uint16, value uint8) { fmt.Printf("PRG write unmapped: %.4x:%.2x\n", address, value) },
+        "Open bus")
+
+
 
     // XXX: Remove this old stuff, use above instead
     deck.CPU.ReadMappers[0] = func(address uint16) (wants bool, ret uint8) { return deck.PPU.ReadRegister(address) }

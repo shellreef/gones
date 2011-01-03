@@ -71,7 +71,8 @@ const (
 
 // Read byte from memory, advancing program counter
 func (cpu *CPU) NextUInt8() (b uint8) {
-    b = cpu.Memory[cpu.PC]
+    //b = cpu.Memory[cpu.PC]
+    b = cpu.MemRead[(cpu.PC & 0xf000) >> 12](cpu.PC)
     cpu.PC += 1
 
     cpu.Tick("fetch byte, increment PC")
@@ -155,13 +156,17 @@ func (cpu *CPU) WriteOperand(b uint8) {
     case Acc: cpu.A = b
     case Zpg, Zpx, Zpy, Ndx, Ndy:
         cpu.Tick("write to effective address")
-        cpu.Memory[cpu.AddressOperand()] = b
+        // TODO: only can access zero page, so write directly from memory
+        //cpu.Memory[cpu.AddressOperand()] = b
+        cpu.MemWrite[0](cpu.AddressOperand(), b)
 
     case Abs, Abx, Aby:
         cpu.Tick("write to effective address")
 
         address := cpu.AddressOperand()
+        cpu.MemRead[(address & 0xf000) >> 12](address)
 
+        /*
         switch {
         case address < 0x2000:
             // $0000-07ff is mirrored three times up to $2000, and is always RAM
@@ -187,6 +192,7 @@ func (cpu *CPU) WriteOperand(b uint8) {
                 }
             }
         }
+        */
 
     // Can't write to implied, immediate, etc.
     default: panic(fmt.Sprintf("WriteOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
@@ -200,14 +206,17 @@ func (cpu *CPU) ReadOperand() (b uint8) {
     case Imd: return uint8(cpu.Instruction.Operand)
 
     case Zpg, Zpx, Zpy, Ndx, Ndy:
-        // Only can access zero page, so read directly from memory
+        // TODO: only can access zero page, so read directly from memory
         cpu.Tick("read from effective address")
-        return cpu.Memory[cpu.AddressOperand()]
+        return cpu.MemRead[0](cpu.AddressOperand())
 
     case Abs, Abx, Aby:
         cpu.Tick("read from effective address")
 
         address := cpu.AddressOperand()
+
+        return cpu.MemRead[(address & 0xf000) >> 12](address)
+        /*
 
         switch {
         case address < 0x2000:
@@ -230,7 +239,7 @@ func (cpu *CPU) ReadOperand() (b uint8) {
             return cpu.Memory[address]
         }
 
-        return cpu.Memory[address]
+        return cpu.Memory[address]*/
 
     // Can't read from implied (nothing to read from), indirect or relative (no instruction does)
     default: panic(fmt.Sprintf("ReadOperand() bad mode: %s\n", cpu.Instruction.AddrMode))
@@ -382,13 +391,16 @@ func (cpu *CPU) Load(cart *Cartridge) {
     // Wire up 
     // TODO: for NROM-256, just map one 32 KB (instead of 2 x 16 KB for NROM-128)
     cpu.Map(0x8000, 0xbfff, 
-            func(address uint16)(value uint8) { return cart.Prg[0][address & 0x7fff] },
-            func(address uint16, value uint8) { cart.Prg[0][address & 0x7fff] = value },
+            func(address uint16)(value uint8) { return cart.Prg[0][address & 0x3fff] },
+            func(address uint16, value uint8) { cart.Prg[0][address & 0x3fff] = value },
             // TODO: store offset within PRG ROM in name
             fmt.Sprintf("NROM (16 KB chunk #%d)", 0))
-    cpu.Map(0xc000, 0xcfff,
-            func(address uint16)(value uint8) { return cart.Prg[lastBank][address & 0x7fff] },
-            func(address uint16, value uint8) { cart.Prg[lastBank][address & 0x7fff] = value },
+    cpu.Map(0xc000, 0xffff,
+            func(address uint16)(value uint8) { 
+                fmt.Printf("read NROM %.4x (%.4x) of %.4x\n", address, address & 0x3fff,
+                    len(cart.Prg[lastBank]))
+                return cart.Prg[lastBank][address & 0x3fff] },
+            func(address uint16, value uint8) { cart.Prg[lastBank][address & 0x3fff] = value },
             fmt.Sprintf("NROM (16 KB chunk #%d)", lastBank))
 
     // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!

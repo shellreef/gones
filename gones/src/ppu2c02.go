@@ -149,6 +149,8 @@ func (ppu *PPU) RunOne() {
         ppu.CycleCount = 0
         ppu.VBlank()
 
+        // TODO: remove, instead drawing per-pixel. Of course, drawing the
+        // nametable on vblank is not OK.. but it is a start. (also, performance 400->30 fps)
         ppu.ShowNametable()
         //ppu.ShowPatterns()
     }
