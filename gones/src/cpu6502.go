@@ -952,24 +952,23 @@ func (cpu *CPU) Map(start uint16, end uint16,
         panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range", start, end))
     }
 
-    size := end - start + 1
+    size := int(end) - int(start) + 1
+
+    // Check to make sure the bank size makes sense
     switch size {
-    case 0x8000: // 32 KB
-        cpu.MapAt(start + 0x7000, read, write, name)
-        cpu.MapAt(start + 0x6000, read, write, name)
-        cpu.MapAt(start + 0x5000, read, write, name)
-        cpu.MapAt(start + 0x4000, read, write, name)
-        fallthrough
-    case 0x4000: // 16 KB
-        cpu.MapAt(start + 0x3000, read, write, name)
-        cpu.MapAt(start + 0x2000, read, write, name)
-        fallthrough
-    case 0x2000: // 8 KB
-        cpu.MapAt(start + 0x1000, read, write, name)
-        fallthrough
-    case 0x1000: // 4 KB
-        cpu.MapAt(start, read, write, name)
+    case 0x10000:// 64 KB - for mapping entire address space for testing
+    case 0x8000: // 32 KB   \
+    case 0x4000: // 16 KB    | common in NES mappers
+    case 0x2000: // 8 KB    /
+    case 0x1000: // 4 KB - for NSF mapper
     default: panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range size: %.4x", start, end, size))
+    }
+
+    count := uint16(size >> 12)
+
+    // Map in 4 KB sections
+    for i := uint16(0); i < count; i++ {
+        cpu.MapAt(start + (i << 12), read, write, name)
     }
 }
 
