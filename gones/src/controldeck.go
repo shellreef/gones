@@ -88,9 +88,6 @@ func (deck *ControlDeck) Load(filename string) {
         panic(fmt.Sprintf("unrecognizable file: %s", filename))
     }
 
-    cart.LoadPRG(deck.CPU)
-    cart.LoadCHR(deck.PPU)
-
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
     matches := cartdb.Identify(cartdb.Load(), cart)
@@ -102,6 +99,35 @@ func (deck *ControlDeck) Load(filename string) {
         cartdb.DumpMatch(match)
     }
     // TODO: use info here, to display title/image, or use mapper
+
+
+    cart.LoadPRG(deck.CPU)
+    cart.LoadCHR(deck.PPU)
+
+    // nestest.nes (TODO: better way to have local additions to cartdb!)
+    hash := cartdb.CartHash(cart)
+    if hash == "4131307F0F69F2A5C54B7D438328C5B2A5ED0820" {
+        // TODO: only do this when running in automated mode, still want GUI mode unaffected
+        fmt.Printf("Identified nestest; mapping for automation\n")
+
+        deck.CPU.MapOver(0xc66e, 
+                // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, on RTS
+
+               func(address uint16)(value uint8) { 
+                    // http://nesdev.com/bbs/viewtopic.php?t=7130
+                    result := deck.CPU.ReadFrom(2) << 8 | deck.CPU.ReadFrom(3)
+
+                    if result == 0 {
+                        fmt.Printf("Nestest automation: Pass\n")
+                    } else {
+                        fmt.Printf("Nestest automation: FAIL with code %.4x\n", result)
+                    }
+                    os.Exit(0)
+
+                    return 0x60 },
+                func(address uint16, value uint8) { },
+                "nestest-automation")
+    }
 }
 
 

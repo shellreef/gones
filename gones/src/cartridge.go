@@ -7,7 +7,6 @@ package cartridge
 
 import (
         "fmt"
-        "os"
 
         "ppu2c02"
         "cpu6502"
@@ -116,26 +115,6 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
             func(address uint16)(value uint8) { return cart.PrgRam[address & 0x7ff] },
             func(address uint16, value uint8) { cart.PrgRam[address & 0x7ff] = value },
             "Cartridge RAM")
-
-
-    // End of nestest.nes (TODO: only for!)
-    cpu.MapOver(0xc66e, 
-            // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, on RTS
-
-           func(address uint16)(value uint8) { 
-                // http://nesdev.com/bbs/viewtopic.php?t=7130
-                result := cpu.ReadFrom(2) << 8 | cpu.ReadFrom(3)
-
-                if result == 0 {
-                    fmt.Printf("Nestest automation: Pass\n")
-                } else {
-                    fmt.Printf("Nestest automation: FAIL with code %.4x\n", result)
-                }
-                os.Exit(0)
-
-                return 0x60 },
-            func(address uint16, value uint8) { },
-            "nestest automation")
 
     // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
     // TODO: reset interrupt

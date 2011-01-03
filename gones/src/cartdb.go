@@ -243,7 +243,7 @@ func DumpMatch(match CartMatches) {
 func Identify(database *Database, cart *cartridge.Cartridge) ([]CartMatches) {
     var found []CartMatches
 
-    hash := cartHash(cart)
+    hash := CartHash(cart)
 
     fmt.Printf("Cartridge SHA-1 = %s\n", hash)
 
@@ -259,8 +259,9 @@ func Identify(database *Database, cart *cartridge.Cartridge) ([]CartMatches) {
     return found
 }
 
+
 // Get SHA-1 digest of cartridge PRG and CHR
-func cartHash(cart *cartridge.Cartridge) (string) {
+func CartHash(cart *cartridge.Cartridge) (string) {
     digester := sha1.New()
 
     // First PRG.. note, some games have multiple PRG chips (such as Action-52,
