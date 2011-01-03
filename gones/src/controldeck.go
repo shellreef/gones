@@ -68,6 +68,26 @@ func New() (*ControlDeck) {
     return deck
 }
 
+// Load a game
+func (deck *ControlDeck) Load(filename string) {
+    cart := nesfile.Open(filename)
+    deck.CPU.Load(cart)
+    deck.PPU.Load(cart)
+
+    // Check ROM against known hashes
+    // TODO: maybe this should be in nesfile, or in controldeck?
+    matches := cartdb.Identify(cartdb.Load(), cart)
+    if len(matches) != 0 {
+        fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
+    }
+    for i, match := range matches {
+        fmt.Printf("%d. ", i)
+        cartdb.DumpMatch(match)
+    }
+    // TODO: use info here, to display title/image, or use mapper
+}
+
+
 // Start emulation
 func (deck *ControlDeck) Start() {
     if deck.ShowGui {
@@ -88,25 +108,6 @@ func (deck *ControlDeck) Start() {
     } else {
         deck.PPU.Run()
     }
-}
-
-// Load a game
-func (deck *ControlDeck) Load(filename string) {
-    cart := nesfile.Open(filename)
-    deck.CPU.Load(cart)
-    deck.PPU.Load(cart)
-
-    // Check ROM against known hashes
-    // TODO: maybe this should be in nesfile, or in controldeck?
-    matches := cartdb.Identify(cartdb.Load(), cart)
-    if len(matches) != 0 {
-        fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
-    }
-    for i, match := range matches {
-        fmt.Printf("%d. ", i)
-        cartdb.DumpMatch(match)
-    }
-    // TODO: use info here, to display title/image, or use mapper
 }
 
 // Run a command to do something with the unit

@@ -65,8 +65,8 @@ const (
 
 // Represents a game cartridge
 type Cartridge struct {
-    Prg []([]byte)                  // Program data
-    Chr []([]byte)                  // Character data
+    Prg []([]byte)                  // Program data     TODO: make a flat string
+    Chr []([]byte)                  // Character data   TODO: make a flat string
     Platform Platform               // Platform to run on
     DisplayType DisplayType
     MapperCode, SubmapperCode int   // Extra hardware inside the cart

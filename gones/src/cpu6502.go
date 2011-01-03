@@ -353,12 +353,13 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
 }
 
 // Load a game cartridge
+// TODO: move to controldeck?
 func (cpu *CPU) Load(cart *Cartridge) {
     if len(cart.Prg) == 0 {
         panic("No PRG found")
     }
    
-    var bank8000, bankC000 int
+    var bank8000, bankC000, lastBank int
 
     // By default, load first PRG into 0x8000 bank and 
     // last PRG into 0xC000. This covers many mappers, including:
@@ -366,8 +367,13 @@ func (cpu *CPU) Load(cart *Cartridge) {
     // (#0) NROM-128K: two PRGs, one loaded into each
     // MMC1, MMC3
     // TODO: Any other mappers with different default banks??
+    // Answer: yes. VRC4 (021) in PRG mode 1 loads $8000 with -2. Assume nothing (TODO).
+    // TODO: remove bank8000/bankC000 junk
+    // TODO: remove assumption of 16 KB "banks", just because .nes stores in 16 KB chunks
     bank8000 = 0
     bankC000 = len(cart.Prg) - 1
+
+    lastBank = len(cart.Prg) - 1
 
     // TODO: use cartdb (see main.Load()) if possible; fall back to MapperCode otherwise
     switch cart.MapperCode {
@@ -383,6 +389,18 @@ func (cpu *CPU) Load(cart *Cartridge) {
     // TODO: pointers instead of copying, so can switch banks easier
     copy(cpu.Memory[0x8000:], cart.Prg[bank8000])
     copy(cpu.Memory[0xC000:], cart.Prg[bankC000])
+
+    // Wire up 
+    // TODO: for NROM-256, just map one 32 KB (instead of 2 x 16 KB for NROM-128)
+    cpu.Map(0x8000, 0xbfff, 
+            func(address uint16)(value uint8) { return cart.Prg[0][address & 0x7fff] },
+            func(address uint16, value uint8) { cart.Prg[0][address & 0x7fff] = value },
+            // TODO: store offset within PRG ROM in name
+            fmt.Sprintf("NROM (16 KB chunk #%d)", 0))
+    cpu.Map(0xc000, 0xcfff,
+            func(address uint16)(value uint8) { return cart.Prg[lastBank][address & 0x7fff] },
+            func(address uint16, value uint8) { cart.Prg[lastBank][address & 0x7fff] = value },
+            fmt.Sprintf("NROM (16 KB chunk #%d)", lastBank))
 
     // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
     pcl := cpu.Memory[RESET_VECTOR]
