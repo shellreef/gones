@@ -14,7 +14,6 @@ import (
 
     "leggo"
 
-    "cartridge"
     "cpu6502"
 )
 

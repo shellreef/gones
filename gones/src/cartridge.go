@@ -6,6 +6,7 @@
 package cartridge
 
 import (
+        "fmt"
 
         "ppu2c02"
         "cpu6502"
@@ -111,8 +112,8 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
 
     // Initialize to reset vector.. note, don't use ReadUInt16 since it adds CPU cycles!
     // TODO: reset interrupt
-    pcl := cpu.ReadFrom(RESET_VECTOR)
-    pch := cpu.ReadFrom(RESET_VECTOR + 1)
+    pcl := cpu.ReadFrom(cpu6502.RESET_VECTOR)
+    pch := cpu.ReadFrom(cpu6502.RESET_VECTOR + 1)
     cpu.PC = uint16(pch) << 8 + uint16(pcl)
 
     cpu.CycleCount = 0

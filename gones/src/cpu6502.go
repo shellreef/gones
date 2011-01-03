@@ -13,9 +13,6 @@ import . "dis6502"
 import (
     "fmt"
     "os"
-
-    "cartridge"
-
 )
 
 type CPU struct {
@@ -308,7 +305,6 @@ func (cpu *CPU) NextInstruction() (*Instruction) {
     return instr
 }
 
-// Load a game cartridge
 // Return string representation of truth value, for bit flags
 func bitize(b uint8) (string) {
     if b != 0 {
