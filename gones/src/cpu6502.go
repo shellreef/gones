@@ -79,13 +79,6 @@ func (cpu *CPU) NextUInt8() (b uint8) {
     return b
 }
 
-// Read signed byte, advancing program counter
-func (cpu *CPU) NextSInt8() (b int8) {
-    b = int8(cpu.Memory[cpu.PC])
-    cpu.PC += 1
-    return b
-}
-
 // Get the address an operand refers to
 func (cpu *CPU) AddressOperand() (address uint16) {
    
@@ -94,9 +87,7 @@ func (cpu *CPU) AddressOperand() (address uint16) {
     }
 
     switch cpu.Instruction.AddrMode {
-    case Rel: 
-        cpu.Tick("relative: fetch next opcode")
-        address = (cpu.PC) + uint16(cpu.Instruction.Operand)
+    case Rel: address = (cpu.PC) + uint16(cpu.Instruction.Operand)
     case Ind: address = cpu.ReadUInt16Wraparound(uint16(cpu.Instruction.Operand))
     case Abs: address = uint16(cpu.Instruction.Operand)
     case Abx: 
@@ -326,7 +317,9 @@ func (cpu *CPU) NextOperand(addrMode AddrMode) (int) {
         cpu.Tick("read next instruction byte (and throw it away, Imp/Acc)")
         return 0
     case Rel:                          // read 8 bits
-        return int(cpu.NextSInt8())    // TODO: calculate from PC
+        // Note this is signed! int8 not uint8
+        offset := int8(cpu.NextUInt8())    // TODO: calculate from PC
+        return int(offset)
     }
     panic(fmt.Sprintf("readOperand unknown addressing mode: %s", addrMode))
 } 
