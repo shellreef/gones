@@ -744,19 +744,9 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
 
     case KIL:
-        // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, but my
-        // emulator interprets the last RTS as returning to 0001, executing a bunch of weird instructions, ending in KIL
-        // So interpret this as a graceful termination. Only up to $C66E will be compared by tracediff.pl anyways.
         fmt.Printf("Halting on KIL instruction\n")
-        // http://nesdev.com/bbs/viewtopic.php?t=7130
-        result := cpu.ReadFrom(2) << 8 | cpu.ReadFrom(3)
-        if result == 0 {
-            fmt.Printf("Nestest automation: Pass\n")
-        } else {
-            fmt.Printf("Nestest automation: FAIL with code %.4x\n", result)
-        }
-        os.Exit(0)
-
+        // TODO: only halt CPU, APU might still keep playing, and may want to reset, continue seeing graphics
+        os.Exit(-1)
 
     // Blargg's CPU tests don't test these because they have inconsistent/unknown behavior
     // TODO: simulate their inconsistency, for accuracy
@@ -831,23 +821,6 @@ func (cpu *CPU) CheckNMI() {
 }
 
 
-// Map memory to call the given functions on read/write for the 4 KB address range
-// The read/write functions will be called for start to start+0x0fff
-func (cpu *CPU) MapAt(start uint16,
-        read func(address uint16) (value uint8), 
-        write func(address uint16, value uint8),
-        name string) {
-
-    index := (start & 0xf000) >> 12
-
-    // TODO: allow chaining mappers?? May need to let carts map parts of the
-    // $4000-$5FFF bank, since the APU and I/O $4000-4016 registers _are_ 
-    // completely decoded, so all of $4017-FFFF is available for use. Anyone use it?
-    cpu.MemRead[index] = read
-    cpu.MemWrite[index] = write
-    cpu.MemName[index] = name
-}
-
 // Map a range of memory
 func (cpu *CPU) Map(start uint16, end uint16,
         read func(address uint16) (value uint8), 
@@ -874,7 +847,49 @@ func (cpu *CPU) Map(start uint16, end uint16,
 
     // Map in 4 KB sections
     for i := uint16(0); i < count; i++ {
-        cpu.MapAt(start + (i << 12), read, write, name)
+        // Map $i000 to $(i+1)fff
+        base := start + (i << 12)
+        index := (base & 0xf000) >> 12
+
+        cpu.MemRead[index] = read
+        cpu.MemWrite[index] = write
+        cpu.MemName[index] = name
     }
 }
 
+// Map one address, overlaying the ordinary mappers which map at 
+// multiples of 4 KB boundaries. 
+//
+// Potentially useful because the $4000-5FFF range is only occupied
+// by the APU and I/O registers in $4000-4016, since the addresses are
+// completely decoded (not mirrored); all of $4017-FFFF available for
+// usage. Not sure if any cartridge uses it, but they can. Also could
+// be useful for debugging or automated testing.
+func (cpu *CPU) MapOver(overAddress uint16,
+        readOver func(address uint16) (value uint8), 
+        writeOver func(address uint16, value uint8),
+        name string) {
+
+    index := (overAddress & 0xf000) >> 12
+
+    readOriginal := cpu.MemRead[index]
+    writeOriginal := cpu.MemWrite[index]
+
+    cpu.MemRead[index] = func(address uint16) (value uint8) {
+        if address == overAddress {
+            return readOver(address)
+        }
+
+        return readOriginal(address)
+    }
+
+    cpu.MemWrite[index] = func(address uint16, value uint8) {
+        if address == overAddress {
+            writeOver(address, value)
+        } else {
+            writeOriginal(address, value)
+        }
+    }
+
+    cpu.MemName[index] += fmt.Sprintf(" + %.4x=%s", overAddress, name)
+}
