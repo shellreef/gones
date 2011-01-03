@@ -176,7 +176,10 @@ func (deck *ControlDeck) RunCommand(cmd string) {
     // registers
     case "r", "registers": deck.CPU.DumpRegisters()
 
+
     case "m", "memory": deck.CPU.DumpMemoryMap()
+
+    case "show-carts": cartdb.Dump(cartdb.Load())
 
     // TODO: search
     // TODO: unassemble
