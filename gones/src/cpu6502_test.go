@@ -402,9 +402,25 @@ var PageCrossTimings = [...]OpcodeByteCycleCount{
 // Measure the cycle count of an operation
 func cyclesForOp(op uint8) (uint) {
     cpu := new(CPU)
-    cpu.PowerUp()
+    
+    cpu.Map(0x0000, 0x7fff,
+            func(address uint16)(value uint8) { return 0 },
+            func(address uint16, value uint8) { },
+            "Nothing")
+
+    cpu.Map(0x8000, 0xffff, 
+            func(address uint16)(value uint8) { 
+                if address == 0x8000 {
+                    return op
+                } 
+                return 0
+            },
+            func(address uint16, value uint8) { },
+            "Test ROM")
+
     cpu.PC = 0x8000
-    cpu.Memory[0x8000] = op
+    cpu.PowerUp()
+
     //cpu.Verbose = true
     // Note: cycle count may vary depending on operands.. they're all zeros here
     startCyc := cpu.CycleCount
