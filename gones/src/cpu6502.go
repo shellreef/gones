@@ -1,11 +1,11 @@
 // Created:20101128
 // By Jeff Connelly
 
-// Emulate NES CPU, a 6502-based processor
-// Specifically, the NES uses a Ricoh RP2A03, which:
+// Emulate the NES CPU, a 6502-based processor
+// Specifically, the NES uses a 6502 in the Ricoh RP2A03, which:
 // - is NMOS-based 6502 (as opposed to the CMOS 650C2)
 // - has no decimal mode (D flag in processor status is ignored)
-
+// This package only handles the CPU portion of the 2A03
 
 package cpu6502
 
@@ -23,6 +23,7 @@ type CPU struct {
     // 8 KB, 16 KB, or 32 KB banks (NSF uses 4 KB) so they'll map multiple.
     MemRead  [16](func(address uint16)(value uint8))
     MemWrite [16](func(address uint16, value uint8))
+    MemName  [16]string     // informational
 
     // TODO: kill this
     Memory [0x10000]uint8          // $0000-$FFFF
@@ -903,27 +904,51 @@ func (cpu *CPU) CheckNMI() {
 }
 
 
-// Map an address in memory
-// TODO
-func (cpu *CPU) Map4K(start uint16, end uint16, 
+// Map memory to call the given functions on read/write for the 4 KB address range
+// The read/write functions will be called for start to start+0x0fff
+func (cpu *CPU) MapAt(start uint16,
         read func(address uint16) (value uint8), 
-        write func(address uint16, value uint8)) {
+        write func(address uint16, value uint8),
+        name string) {
 
     index := (start & 0xf000) >> 12
-    expectEnd := (start & 0xf000) | 0x0fff
-    if end != expectEnd {
-        panic(fmt.Sprintf("Map4K(%.4X, %.4X): address range is not 4 KB, expected %.4X",
-                    start, end, expectEnd))
-    }
 
+    // TODO: allow chaining mappers?? May need to let carts map parts of the
+    // $4000-$5FFF bank, since the APU and I/O $4000-4016 registers _are_ 
+    // completely decoded, so all of $4017-FFFF is available for use. Anyone use it?
     cpu.MemRead[index] = read
     cpu.MemWrite[index] = write
+    cpu.MemName[index] = name
 }
 
-// TODO
-func (cpu *CPU) Map8K(start uint16, end uint16, 
+// Map a range of memory
+func (cpu *CPU) Map(start uint16, end uint16,
         read func(address uint16) (value uint8), 
-        write func(address uint16, value uint8)) {
-    cpu.Map4K(start, start+0x0fff, read, write)
-    cpu.Map4K(start+0x1000, end, read, write)
+        write func(address uint16, value uint8),
+        name string) {
+
+    if start & 0xfff != 0 || end & 0xfff != 0xfff {
+        panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range", start, end))
+    }
+
+    size := end - start + 1
+    switch size {
+    case 0x8000: // 32 KB
+        cpu.MapAt(start + 0x7000, read, write, name)
+        cpu.MapAt(start + 0x6000, read, write, name)
+        cpu.MapAt(start + 0x5000, read, write, name)
+        cpu.MapAt(start + 0x4000, read, write, name)
+        fallthrough
+    case 0x4000: // 16 KB
+        cpu.MapAt(start + 0x3000, read, write, name)
+        cpu.MapAt(start + 0x2000, read, write, name)
+        fallthrough
+    case 0x2000: // 8 KB
+        cpu.MapAt(start + 0x1000, read, write, name)
+        fallthrough
+    case 0x1000: // 4 KB
+        cpu.MapAt(start, read, write, name)
+    default: panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range size: %.4x", start, end, size))
+    }
 }
+
