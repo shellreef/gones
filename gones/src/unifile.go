@@ -63,6 +63,7 @@ func Open(filename string) (*Cartridge) {
         }
     }
 
+    f.Close()
     return cart
 }
 

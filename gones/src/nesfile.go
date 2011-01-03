@@ -10,7 +10,6 @@ import . "cartridge"
 import (
     "fmt"
     "os"
-    "bytes"
     "encoding/binary"
 )
 
@@ -297,14 +296,16 @@ var INesMapperCode2Name = []string{
 
 // Load a .nes file
 func Open(filename string) (*Cartridge) {
-    data := slurp(filename)
-    // Convert data to an object compatible with http://golang.org/pkg/io/
-    buffer := bytes.NewBuffer(data)
+    f, err := os.Open(filename, os.O_RDONLY, 0)
+    if f == nil {
+        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
+    }
+
 
     header := new(NesfileHeader)
     cart := new(Cartridge)
 
-    binary.Read(buffer, binary.LittleEndian, header)
+    binary.Read(f, binary.LittleEndian, header)
 
     if header.Magic != NESFILE_MAGIC {
         return nil
@@ -338,7 +339,7 @@ func Open(filename string) (*Cartridge) {
 
     if header.Flags6 & 4 == 4 {
         // "512-byte trainer at $7000-$71FF (stored before PRG data)"
-        cart.Trainer = readChunks(buffer, TRAINER_SIZE, 1)
+        cart.Trainer = read(f, TRAINER_SIZE)
     }
 
     
@@ -443,52 +444,32 @@ func Open(filename string) (*Cartridge) {
         cart.BusConflicts = header.Flags10 & 0x20 == 0x20
     }
 
-    // Read banks
-    cart.Prg = readChunks(buffer, PRG_PAGE_SIZE, prgPageCount)
-    cart.Chr = readChunks(buffer, CHR_PAGE_SIZE, chrPageCount)
+    cart.Prg = read(f, PRG_PAGE_SIZE * prgPageCount)
+    cart.Chr = read(f, CHR_PAGE_SIZE * chrPageCount)
 
     if cart.Platform == PlatformPlayChoice {
         // "PlayChoice-10 (8KB of Hint Screen data stored after CHR data)"
-        cart.HintScreen = readChunks(buffer, HINTSCREEN_SIZE, 1)
+        cart.HintScreen = read(f, HINTSCREEN_SIZE)
     }
    
     fmt.Printf("ROM: %d, VROM: %d, Mapper #%d\n", len(cart.Prg), len(cart.Chr), cart.MapperCode)
 
+    f.Close()
+
     return cart
 }
 
-// Read fixed-size chunks of data from a buffer
-func readChunks(buffer *bytes.Buffer, size int, pageCount int) ([]byte) {
-    data := make([]byte, pageCount * size)
+// Read fixed-size chunk of data 
+func read(buffer *os.File, size int) ([]byte) {
+    data := make([]byte, size)
 
-    for i := 0; i < pageCount; i++ {
-        readLength, err := buffer.Read(data[i * size:(i + 1) * size])
-        //fmt.Printf("read page %d size=%d\n", i, readLength)
-        if err != nil {
-            panic(fmt.Sprintf("readChunks(%d, %d) #%d failed: %d %s", size, pageCount, i, readLength, err))
-        }
+    readLength, err := buffer.Read(data)
+    if err != nil {
+        panic(fmt.Sprintf("readChunks error: %s", err))
     }
-
-    return data
-}
-
-// Read all the bytes from a file, terminating if an error occurs
-func slurp(filename string) []byte {
-    f, err := os.Open(filename, os.O_RDONLY, 0)
-    if f == nil {
-        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
+    if readLength != size { 
+        panic(fmt.Sprintf("readChunks incomplete: %d != %d", readLength, size))
     }
-    stat, err := f.Stat()
-    expectedLength := stat.Size
-    data := make([]byte, expectedLength)
-    readLength, err := f.Read(data)
-    if int64(readLength) != expectedLength {
-        panic(fmt.Sprintf("failed to read all %d bytes (only %d) from %s: %s", expectedLength, readLength, filename, err))
-    }
-
-    f.Close()
-
-    //fmt.Printf("Read %d bytes from %s\n", len(data), filename)
 
     return data
 }
