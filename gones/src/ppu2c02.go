@@ -60,6 +60,18 @@ const (
         Dendy="Dendy";
         PAL="PAL")
 
+// Color emphasis bits based on http://nesdev.parodius.com/bbs/viewtopic.php?t=2864
+/* emphasis factors, %000 to %111. r,g,b */ 
+/* measurement by Quietust */ 
+var INTENSIFY_COEFFICIENTS = [8][3]float{
+   {1.00, 1.00, 1.00}, 
+   {1.00, 0.80, 0.81}, 
+   {0.78, 0.94, 0.66}, 
+   {0.79, 0.77, 0.63}, 
+   {0.82, 0.83, 1.12}, 
+   {0.81, 0.71, 0.87}, 
+   {0.68, 0.79, 0.79}, 
+   {0.70, 0.70, 0.70} }
 
 type PPU struct {
     Pixel int
@@ -85,9 +97,7 @@ type PPU struct {
     spritesLeftmost bool        // "Enable sprites in leftmost 8 pixels of screen"
     backgroundEnabled bool     
     spritesEnabled bool
-    intensifyRed bool
-    intensifyGreen bool
-    intensifyBlue bool
+    intensifyMask uint8         // 3-bit mask, to intensify red/green/blue
 
     // Returned by PPU_STATUS
     spriteOverflow bool
@@ -328,9 +338,8 @@ func (ppu *PPU) WriteRegister(operAddr uint16, b uint8) (bool) {
             ppu.backgroundEnabled   = b & 0x08 != 0
             ppu.spritesEnabled      = b & 0x10 != 0
             // http://wiki.nesdev.com/w/index.php/NTSC_video
-            ppu.intensifyRed        = b & 0x20 != 0
-            ppu.intensifyGreen      = b & 0x40 != 0
-            ppu.intensifyBlue       = b & 0x80 != 0
+            // 3-bit mask of R, G, B, colors to intensify
+            ppu.intensifyMask       = (b & 0xe0) >> 5
 
             if ppu.Verbose {
                 fmt.Printf("PPU_MASK = %.8b\n", b)
@@ -433,20 +442,28 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
         for column := 0; column < 8; column += 1 {
             // TODO: palette
             // This is not real
-            var r, g, b byte
+            var r, g, b float
             switch pattern[7-column][7-row] {
-            case 0: r=255
-            case 1: g=255
-            case 2: b=255
-            case 3: r=255; g=255; b=255
+            case 0: r=0.5; g=0.5; b=0.5
+            case 1: g=1.0
+            case 2: b=1.0
+            case 3: r=1.0
             }
+
+            // Emphasize colors
+            // Note: generating NTSC waveform and rendering it manually would be more accurate
+            intensity := INTENSIFY_COEFFICIENTS[ppu.intensifyMask]
+            ir, ig, ib := intensity[0], intensity[1], intensity[2]
+            r *= ir
+            g *= ig
+            b *= ib
 
             // Clipping
             if row+offX > PIXELS_VISIBLE || column+offY > SCANLINES_VISIBLE {
                 continue
             }
 
-            leggo.WritePixel(row+offX, (7-column)+offY, r,g,b,0)
+            leggo.WritePixel(row+offX, (7-column)+offY, uint8(r*255),uint8(g*255),uint8(b*255),0)
         }
     }
 }
