@@ -446,7 +446,7 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             case 0: r=0.5; g=0.5; b=0.5
             case 1: g=1.0
             case 2: b=1.0
-            case 3: r=1.0
+            case 3: r=0.0; g=0.0; b=0.0
             }
 
             // Emphasize colors
