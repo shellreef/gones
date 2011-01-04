@@ -476,7 +476,7 @@ func (ppu *PPU) ShowNametable() {
     patternTable := 1
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
-            tile := ppu.Memory[base + row*30 + column]
+            tile := ppu.Memory[base + row*32 + column]
             pattern := ppu.GetPattern(patternTable, int(tile))
 
             ppu.DrawPattern(pattern, column*8, row*8)
