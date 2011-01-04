@@ -1,4 +1,6 @@
 ;;; Based on  http://www.dwedit.org/files/hello.asm mentioned on http://nesdev.com/bbs/viewtopic.php?p=71841
+;;; ca65 hello.asm ; ld65 -o hello.nes hello.o  -C nes.cfg
+
     .org $BFF0
 
 	.byte "NES",$1A,$01,$00,$20,$00
@@ -410,9 +412,9 @@ waitloop:
 pal:
 	.byte $0F, $30, $0F, $0F
 
-
-	.org $FFFA
-	.dbyt nmihandler, main, irqhandler
+    .org $FFFA
+    .word nmihandler,main,irqhandler
 
 .end
+
 
