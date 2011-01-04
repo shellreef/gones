@@ -432,7 +432,6 @@ func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
 func (ppu *PPU) ShowPatterns() {
     for i := 0; i < 255; i += 1 {
         ppu.DrawPattern(ppu.GetPattern(0, i), (i % 16) * 8, (i / 16) * 8)
-        //time.Sleep(1000000000)
     }
 }
 
@@ -474,7 +473,7 @@ func (ppu *PPU) ShowNametable() {
     // http://wiki.nesdev.com/w/index.php/PPU_nametables 
     // TODO: mirroring, access other nametables (4)
     base := 0x2000
-    patternTable := 0
+    patternTable := 1
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
             tile := ppu.Memory[base + row*30 + column]
