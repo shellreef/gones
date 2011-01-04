@@ -297,7 +297,8 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
 
     // verbose
-    case "v", "show-cycles": deck.CPU.Verbose = true; deck.PPU.Verbose = true
+    case "v", "show-cycles": deck.CPU.Verbose = true
+    case "show-ppu": deck.PPU.Verbose = true
     case "b", "show-vblank": deck.PPU.Verbose = true
     case "V", "show-trace": deck.CPU.InstrTrace = true
 
