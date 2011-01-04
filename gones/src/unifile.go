@@ -13,6 +13,7 @@ import (
     "fmt"
     "os"
     "encoding/binary"
+    "strings"
 )
 
 const UNIF_MAGIC = 0x46494e55       // 'UNIF'
@@ -53,7 +54,14 @@ func Open(filename string) (*Cartridge) {
         fmt.Printf("chunk: %s: %d bytes\n", id, len(data))
 
         switch id {
-        case "MAPR": cart.MapperName = string(data[:])
+        case "MAPR": mapperName := string(data[:])
+            // Null-terminated string
+            term := strings.Index(mapperName, "\000")
+            if term != -1 {
+                cart.MapperName = mapperName[0:term]
+            } else {
+                cart.MapperName = mapperName
+            }
         case "NAME": fmt.Printf("Name: %s\n", string(data[:])) // TODO: use somewhere
         //case "MIRR": // TODO: read mirroring
 
