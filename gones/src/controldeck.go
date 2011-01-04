@@ -112,8 +112,7 @@ func (deck *ControlDeck) Load(filename string) {
 
         deck.CPU.MapOver(0xc66e, 
                 // The known-correct log http://nickmass.com/images/nestest.log ends at $C66E, on RTS
-
-               func(address uint16)(value uint8) { 
+                func(address uint16)(value uint8) { 
                     // http://nesdev.com/bbs/viewtopic.php?t=7130
                     result := deck.CPU.ReadFrom(2) << 8 | deck.CPU.ReadFrom(3)
 
@@ -122,7 +121,10 @@ func (deck *ControlDeck) Load(filename string) {
                     } else {
                         fmt.Printf("Nestest automation: FAIL with code %.4x\n", result)
                     }
-                    os.Exit(0)
+                    // Signal to stop CPU (KIL instruction)
+                    // TODO: find a better way to quit the program. Could quit here, but
+                    // then last instruction trace wouldn't match expected log.
+                    deck.InternalRAM[0x0001] = 0x02
 
                     return 0x60 },
                 func(address uint16, value uint8) { },

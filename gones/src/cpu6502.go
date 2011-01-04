@@ -746,7 +746,7 @@ func (cpu *CPU) ExecuteInstruction() {
     case KIL:
         fmt.Printf("Halting on KIL instruction\n")
         // TODO: only halt CPU, APU might still keep playing, and may want to reset, continue seeing graphics
-        os.Exit(-1)
+        os.Exit(0)
 
     // Blargg's CPU tests don't test these because they have inconsistent/unknown behavior
     // TODO: simulate their inconsistency, for accuracy
