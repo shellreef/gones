@@ -15,6 +15,13 @@ import (
     "os"
 )
 
+type Interrupt int
+const (INT_NONE=iota;
+        INT_NMI;
+        INT_RESET;
+        INT_BRK;
+        INT_IRQ)
+
 type CPU struct {
     // Functions to read and write to memory, indexed by each 4 KB,
     // using the upper 4 bits of the address. Most mappers use 
@@ -27,11 +34,11 @@ type CPU struct {
     S uint8     // Stack pointer, offset from $0100
     A uint8     // Accumulator
     X, Y uint8  // Index registers
-    P uint8     // Processor Status (7-0 = N V - B D I Z C)
+    P uint8     // Processor Status (7-0 = N V - B D I Z C) (TODO: consider using separate flags, pack/unpack as needed)
 
     CycleCount uint         // CPU cycle count
     CycleCallback func()    // Called on every CPU cycle
-    PendingNMI bool         // Run non-maskable interrupt after next instr finishes
+    PendingInt Interrupt    // Run interrupt after next instr finishes
 
     Verbose bool
     InstrTrace bool
@@ -742,6 +749,7 @@ func (cpu *CPU) ExecuteInstruction() {
         cpu.Push(cpu.P | FLAG_B)
         cpu.SetInterrupt(true)
         cpu.PC = cpu.ReadUInt16(BRK_VECTOR)
+        // TODO: refactor into same code as NMI()/IRQ()/RESET()
 
     case KIL:
         fmt.Printf("Halting on KIL instruction\n")
@@ -765,8 +773,8 @@ func (cpu *CPU) ExecuteInstruction() {
         fmt.Printf("%s took %d cycles\n", cpu.Instruction.Opcode, cpu.CycleCount - startCyc)
     }
 
-    // Finished instruction, so now can run NMI
-    cpu.CheckNMI()
+    // Finished instruction, so now can run interrupt if one is pending
+    cpu.CheckInterrupt()
 
     // Running blargg's emulator tests?
     // TODO: post-execute instruction hook for debugging?
@@ -796,28 +804,47 @@ func (cpu *CPU) Run() {
     }
 }
 
-// Set NMI to execute after next instruction finishes
+// Set interrupt to execute after next instruction finishes
 func (cpu *CPU) NMI() {
-    cpu.PendingNMI = true
+    cpu.PendingInt = INT_NMI
+}
+
+func (cpu *CPU) IRQ() {
+    cpu.PendingInt = INT_IRQ
+}
+
+func (cpu *CPU) Reset() {
+    cpu.PendingInt = INT_RESET
 }
 
 // TODO: IRQ, it is same as NMI except uses $FFFE vector
 // http://www.pagetable.com/?p=410 "Internals of BRK/IRQ/NMI/RESET on a MOS 6502"
 
 // Check for incoming NMI, and if it is present, run it
-func (cpu *CPU) CheckNMI() {
-    if !cpu.PendingNMI {
+func (cpu *CPU) CheckInterrupt() {
+    if cpu.PendingInt == INT_NONE {
         return
     }
 
+    // TODO: priorities, RESET and NMI over IRQ/BRK
+
     if cpu.Verbose {
-        fmt.Printf("*** RUNNING NMI\n")
+        fmt.Printf("*** RUNNING INTERRUPT\n")
     }
     cpu.Push16(cpu.PC)
     cpu.Push(cpu.P)
-    cpu.PC = cpu.ReadUInt16(NMI_VECTOR)
+
+    var vector uint16
+
+    switch cpu.PendingInt {
+    case INT_NMI: vector = NMI_VECTOR
+    case INT_RESET: vector = RESET_VECTOR
+    case INT_BRK, INT_IRQ: vector = BRK_VECTOR
+    }
+
+    cpu.PC = cpu.ReadUInt16(vector)
  
-    cpu.PendingNMI = false
+    cpu.PendingInt = INT_NONE
 }
 
 
