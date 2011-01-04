@@ -1,7 +1,8 @@
 // Created:20101226
 // By Jeff Connelly
 //
-// Load NES cartridge database
+// Identify NES cartridges based on hash checksum using database
+//
 // XML from http://bootgod.dyndns.org:7777/
 
 package cartdb
@@ -118,6 +119,8 @@ func Load() (*Database) {
 
         database, err = LoadGob(fastFile)
     }
+
+    // TODO: multiple files, for local modifications. All in a directory?
 
     if err != nil {
         panic(fmt.Sprintf("Failed to load %s: %s\n", fastFile, err))
