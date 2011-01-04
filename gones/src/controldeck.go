@@ -17,10 +17,10 @@ import (
 
     "nesfile"
     "unifile"
-    "cpu6502"
-    //"dis6502"
-    "ppu2c02"
     "cartdb"
+    "cpu6502"
+    "ppu2c02"
+    "io2a03"
     "gamegenie"
 )
 
@@ -55,7 +55,9 @@ func New() (*ControlDeck) {
             func(address uint16, value uint8) { deck.PPU.WriteRegister(address, value) },
             "PPU registers")
 
-    // TODO: APU & I/O registers, $4000-4017
+    // APU & I/O registers, $4000-4017
+    // These *are* completely decoded, but for simplicity, map all 4K
+    deck.CPU.Map(0x4000, 0x4fff, io2a03.ReadRegister, io2a03.WriteRegister, "2A03 I/O")
 
     // $4018-FFFF are available to cartridge
   
