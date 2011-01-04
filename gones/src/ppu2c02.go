@@ -264,8 +264,6 @@ func (ppu *PPU) ReadRegister(operAddr uint16) (wants bool, ret uint8) {
                 fmt.Printf("read PPUSTATUS = %.2X\n", ret)
             }
 
-            //ppu.ShowNametable()
-
         case PPU_OAM_DATA:
             // Note: reading OAM is unreliable in real hardware
             ret = ppu.OAM[ppu.oamAddress]
@@ -396,11 +394,11 @@ func (ppu *PPU) WriteRegister(operAddr uint16, b uint8) (bool) {
 // table: 0 or 1
 // tile: 0 to 255
 // TODO: combine with OAM to get sprite bitmap
-func (ppu *PPU) GetPattern(table int, tile int) (pattern [8][8]uint8) {
+func (ppu *PPU) GetPattern(backgroundBase uint16, tile int) (pattern [8][8]uint8) {
 
     // There are two pattern tables (of 16 bytes), with 256 titles each
-    base := table << 12 | tile << 4
-    for row := 0; row < 8; row += 1 {
+    base := backgroundBase | uint16(tile) << 4
+    for row := uint16(0); row < 8; row += 1 {
         // Palette data is split into two planes, for bit 0 and bit 1
         plane0Row := ppu.Memory[base + row]
         plane1Row := ppu.Memory[base + row + 8]
@@ -443,10 +441,10 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
             // This is not real
             var r, g, b float
             switch pattern[7-column][7-row] {
-            case 0: r=0.5; g=0.5; b=0.5
+            case 0: r=0.0; g=0.0; b=0.0
             case 1: g=1.0
             case 2: b=1.0
-            case 3: r=0.0; g=0.0; b=0.0
+            case 3: r=0.9; g=0.9; b=1.0
             }
 
             // Emphasize colors
@@ -467,17 +465,14 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
     }
 }
 
-
-
 func (ppu *PPU) ShowNametable() {
     // http://wiki.nesdev.com/w/index.php/PPU_nametables 
     // TODO: mirroring, access other nametables (4)
-    base := 0x2000
-    patternTable := 1
+    base := int(ppu.nametableBase)
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
             tile := ppu.Memory[base + row*32 + column]
-            pattern := ppu.GetPattern(patternTable, int(tile))
+            pattern := ppu.GetPattern(ppu.backgroundBase, int(tile))
 
             ppu.DrawPattern(pattern, column*8, row*8)
         }

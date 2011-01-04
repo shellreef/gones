@@ -225,7 +225,12 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         if err == nil {
             tile = 0
         }
-        deck.PPU.PrintPattern(deck.PPU.GetPattern(int(table), int(tile)))
+        if table == 0 {
+            table = 0
+        } else {
+            table = 0x1000
+        }
+        deck.PPU.PrintPattern(deck.PPU.GetPattern(uint16(table), int(tile)))
 
     /* TODO: be able to interact with shell when GUI is open, so could do this
     case "draw-patterns":
