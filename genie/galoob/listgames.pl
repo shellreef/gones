@@ -11,7 +11,7 @@ while(<FH>) {
         my $name = $_;
         chomp(my $gameid = <FH>);
 
-        print "$i,$gameid,$name\n";
+        print "$gameid,$name\n";
         ++$i;
     }
 }
