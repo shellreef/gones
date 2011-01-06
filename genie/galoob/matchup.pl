@@ -69,14 +69,14 @@ for my $galoob (@galoob) {
             my $index = $i + 1;
             print "$index. $approx\n";
         }
-        $index = 0; # XXX
-        #chomp(my $index = <>);
+        chomp(my $index = <>);
         my $goodnes;
         if ($index == 0) {
             print "Nothing matches? Oh well..\n";
             $goodnes = undef;
         } else {
             $goodnes = $approx[$index - 1];
+            print "Matching to: $goodnes\n";
         }
         $gg2gn{$galoob} = $goodnes;
     } else {
