@@ -1,0 +1,585 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available through 
+VideoGames & Computer Entertainment for the private use of Game 
+Genie owners. No commercial use without authorization. This file 
+may be freely distributed for private, non-commercial use as long as 
+it is not altered and all text remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+1, No. 4.
+
+1.      ADVENTURES OF LOLO 3(tm)
+2.      BATMAN: RETURN OF THE JOKER(tm) GAME
+3.      FARIA(tm) GAME
+4.      FIREHAWK(tm)
+5.      THE FLINTSTONES: THE RESCUE OF DINO AND HOPPY(tm) GAME
+6.      HOGAN'S ALLEY(tm) GAME
+7.      HOOK(tm) GAME
+8.      THE LITTLE MERMAID(tm) GAME
+9.      MEGAMAN 4(tm) GAME
+10.     MIG 29 SOVIET FIGHTER(tm) GAME
+11.     NES PLAY ACTION FOOTBALL(tm) GAME
+12.     PRO WRESTLING(tm) GAME
+13.     ROGER CLEMENS' MVP BASEBALL(tm) GAME
+14.     RC PRO AM(tm) GAME
+15.     STAR WARS(tm) GAME
+16.     SUPER BOWL(tm) GAME
+17.     T2(tm) TERMINATOR(tm) 2: JUDGMENT DAY(tm) GAME
+18.     TEENAGE MUTANT NINJA TURTLES III-THE MANHATTAN PROJECT(tm)
+19.     TINY TOON ADVENTURES(tm) GAME
+20.     ULTIMATE STUNTMAN(tm) GAME
+21.     WHERE'S WALDO(tm) GAME
+22.     WWF WRESTLEMANIA(tm) GAME
+23.     YOSHI(tm) GAME
+
+ADVENTURES OF LOLO 3(tm)
+This latest sequel in the popular series is an excellent adventure 
+with a puzzle challenge on every level. Use this powerful Game 
+Genie(tm) code to help Lolo(tm) and Lala(tm) defeat the evil King!
+LOLO3
+CODE    KEY IN . .      EFFECT . . .
+1       SXOASZVG        Infinite shots for each room on pick-up
+Adventures of Lolo 3 is a trademark of HAL America Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+BATMAN: RETURN OF THE JOKER(tm) GAME
+The Caped Crusader(tm) is back for another battle with the laughing 
+lunatic of lawlessness, the Joker(tm). Use these codes to help you mow 
+down the opposition on your march toward the Joker's lair. With 
+JOKE Code 2, no life increments are lost when Batman(tm) runs into an 
+enemy or when various objects hit him. The same goes for Code 3 
+when he falls into one of those "electric grid" areas. Codes 6, 7 and 
+9 give you invincibility with fewer pick-ups of Backpack Energy 
+Capsules(tm), and Code 8 lets you keep that invincibility until Batman 
+dies or goes onto the next stage--instead of lasting for just a few 
+moments. JOKE Codes 10 and 11 are for experts. JOKE Code 15, 
+intense knock-back when hit, is a blast to play, but it can work to 
+your disadvantage--you can sometimes hit a wall and get stuck or 
+die!
+JOKE
+CODE    KEY IN . . .    EFFECT . . .
+1       SZXZONSE        Protection from enemy bullets
+2       SZSZKXSE        Protection from collisions
+3       SXSATXSE        Protection from "electric grids"
+4       AEXILGZA        Start with 1 life
+5       GVXILGZA        Start with 100 lives
+6       GAVXVLZA        Each Backpack Energy Capsule(tm) counts as two
+7       AAVXVLZE        Each Backpack Energy Capsule counts as four
+8       AAKOPIZA        Invincibility lasts until next stage
+9       GEOSPKVN        Start with 7 Backpack Energy Capsules instead of 
+none
+10      GEOSTKTA        Start game with 3 life increments instead of 8
+11      GASOTOTA  Continue game with 3 life increments instead of 8
+12      SZXSZSVK        Infinite lives
+13      GXEUIOSE        Don't get stunned when hit
+14      AEUUAPGA + GXKLAOKE     Stand your ground!
+IMPORTANT: WITH CODE 15, YOU MAY GET STUCK OR DIE IF YOU KNOCK 
+BACK INTO A WALL
+15      VNULTONN + PEUUGPAA     INTENSE knock-back when hit!
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Batman Return of the Joker, Caped Crusader, Joker, Batman and 
+Backpack Energy Capsules are trademarks of DC Comics Inc.
+
+FARIA(tm) GAME
+Only you can save the King's daughter from the clutches of the evil 
+wizard in this popular adventure game. If you think infinite energy, 
+gold and magic would help, try FAR Codes 4 thru 7. When using Code 
+5 for infinite gold, however, keep in mind that you must have enough 
+gold to afford each purchase. With Code 1, the item screen will only 
+show 30 arrows--but on the fight screen when you choose them, 250 
+arrows will be displayed and counted down correctly.
+FAR
+CODE    KEY IN . . .    EFFECT . . .
+1       AAVZSPZA        Get 250 arrows when buying any amount of arrows
+2       SZXGINVK        Infinite batteries
+3       SXOLYOVK        Infinite bombs
+4       SAOEGPST + SEUUEAST     Infinite energy
+5       GZXXZUSE + GZXXYUSE + GZUZGUSE  Don't get charged in shops 
+for items you can afford
+6       GXSAASVK        Infinite Sede(tm) magic
+7       GXNEZSVK        Infinite Saba(tm) magic
+Remember, you can pick'n'mix your codes!
+Faria, Sede and Saba are trademarks of Nexoft Corporation.
+
+FIREHAWK(tm)
+The Lafian Islands are a troubled place. It's time to get rid of those 
+money-grubbing drug barons once and for all, and return the Islands 
+to the peaceful place they once were. To help you with your 
+dangerous mission, Game Genie(tm) gives you a choice of lives and the 
+incredibly handy FIRE Code 4. Go for it!
+FIRE
+CODE    Key In . . .    Effect
+1       PAOEPALA        Start with 1 life
+2       TAOEPALA        Start with 6 lives
+3       PAOEPALE        Start with 9 lives
+4       OZOXOTES        Don't take any damage
+Firehawk is a trademark of Codemasters Software Company Ltd. 
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+THE FLINTSTONES: THE RESCUE OF DINO AND HOPPY(tm) GAME
+Yabbadabbadoo(tm)! Help Fred(tm) club his way through the prehistoric 
+wilderness, build his time machine and rescue his dinosaur pals 
+Dino(tm) and Hoppy(tm). FLINT Code 14 especially makes this easier!
+FLINT
+CODE    KEY IN . . .    EFFECT . . .
+1       SXOAAEVK        Infinite lives
+2       AAVAYPZA        Start with 1 life
+3       IAVAYPZA        Start with 6 lives
+4       AAVAYPZE        Start with 9 lives
+5       LTNELOZA        Start with 99 coins
+6       PEEAAPAA        Start with slingshot
+7       ZEEAAPAA        Start with axe
+8       GEEAAPAA        Start with bomb
+9       YESTZZIE        15 coins on pick-up
+10      ZESTZZIA        2 coins on pick-up
+11      AAUAXTLA        Slingshot doesn't use up coins
+12      AAUAUTLA        Axe doesn't use up coins
+13      AAUAKVZA        Bomb doesn't use up coins
+14      SZNTZKVK + SXOPZOVK     Infinite energy
+Remember, you can pick'n'mix your codes! Check out FLINT Codes 1 
+and 14 together!
+The Flintstones: The Rescue of Dino and Hoppy, Yabbadabbadoo, Fred, 
+Dino and Hoppy are trademarks of Hanna-Barbera Productions, Inc. 
+Used by Taito America Corp. under license.
+
+HOGAN'S ALLEY(tm) GAME
+A classic title gets the Game Genie(tm) treatment.
+HOGE
+CODE    KEY IN . . .    EFFECT . . .
+1       IAEKOIAP        5 misses allowed--Game A
+2       AZEKOIAP        20 misses allowed--Game A
+3       AAOGETPA        Infinite misses allowed--all games
+4       ZAOGETPA Each miss counts as 2--all games
+Remember, you can pick'n'mix your codes!
+Hogan's Alley is a trademark of Nintendo of America Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+HOOK(tm) GAME
+Help the grown-up Peter Pan(tm) return to Neverland(tm) and rescue his 
+children from the clutches of the evil Captain Hook(tm). HOOK Code 4 
+gives you infinite lives--you can live forever, and still never grow 
+up!
+HOOK
+CODE    KEY IN . . .    EFFECT . . .
+1       AEXVNTZA        Start with 1 life
+2       IEXVNTZA        Start with 6 lives
+3       AEXVNTZE        Start with 9 lives
+4       SZONIEVK Infinite lives--player 1
+5       GZVIKIST        Infinite energy--player 1
+6       GZNSNIST        Infinite energy--player 2
+7       AENIOIIA        Get maximum energy from food--player 1
+8       AAEINTIA        Get maximum energy from food--player 2
+9       AVVIXSGZ        No energy from food!
+Remember, you can pick'n'mix your codes!
+Hook, Peter Pan, Neverland and Captain Hook are trademarks of Tri-
+Star Pictures, Inc.
+
+THE LITTLE MERMAID(tm) GAME
+Here's a whole school of great Game Genie(tm) codes to help poor 
+Ariel(tm) in her quest to become human. If you're eager to see the evil 
+Ursula(tm), try MAID Code 13.
+MAID
+CODE    KEY IN . . .    EFFECT . . .
+1       AASGATZA        Start with 1 life
+2       IASGATZA        Start with 6 lives
+3       AASGATZE        Start with 9 lives
+4       PASGGTLA + PAXGAYLA     Start with 1 heart
+5       IASGGTLA + IAXGAYLA     Start with 5 hearts
+6       SZSSPLVG        Infinite lives
+7       GZSILLSA        Keep red pearls after dying
+8       GZSIILSA        Keep green pearls after dying
+9       PAKKGTAA        Start on 2nd stage
+10      ZAKKGTAA        Start on 3rd stage
+11      LAKKGTAA        Start on 4th stage
+12      GAKKGTAA        Start on 5th stage
+13      IAKKGTAA        Start on Ursula(tm) stage
+14      LAKKGTAA + ILKKTVOV     Start with all red pearls
+15      LAKKGTAA + TLKKTVOV     Start with all green pearls
+16      LASIZLAA        Get all pearls after dying
+Remember, you can pick'n'mix your codes!
+The Little Mermaid, Ariel and Ursula are trademarks of the Walt 
+Disney Company. Used by Capcom USA under license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+MEGAMAN 4(tm) GAME
+He's back! Everyone's favorite little blue robot. Just like before, 
+we've got some great Game Genie(tm) codes for you to try. MM4 Code 6, 
+which gives you instant megablast, is a real megablast to use. Try 
+them all and see which you like best!
+MM4
+CODE    KEY IN . . .    EFFECT . . .
+1       AAUKZIZA        Start with 1 life
+2       IAUKZIZA        Start with 6 lives
+3       AAUKZIZE        Start with 9 lives
+4       SZUGUAVG        Infinite lives
+5       GXNPZTVG        Infinite "energy" pods on pick-up
+6       AEOAIEPA        Instant megablast!
+7       YXEAIOZO        Longer sliding
+8       ZOEAIOZP        Shorter sliding
+9       GEOAGPZA        Faster sliding
+10      ZANKPTPA + ZEVALLPA     Faster running
+11      AAKEYPIE        MegaMan(tm) mega-jumping!
+12      GXENESOO        Infinite weapon power
+13      GXVEIPSA        Don't take damage from bad guys
+Remember, you can pick'n'mix your codes!
+Mega Man 4 and Mega Man are trademarks of Capcom USA.
+
+MIG 29 SOVIET FIGHTER(tm) GAME
+Game Genie(tm) takes to the skies, equipping you and your MIG 29 with 
+awesome weaponry to tackle the evil Colonel Crackov(tm) and his 
+World Terrorist Army(tm). Use MIG Codes 4, 5 and 6 if you want to save 
+the world and be a real hero!
+MIG
+CODE    KEY IN . . .    EFFECT . . .
+1       AANGGPLA                Start with 1 life
+2       IANGGPLA                Start with 6 lives
+3       AANGGPLE                Start with 9 lives
+4       VYNGGPLE                Start with 255 lives
+5       SZSSOLVG                Keep weapon after death
+6       LANKPPAA                Start with best weapon
+7       NNEOZAAE        More time to refuel
+8       LEEOZAAA        Less time to refuel
+9       OZOOYPSX + PAXPAPIP + XIXPZPPS  Start on mission 2
+10      OZOOYPSX + ZAXPAPIP + XIXPZPPS  Start on mission 3
+11      OZOOYPSX + LAXPAPIP + XIXPZPPS  Start on mission 4
+12      OZOOYPSX + GAXPAPIP + XIXPZPPS  Start on mission 5
+13      OZOOYPSX + IAXPAPIP + XIXPZPPS  Start on mission 6
+Remember, you can enter up to THREE separate codes at a time, or 
+one triple code (like MIG Code 9).
+MIG 29 Soviet Fighter, Colonel Crackov and World Terrorist Army are 
+trademarks of Codemasters Software Co. Ltd.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+NES PLAY ACTION FOOTBALL(tm) GAME
+If you're having a hard time breaking through Chicago's bone-
+crushing defense and need more time to plan your plays, try PLAY 
+Code 4. If you want to play a longer or shorter game, try Codes 1 or 
+2. If you're a certified champion armchair QB, try playing against a 
+lesser player using Code 3, or against the computer using Code 5. 
+Hut!
+PLAY
+CODE    KEY IN . . .    EFFECT . . .
+1       TOKYLKYE        30-minute quarters
+2       ZEKYLKYE        10-minute quarters
+3       KEKLUNSE        No timeouts--player 2
+4       TEUUNYLA + TEUUNYLA       6 timeouts per half
+5       PEUUNYLA + PEUUNYLA     1 timeout per half
+Remember, you can pick'n'mix your codes!
+NES Play Action Football is a trademark of Nintendo of America Inc.
+
+PRO WRESTLING(tm) GAME
+And a big welcome to all you wrestling fans! This brilliant wrestling 
+game is at last given the famous Game Genie(tm) "treatment"! PRO 
+Codes 1 thru 7 let you change the time. Codes 1 thru 3 change the 
+amount of time you have to get back in the ring. Increase the time 
+for longer fights outside the ring, or shorten it, so you have to be 
+quick--mighty quick!
+PRO
+CODE    KEY IN . . .    EFFECT . . .
+1       IEETTZGP        Only have 5 seconds to get back into ring
+2       ZEETTZGO        Only have 10 seconds to get back into ring
+3       TOETTZGO        30 seconds to get back into ring
+4       PEXIKYIA        Rounds are only 1 minute
+5       LEXIKYIA        Rounds are only 3 minutes
+6       AEXIKYIE        Rounds are 8 minutes
+7       ZEXIKYIE        Rounds are 10 minutes
+8       ZAVVTGLA        2-second pin count
+9       IAVVTGLA        5-second pin count
+10      YAVVTGLA        7-second pin count
+Remember, you can pick'n'mix your codes! 
+Pro Wrestling is a trademark of Nintendo of America Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+ROGER CLEMENS' MVP BASEBALL(tm) GAME
+One of the game's greatest pitchers has lent his name to one of the 
+greatest baseball video games. There's an interesting fielder's-eye-
+view perspective, and you can always call upon the star pitcher for 
+advice. These Game Genie(tm) codes will give you a new perspective, 
+too. Our advice is to try combining ROGER Codes 3 and 4 to get 
+almost infinite strikes--strikes are still called on a foul ball, except 
+on 3rd strike (but when you bunt foul with 2 strikes, you're out).
+ROGER
+CODE    KEY IN . . .    EFFECT . . .
+1       ZANEAPLA + ZEOUYPLA + ZEVKGPLA  2 strikes and you're 
+out
+2       PANEAPLA + PEOUYPLA + PEVKGPLA  1 strike and you're out
+3       OOVSLLPA        Strikes are not called when batter doesn't swing
+4       GANAAPZA        Strikes are not called when batter swings
+5       PENKLPGA        1 ball for a walk
+6       ZENKLPGA        2 balls for a walk
+7       LENKLPGA        3 balls for walk
+8       OONIALAA        Infinite balls (balls are not called)
+9       SLNALPVY        Infinite balls and strikes
+Remember, you can pick'n'mix your codes!
+Roger Clemens MVP Baseball is a trademark of LJN Ltd.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+RC PRO AM(tm) GAME
+A few more continues will always come in handy in this game--use 
+PRO Codes 1 thru 4 to select the number of continues that you'd like. 
+(Just one continue is always useful if you have a bunch of friends 
+around!) You can also customize your car--for example, just one turbo 
+pick-up could see your car with the full turbo add-on! And check out 
+Code 11--it makes the computer cars go crazy . . . after half a lap or 
+so . . . wait for it!
+NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF 
+ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE 
+CODE
+PRO
+CODE    KEY IN . . .    EFFECT . . .
+1       AAEIPPPA /AASIUAPA      Infinite continues
+2       AEXEPPZA / AAUAGZZA     No continues
+3       IEXEPPZA / IAUAGZZA     5 continues
+4       AEXEPPZE / AAUAGZZE     8 continues
+5       GEUGAPPA / GAOGOAPA     Max turbo on first pick-up
+6       GEKKGPPA / GAXKSAPA     Max tires on first pick-up
+7       GAVGIPPA / GEKGTYPA     Max speed on first pick-up
+8       ZEUGAPPA / ZAOGOAPA     Double turbo on first pick-up
+9       ZEKKGPPA / ZAXKSAPA     Double tires on first pick-up
+10      ZAVGIPPA / ZEKGTYPA     Double speed on first pick-up
+11      SXVLGZAK / SZKLOPAK     Computer cars go crazy!
+Remember that you can pick'n'mix your codes! You can enter up to 
+THREE separate codes at one time.
+RC Pro Am is a trademark of Nintendo of America Inc.
+
+STAR WARS(tm) GAME
+(CUE MUSIC) In a far distant galaxy, a long time ago, a group of 
+freedom-loving rebels was having a hard time with the evil 
+Empire(tm). So they enlisted the help of the legendary Game Genie(tm), 
+which granted their wishes for more lives, energy, and other 
+powerful gifts . . .
+STAR
+CODE    KEY IN . . .    EFFECT . . .
+1       AAXAGAZA        Start with 1 life
+2       IAXAGAZA        Start with 6 lives
+3       AAXAGAZE        Start with 9 lives
+IMPORTANT:  WHEN USING CODE 5, YOU CAN GET STUCK ON SPIKES AND 
+HAVE TO RESET
+5       GZSYLSSO        Immune to spikes
+6       SLVUYNSO        Immune to most bullets
+7       GXNUZIST + SLKLYVSO     Immune to most collisions
+8       AAKLNGZA        Full energy on big energy pick-ups
+9       AAKLUGAX        Less energy on big energy pick-ups
+10      AGKLUGAZ        More energy on big energy pick-ups
+11      ZEOKOIPA + ZEKKXIPA     Always running
+Remember, you can pick'n'mix your codes!
+Star Wars and the Empire are trademarks of Lucasfilm Ltd. 
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+SUPER BOWL(tm) GAME
+This immensely popular football classic features real players and 
+teams, as well as realistic game-play features. Use these codes to 
+enhance your playing enjoyment. Make the fun last a whole lot longer 
+with SUPBOL Codes 1 thru 3, or make it last forever with Code 5! In 
+a hurry? Play a quick game with Code 4. Other codes allow 
+handicapping so players of different skill levels can have more fun 
+playing together (or against the computer).
+SUPBOL
+CODE    KEY IN . . .    EFFECT . . .
+1       APUXLZIA        10 minutes per quarter instead of 5
+2       PUXLZIA 15 minutes per quarter
+3       AZUXLZIA        20 minutes per quarter
+4       ZAUXLZIA        2 minutes per quarter
+5       SXNXPZVG        Freeze timer for continuous play (Press RESET to 
+stop)
+6       AAOATTTA        Touchdown scores 0 instead of 6--player 1
+7       AEOEVITA        Touchdown scores 0--player 2 or computer
+8       LAOATTTA        Touchdown scores 3--player 1
+9       LEOEVITA        Touchdown scores 3--player 2 or computer
+10      PAOATTTE        Touchdown scores 9--player 1
+11      PEOEVITE        Touchdown scores 9--player 2 or computer
+12      GAOATTTE        Touchdown scores 12--player 1
+13      GEOEVITE        Touchdown scores 12--player 2 or computer
+14      AAEALYPA        Extra-point kick scores 0 instead of 1--player 1
+15      AEEEUTPA        Extra-point kick scores 0--player 2 or computer
+16      ZAEALYPA        Extra-point kick scores 2--player 1
+17      ZEEEUTPA        Extra-point kick scores 2--player 2 or computer
+18      LAEALYPA        Extra-point kick scores 3--player 1
+19      LEEEUTPA        Extra-point kick scores 3--player 2 or computer
+20      TAEALYPA        Extra-point kick scores 6--player 1
+21      TEEEUTPA        Extra-point kick scores 6--player 2 or computer
+22      AEKAGGLA        Field goal scores 0 instead of 3--player 1
+23      AAKEKGLA        Field goal scores 0--player 2 or computer
+24      PEKAGGLA        Field goal scores 1--player 1
+25      PAKEKGLA        Field goal scores 1--player 2 or computer
+26      TEKAGGLA        Field goal scores 6--player 1
+27      TAKEKGLA        Field goal scores 6--player 2 or computer
+28      PEKAGGLE        Field goal scores 9--player 1
+29      PAKEKGLE        Field goal scores 9--player 2 or computer
+30      AASASIZA        Safety scores 0 instead of 2--player 1
+31      AEKEIIZA        Safety scores 0--player 2 or computer
+32      PASASIZA        Safety scores 1--player 1
+33      PEKEIIZA        Safety scores 1--player 2 or computer
+34      GASASIZA        Safety scores 4--player 1
+35      GEKEIIZA        Safety scores 4--player 2 or computer
+36      TASASIZA        Safety scores 6--player 1
+37      TEKEIIZA        Safety scores 6--player 2 or computer
+Remember, you can pick'n'mix your codes!
+Super Bowl is a trademark of the National Football League. Used by 
+Tecmo, Inc. under license.
+
+T2(tm) TERMINATOR(tm) 2: JUDGMENT DAY(tm) GAME
+One of the most exciting action/sci-fi thrillers of all time--and the 
+most expensive movie ever made--has been made into a terminally 
+action-packed video game. Use these Game Genie(tm) codes to help the 
+Terminator(tm) defeat the awesome killer T-1000(tm). Or, you experts 
+can make it tougher with TERM2 Codes 2 and 7.
+TERM2
+CODE    KEY IN . . .    EFFECT . . .
+1       SXOATOVK        Infinite lives
+2       PANXPLGA        Start with 1 life
+3       PANXPLGE        Start with 9 lives
+4       GXVTXZAX        Infinite life energy
+5       OXNVKXPK + VNNVSXNN     Take minimal damage
+6       XNVOSOKN        Super jump
+7       PAOOVZZA + PAUOXZZA     Slower running
+8       LAOOVZZA + LAUOXZZA     Faster running
+9       LESPKGZA + LEVPEGZA     Faster and longer jumping
+Remember, you can pick'n'mix your codes! 
+T2 Terminator 2: Judgment Day and T-1000 are trademarks of 
+Carolco Pictures Inc. Used by LJN under license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+TEENAGE MUTANT NINJA TURTLES III-THE MANHATTAN PROJECT(tm)
+Cowabunga, dude! Here are some awesome codes to give you the 
+turtle-power you need to rock out on this great new sequel.
+TMNT3
+CODE    KEY IN . . .    EFFECT . . .
+1       AENKLZPA        Infinite lives
+2       AEOAALLA        Start with 1 life instead of 4
+3       IEOAALLA        Start with 6 lives
+4       AEOAALLE        Start with 9 lives
+5       SLXUTXVS + SLKXPKSO     Infinite energy
+6       AAESYXAA        No energy loss from using turbo attack
+7       ALUGVYAG        High jump
+8       AZUGVYAK        Super jump
+9       AZUGVYAG        Mega jump
+10      SXNSKKVK        Infinite continues instead of 3
+11      PAUZOGLA        1 continue
+12      PAUZOGLE        9 continues
+Remember, you can pick'n'mix your codes!
+Teenage Mutant Ninja Turtles III - The Manhattan Project is a 
+trademark of Mirage Studios.
+
+TINY TOON ADVENTURES(tm) GAME
+To help Buster Bunny(tm) and his cute pals rescue Babs Bunny(tm), Game 
+Genie(tm) grants you infinite energy and lives. Also, you can get more 
+time with TINY Code 7, so you can check out the scenery in Acme 
+Acres(tm) before meeting up with Mad Montana Max(tm) himself! TINY 
+Code 11 allows you to collect more hearts, but it does prevent you 
+from gaining an extra life. For Code 9 (infinite energy) to start 
+working, you have to collect one heart first. Good luck!
+TINY
+CODE    KEY IN . . .    EFFECT . . .
+1       AAXKUYZA        Start with 1 life
+2       IAXKUYZA        Start with 6 lives
+3       AAXKUYZE        Start with 9 lives
+4       AEXZNZZA        1 life after continue
+5       IEXZNZZA        6 lives after continue
+6       AEXZNZZE        9 lives after continue
+7       YYXIXXLU        Slow down timer
+8       YPXIXXLU        Speed up timer
+9       SZOOSVVK        Infinite energy after collecting one heart
+10      SZNOUNVK        Infinite lives
+11      AEEPPYPA        Pick up more hearts
+12      VASGOYSA + XZXKNNOZ + IAUGEYPA  Start on level 2
+13      VASGOYSA + XZXKNNOZ + ZAUGEYPE  Start on level 3
+14      VASGOYSA + XZXKNNOZ + YAUGEYPE  Start on level 4
+15      VASGOYSA + XZXKNNOZ + GPUGEYPA  Start on level 5
+Remember, you can pick'n'mix your codes!
+Tiny Toon Adventures, Buster Bunny, Babs Bunny and Mad Montana 
+Max are trademarks of Warner Bros. Inc. Used by Konami Co. Ltd. 
+under license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+ULTIMATE STUNTMAN(tm) GAME
+Check out these ultimate Game Genie(tm) codes to help you defeat Dr. 
+Evil(tm). You can adjust your lives, have as much time as you wish, and 
+even take less damage. And with ULT Codes 11, 12 and 13, you can 
+choose infinite lives for whichever stage you find difficult.
+NOTE: THERE ARE TWO VERSIONS GIVEN FOR MOST OF THE FOLLOWING 
+CODES. IF ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE 
+ALTERNATE CODE
+ULT
+CODE    KEY IN . . .    EFFECT . . .
+1       AAOTOIZA / AENVNGZA     Start with 1 life (first credit 
+only)
+2       IAOTOIZA / IENVNGZA     Start with 6 lives (first credit only)
+3       AAOTOIZE / AENVNGZE     Start with 9 lives (first credit only)
+4       SZEIPUVK / SXNSYXVK     Infinite time
+5       SXXSVUVK / SXXSNUVK     Infinite 'Crez' weapon until end of 
+stage
+6       PEXXOAIE / PEXXSATE     9 seconds on clock pick-up
+7       AEEZSPZA / AEOZXPZA     Full energy on pick-up
+8       OVXZNPSV + PEXXEONY / OVUZKPSV + PEUZSONY       Minimum 
+damage taken
+9       NYXXXVAN / NYXXVVAN     Shield lasts longer on Human Fly 
+stages
+10      AGXXXVAY / AGXXVVAY     Shield lasts a shorter time on 
+Human Fly stages
+11      GXUAOKVK        Don't lose a life on Ground Pursuit, Boat and Hang 
+Glider stages
+12      SZOUZXVK / SXNXKNVK     Don't lose a life against end-of-
+stage bosses and on Street Combat stages
+13      SXXLVSVK / SXXUXSVK     Don't lose a life on Human Fly 
+stages
+Remember, you can pick'n'mix your codes! Try ULT Codes 3, 4 and 5 
+for a better chance of beating Dr. Evil.
+Ultimate Stuntman and Dr. Evil are trademarks of Codemasters 
+Software Co. Ltd.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+WHERE'S WALDO(tm) GAME
+You won't find many Game Genie(tm) codes for this fascinating game. 
+But you will find that the ones there are will be a big help!
+WHERE
+CODE    KEY IN . . .    EFFECT . . .
+1       AEETLZPA        Infinite time
+2       VTSVYYTE        Guesses cost nothing
+Where's Waldo is a trademark of Martin Handford. Used by T-HQ under 
+license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+WWF WRESTLEMANIA(tm) GAME
+Another classic game gets the Game Genie(tm) treatment.
+WRES
+CODE    KEY IN . . .    EFFECT . . .
+1       PAXGXPLA        1-minute tournament rounds
+2       TAXGXPLA        6-minute tournament rounds
+3       PAXGXPLE        9-minute tournament rounds
+WWF Wrestlemania is a trademark of TitanSports, Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+YOSHI(tm) GAME
+In the tradition of great puzzle challenges like Tetris(tm) and Dr. 
+Mario(tm) comes Yoshi(tm)--and Game Genie(tm) is right there! Use YOSH 
+Codes 1 and 2 to change the number of eggs you need to win the two-
+player game. Codes 3 thru 5 adjust the length of time you wait for 
+the characters to come down from the top row, giving you more time 
+to think--or less. When using Code 6, pressing 'Down' on the control 
+pad freezes the characters already coming down the screen. (When 
+using this feature, however, you lose the ability to speed up the fall 
+of the characters.)
+YOSH
+CODE    KEY IN . . .    EFFECT . . .
+1       PAVAAPLA + PESTAZLA + PEXTZLLA  Need only 1 Victory 
+Egg(tm) to win
+2       ZAVAAPLA + ZESTAZLA + ZEXTZLLA  Need only 2 Victory 
+Eggs to win
+3       GOUYPEAZ        Short wait for next characters
+4       ZEUYPEAZ        Really short wait for next characters
+5       NNUYPEAX        Really long wait for next characters
+6       AVSULYZA        Freeze characters for a short time (press 'Down')
+Remember, you can pick'n'mix your codes! 
+Yoshi, Dr. Mario and Victory Egg are trademarks of Nintendo of 
+America Inc. Tetris is a trademark of V/O Electronorgtechnica 
+(Elorg).
+Game Genie is a trademark of Lewis Galoob Toys, Inc.

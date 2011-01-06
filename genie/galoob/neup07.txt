@@ -1,0 +1,461 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available for the 
+private use of Game Genie owners. No commercial use without 
+authorization. This file may be freely distributed for private, non-
+commercial use as long as it is not altered and all text remains 
+intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+2, #3 (the 7th Update published).
+1. The Adventures of Rocky and Bullwinkle and Friends(tm) Game
+2. Bases Loaded 4(tm) Game
+3. Battletoads and Double Dragon(tm) Game
+4. Best of the Best Championship Karate(tm) Game
+5. BreakTime(tm) Game
+6. Casino Kid II(tm) Game
+7. Cool onStrike(tm) Game
+9. DuckTales 2(tm)Game
+10. The Great Waldo Search(tm) Game
+11. Hillsfar(tm) Game
+12. Jurassic Park(tm) Game
+13. Kid Klown(tm) Game
+14. Kirby's Adventure(tm) Game
+15. Mighty Final Fight(tm) Game
+16. Panic Restaurant(tm) Game
+17. Power Blade 2(tm) Game
+18. Robin Hood: Prince of Thieves(tm) Game
+19. Stunt Kids(tm) Game
+20. Ultima, Warriors of Destiny(tm) Game
+21. Zen Intergalactic Ninja(tm) Game
+
+The Adventures of Rocky and Bullwinkle and Friends(tm) Game
+BULL
+CODE KEY IN . . . EFFECT . . .
+1 PAOEZAGA Start with 2 lives
+2 AAOEYEZA + AEEIGXZA Start game with no bombs
+3 TPOEYEZE Start game with 30 bombs
+CODES 4 AND 5: ONLY WHEN HE HAS FULL ENERGY
+4 TAVEYGYA Rocky(tm) loses no energy when flying
+5 TAVEAGZA Rocky loses more energy when flying
+6 AANAIGPA Bullwinkle(tm) loses no energy when headbutting
+7 AANAPGGE Bullwinkle loses more energy when headbutting
+8 SZNEUKVK Infinite lives
+The Adventures of Rocky and Bullwinkle, Rocky and Bullwinkle are 
+trademarks of Ward Productions, Inc.
+
+Bases Loaded 4(tm) Game
+BL4
+CODE KEY IN . . . EFFECT . . .
+1 SZNXGUVV Balls do not count
+2 SXOXYUVV Strikes do not count
+GAME SHOWS ONLY UP TO 2 STRIKES AND 3 BALLS
+3 PEOXGLZA 2 strikes and you're out
+4 LEOXGLZA 4 strikes and you're out
+5 AANZGLLA 1 ball and you walk
+6 PANZGLLA 2 balls and you walk
+7 ZANZGLLA 3 balls and you walk
+CODES 8 AND 9 WORK IN 2-PLAYER MODE ONLY
+8 PANPUTAA + PEOETGAA Some batters start with count of 
+1 and 1
+9 ZANPUTAA + ZEOETGAA Some batters start with count of 
+2 and 2
+Bases Loaded 4 is a trademark of Jaleco USA Inc.
+
+Battletoads and Double Dragon(tm) Game
+BATT
+CODE KEY IN . . . EFFECT . . .
+1 IEEOOALA Start with full lives
+2 AEEOOALA Start with 1 life
+3 GXXLAAVI Infinite lives (except stage 4)
+4 GZSOXPVI Infinite lives on stage 4
+5 PEVELZZE Start with 10 continues
+6 IYKNIKGX Bonus score now gives invincibility (instead of 
+invincibility pod)
+7 YPSYPGIE Longer invincibility
+8 ILSYPGIA Even longer invincibility
+9 AOSEVAZA Double Dragon(tm) super punch
+10 AOUEUAGA Battletoads(tm) super punch
+11 AXUIPOYA Stronger enemies
+Battletoads is a trademark of Rare Ltd. Double Dragon is a trademark 
+of Technos Japan Corporation.
+
+Best of the Best Championship Karate(tm) Game
+BEST
+CODE KEY IN . . . EFFECT . . .
+1 AANIGYPA + VTNIPYSA Each round is 0:10 instead of 1:00
+2 AANIGYPA + OZVSYYSE + ZANIANTI Each round is 0:20
+3 AANIGYPA + OZVSYYSE + LANIANTI Each round is 0:30
+4 AANIGYPA + OZVSYYSE + GANIANTI Each round is 0:40
+5 AANIGYPA + OZVSYYSE + IANIANTI Each round is 0:50
+6 ZANIGYPA Each round is 2:00
+7 LANIGYPA Each round is 3:00
+8 GANIGYPA Each round is 4:00
+9 IANIGYPA Each round is 5:00
+10 TANIGYPA Each round is 6:00
+11 YANIGYPA Each round is 7:00
+12 AANIGYPE Each round is 8:00
+13 PANIGYPE Each round is 9:00
+14 PAOSUZIA Each match is 1 round instead of 5
+15 ZAOSUZIA Each match is 2 rounds 
+16 LAOSUZIA Each match is 3 rounds 
+17 GAOSUZIA Each match is 4 rounds 
+18 TAOSUZIA Each match is 6 rounds 
+19 SXVSAZVG Infinite time (round never ends)
+CODES 20 AND 21 CAUSE SOME GRAPHIC ERRORS NEAR TOP OF SCREEN
+20 OXNSGIOU + TONSIIZE All physical types are 30
+21 OXNSGIOU + ZUNSIIZA All physical types are 50
+22 ZLEAZETP Start with 50 resistance points
+23 ZLEAPEAZ Start with 50 strength points
+24 ZLEALAGP Start with 50 reflex points
+25 TGEAZETP Start with 70 resistance points
+26 TGEAPEAZ Start with 70 strength points
+27 TGEALAGP Start with 70 reflex points
+28 AAEVVAGE + AEETOPZA Gain more strength and reflex 
+points in training
+29 APEVVAGA + AEETOPZA Gain more resistance points in 
+training
+Best of the Best Championship Karate is a trademark of Loriciel S.A.
+
+BreakTime(tm) Game
+POOL
+CODE KEY IN . . . EFFECT . . .
+1 VAVEILSA + PAVEGLAA Start in Milwaukee
+2 VAVEILSA + ZAVEGLAA Start in Atlanta
+3 VAVEILSA + LAVEGLAA Start in Los Angeles
+4 VAVEILSA + GAVEGLAA Start in Las Vegas
+BreakTime is a trademark of FCI, Inc.
+
+Casino Kid II(tm) Game
+CAS2
+CODE KEY IN . . . EFFECT . . .
+1 AZKKYOTG Start new game with $82 instead of $200
+2 EGKKYOTK Start new game with $512 
+3 AZSGGPAA Start new game with $21,171
+4 EGSGGPAE Start new game with $131,272
+5 AASKPPAE Start new game with $1,342,377
+6 AZSKPPAA Start new game with $5,368,909
+7 PAOASGIE Can't double down in blackjack (game will say you 
+do not have enough money)
+8 PAKAVIIE Can't split in blackjack (game will say you do not 
+have enough money)
+Casino Kid II is a trademark of Sofel Corporation.
+
+Cool World(tm) Game
+COOL
+CODE KEY IN . . . EFFECT . . .
+1 PEKGYAZA + PAKZKYZA Start with 2 lives
+2 TEKGYAZA + TAKZKYZA Start with 7 lives
+3 PEKGYAZE + PAKZKYZE Start with 10 lives
+4 GXUVTKVK Infinite lives
+5 LEKKGAPA + LAVXXYPA Start with 3 erasers
+6 TEKKGAPA + TAVXXYPA Start with 6 erasers
+7 PEKKGAPE + PAVXXYPE Start with 9 erasers
+8 AZNZEYAE Lots of erasers
+9 LEVLGZPA Start with 3 bombs
+10 TEVLGZPA Start with 6 bombs
+11 PEVLGZPE Start with 9 bombs
+12 SXSTOTVG Infinite bombs
+13 SXVVKTVG Infinite erasers
+Cool World is a trademark of  Paramount Pictures.
+
+DragonStrike(tm) Game
+DRAG
+CODE KEY IN . . . EFFECT . . .
+1 GPKZGEAZ Less energy for bronze dragon
+2 AIKZGEAZ More energy for bronze dragon
+3 TPKZIEGU Less energy for silver dragon
+4 AIKZIEGL More energy for silver dragon
+5 ZZKZTAAS Less energy for gold dragon
+6 ITKZTAAI More energy for gold dragon
+7 OTKGSYSV Infinite energy
+8 GZKKNNSE Weapon power doesn't weaken with energy
+9 TTXGIALT Gold dragon has excellent armor class
+10 YGXKAAPG Gold dragon flies faster
+11 ATXGYAGV Silver dragon flies faster
+12 YIXGTALI Bronze dragon flies faster
+DragonStrike is a trademark of TSR, Inc.
+
+DuckTales 2(tm)Game
+TALE
+CODE KEY IN . . . EFFECT . . .
+1 GZXGZGVG Infinite lives
+2 APONPXAA Take more damage
+3 GAONPXAA Take less damage
+4 ZAONPXAA Take very little damage
+5 ASNKPAAL Start with full energy
+6 AONKPAAL Start with a lot less energy
+7 PAXSPZAA Have lots of money
+8 IEKSPLPA $5,000 cash from small diamonds
+9 PEKSPLPE $9,000 cash from small diamonds
+10 AAEKAPZA Start with 1 life
+11 IAEKAPZA Start with 6 lives
+12 AAEKAPZE Start with 9 lives
+DuckTales 2 is a trademark of The Walt Disney Company.
+
+The Great Waldo Search(tm) Game
+SEARCH
+CODE KEY IN . . . EFFECT . . .
+1 EKEIXTEA Only need to find Waldo(tm) to complete the level
+2 EKXSNTAG Only need to find the magic scroll 
+WITH CODES 3 AND 4, THE NUMBER OF CLOCK ICONS ON SCREEN MAY BE 
+WRONG
+3 SXSGKTVG Extra clocks last forever
+4 SZXINYVT Extra clocks worth nothing
+5 ZEKKOTPA Faster timer
+6 GEKKOTPA Much faster timer
+7 OZSIEEOV + GASIOALA Play the Super Waldo Challenge(tm)
+The Great Waldo Search, Waldo and Super Waldo Challenge are 
+trademarks of Martin Handford.
+
+Hillsfar(tm) Game
+FAR
+CODE KEY IN . . . EFFECT . . .
+CODES 1 THRU 3 WORK ONLY ON CHARACTERS YOU CREATE
+1 IEVANKZA Start with 50% less gold
+2 YEVANKZE Start with 50% more gold
+3 GOVANKZA Start with 100% more gold
+4 AOULILAZ Faster timer when lock-picking
+5 ASULILAZ Slower timer when lock-picking
+6 ENULILAZ Very slow timer when lock-picking
+7 SXKUTSVK + AEKUISAI Infinite knock rings
+Hillsfar is a trademark of TSR, Inc.
+
+Jurassic Park(tm) Game
+DINO 
+CODE KEY IN . . . EFFECT . . .
+1 GZUXXKVS Infinite ammo on pick-up
+2 PAVPAGZE More bullets picked up from small dinosaurs
+3 PAVPAGZA Fewer bullets picked up from small dinosaurs
+4 GZEULOVK Infinite lives--1ST 2 LEVELS ONLY
+5 ATVGZOSA Immune to most attacks
+CODES 6 AND 7: FROM SMALL DINOSAURS, INSTEAD OF NORMAL 
+BULLETS
+ 6 VEXASASA + VEUAXASA 3-ball bolas picked up
+7 NEXASASA + NEUAXASA Explosive multi-shots
+Jurassic Park is a trademark of Universal City Studios, Inc. & Amblin 
+Entertainment, Inc.
+
+Kid Klown(tm) Game
+KID
+CODE KEY IN . . . EFFECT . . .
+1 AANAUAPA Infinite lives
+2 SZKEOESE Infinite energy
+3 AAEAUGLA Full energy from hearts
+4 ZENANLIA Less energy from hearts
+5 ZENANLIE More energy from hearts
+6 GXEZYVVV Mega jump--DON'T HOLD JUMP BUTTON DOWN FOR 
+TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
+7 GZSEIYVG Infinite chances in sub-game (press Start to re-
+enter the main game)
+Kid Klown is a trademark of Kemco America, Inc.
+
+Kirby's Adventure(tm) Game
+KIRB
+CODE KEY IN . . . EFFECT . . .
+1 PEVXIYGA Start with 2 lives
+2 AEVXIYGE Start with 9 lives
+3 AOVXIYGA Start with 17 lives
+4 ZAKLLXAA Less energy from 'pep drinks'
+5 APKLLXAA More energy from 'pep drinks'
+6 YZKLLXAE Full energy from 'pep drinks'
+7 YONZZNYX Start with less energy
+8 YKNZZNYX Start with more energy
+9 SZEPSVSE Infinite energy
+Kirby's Adventure is a trademark of HAL Laboratory, Inc./Nintendo.
+
+Mighty Final Fight(tm) Game
+MFF
+CODE KEY IN . . . EFFECT . . .
+CODES 1 THRU 4 DON'T WORK ON CONTINUES
+1 PEVKTYIA Start with 2 lives
+2 LEVKTYIA Start with 4 lives
+3 YEVKTYIA Start with 8 lives
+4 PEVKTYIE Start with 10 lives
+5 SZKSNIVG Infinite lives
+6 PENGZYLA Start with 1 credit
+7 IENGZYLA Start with 5 credits
+8 YENGZYLA Start with 7 credits
+9 PENGZYLE Start with 9 credits
+10 SZOOLGVG Infinite credits
+WITH CODES 11 AND 12, THE EXPERIENCE NUMBER MAY BE DISPLAYED 
+INCORRECTLY, BUT IT WILL CORRECT ITSELF. ALSO, YOU MAY NEED TO 
+GET MORE THAN THE NUMBER SHOWN TO GO TO THE NEXT LEVEL
+11 OXKAXZSX + AOKAUZIA Gain experience faster (10 pts. at a 
+time)
+12 OXKAXZSX + AXKAUZIA Gain experience much faster (20 pts at 
+a time)
+13 SZXNUPSA Protection from most hazards
+CODES 14 THRU 16: 1ST LIFE ONLY
+14 ALKGOAAG Cody(tm) starts with 3/4 energy
+15 AZKGOAAG Cody starts with 1/2 energy
+16 APKGOAAG Cody starts with 1/4 energy
+CODES 17 THRU 19: AFTER 1ST LIFE
+17 ALKSKTAG Cody starts with 3/4 energy
+18 AZKSKTAG Cody starts with 1/2 energy
+19 APKSKTAG Cody starts with 1/4 energy
+CODES 20 THRU 22: 1ST LIFE ONLY
+20 GZKGXAAL Guy(tm) starts with 3/4 energy
+21 APKGXAAU Guy starts with 1/2 energy
+22 GAKGXAAU Guy starts with 1/4 energy
+CODES 23 THRU 25: AFTER 1ST LIFE
+23 GZSIXTAL Guy starts with 3/4 energy
+24 APSIXTAU Guy starts with 1/2 energy
+25 GASIXTAU Guy starts with 1/4 energy
+CODES 26 THRU 28: 1ST LIFE ONLY
+26 GLKGUAAS Haggar(tm) starts with 3/4 energy
+27 AZKGUAAS Haggar starts with 1/2 energy
+28 GPKGUAAI Haggar starts with 1/4 energy
+CODES 29 THRU 31: AFTER 1ST LIFE
+29 GLSSETAS Haggar starts with 3/4 energy
+30 AZSSETAS Haggar starts with 1/2 energy
+31 GPSSETAI Haggar starts with 1/4 energy
+32 EXSEYIKZ + IEVAASLT Cody is stronger
+33 EZEAYTKZ + IAEEAVLT Guy is stronger
+34 EZXAYTKZ + LAXEAVLT Haggar is stronger
+35 EXSEYIKZ + IEVAASLT + AKEASELA Cody is stronger and 
+has a super-powerful normal punch
+36 EZEAYTKZ + IAEEAVLT + AGUAKPZA Guy is stronger and 
+has a super-powerful normal punch
+37 EZXAYTKZ + LAXEAVLT + AKKEUOIA Haggar is stronger and 
+has a super-powerful normal punch
+38 OZUEAVOU + AGUEPTVI + XTUEZTNE Cody is much stronger
+39 OZSATVOU + AGSAYVEZ + XTSEAVEE Guy is much stronger
+40 OZNAGVOU + AGNAITYI + XTNATVOE Haggar is much 
+stronger
+41 SZUEAVOU Cody is weaker
+42 SZSATVOU Guy is weaker
+43 SZNAGVOU Haggar is weaker
+Mighty Final Fight, Cody, Guy and Haggar are trademarks of Capcom 
+Co. Ltd.
+
+Panic Restaurant(tm) Game
+PANIC
+CODE KEY IN . . . EFFECT . . .
+1 OXVPPAVK Infinite energy--except when you fall on spikes
+2 GASYZGZA Start with 4 hearts
+CODES 3 AND 4: HEART METER MAY LOOK FUNNY
+3 TASYZGZA Start with 6 hearts
+4 ZASYZGZE Start with 10 hearts
+5 PAOZNIZA Start with 2 lives
+6 IAOZNIZA Start with 5 lives
+CODES 7 AND 8: METER SHOWS ONLY UP TO 9 LIVES
+7 ZAOZNIZE Start with 10 lives
+8 YAOZNIZE Start with 15 lives
+9 SAOSAGVG Infinite lives
+CODES 10 THRU 12: 1ST LEVEL ONLY
+10 AIVYGGLT + AIVKXYLT Start with 80 on timer
+11 TGVYGGLT + TGVKXYLT Start with 70 on timer
+12 GLVYGGLV + GLVKXYLV Start with 60 on timer
+13 OZVKGZVK Infinite time
+Panic Restaurant is a trademark of Taito Corporation.
+
+Power Blade 2(tm) Game
+BLADE
+CODE KEY IN . . . EFFECT . . .
+1 AEKEPTZA Start with 1 life
+2 IEKEPTZA Start with 6 lives
+3 AEKEPTZE Start with 9 lives
+4 GZSILAVG Infinite lives
+CODES 5 AND 6: EXCEPT FOR FALLING ON SPIKES OR OFF SCREEN
+5 OVSLZLSV Infinite energy
+6 OVSLZLSV + PESLLLAA Take minimal damage
+7 ATKKXZSZ Stop timer
+8 YPKGNXYU Speed up timer
+9 YYKGNXYU Slow down timer
+10 GXEVXTVG Infinite life tanks
+11 GZEIPLVG Infinite energy tanks
+12 OZVULSOK + SANLZIVT Maximum throwing ability on pick-up
+13 SAKSZZSZ Throw meter doesn't decrease when boomerang is 
+thrown
+Power Blade 2 is a trademark of Taito Corporation.
+
+Robin Hood: Prince of Thieves(tm) Game
+HOOD
+CODE KEY IN . . . EFFECT . . .
+1 VAXEOLSA Infinite hit points for Robin in 'main combat'
+2 EYXAOPAL Infinite hit points for Robin in 'dueling combat'
+3 GOXLLNAA Bandages give more hit points back
+4 AOULIUAE Food gives more hit points back--EXCEPT FOR LEG 
+OF MEAT
+5 AASPIZPA Infinite arrows
+Robin Hood is a trademark of Morgan Creek Productions, Inc.
+
+Stunt Kids(tm) Game
+STUNT
+CODE KEY IN . . . EFFECT . . .
+1 AESGNZZA Start with 1 life instead of 3
+2 IESGNZZA Start with 6 lives
+3 PESGNZZE Start with 9 lives
+4 SZSZSKVK Infinite lives
+5 AEESPALA Start with 0 turbos instead of 3
+6 TEESPALA Start with 6 turbos
+7 PEESPALE Start with 9 turbos
+8 VANILVKE Always have 9 coins after a race
+9 SZKOEOVV Coins worth nothing on pick up
+10 SLNOYXVS Infinite time--player 1
+11 SLXOYUVS Infinite time--player 2
+Stunt Kids is a trademark of Codemasters Software Company Ltd.
+
+Ultima, Warriors of Destiny(tm) Game
+DEST
+CODE KEY IN . . . EFFECT . . .
+1 SUSTXSVS Infinite consumable items such as food and 
+torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
+2 AAEZIPZL A night at the Wayfarer Inn(tm) is free
+At Healer's Herbs(tm):
+3 AEUZPAPA Sulfurous ash is free instead of 1 GP
+4 AEUZGAZA Ginseng is free instead of 2 GP
+5 AEUZYAZA Garlic is free instead of 2 GP
+6 AEUXIAGT An Tym Scroll(tm) is free instead of 100 GP
+7 AEKZAAVP Spellbook is free instead of 150 GP
+8 AEUXZAGA Spidersilk is free instead of 4 GP
+From Pendra(tm):
+9 AEEXZAGA Spidersilk is free instead of 4 GP
+10 AEEZYALA Black Pearl is free instead of 3 GP
+11 AEEZGAZA Garlic is free instead of 2 GP
+12 AEEZPAZA Ginseng is free instead of 2 GP
+13 AEEXIELG Sant Talisman(tm) is free instead of 75 GP
+At Iolo's Bows(tm):
+14 AAEXIELG Bow is free instead of 75 GP
+15 AAEXZEPP Wooden shield is free instead of 25 GP
+16 AAEZGALA Dagger is free instead of 3 GP
+17 AAEZYEAZ Short sword is free instead of 40 GP
+18 AAOZAAVP Crossbow is free instead of 150 GP
+19 AAOZLAAZ + AAOZGALA Magic bow is free instead of 800 
+GP
+20 AAOZTAPA Arrow is free instead of 1 GP
+21 AAOXPAZA Bolt is free instead of 2 GP
+22 PAOZAPAE Sell Dagger for 2,305 instead of 1 GP
+23 LAOZLPAG Sell Short sword for 2,848 instead of 20 GP
+24 YAOZTPAE Sell Wooden shield for 3,850 instead of 10 GP
+25 AESXEZGA Start new game with 201 instead of 1,225 GP
+26 AOSXEZGA Start new game with 4,297 instead of 1,225 GP
+27 YNSXEZGE Start new game with 32,713 instead of 1,225 GP
+Ultima, Warriors of Destiny, Wayfarer Inn, Healer's Herbs, Pendra, 
+An Tym Scroll, Sant Talisman and Iolo's Bows are trademarks of 
+Richard Garriott.
+
+Zen Intergalactic Ninja(tm) Game
+ZEN
+CODE KEY IN . . . EFFECT . . .
+1 ZAELNGIE 9 lives allowed in 'options'
+2 SZSPGTVG + SZOZYTVG Infinite lives
+3 PAEUGGLA + PAXUNTLA Fewer hits in shield
+4 TAEUGGLA + TAXUNTLA Double hits in shield
+5 PAEUGGLE + PAXUNTLE Triple hits in shield
+6 GZNLYUSE Infinite energy
+7 NYNXVTOE Slower timer
+8 YTNXVTOE Faster timer
+9 YINXVTOE Even faster timer
+10 AEUAOLGE Zen does increased damage--isometric stages
+11 GOUAOLGA Zen does mega damage--isometric stages
+12 AAKXUIGE Jab attack does more damage--horizontal stages
+13 GPKXUIGA Mega jab attack damage--horizontal stages
+Zen Intergalactic Ninja is a trademark of Zen Comics Inc.

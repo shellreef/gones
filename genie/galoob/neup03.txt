@@ -1,0 +1,1044 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available through 
+VideoGames & Computer Entertainment for the private use of Game 
+Genie owners. No commercial use without authorization. This file 
+may be freely distributed for private, non-commercial use as long as 
+it is not altered and all text remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+1, No. 3.
+
+1.      ANTICIPATION(tm) GAME
+2.      ARCH RIVALS(tm) GAME
+3.      BARBIE(tm) GAME
+4.      BATMAN: RETURN OF THE JOKER(tm) GAME
+5.      BATTLETANK(tm) GAME
+6.      BEETLEJUICE(tm) GAME
+7.      BIGNOSE THE CAVEMAN(tm) GAME
+8.      BILL & TED'S EXCELLENT VIDEO GAME ADVENTURE(tm) 
+GAME
+9.      BILL ELLIOTT'S NASCAR CHALLENGE(tm) GAME
+10.     CAPTAIN PLANET AND THE PLANETEERS(tm) GAME
+11.     CONQUEST OF THE CRYSTAL PALACE(tm) GAME
+12.     DESTINY OF AN EMPEROR(tm) GAME
+13.     DIGGER T. ROCK: THE LEGEND OF THE LOST CITY(tm) GAME
+14.     F-15 CITY WAR(tm) GAME
+15.     THE FANTASTIC ADVENTURES OF DIZZY(tm) GAME
+16.     FORMULA ONE: BUILT TO WIN(tm) GAME
+17.     FUN HOUSE(tm) GAME
+18.     G.I. JOE(tm) GAME
+19.     GALAXY 5000(tm) GAME
+20.     GREMLINS 2: THE NEW BATCH(tm) GAME
+21.     HARLEM GLOBETROTTERS(tm) GAME
+22.     JACKIE CHAN'S ACTION KUNG FU(tm) GAME
+23.     KABUKI - QUANTUM FIGHTER(tm) GAME
+24.     THE KRION CONQUEST(tm) GAME
+25.     METAL MECH(tm) GAME
+26.     MICRO MACHINES(tm) THE OFFICIAL VIDEO GAME--
+ALTERNATE CODES
+27.     MILON'S SECRET CASTLE(tm) GAME
+28.     NINJA GAIDEN III THE ANCIENT SHIP OF DOOM(tm) GAME
+29.     POWER BLADE(tm) GAME
+30.     PUZZNIC(tm) GAME
+31.     S.C.A.T.(tm) GAME
+32.     THE SIMPSONS(tm): BART(tm) VS. THE SPACE MUTANTS 
+GAME
+33.     THE SIMPSONS(tm): BART VS. THE WORLD(tm)
+34.     SNOW BROTHERS(tm) GAME
+35.     THUNDERBIRDS(tm) GAME
+36.     TIME LORD(tm) GAME
+37.     ULTIMA, QUEST OF THE AVATAR(tm) GAME
+38.     THE UNTOUCHABLES(tm) GAME
+39.     VICE: PROJECT DOOM(tm) GAME
+40.     WIZARDRY - PROVING GROUNDS OF THE MAD 
+OVERLORD(tm) GAME
+41.     WURM: JOURNEY TO THE CENTER OF THE EARTH(tm) GAME
+
+ANTICIPATION(tm) GAME
+Not lots of codes for this fun party game, but good ones! With ANTI 
+Code 3 you can have as many chances as you like, but you still have 
+to watch the timer! For a faster paced game, try ANTI Code 2.
+ANTI
+CODE    KEY IN . . .    EFFECT . . .
+1       ZUUPYNPP        More time to answer questions
+2       YEUPYNPO        Less time to answer questions
+3       AANZATEG        Infinite chances
+Remember that you can pick'n'mix your codes! You can enter up to 
+THREE separate codes at one time.
+Anticipation is a trademark of Nintendo of America Inc.
+
+ARCH RIVALS(tm) GAME
+OK, hoop fans, here's a few slam-dunk Game Genie(tm) codes to 
+power up your game. The star code is definitely ARCH Code 4, which 
+gives you faster speed when running left or right. 
+For good defense, check out ARCH Code 3.
+ARCH
+CODE    KEY IN . . .    EFFECT . . .
+1       ALXLNZGU + ALNLPPGU     More time for a quarter
+2       ZLXLNZGL + ZLNLPPGL     Less time for a quarter
+3       AVNPLAAZ + ATVPAPAZ     Run faster without ball
+4       IXVOPAGA + IZSPGPGA     Super speed
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at 
+one time.
+Arch Rivals is a trademark of Midway Manufacturing Company.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+BARBIE(tm) GAME
+At last, you can complete all of the incredible Barbie(tm) dream 
+adventures and go to the Fantasy Ball! Barbie usually starts with 
+five Z's, and wakes up after all her Z's are gone. Try BARB Code 1 for 
+infinite Z's! And usually, you can only re-enter Barbie's dream twice. 
+With BARB Code 4, you can re-enter it as many times as you want! 
+Or, if getting to the ball is getting a bit too easy for you, try BARB 
+Code 3, which gives you only one Z, and BARB Code 5, which prevents 
+you from re-entering the dream--when the Z's are gone, so is the 
+game!
+BARB
+CODE    KEY IN . . .    EFFECT . . .
+1       SXKSKNVK        Infinite Z's on Dream Meter
+2       PEEZEZIE        Start with nine Z's on Dream Meter--1st credit 
+only
+3       PEEZEZIA        Start with one Z--1st credit only
+IF YOU USE CODE 4 WITH CODES 2 OR 3, YOUR Z'S WILL BE SET BACK 
+TO NORMAL WHEN YOU RE-ENTER A DREAM
+4       SZVAAVVK        Can re-enter Barbie's dream an infinite 
+number of times
+5       AEEEYAZA        Cannot re-enter Barbie's dream
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Barbie and Dream Meter are trademarks of Mattel, Inc.
+
+BATMAN: RETURN OF THE JOKER(tm) GAME
+The Caped Crusader(tm) is back for another battle with the laughing 
+lunatic of lawlessness, the Joker(tm). Use these codes to help you 
+mow down the opposition on your march toward the Joker's lair. 
+With JOKE Code 2, no life increments are lost when Batman(tm) runs 
+into an enemy or when various objects hit him. The same goes for 
+Code 3 when he falls into one of those "electric grid" areas. Codes 6, 
+7 and 9 give you invincibility with fewer pick-ups of Backpack 
+Energy Capsules(tm), and Code 8 lets you keep that invincibility 
+until Batman dies or goes onto the next stage--instead of lasting for 
+just a few moments. JOKE Codes 10 and 11 are for experts. JOKE 
+Code 15, intense knock-back when hit, is a blast to play, but it can 
+work to your disadvantage--you can sometimes hit a wall and get 
+stuck or die!
+JOKE
+CODE    KEY IN . . .    EFFECT . . .
+1       SZXZONSE        Protection from enemy bullets
+2       SZSZKXSE        Protection from collisions
+3       SXSATXSE        Protection from "electric grids"
+4       AEXILGZA        Start with 1 life
+5       GVXILGZA        Start with 100 lives
+6       GAVXVLZA        Each Backpack Energy Capsule(tm) counts as two
+7       AAVXVLZE        Each Backpack Energy Capsule counts as four
+8       AAKOPIZA        Invincibility lasts until next stage
+9       GEOSPKVN        Start with 7 Backpack Energy Capsules instead of 
+none
+10      GEOSTKTA        Start game with 3 life increments instead of 8
+11      GASOTOTA        Continue game with 3 life increments instead of 8
+12      SZXSZSVK        Infinite lives
+13      GXEUIOSE        Don't get stunned when hit
+14      AEUUAPGA + GXKLAOKE     Stand your ground!
+IMPORTANT: WITH CODE 15, YOU MAY GET STUCK OR DIE IF YOU KNOCK 
+BACK INTO A WALL
+15      VNULTONN + PEUUGPAA     INTENSE knock-back when hit!
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Batman Return of the Joker, Caped Crusader, Joker, Batman and 
+Backpack Energy Capsules are trademarks of DC Comics Inc.
+
+BATTLETANK(tm) GAME
+This is war! Top code is BANK Code 1, and don't worry about the 
+ammo! If that seems too easy, try BANK Codes 2 thru 11, which 
+allow you to start with more or less ammuntion, making things 
+easier or harder as you choose!
+BANK
+CODE    KEY IN . . .    EFFECT . . .
+1       SLXTEEVS        Infinite ammo!
+2       TOVZIAZL        Start with half 150mm ammo
+3       LVVZIAZL        Start with double 150mm ammo
+4       ZUVXTAPA        Start with more wire guided shells
+5       LVVXTAPA        Start with max wire guided shells
+6       ZUNXAAPA        Start with more smoke shells
+7       LVNXAAPA        Start with max smoke shells
+8       LGEZPPVO        Start with less 50mm shells
+9       NYEZPPVO        Start with max 50mm shells
+10      GTEZIOEG        Start with less 50mm ammo after mission 5
+11      NYEZIOEK        Start with max 50mm ammo after mission 5
+12      SXOPAAVT + SXSLNPSA     Take infinite hits
+Remember that you can pick'n'mix your codes.
+Battletank is a trademark of Absolute Entertainment, Inc.
+
+BEETLEJUICE(tm) GAME
+It's showtime! These Game Genie(tm) codes for Beetlejuice(tm) are 
+so good, it's scary. Scariest of all is BEET Code 5--it's to die for!
+BEET
+CODE    KEY IN . . .    EFFECT . . .
+1       SZOIYKVK        Infinite lives
+2       PEOAAALA        1 life
+3       TEOAAALA        6 lives
+4       PEOAAALE        9 lives
+5       AAOITYPA        Infinite hits
+6       PEOAIAZA + PENSYLZA     Take fewer hits to die
+Remember that you can pick'n'mix your codes.
+Beetlejuice is a trademark of The Geffen Film Company.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+BIGNOSE THE CAVEMAN(tm) GAME
+Bignose(tm) has a hankering to chow down on some real food for a 
+change, so he's off on an outrageous hunting adventure. Help this 
+prehistoric dude thump some dinosaur and bring back the bird for 
+Thanksgiving. Infinite lives is always a cool code, and with BIG Code 
+7, you can shop til you drop!
+BIG     
+CODE    KEY IN . . .    EFFECT . . .
+1       PEUYITLA 1 life
+2       TEUYITLA        6 lives
+3       PEUYITLE        9 lives
+4       SXOTPAVG        Infinite lives
+5       ANENAKLL        Slower timer
+6       AXENAKLL        Faster timer
+7       AEEYYZPA        Never lose bones when buying
+8       XXXYITSZ + VEKYAVSE + AOUGTAE   Start on Monster Island
+9       XXXYITSZ + VEKYAVSE + ZOUNGTAE  Start on Terror Island
+Remember that you can pick'n'mix your codes.
+Bignose The Caveman is a trademark of Codemasters Software Co. 
+Ltd.
+
+BILL & TED'S EXCELLENT VIDEO GAME ADVENTURE(tm) GAME
+Here are some truly excellent codes for this waycool game. With 
+them, you can more easily restore order to the temporal continuum 
+and have a most triumphant adventure. EXX Codes 1 through 4 work 
+for Bill(tm) as well as Ted(tm). Use Code 1 and you'll never have to 
+worry about getting out of jail again. Use Code 2 and you won't mind 
+those clumsy locals bumping into you--they'll ask for a coin but it 
+won't cost you anything. EXX Code 3 is most amazing! It gives you all 
+the Good Stuff(tm) you could want, including Pudding Cups(tm), Big 
+Boom Firecrackers(tm), Highly Dangerous Textbooks(tm), and 
+Cassettes for your Boom Box. Throw as many as you want, because 
+you'll always have a good supply. And in the Circuits of Time(tm), it 
+usually costs 2 coins to let the phone booth complete a segment of 
+the call.  EXX Code 4 cuts that cost in half.
+EXX
+CODE    KEY IN . . .    EFFECT . . .
+1       SZKUPXVK        Infinite skeleton keys
+2       SZEKUOSE        Infinite coins for locals
+3       OUOOUEOO        Infinite Good Stuff(tm)
+4       SXOTTOSE        Phone call segments cost only 1 coin
+5       OOKKUTIO        Ted starts with 99 coins instead of 15
+6       OOSVAPIO        Bill starts with 99 coins
+7       IEKKUTIP        Ted starts with 5 coins
+8       IESVAPIP        Bill starts with 5 coins
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Bill & Ted's Excellent Video Game Adventure, Bill, Ted, Good Stuff, 
+Pudding Cups, Big Boom Firecrackers, Highly Dangerous Textbooks 
+and Circuits of Time are trademarks of Nelson Films Inc.
+
+BILL ELLIOTT'S NASCAR CHALLENGE(tm) GAME
+Game Genie(tm) can give you just the edge you need to catch Bill 
+Elliott(tm)! ELL Code 1 boosts your acceleration, but make sure you 
+don't accelerate to full speed in the pit area, or it may take you 
+longer to re-enter the race track. And normally you have 20 seconds 
+of free time to choose the work you want done in the pits. ELL Code 2 
+freezes the timer until you actually begin work. Finally, ELL Code 3 
+stops the clock while your car is being worked on--but keep in mind 
+that the race is still going, and you may still lose your position!
+ELL
+CODE    KEY IN . . .    EFFECT . . .
+1       EUEKTLEP        Accelerate faster
+2       SZUETKVK        Infinite 'free time' in the pits
+3       SXOAZVVK        Freezes timer while crew works on car in pits
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Bill Elliott's NASCAR Challenge and Bill Elliot are trademarks used 
+by Konami Industry Co., Ltd. under license from Advantage 
+Management, Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+CAPTAIN PLANET AND THE PLANETEERS(tm) GAME
+Planeteers(tm) get more power to save the Earth with these 
+environmentally sound Game Genie(tm) codes. There are two types of 
+PLAN Codes--those that work on the outside levels, and those that 
+work on the inside levels. PLAN Codes 1 and 6 are for experts, if you 
+think you're tough enough.
+PLAN
+CODE    KEY IN . . .    EFFECT . . .
+1       PENVIGGA        Start with 2 lives instead of 5, outside levels
+2       PENVIGGE        Start with 10 lives, outside levels
+3       SXNLYVVK        Infinite lives, outside levels
+4       SZSUGVVK        Infinite lives, inside levels
+5       PAETITGE        Start with 10 lives, inside levels
+6       PAETITGA        Start with 2 lives, inside levels
+7       SZNXGXVK + SZVXPKVK     Infinite power, outside levels
+8       SXXXEUVK + SZEUGKVK     Infinite power, inside levels
+9       AANVAEGZ        Start inside level 1 instead of outside.
+Remember, you can pick'n'mix your codes.
+Captain Planet and the Planeteers is a trademark of TBS 
+Productions, Inc. and DIC Enterprises, Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+CONQUEST OF THE CRYSTAL PALACE(tm) GAME
+The star code for this fantasy adventure is CON Code 5, which allows 
+you to have super-jump ability without having to choose the Flight 
+Crystal. CON Codes 6 and 7 increase the strength of the Super Jump 
+to either "Mega" (higher) or "Super Mega" (highest!) jumps.
+CON
+CODE    KEY IN . . .    EFFECT . . .
+1       GZVTAPAX        Infinite lives
+2       SXXTAIAX        Infinite energy for Farron(tm)
+3       GPEYUXTA        Maximum energy without Life Crystal
+4       GZXVPPAX + GZUTZPAX     Don't use up money when buying 
+things
+5       AAVIGTZA + PAVITTLA     Super Jump without Flight Crystal
+6       IOUSLVTA        Increase Super Jump to Mega Jump
+7       IKUSLVTA        Increase Super Jump to Super Mega Jump
+Remember that you can pick'n'mix your codes.
+Conquest of the Crystal Palace and Farron are trademarks of Asmik 
+Corporation of America.
+
+DESTINY OF AN EMPEROR(tm) GAME
+Drift back in time to ancient China. Strap on your warrior's armor--
+and your thinking cap--as you prepare to do battle to determine the 
+future of the Empire. The Game Genie(tm) codes below allow to you 
+obtain a variety of the crucial items you need, for free. With DEST 
+Codes 1 and 2, the screen will show a price, but no money will be 
+deducted from your total. For DEST Codes 3 thru 11, the cost will 
+show as zero.
+DEST
+CODE    KEY IN . . .    EFFECT . . .
+1       AEKPZZGT        Buy 300 provisions for no money
+2       AEKPIZYZ + AEKPTZAP     Buy 30,000 provisions for no money
+3       AENLULZL        Dagger costs nothing
+4       AEVLKGZL        Bandana costs nothing
+5       AENUKLGT        Flail costs nothing
+6       AEXLXGGT Robe costs nothing
+7       AEXUOKGZ + AEXUXGPA     Leather costs nothing
+8       AEUUXLGP        Elixir A costs nothing
+9       AEXUVLGT        Resurrect costs nothing
+10      AEXLVUEG        Steed costs nothing
+11      AEEUKUEG        Gullwing costs nothing
+Remember, you can pick'n'mix your codes.
+Destiny of an Emperor is a trademark of Capcom U.S.A., Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+DIGGER T. ROCK: THE LEGEND OF THE LOST CITY(tm) GAME
+In this game there are many vast caverns to explore--so here are 
+plenty of Game Genie(tm) codes to help you out. DIG Code 1 lets you 
+start the game with all equipment and weapons. DIG Codes 3 thru 5 
+give you an infinite supply of any equipment!
+DIG
+CODE    KEY IN . . .    EFFECT . . .
+1       PAONOGAE        Start with weapons
+2       IAUGZUPA        Less rocks on pick-up
+3       SZEYTVVK        Infinite rocks on pick-up
+4       SXEUIUVK        Infinite rope on pick-up
+5       SXEXTEVK        Infinite dynamite on pick-up
+6       SXSYOPVG        Infinite energy
+7       SXVAYTVG        Infinite lives
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes 
+at one time.
+Digger T. Rock: The Legend of the Lost City is a trademark of Rare 
+Ltd. 
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+F-15 CITY WAR(tm) GAME
+Like they say, war is heck, so try F-15 Codes 2, 3 and 4 to make it 
+easier. For high-tech warriors who want to make the game harder, 
+the best combinations have to be F-15 Codes 1 and 5 or 1 and 6.
+F-15
+CODE    KEY IN . . .    EFFECT . . .
+1       PEVYGPIA        Start with 1 life
+2       PEVYGPIE        Start with 9 lives
+3       SZOYYLVG        Infinite lives for 3-D sections
+4       SXOIYIVG        Infinite lives for top-view sections
+5       GXOEIUVN + GXVALUVS     Slower left and right movement 
+on 3-D sections
+6       GXEETVVS No forward movement on top-view sections
+Remember that you can pick'n'mix your codes. 
+F-15 City War is a trademark of American Video Entertainment, Inc.
+
+THE FANTASTIC ADVENTURES OF DIZZY(tm) GAME
+Chill-infinite lives for Dizzy(tm)! DIZ Code 3 provides a cure for 
+arachniphobia. Now you can walk right past those spiders without 
+taking any damage! But be careful, because this code does not 
+protect you from some of the other nasties, like the weed, the 
+waterfall, bats and mice, for example. DIZ Code 4 doesn't reduce the 
+number of stars in the game, but after you have collected only 10 
+you are allowed entry into Zak's(tm) tower to rescue Daisy(tm)!
+DIZ     
+CODE    KEY IN . . .    EFFECT . . .
+1       SXVIAAVG        Infinite lives
+2       PAOAZAZE        Start with 10 lives
+3       AAVYPXAA        Spiders, bats, ants and rats do no damage
+4       ZEKYVZGV        Start with 10 stars instead of 100
+5       YYUZPSTE        Play bubble sub-game only
+6       TYUZPSTE        Play river sub-game only
+7       IYUZPSTE        Play mine sub-game only
+8       ZYUZPSTE        Play puzzle sub-game only
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+The Fantastic Adventures of Dizzy, Zak and Daisy are trademarks of 
+Codemasters Software Co. Ltd.
+
+FORMULA ONE: BUILT TO WIN(tm) GAME
+Alright, speed freaks--BTW Codes 1, 2 and 3 are a must for anyone 
+who likes to burn rubber! And BTW Codes 4 and 5 will help you equip 
+your car with all the essentials. When using Code 4, you need to have 
+enough money, but you won't be charged. With Code 5, you don't need 
+to have any money.
+BTW
+CODE    KEY IN . . .    EFFECT . . .
+1       SXUIXEVK        Infinite nitro
+2       ATKSXAAZ        Better nitro
+3       AAVSOAZA        Psycho speed!
+4       ATNUVUSZ Items cost nothing
+5       ATNUVUSZ + ATVUKLST     Items for free
+Remember that you can pick'n'mix your codes.
+Formula One: Built to Win is a trademark of SETA U.S.A., Inc.
+
+FUN HOUSE(tm) GAME
+Time for a gooey good time in the Fun House(tm)! Check out FUN Code 
+5 for better control of your player. Also be sure to take a look at FUN 
+Codes 11 thru 14 for some wacky warping!
+FUN
+CODE    KEY IN . . .    EFFECT . . .
+1       PEOGXALA        Start with 1 turn
+2       PEOGXALE        Start with 9 turns
+3       EAXOLVGL        Slower timer
+4       YPXOLVGU        Faster timer
+5       ZESXVGGA        Quicker turning
+6       TOVOUEYE        More time from Large Glop Clocks(tm)
+7       YEVOUEYA        Less time from Large Glop Clocks
+8       SXNKSKVK        Infinite turns
+9       PAXGSILA        1 turn after continuing
+10      PAXGSILE        9 turns after continuing
+11      YEEKSAPA        Start on Floor 2
+12      LOEKSAPA        Start on Floor 4
+13      YOEKSAPE        Start on Floor 6
+14      LXEKSAPE        Start on Floor 8
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at 
+one time.
+Fun House and Large Glop Clocks are trademarks of Warner Bros. 
+Domestic Television Distribution.
+
+G.I. Joe(tm) Game
+He's no ordinary Joe, and these are no ordinary codes! They let you 
+alter each character's stamina and jumping ability, so now you can 
+make your favorite guy even better! There are codes to help you 
+finish the game more easily, and ones to make things a little more 
+difficult--if that's what you want!
+G.I.
+CODE    KEY IN . . .    EFFECT . . .
+1       AENATLPA        Stop timer
+2       GOUTKSIA        More energy for Duke(tm)
+3       GOUTSSGA        More energy for Blizzard(tm)
+4       GOUTVSZA        More energy for Snake Eyes(tm)
+5       GOUTNSLA        More energy for Capt. Grid-Iron(tm)
+6       GOUVESPA        More energy for Rock & Roll(tm)
+7       TEUTKSIA        Less energy for Duke
+8       TEUTSSGA        Less energy for Blizzard
+9       IEUTVSZA        Less energy for Snake Eyes
+10      IEUTNSLA        Less energy for Capt. Grid-Iron
+11      GEUVESPA        Less energy for Rock & Roll
+12      ALNVIKAY        Shorter immunity
+13      NYNVIKAN        Longer immunity
+14      AAUEPPLA        Max energy on pick-up
+15      OLNTYKOO        Infinite energy
+16      AXNVKIYP        Mega jump for Duke
+17      AXNVSIZP        Mega jump for Blizzard
+18      AXNVVSGP        Mega jump for Snake Eyes
+19      AXNVNIGP        Mega jump for Capt. Grid-Iron
+20      AZETETAP        Mega jump for Rock & Roll
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+G.I. Joe, Duke, Blizzard, Snake Eyes, Capt. Grid-Iron and Rock & Roll 
+are trademarks of Hasbro.
+
+GALAXY 5000(tm) GAME
+Leap into the 51st Century with these Game Genie(tm) codes and 
+beat the best the galaxy has to offer. Save cash with GAL Code 2. 
+Experience the time-space continuum without stress using GAL Code 
+1. For the players who think they can handle more of a challenge, 
+check out GAL Codes 5 and 6.
+GAL
+CODE    KEY IN . . .    EFFECT . . .
+1       SLKPAEVS        Stop timer
+2       GXNXSVSN        Reduce damage free of charge
+3       SXKZEPAX        No damage from falling
+4       OXNNVPSX + PENNNOZP     Take less damage
+5       SXUXSOSU + ALVUVYLZ     More damage from falling
+6       TEEOZGVV + NUEOLKVN     More damage from shots
+Remember that you can pick'n'mix your codes.
+Galaxy 5000 is a trademark of Activision.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+GREMLINS 2: THE NEW BATCH(tm) GAME
+We've got a new batch of codes to help you beat the new batch of 
+those nasty little Gremlins(tm). If you need some help getting to the 
+control center, then check out GREM Codes 7, 8 and 9.
+GREM
+CODE    KEY IN . . .    EFFECT . . .
+1       ZAEKXATA + ZEEELATA     Start with only 1 heart
+2       AAEKXATE + AEEELATE     Start with 4 hearts
+3       GAEGEAAA        Start with 5 lives
+4       PAEGEAAE        Start with 10 lives
+5       LAEGSAPA        Start with 3 balloons
+6       TAEGSAPA        Start with 6 balloons
+7       SZNETEVK        Infinite lives
+8       SZXEUXVK        Infinite balloons
+9       SXKEZPVG        Don't take damage from monsters (or harmful 
+surfaces)
+Remember that you can pick'n'mix your codes.
+Gremlins 2: The New Batch and Gremlins are trademarks of Warner 
+Bros., Inc.
+
+HARLEM GLOBETROTTERS(tm) GAME
+Here's your chance to play against the internationally famous 
+basketball superstars. If you want a longer game, try TROT Codes 1 
+and 3. They should give you plenty of time to rack up a mega high 
+score!
+TROT
+CODE    KEY IN . . .    EFFECT . . .
+1       IIUGSOIZ        Slower timer
+2       GPUGSOIX        Faster timer
+3       IIVGKOIZ        Slower shot clock
+4       GPVGKOIX        Faster shot clock
+Remember that you can pick'n'mix your codes.
+Harlem Globetrotters is a trademark of International Broadcasting 
+Corporation.
+
+JACKIE CHAN'S ACTION KUNG FU(tm) GAME 
+Jackie(tm) needs your help. He's got to kick some sorceror and 
+rescue his sister Josephine(tm). These codes'll help you help Jackie. 
+Or, if you want to make things a bit harder on yourself, try CHAN 
+Codes 4 thru 7.
+CHAN
+CODE    KEY IN . . .    EFFECT . . .
+1       PESIKYYE        9 Tornado Attacks(tm) on pick-up
+2       PESIVYYE        9 360o Spin Kicks on pick-up
+3       PESINYYE        9 Sky Attacks(tm) on pick-up
+4       AESIKYYA        0 Tornado Attacks on pick-up
+5       AESISNPA        0 180o Spin Kicks on pick-up
+6       AESIVYYA        0 360o Spin Kicks on pick-up
+7       AESINYYA        0 Sky Attacks on pick-up
+8       SXSKEXVK        Infinite special attacks
+9       TAVGXZZA        Max energy from Energy Bowl(tm)
+10      PAVGXZZA        Less energy from Energy Bowl
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes 
+at one time.
+Jackie Chan's Action Kung Fu, Jackie, Josephine, Tornado Attacks, 
+Sky Attacks and Energy Bowl are trademarks 
+of Hudson Soft USA, Inc.
+
+KABUKI - QUANTUM FIGHTER(tm) GAME
+Vanquish the virus with the help of codes like QUAN Code 11. It's 
+excellent, giving you infinite firepower--very handy. A good 
+challenge for the experts is QUAN Codes 3, 6 and 13 in combination.
+QUAN
+CODE    KEY IN . . .    EFFECT . . .
+1       AAVGKYPA        Don't lose a life from energy loss
+2       AASSAAPA        Don't lose a life from timer
+3       AENLSLZA        Start with 1 life
+4       IENLSLZA        Start with 6 lives
+5       AENLSLZE        Start with 9 lives
+6       PENUXLZA        1 continue
+7       IENUXLZA        6 continues
+8       AENUXLZE        9 continues
+9       YENUNUZE + YEXLLUZE     Maximum energy
+10      IENUNUZA + IEXLLUZA     Less energy
+11      SXEUAESU        Infinite chip power
+12      NYXIZEYU        Slower timer
+13      YZXIZEYU        Faster timer
+14      SXEUAESU + AOEUPEYA     Special weapons use up minimum 
+chip power
+Remember that you can pick'n'mix your codes.
+Kabuki - Quantum Fighter is a trademark of Hal America, Inc.
+
+THE KRION CONQUEST(tm) GAME
+Sometimes you need a good witch on your side--like the Earth needs 
+Francesca(tm) and her magic to stop the Krion Empire(tm). Star code 
+for this mission has to be KRI Code 8, Float Spell. Just tap the 'A' 
+button to activate the spell. And if you're having trouble getting very 
+far in the game, then warp into the midst of the action with KRI 
+Codes 4 thru 6.
+KRI
+CODE    KEY IN . . .    EFFECT . . .
+1       AAKAAPZA        1 life
+2       IAKAAPZA        6 lives
+3       AAKAAPZE        9 lives
+4       PAXEZPAA + EZXEPOOZ + KAXEIPSA     Start on stage 2
+5       ZAXEZPAA + EZXEPOOZ + KAXEIPSA  Start on stage 3
+6       LAXEZPAA + EZXEPOOZ + KAXEIPSA  Start on stage 4
+7       SXVLOIVG        Infinite lives
+8       AEOKYTTP        Float spell
+9       SXNIVLSA        Don't lose energy from touching bad guys
+10      GEXYLEAA + IEOYTEPA     Less energy used up when using fire 
+spell
+11      PEVGOIGA        Quicker 'supershot'
+Remember that you can pick'n'mix your codes.
+The Krion Conquest, Francesca and Krion Empire are trademarks of 
+Vic Tokai, Inc.
+
+METAL MECH(tm) GAME
+Welcome to the year 2025. Can you defeat the evil Metal Mech(tm) 
+invasion? All you have to help you is a stolen Metal Mech vehicle. Oh-
+-and of course, Game Genie(tm)! If you want to check out the later 
+levels, try MECH Codes 9 thru 13. To help Tony(tm) when outside the 
+Metal Mech, use MECH Codes 6, 7 or 8.
+MECH
+CODE    KEY IN . . .    EFFECT . . .
+1       SZEYAVVK        Infinite lives for Tony(tm)
+2       PEKSILLA        1 life and 1 smart bomb
+3       TEKSILLA        6 lives and 6 smart bombs
+4       PEKSILLE        9 lives and 9 smart bombs
+5       SZVYISVK        Infinite smart bombs
+6       VNNXTENN        Super-jumping Tony
+7       ZEEXGAIA        Super-speeding Tony
+8       PEEXGAIA        Mega-speeding Tony
+9       AESSAUNY        Start on level 2
+10      PESSAUNY        Start on level 3
+11      ZESSAUNY        Start on level 4
+12      LESSAUNY        Start on level 5
+13      GESSAUNY        Start on level 6
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Metal Mech and Tony are trademarks of Jaleco USA Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+MICRO MACHINES(tm) THE OFFICIAL VIDEO GAME--ALTERNATE CODES
+At last it's here! The video game of your favorite vehicles! And here's a 
+whole 
+host of mega Game Genie(tm) codes to go with it. If you're having trouble with
+
+the Micro Machines(tm) Challenge, you'll love MICRO Codes 1 thru 11--they'll 
+help you get farther into the game than you've ever been before! That's not 
+all: 
+MICRO Codes 12 thru 31 will let you change the performance of your favorite 
+Micro Machines vehicle so you can speed up faster, put the brakes on quicker 
+and bounce WAY higher. Pedal to the metal and check 'em out!
+THERE ARE 2 VERSIONS OF THIS GAME. IF THE FIRST CODE DOESN'T 
+WORK ON YOUR GAME, TRY THE SECOND CODE.
+micro
+CODE    KEY IN . . .    EFFECT . . .
+These codes can only be used in the Micro Machines Challenge (NOT in the two-
+player 
+one-on-one game):
+1       PEKNAYLE / PAXNAYLE     Play with 9 lives
+2       GXSZZVVK / GZNXGVVK     Infinite lives  
+3       GEKYSZZA / GAXYSZZA     Qualify every race!
+4       PEUYXZLA / PAOYXZLA     Ruff Trux(tm) after every race
+5       PASYNALA / PEUYYYLA     Kid out of game after every race
+6       GEKNIYAA / GAXNIYAA     Start on race 5
+7       PEKNIYAE / PAXNIYAE     Start on race 10
+8       TEKNIYAE / TAXNIYAE     Start on race 15
+9       LOKNIYAA / LPXNIYAA     Start on race 20
+10      AOKNIYAE / APXNIYAE     Start on race 25 (Final Race!)
+11      GESYOZPA / GAUYOZPA     Win Championship race!
+12      AAOEIAIA        Faster Boat acceleration
+13      AAOEGAIA        Faster Sports Car acceleration
+14      AAOETAIA        Faster Formula 1 acceleration
+15      AAOEYAIA        Faster Turbo Wheels(tm) acceleration
+16      AAXAAAIA        Faster 4x4 acceleration
+17      AAXAZAZA        Faster Tank acceleration
+18      AAXALAIA        Faster Chopper acceleration
+19      AAXATEPA        Quicker Boat deceleration
+20      AAXAIEPA        Quicker Sports Car deceleration
+21      AAXAYEPA        Quicker Formula 1 deceleration
+22      AAXEAEPA        Quicker Turbo Wheels deceleration
+23      AAXEPEPA        Quicker Jeep deceleration
+24      AAXELAZA        Quicker Tank deceleration
+25      AAXEGEYA        Quicker Chopper deceleration
+26      YAEAZAPA        Higher bounce for Boats
+27      IAEAPAPA        Higher bounce for Sports Car
+28      YAEALAPA        Higher bounce for Formula 1's
+29      YAEAGAPA        Higher bounce for Turbo Wheels
+30      YAEAIAPA        Higher bounce for Jeeps
+31      YAEAYAPA        Higher bounce for Tanks
+Remember that you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at 
+one time.
+Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are trademarks of 
+Lewis Galoob Toys, Inc.
+
+MILON'S SECRET CASTLE(tm) GAME
+Get Milon(tm) around the castle better with the help of MIL Code 6, 
+which allows you to adjust 
+his jumping powers. MIL Code 2 starts you with a full energy bar, 
+while MIL Code 3 gives you a \bigger energy bar, allowing you to pick 
+up more energy than usual.
+MIL
+CODE    KEY IN . . .    EFFECT . . .
+1       SZNSLZSA        Infinite energy
+2       AGSEEZAZ        Start with more energy
+3       AISAOXAL        Start with a bigger energy bar
+4       AEKGNXAA        No energy picked up
+5       AOKGNXAE        More energy picked up
+6       ASNPVZLA        Floating Milon(tm)
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes 
+at one time.
+Milon's Secret Castle and Milon are trademarks of Hudson Soft USA, 
+Inc.
+
+NINJA GAIDEN III THE ANCIENT SHIP OF DOOM(tm) GAME
+Join the adventure as Ryu(tm) battles the forces of darkness and evil 
+in the final chapter of this mega-popular role-playing series. 
+Infinite lives, energy and time with GAI3 Codes 1, 2 and 3 will make 
+you an awesome force. (Note that with Code 3, the timer still counts 
+down, but it will just keep going and you will not lose a life.) Use 
+Codes 5 thru 9 and no power will be consumed when you use four 
+special weapons--but you must first possess the weapons in order 
+for the codes to work. GAI3 Code 4 is for experts.
+GAI3
+CODE    KEY IN . . .    EFFECT . . .
+1       SXEKVLVG        Infinite lives
+2       SZEXILSA        Infinite energy
+3       SZVZIIVG        Infinite time
+4       VPKGXKXY        Less time
+5       AESPKYPA + AEKOXNZA     No power required for Windmill 
+Throwing Star
+6       AEKOUNAA + AESPENAA     No power required for Fire Wheel 
+Art
+7       AEKOVYGP + AESOEYZA     No power required for Invincible 
+Fire Wheel
+8       AEKOKNAA + AESPONAA     No power required for Fire Dragon 
+Balls
+9       AEKOSNZA + AESPNYPA       No power required for Vacuum 
+Wave Art
+Remember, you can pick'n'mix your codes.
+Ninja Gaiden III The Ancient Ship of Doom and Ryu are trademarks of 
+Tecmo, Inc.
+
+POWER BLADE(tm) GAME
+Being Nova(tm), master of the ancient Power Blade(tm), is a great 
+job, but it also has its disadvantages--like being roused from your 
+easy chair on your day off to save New Earth's Master Computer from 
+the evil aliens! Check out these codes, especially POWB Codes 6 and 
+7, to help you meet the job requirements.
+POWB
+CODE    KEY IN . . .    EFFECT . . .
+1       AAXYZYZA 1 life
+2       IAXYZYZA        6 lives
+3       AAXYZYZE        9 lives
+4       SZSIAAVG        Infinite lives
+5       SZKAKXOU        Take minimum damage
+6       GZUITAVG + GZVITASA     Don't lose boomerang strength 
+when you die
+7       GZUSGAVG + GZVSZASA     Don't lose multi-boomerangs when 
+you die
+8       OTKESZSV        Don't take damage from monsters!
+9       AZXSAVAU        Mega jump
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time. A great combination to try would 
+be POW Codes 4, 8 and 9!
+Power Blade and Nova are trademarks of Taito America Corp.
+
+PUZZNIC(tm) GAME
+Puzzle freaks, your codes are here! Enjoy a good game of Puzznic(tm) 
+with PUZZ Code 2--a definite challenge for anyone finding life a bit 
+too easy. For those who could really use some extra time, try PUZZ 
+Code 1.
+PUZZ
+CODE    KEY IN . . .    EFFECT . . .
+1       ITKIPXGL        Slower timer
+2       TPKIPXGU        Faster timer
+3       ZEUAIPAE        Start on level 2-1
+4       GOUAIPAA        Start on level 3-1
+5       TOUAIPAE        Start on level 4-1
+6       AXUAIPAE        Start on level 5-1
+7       ZUUAIPAA        Start on level 6-1
+8       GUUAIPAE        Start on level 7-1
+9       TKUAIPAA        Start on level 8-1
+10      ASUAIPAA        Start on level 9-1
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes 
+at one time.
+Puzznic is a trademark of Taito America Corporation.
+
+S.C.A.T.(tm) GAME
+Just by having a leader with a name like Vile Malmort(tm), the alien 
+horde in this game really deserves to be stopped. You're just the 
+humanoid to do it, and these are the codes to do it with!
+SCAT
+CODE    KEY IN . . .    EFFECT . . .
+1       AANSUGPA        Infinite energy
+2       ZUXGKTTA        Start with more energy
+3       ZANVNGLE        More energy picked up
+4       AEESVKAA        Don't lose speed-ups when hit
+5       NNEIKGAK        Longer immunity
+6       APKSEGAG        Shorter immunity
+7       PAEIKTTE + NYEISVXY     Faster maximum speed-up
+8       TENIKIGA + XNNISSKN     Faster normal speed-up
+Remember that you can pick'n'mix your codes.
+S.C.A.T. and Vile Matmort are trademarks of Natsume, Inc.
+
+THE SIMPSONS(tm): BART(tm) VS. THE SPACE MUTANTS GAME
+Wow, some really excellent codes here! First  there's super-jump--
+it gives your high jump a boost, so reaching those difficult spots is 
+a cinch! BART Codes 2 thru 4 let you adjust the timer so you can have 
+as much or as little time as you want  to finish each level. And be 
+sure to try out BART Code 7: Now when you buy things from shops, 
+you won't get charged--there's no limit to how much equipment you 
+can have! Pretty cool, huh?
+BART
+CODE    KEY IN . . .    EFFECT . . .
+1       IPKYXUGA / IPUYVUGA     Super-jumping Bart!(tm)
+2       XVONYXXK / XVOYLXXK     Stop timer
+3       ANENPXGU / AYNNIXGU     Slow down timer
+4       AXENPXGL / AZNNIXGL     Speed up timer
+5       PAONAYAA / PAENGYAA     Gain 2 coins for every 1 collected
+6       PAONTNTE / PAOYZNTE     Only 10 coins needed to get an 
+extra life
+7       GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK       Buy items 
+for free!
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time or one double code (BART Code 7) 
+and one single code (like BART Code 1).
+The Simpsons and Bart are trademarks of Twentieth Century Fox 
+Film Corporation. Used by Acclaim Entertainment, Inc. under license.
+
+THE SIMPSONS(tm): BART VS. THE WORLD(tm)
+The coolest dude in the video-game world is back! To welcome him 
+properly, we've rolled out some Game Genie(tm) codes to alter his 
+lives, energy and firecracker balls. BAR2 Code 7 gives you infinite 
+tries for the card match game instead of the usual five. BAR2 Code 3 
+is good for experts, making Bart(tm) lose a life (not just an energy 
+unit) on most types of hits. And BAR2 Codes 1 and 2, infinite lives 
+and infinite energy, work well together for Super Bart-A-Bility!
+BAR2
+CODE    KEY IN . . .    EFFECT . . .
+1       SZONIPST        Infinite lives
+2       SZVVEKVK        Infinite energy
+3       EISVNGEY        Lose lives more easily
+4       OLUNPPOP        Infinite firecracker balls
+5       PAEZPAAE        Start with 99 firecracker balls
+6       PAXXVGLE        Start with 9 lives
+7       SZNZPEVK        Infinite tries for the card match game
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+The Simpsons and Bart are trademarks of Twentieth Century Fox 
+Film Corporation. Bart Vs. The World is a trademark of Acclaim 
+Entertainment Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+SNOW BROTHERS(tm) GAME
+With the help of these cool Game Genie(tm) codes you can conquer 
+King Scorch's(tm) Ice Commandos(tm) and free the Princess. All 
+codes work for both Nick(tm) and Tom(tm). Increase the number of 
+chances with SNOW Codes 1, 2 and 4. Codes 3 and 5 are for experts. 
+Go faster with Code 6, get bigger globs of snow to throw with Code 
+7, and throw the globs farther with Code 8. Use only ONE of either 
+Code 6, 7 or 8 in combination with Code 10 and you'll start with and 
+keep the super ability!
+SNOW
+CODE    KEY IN . . .    EFFECT . . .
+1       SXNEUYVI        Infinite number of chances
+2       PAXXPLZE        Start game with 10 chances instead of 3 (count 
+starts at 9 instead of 2)
+3       AAXXPLZA        Start game with 1 chance (count starts at 0)
+4       PAOAYLZE        Always get 10 chances after a continue (count 
+restarts at 9)
+5       AAOAYLZA        Always get 1 chance after a continue (count 
+restarts at 0)
+6       PAEEYAAA        Start with Speed Skates
+7       ZAEEYAAA        Start with Power Shots
+8       GAEEYAAA        Start with super snow-throwing ability
+9       YAEEYAAE        Start with Speed Skates, Power Shots and super 
+snow-throwing
+10      OUOOGEOO        Don't lose super ability after you lose a chance
+Remember, you can pick'n'mix your codes.
+Snow Brothers, King Scorch, Ice Commandos, Nick and Tom are 
+trademarks of Capcom USA, Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+THUNDERBIRDS(tm) GAME
+OK, hotshot, are you hot enough? Try BIRD Code 5 for making things a 
+little hotter! For devastating firepower, there's BIRD Code 7. To 
+build your battle skills, check out BIRD Codes 1 thru 4.
+BIRD
+CODE    KEY IN . . .    EFFECT . . .
+1       SXNTOVVK        Don't lose life points when colliding with enemy
+2       SZUVUNVK        Don't lose life points when hit
+3       SXNVVVVK        Don't lose energy points when colliding with enemy
+4       SZKVENVK        Don't lose energy points when hit
+5       ATXEANAA + ATXEGNAA     Limited forward movement
+6       GEXETTZA + GEXEZTZA     Faster craft
+7       EZUAETEG + XTUAKVEK       Full firepower on first pick up
+8       PSEKIVGL        81 Days to defeat Hood(tm)
+9       TOEKIVGU        30 Days to defeat Hood
+Remember that you can pick'n'mix your codes.
+Thunderbirds and Hood are trademarks of ITC Distribution.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+TIME LORD(tm) GAME
+Time Lord(tm) is a blast thru the past! Several timely Game 
+Genie(tm) codes will help you out. 
+Make history with LORD Code 5 or 6--you can't use both of them 
+together, but check them 
+out separately!
+LORD
+CODE    KEY IN . . .    EFFECT . . .
+1       SZUKSKVK        Infinite lives
+2       PEEKYPLA        Start with 1 life
+3       TEEKYPLA        Start with 6 lives
+4       PEEKYPLE        Start with 9 lives
+5       AAXKXTPA + PAUGVTAA     Moonwalking
+6       PESKOTAA + PEOGSTAA     Super speed 
+Remember that you can pick'n'mix your codes.
+Time Lord is a trademark of Milton Bradley Company
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+Ultima, Quest of the Avatar(tm) Game
+Lots of codes to help you gain money, abilities and items in this 
+challenging role-playing game. All AVA Codes that say "Start with" 
+apply only to creating a character for a new game. When restarting 
+an old game, you will still have whatever amount you left off with. 
+For all 'cost nothing' codes, the cost shows up as 0. These codes 
+work even when resuming a previous game. AVA Codes that give you 
+extra points or magic will be ignored when you visit the King for 
+level review--but are still useful for developing a good character 
+early in the game.
+AVA
+CODE    KEY IN . . .    EFFECT . . .
+1       AZKPTIPA        Start with 8336 Gold Pieces instead of 400
+2       APKPTIPA        Start with 4240 Gold Pieces
+3       AAKPTIPA        Start with 144 Gold Pieces (for experts)
+4       ZEVPTIAA Mage starts with 712 Hit Points instead of 200
+5       PAOPTTAA        Mage starts with 381 Experience points instead of 
+125
+6       AXNOIIAP        Mage starts with Strength of 32 instead of 16
+7       GTXPIVAA        Start with 100 Ash instead of 8
+8       GTXPTVAA        Start with 100 Ginseng instead of 8
+9       GTXPYVPA        Start with 100 Garlic instead of 9
+10      GTXOATYA        Start with 100 Silkweb instead of 7
+11      GTXOPVAA        Start with 100 Moss instead of 8
+12      GTXOZTGA        Start with 100 Pearl instead of 4
+13      GTXOLTAA        Start with 100 Fungus instead of none
+14      GTXOGTAA        Start with 100 Manroot instead of none
+15      AEKITITG        Heal costs nothing instead of 70
+16      AAVILSZA        Cure poison costs nothing instead of 10
+17      PAEENYOT        Axe costs 1 instead of 225
+18      PAEEUYGP        Staff costs 1 instead of 20
+19      AAOAXYPA        Sword costs 144 instead of 400
+20      AAEAKYZA        Bow costs 168 instead of 680
+21      PAXAONEG        Leather costs 1 instead of 200
+22      AAXAKYZA        Chain costs 88 instead of 600
+23      AAXEXNPA        Plate costs 196 instead of 2500
+24      AUNOYSLP        Fighter starts with Strength of 48 instead of 27
+25      NYOOPVSK        Fighter starts with Experience of 255 instead of 
+205
+26      LEVOZIPA        Fighter starts with 812 Hit Points instead of 300
+27      LKNPYIAE        Fighter starts with 75 Magic Points instead of none
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Ultima, Quest of the Avatar is a trademark of Origin Systems, Inc. 
+and Richard Garriot.
+
+THE UNTOUCHABLES(tm) GAME
+OK, men, pick up those choppers and help G-man Elliot Ness and his 
+men capture mobster Al Capone and his gang. Here's a whole gang of 
+codes to help you through the different scenes, so get to it and get 
+Capone!
+UNTO
+CODE    KEY IN . . .    EFFECT . . .
+1       AAXKTEGA        Start on scene 2
+2       ZAXKTEGA        Start on scene 3
+3       GAXKTEGA        Start on scene 4
+4       TAXKTEGA        Start on scene 5
+5       ZAXKTEGE        Start on scene 7
+6       SXUAZGVG        Infinite time on scenes 1 and 4
+7       GEXELPZA        More time on scene 1
+8       PEXELPZA        Less time on scene 1
+9       TAXELAGA        More time on scene 2
+10      ZAXELAGA        Less time on scene 2
+11      TAXEYAGA        More time on scene 3
+12      ZAXEYAGA        Less time on scene 3
+13      TAXAPAIA        More time on scene 5
+14      LAXAPAIA        Less time on scene 5
+15      ZAOEAAPA        More time on scene 7
+16      SLOEAGVI        Infinite energy on scenes 1 and 4 only
+17      SXKAATVG  Infinite energy on scene 2 only
+18      AZNETGAP        More ammo picked up on scene 2
+19      IANETGAP        Less ammo picked up on scene 2
+20      PAOEGATE        More ammo picked up on scene 7
+Remember that you can pick'n'mix your codes.
+The Untouchables is a trademark of Paramount Pictures.
+
+VICE: PROJECT DOOM(tm) GAME
+Rid society of the deadly Neon Gel(tm) and the evil that lurks behind 
+it! The Game Genie(tm) codes in your Vice: Project Doom(tm) arsenal 
+are pretty straightforward--note that VICE Codes 5 and 6 give you 
+an extra life at a discount from the usual 100 coins, and that VICE 
+Code 7 and 8 give a boost to the number of extra Grenades and 
+Bullets you get on pick-up. VICE Codes 11 and 12 are for experts, 
+giving you less time to complete the rounds.
+VICE
+CODE    KEY IN . . .    EFFECT . . .
+1       SZSKIOVK        Infinite lives
+2       SZNNNSVK        Stop timer
+3       SZVYXKVK        Infinite grenades
+4       SZKNXKVK        Infinite bullets
+5       ZEOYNGGV        10 coins for an extra life
+6       POOYNGGV        25 coins for an extra life
+7       GOENELIA        20 extra Grenades on pick-up
+8       POXYXUZE        25 extra Bullets on pick-up
+9       LTNNXLIA        Start with 99 grenades
+10      SXVYVKSE        Infinite power
+11      VPOEPKXY        Start timer for round 1 at 150
+12      VPUAZKXY        Start timer for round 2 at 150
+Remember, you can pick'n'mix your codes. You can enter up to THREE 
+separate codes at a time.
+Vice: Project Doom and Neon Gel are trademarks of American Sammy 
+Corporation.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+WIZARDRY - PROVING GROUNDS OF THE MAD OVERLORD(tm) GAME
+Adventurer, get your gear and get going deep into the dungeon maze 
+to conquer the Great Wizard Werdna(tm). These Game Genie(tm) 
+codes give you equipment and spells you'll need--for nothing!
+PROV
+CODE    KEY IN . . .    EFFECT . . .
+1       AEVEIPAL        Annointed Mace costs nothing instead of 30.
+2       AAVEIPIZ        Long Sword costs nothing instead of 25.
+3       AEXEIPIP        Short Sword costs nothing instead of 15.
+4       AEVEIZAZ        Small Shield costs nothing instead of 20.
+5       AAVEIZAP        Staff costs nothing instead of 10.
+6       AEXEIZIA        Dagger costs nothing instead of 5.
+7       AAVEILIP        Robes costs nothing instead of 15.
+8       AEVEGYIA        S of Pain costs nothing instead of 500.
+9       AAXEKAIA        S of Fire costs nothing instead of 500.
+10      AEXEGYIP        Body Armor costs nothing instead of 1500.
+11      AAXEILAG        Large Shield costs nothing instead of 40.
+12      AEXEILAI        Leather Armor costs nothing instead of 50.
+13      AEVEILEP        Chain Mail costs nothing instead of 90.
+14      AAVEIGAI + AAVEGGYA     Plate Mail costs nothing instead 
+of 750.
+15      AAXEGGZA        Breast Plate costs nothing instead of 200.
+16      AEXEGGPA        Helm costs nothing instead of 100.
+17      AEVEGGIA        S of Curing costs nothing instead of 500.
+18      AAXEGTAL        Rod of Iron costs nothing instead of 3000.
+19      AEXEGTIP        Padded Leather costs nothing instead of 1500.
+20      AEVEGTIP        Shiny Chain costs nothing instead of 1500.
+21      AAXEGYIP        Sturdy Plate costs nothing instead of 1500.
+22      AAVEGYIP        Iron Shield costs nothing instead of 1500.
+23      AEVEKGAT        Gloves of Copper costs nothing instead of 6000.
+24      AAVEKLIP        S of Glass costs nothing instead of 1500.
+25      AAXEKPIZ        Studly Staff costs nothing instead of 2500.
+26      AEXEGIAI + AEXELIPA     Blade of Biting costs nothing instead of 
+15000.
+27      AAXEGILA        S of Neutralizing costs nothing instead of 300.
+Remember, you can pick'n'mix your codes.
+Wizardry - Proving Grounds of the Mad Overlord and Great Wizard 
+Werdna are trademarks of Sir-Tech Software, Inc.

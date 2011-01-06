@@ -1,0 +1,675 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available through 
+VideoGames & Computer Entertainment for the private use of Game 
+Genie owners. No commercial use without authorization. This file 
+may be freely distributed for private, non-commercial use as long as 
+it is not altered and all text remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+2, #1 (the 5th Update published).
+
+Addams Family (tm) Game
+Save the creepy, kooky family's fortune with these ooky codes. 
+Infinite lives and infinite energy with SPOOKY Codes 4 and 5 should 
+be a big help!
+SPOOKY
+CODE	KEY IN . . .	EFFECT . . .
+1	PEVGGALA	Start with 1 life--1st game only
+2	TEVGGALA	Start with 6 lives--1st game only
+3	PEVGGALE	Start with 9 lives--1st game only
+4	GXSVAUVK	Infinite lives
+5	GXKKZSVK	Infinite life
+6	GXEVLVVK	Infinite Things (tm)
+7	PEKGTAAA	Start in the tree
+8	ZEKGTAAA	Start in the crypt
+9	LEKGTAAA	Start in the hallway
+10	AEKGTAAE	Start in Fester's (tm) room
+11	PEKGTAAE	Start in Pugsly's (tm) room
+12	ZEKGTAAE	Start in the toy room 
+13	LEKGTAAE	Start in Wednesday's (tm) room
+14	GEKGTAAE	Start in the attic
+15	YEKGTAAE	Start in a secret room
+16	AOKGTAAA	Start in a secret room
+17	POKGTAAA	Start in a secret room
+18	IOKGTAAE	Start in the bone room
+19	PXKGTAAA	Start in the freezer
+20	ZXKGTAAA	Start in the furnace
+21	AXKGTAAA	Start in Gomez's (tm) room
+Remember you can mix your codes!
+The Addams Family, Thing, Fester, Pugsly, Wednesday and Gomez are 
+trademarks of Paramount Pictures Corporation.
+
+American Gladiators (tm) Game
+You've watched them on TV . . . and now you can play their high-
+energy game too! Use these codes for an advantage and be the 
+ultimate video warrior.
+GLAD
+CODE	KEY IN . . .	EFFECT . . .
+1	PEXALTIA	Start with 1 life--player 1
+2	AEXALTIE	Start with 8 lives--player 1
+3	ZEXALTIE	Start with 10 lives--player 1
+4	GOXALTIA	Start with 20 lives--player 1
+5	PEVALTIA	Start with 1 life--player 2
+6	AEVALTIE	Start with 8 lives--player 2
+7	ZEVALTIE	Start with 10 lives--player 2
+8	GOVALTIA	Start with 20 lives--player 2
+9	PEXAPTAA	Start on level 2--player 1
+10	ZEXAPTAA	Start on level 3--player 1
+11	LEXAPTAA	Start on level 4--player 1
+12	PEVAPTAA	Start on level 2--player 2
+13	ZEVAPTAA	Start on level 3--player 2
+14	LEVAPTAA	Start on level 4--player 2
+15	GLUOZGLV	Less joust time
+16	GZXXLUVK	Stop joust timer
+17	GLOEGALV	Less cannonball time
+18	GZEPGOVK	Stop cannonball time
+19	GLKXXZLV	Less wall time
+20	GXOXEXVS	Stop wall timer
+21	LTXATNIL	More assault time
+22	PZXATNIU	Less assault time
+23	GZSAINVK	Stop assault timer
+24	LTSOZOIL	More power ball time--level 1
+25	LTSOLOAL	More power ball time--level 2
+26	LTSOGPLL	More power ball time--level 3
+27	LTSOIOTZ	More power ball time--level 4
+Remember, you can pick 'n mix your codes!
+American Gladiators is a trademark of The Samuel Goldwyn Co.
+
+Bee 52 (tm) Game
+This is a great game, and to make it even more fun we've got some 
+excellent codes. With B-52 Code 3 you can whiz through the skies 
+and blind all those enemy insects with your incredible speed. Code 2 
+comes in extremely handy in those later stages, when things become 
+a bit frantic and you need all the firepower you can get.
+B-52
+CODE	KEY IN . . .	EFFECT . . .
+1	SXSGOSVK	Infinite lives
+2	SZXNXTAX	Keep pick-ups
+3	GXNKNTAL + GZOKUYAP	Fly quicker
+4	GZSSTTEI	Don't get stunned
+5	PAXYKGLA	Start with 1 life
+6	TAXYKGLA	Start with 6 lives
+7	PAXYKGLE	Start with 9 lives
+Remember, you can pick 'n mix your codes!
+Bee 52 is a trademark of Codemasters Software Ltd.
+
+Bucky O'Hare (tm) Game
+Help Bucky (tm) battle his way through the loony universe in his bid to 
+rescue the captured crew of the Righteous Indignation (tm). HARE Code 
+10 will give him plenty of energy to brawl with the Storm Toad 
+Troopers (tm) 'til the cows (or is it rabbits?) come home. However, for 
+all you heroic hares, try HARE Codes 1, 4 and 8 for a really cosmic 
+challenge!
+HARE
+CODE	KEY IN . . .	EFFECT . . .
+1	AAELXYZA	Start with 1 life
+2	IAELXYZA	Start with 6 lives
+3	PAELXYZE	Start with 10 lives
+4	AEXGVYZA	1 life after continue
+5	IEXGVYZA	6 lives after continue
+6	PEXGVYZE	10 lives after continue
+7	SZVKOTVG	Infinite lives
+8	TAOLKYGP	Start with 1/2 energy	N
+9	EPELVNKE	Double Bucky's (tm) special energy
+10	KZELVNKA	Triple Bucky's special energy
+11	KAEUXNGE	All characters start with normal special energy
+12	EPEUXNGE	All characters start with 2x special energy
+13	KZEUXNGA	All characters start with 3x special energy
+Remember, you can pick 'n mix your codes!
+Bucky O'Hare, Righteous Indignation and Storm Toad Troopers are 
+trademarks of Continuity Graphic Associates, Inc.
+
+Castelian (tm) Game
+Having an infuriating time trying to reach the top of these devilish 
+alien towers? Well fear no more. Game Genie (tm) is here with some 
+great codes to help you on your way. CAST Code 4 will ensure that 
+you never run out of lives. Also try CAST Code 7 to give you as long 
+as you like to reach the summit of Castelian.
+CAST
+CODE	KEY IN . . .	EFFECT . . . 
+1	PEVGYPLA	Start with 1 life
+2	TEVGYPLA	Start with 6 lives
+3	PEVGYPLE	Start with 9 lives
+4	SLOKZLVI	Infinite lives
+5	IAOGTZZA	5 continues
+6	AAOGTZZE	8 continues
+7	SZNXYAVG	Infinite time
+Remember to pick 'n mix those codes. You can enter up to three 
+single codes at one time.
+Castelian is a trademark of Triffix Entertainment Inc. and Rollogame 
+Ltd.
+
+Contra Force (tm) Game
+Here are some codes to adjust lives for this latest game in the 
+popular Contra (tm) series. You'll have more of a chance to finish your 
+five grueling missions with CON Codes 1, 2 and 4. But if you're 
+feeling like Rambo himself, try CON Code 3!
+CON
+CODE	KEY IN . . .	EFFECT . . .
+1	PAUYTTLE	Start all characters with 9 lives
+2	TAUYTTLA	Start all characters with 6 lives
+3	PAUYTTLA	Start all characters with 1 life
+4	AANVIAPA	Infinite lives--all characters
+Contra Force and Contra are trademarks of Konami, Inc.
+
+Darkwing Duck (tm) Game
+Take Darkwing Duck (tm) on a real death-defying mission, trying to foil 
+F.O.W.L.'s (tm) plan to take control of St. Canard (tm). DWD Code 6 will give 
+you the opportunity to laugh in the face of the evil Steelbeak (tm).
+DWD
+CODE	KEY IN . . .	EFFECT . . .
+1	PYSKXPLY	Start with 2 lives
+2	IYSKXPLY	Start with 6 lives
+3	AYSKXPLN	Start with 9 lives
+4	GZOGSUVK	Infinite lives
+5	AVUEUOSZ	Infinite gas--if you avoid the "Go" missions
+6	AVVNSOOG	Infinite strength
+7	IYEAKPAY	More gas picked up
+Remember you can pick 'n mix your codes. You can use up to three at 
+a time.
+Darkwing Duck, F.O.W.L., St. Canard and Steelbeak are trademarks of 
+The Walt Disney Company Inc.
+
+Die Hard (tm) Game
+Give big John McClane (tm) a hand with those rotten terrorists who've 
+taken over the Nakatomi Building (tm). Try these great codes that help 
+you with your life points, ammo and more.
+DIE
+CODE	KEY IN . . .	EFFECT . . .
+1	SXEZTYSA	Lose no life points when shot with pistol
+2	SXOZIYSA	Lose no life points when shot with submachine gun
+3	SXXZLYSA	Lose no life points when punched
+4	PEOKIPAP	Start with 1 life point instead of 16
+5	ZEOKIPAP	Start with 2 life points
+6	GEOKIPAP	Start with 4 life points
+7	AEOKIPAO	Start with 8 life point
+8	GEOKIPAO	Start with 12 life points
+9	GOOKIPAP	Start with 20 life points
+10	SXOYYUSE	Lose foot health very slowly
+11	AEXGPOYA	Start with no pistol shots instead of 15
+12	IEXGPOYA	Start with 5 pistol shots
+13	ZEXGPOYE	Start with 10 pistol shots
+14	GOXGPOYA	Start with 20 pistol shots
+15	POXGPOYE	Start with 25 pistol shots
+16	ATNALXVG	Infinite pistol shots
+17	ATNEIXVG	Infinite submachine gun shots
+18	ATVEIZSZ	Infinite shots on all guns
+19	ENUYPOGL	Run timer down at 1/4 normal speed
+20	KUUYPOGL	Run timer down at 1/3 normal speed
+21	ANUYPOGU	Run timer down at 1/2 normal speed
+22	TOUYPOGU	Run timer down at 2x normal speed
+23	GOUYPOGL	Run timer down at 3x normal speed
+24	YEUYPOGU	Run timer down at 4x normal speed
+25	AVUNGPSZ	Freeze timer
+Remember you can pick 'n mix your codes. You can use up to three at 
+a time.
+Die Hard, John McClane and Nakatomi Building are trademarks of 
+Twentieth Century Fox Film Corporation.
+
+Dragon Warrior III (tm) Game
+Embark on this epic adventure with over 40 codes to help you 
+conquer the Archfiend Baramos (tm). All three of your allies can have 
+codes to enhance their abilities to just the level they need to be the 
+perfect adventuring companions. Good luck and happy hunting!
+MANY OF THESE CODES WILL GIVE DIFFERENT QUANTITIES OF 
+ATTRIBUTES AT DIFFERENT TIMES. THEY ALSO MAY AFFECT MORE 
+THAN ONE ATTRIBUTE, OR JUST ONE, AT DIFFERENT TIMES.
+CODES MAY SOMETIMES GIVE ZERO OF AN ATTRIBUTE. IF THIS 
+HAPPENS, RESET AND TRY AGAIN.
+CODES WORK ONLY WHEN STARTING A NEW GAME
+DRAG
+CODE	KEY IN . . .	EFFECT . . .
+1	NYUOYPZU	King gives 255 gold
+2	PASPZPAA	King gives mega-gold
+3	YTVUGZYE	Player starts with increased strength and/or 
+attack power
+4	VYVUGZYE	Player starts with greatly increased strength 
+and/or attack power
+5	LTNLPZIA	Player starts with increased agility and/or defense
+6	NYNLPZIE	Player starts with greatly increased agility and/or 
+defense
+7	LTNLTZYA	Player starts with increased vitality and/or hit 
+points
+8	NYNLTZYE	Player starts with greatly increased vitality 
+and/or hit points
+9	LTNULZTA	Player starts with increased magic, maximum 
+magic points and/or intelligence
+10	NYNULZTE	Player starts with greatly increased magic, 
+maximum magic points and/or intelligence
+11	ZVELAZGA	Player starts with increased luck
+12	VNELAZGE	Player starts with greatly increased luck
+13	LTVUIZPA	Wizard starts with increased strength and/or 
+attack power
+14	VYVUIZPE	Wizard starts with greatly increased strength 
+and/or attack power
+15	ZTNLZZGA	Wizard starts with increased agility and/or 
+defense
+16	NYNLZZGE	Wizard starts with greatly increased agility and/or 
+defense
+17	ZTNLYZZA	Wizard starts with increased vitality and/or 
+maximum hit points
+18	OPNLYZZE	Wizard starts with greatly increased vitality 
+and/or maximum hit points
+19	LTNUGXPA	Wizard starts with increased magic, intelligence 
+and/or maximum magic
+20	LVELPZZA	Wizard starts with increased luck
+21	VNELPZZE	Wizard starts with greatly increased luck
+22	ZTVUTZLA	Pilgrim starts with increased strength and/or 
+attack power
+23	VYVUTZLE	Pilgrim starts with greatly increased strength 
+and/or attack power
+24	ZTNLLZGA	Pilgrim starts with increased agility and/or 
+defense
+25	LTNUAZLA	Pilgrim starts with increased vitality and/or 
+maximum hit points
+26	VYNUAZLE	Pilgrim starts with greatly increased vitality 
+and/or maximum hit points
+27	LTNUIXAA	Pilgrim starts with increased magic and/or 
+intelligence	H
+28	VYNUIXAE	Pilgrim starts with greatly increased magic and/or 
+intelligence
+29	ZVELZZLA	Pilgrim starts with increased luck
+30	VNELZZLE	Pilgrim starts with greatly increased luck
+31	LTNLAXPA	Soldier starts with increased strength and/or 
+attack power
+32	VYNLAXPE	Soldier starts with greatly increased strength 
+and/or attack power
+33	ZTNLIZZA	Soldier starts with increased agility and/or 
+defense
+34	LTNUZZYA	Soldier starts with increased vitality and/or 
+maximum hit points
+35	IAOZENNY	Start with 6 battle-axes
+36	TAOZENNY	Start with 6 broadswords
+37	YAOZENNY	Start with 6 wizard's wands
+38	YAOZENNN	Start with 6 demon's axes
+39	GPOZENNY	Start with 6 multi-edge swords
+40	IPOZENNY	Start with 6 staffs of force
+41	TPOZENNY	Start with 6 swords of illusion
+42	APOZENNN	Start with 6 falcon swords
+43	AZOZENNN	Start with 6 armor of radiance
+Remember to pick 'n mix your codes!
+Dragon Warrior III and Archfiend Baramos are trademarks of Enix 
+Corporation.
+
+Home Alone 2 (tm) Game
+Help Kevin (tm) again defeat the two dopey burglars, this time in New 
+York City. Try HOME2 Code 9 for infinite lives, and sample an 
+assortment of other codes to give you more power and weapons for 
+your fight.
+HOME2
+CODE	KEY IN . . .	EFFECT . . .
+1	PEEPILLA	Start with 1 life instead of 3
+2	IEEPILLA	Start with 5 lives
+3	YEEPILLA	Start with 7 lives
+4	PEEPILLE	Start with 9 lives
+5	POEPILLE	Start with 25 lives
+6	ZUEPILLA	Start with 50 lives
+7	LKEPILLE	Start with 75 lives
+8	LVEPILLA	Start with 99 lives
+9	SZEYKVVK	Infinite lives
+10	AENYVGGE	Every 4 cookies count as 8
+11	GENYVGGE	Every 4 cookies count as 12
+12	AONYVGGA	Every 4 cookies count as 16
+13	GONYVGGA	Every 4 cookies count as 20 (extra life point)
+14	IAOVUGTA	Extra life with 5 pizza slices instead of 6
+15	GAOVUGTA	Extra life with 4 pizza slices
+16	LAOVUGTA	Extra life with 3 pizza slices
+17	ZAOVUGTA	Extra life with 2 pizza slices
+18	PAOVUGTA	Extra life with every pizza slice
+19	SZNYSSVK	Infinite power units/life points
+20	SZSVLVVK	Become almost invincible after losing 1 life point 
+(can walk thru most enemies--vacuum cleaner can still kill you)
+21	SZOELKVK	Infinite slides on pick-up
+22	SZVETKVK	Infinite darts on pick-up
+23	SZSAAKVK	Infinite flying fists on pick-up
+Remember to mix those codes.
+Home Alone 2 is a trademark of Twentieth Century Fox Film Corp.
+
+Paperboy 2 (tm) Game
+Paperboy (tm) is back on another manic mission! To help him with his 
+even more treacherous paper route, we've got some freewheeling, 
+high-flying Game Genie (tm) codes. PAPER Code 8 will give you as many 
+papers as you could possibly want, to throw wherever you want. Also 
+check out PAPER Code 9, for all you players with the expert delivery.
+PAPER
+CODE	KEY IN . . .	EFFECT . . .
+1	PEOUYGIA	Start with 1 life--Paperboy only
+2	LEOUYGIA	Start with 3 lives--Paperboy only
+3	ZEOUYGIE	Start with 10 lives--Paperboy only
+4	AAKEZLPA	Infinite lives
+5	YAELGVZE	Start with 15 papers
+6	GPELGVZA	Start with 20 papers
+7	AEVPNLPA	Infinite papers
+8	IEOAEOZA	Pick up 5 papers
+9	YEOAEOZE	Pick up 15 papers
+10	GOOAEOZA	Pick up 20 papers
+Remember to mix those codes.
+Paperboy 2 is a trademark of Atari Games Corporation.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+Quattro Adventure (tm) Game
+Four great games in one. Check 'em out!
+1) Boomerang Kid (tm) Game
+Eh, mates, welcome to the outback! Join Boomerang Kid (tm) as he 
+attempts to collect all the boomerangs throughout the treacherous 
+territory he calls home. BOOM Code 2 will keep you from losing your 
+lives.
+BOOM
+CODE	KEY IN . . .	EFFECT . . .
+1	TAOGPTLA	Start with 6 lives
+2	SZOGXVVK	Infinite lives
+
+2) Linus Spacehead (tm) Game
+Game Genie (tm) is here to help Linus (tm) to return to Linoleum (tm). LINU 
+Code 2 gives you a little extra oxygen, and with LINU Code 3 you'll 
+have all the oxygen you need to get yourself out of the water.
+LINU
+CODE	KEY IN . . .	EFFECT . . .
+1	PEKGGLLE	Start with 9 lives
+2	AZKKPNAP	Increase oxygen
+3	AEULZIPA	Never lose oxygen
+4	SXEGLYVG	Never lose life in the water
+5	SZXIILVG	Never lose life in the land
+
+3) Super Robin Hood (tm) Game
+Robin has got a task on his hands. Poor old Maid Marian has been 
+kidnapped by the Sheriff of Nottingham and is being held deep within 
+his castle. Why not use ROB Code 5 and teach the Sheriff and his 
+thugs a lesson they will never forget?
+ROB
+CODE	KEY IN . . .	EFFECT . . .
+1	PAVGILLA	Start with 1 life
+2	TAVGILLA	Start with 6 lives
+3	PAVGILLE	Start with 9 lives
+4	SXNKZIVG	Infinite lives
+5	AVONISPG	Become invincible
+6	PAEGLTLE	9 energy hearts--you may lose some of the 
+hearts you have when you pick up new ones
+
+4) Treasure Island Dizzy (tm) Game
+Dizzy (tm) has been shipwrecked and is desperately missing his true 
+love, Daisy (tm). Fortunately for Dizzy, Game Genie (tm) has come to his 
+rescue. Check out TREAS Code 3 to solve his underwater problems. 
+There's also TREAS Code 1, if you want to stroll around the island 
+just to take in the sights. All you expert Dizzy-heads can try 
+escaping back to the Yolkfolk (tm) using TREAS Code 2. 
+TREAS
+CODE	KEY IN . . .	EFFECT . . .
+WITH CODE 1 YOU WILL START ON THE ISLAND IN THE SKY, SO JUST 
+KEEP WALKING LEFT AND YOU WILL ARRIVE AT THE ORIGINAL 
+STARTING POINT
+1	PEXSZYAA	Invincible Dizzy (tm)!
+2	OZNTKASX	Walk backwards
+3 	PEUSYYAA	Start with snorkel
+4	PEUSYYAA + PEKNIZZP	Start with axe
+5	PEUSYYAA + ZEKNIZZP	Start with dynamite
+6	PEUSYYAA + IEKNIZZP	Start with heavy weight
+Remember that you can pick 'n mix your codes.
+Quattro Adventure, Boomerang Kid, Linus Spacehead, Linus, Linoleum, 
+Super Robin Hood, Treasure Island Dizzy, Dizzy, Daisy and Yolkfolk 
+are trademarks of Codemasters Software Ltd.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+R.C. Pro-Am II (tm) Game
+The follow-up to the classic favorite racing game. It features two-
+player simultaneous action and the ability to upgrade your vehicle, 
+which these codes makes even easier!
+PRO 2
+CODE	KEY IN . . .	EFFECT . . .
+1	AESOLAZA	Start with 1 credit instead of 3
+2	GESOLAZA	Start with 5 credits
+3	TESOLAZA	Start with 7 credits
+4	AESOLAZE	Start with 9 credits
+5	SUEEGXVS	Infinite credits
+6	ATUXYGSZ	Items in the Model Shop are free if you have enough 
+money
+7	PEETEOEG	Buckshot costs 10 instead of 2,000
+8	AEEVUPYA	Mega Pulse costs 2,080 instead of 20,000
+9	AANTSPIA	Scoopers cost 2,200 instead of 15,000
+10	AANTUPLA	Dynafit tires cost 2,320 instead of 10,000
+11	AAVVUPLP	Mega Motor costs 1,360 instead of 50,000
+12	AAVVOOLA	Hyper Motor costs 1,840 instead of 30,000
+13	AEEVOPIA	Freeze costs 2,200 instead of 15,000
+14	AEETNPIA	Lazer costs 1,200 instead of 14,000
+15	AEETSPGA	Bombs cost 1,760 instead of 12,000
+16	AANTOPZA	Nobbies cost 1,880 instead of 7,000
+17	AEETUPLA	Missile costs 2,320 instead of 10,000
+18	PEOGNTAA	Start on Track 2
+19	ZEOGNTAA	Start on Track 3
+20	LEOGNTAA	Start on Track 4
+21	GEOGNTAA	Start on Track 5
+22	IEOGNTAA	Start on Track 6
+23	TEOGNTAA	Start on Track 7
+24	YEOGNTAA	Start on Track 8
+25	AEOGNTAE	Start on first Tug-O-Truck Challenge
+26	PEOGNTAE	Start on Track 9
+27	ZEOGNTAE	Start on Track 10
+28	LEOGNTAE	Start on Track 11
+29	GEOGNTAE	Start on Track 12
+30	IEOGNTAE	Start on Track 13
+31	TEOGNTAE	Start on Track 14
+32	YEOGNTAE	Start on Track 15
+33	AOOGNTAA	Start on Track 16
+34	POOGNTAA	Start on Drag Race
+35	ZOOGNTAA	Start on Track 17
+36	LOOGNTAA	Start on Track 18
+37	GOOGNTAA	Start on Track 19
+38	IOOGNTAA	Start on Track 20
+39	TOOGNTAA	Start on Track 21
+40	YOOGNTAA	Start on Track 22
+41	AOOGNTAE	Start on Track 23
+42	POOGNTAE	Start on Track 24
+43	ZOOGNTAE	Start on second Tug-O-Truck Challenge
+44	LOOGNTAE	Start on Track 25
+45	GOOGNTAE	Start on Track 26
+46	IOOGNTAE	Start on Track 27
+47	TOOGNTAE	Start on Track 28
+48	YOOGNTAE	Start on Track 29
+49	SXKVLVVS	Infinite lazers on purchase
+50	SXSTZKVS	Infinite bombs on purchase
+51	SXOVGVVS	Infinite freezes on purchase
+52	SZXVGSVS	Infinite buckshot on purchase
+53	SZSTTSVS	Infinite missiles on purchase
+Remember to pick 'n mix your codes! You can enter up to three at a 
+time.
+R.C. Pro-Am II is a trademark of Nintendo of America.
+
+Robocop 3 (tm) Game
+ROBO3 Code 4 is a real corker--whatever your enemy, no matter how 
+big, if you hit him, he dies! If you can't blast all the Rehab Officers (tm) 
+off the streets of Detroit now, you never will.
+ROBO3
+CODE	KEY IN . . .	EFFECT . . .
+1	OXONLPSV + POONGPXV	Invincibility (energy never goes 
+below starting level)
+2	ZLVGIXPP	Start with 2x energy
+3	GAVGIXPO	Start with 1/2 energy
+4	GNUNAEKN	1 hit kills all enemies
+5	VVKGLATE	Lots of repair icons
+Remember, you can pick 'n mix your codes.
+Robocop 3 and Rehab Officers are trademarks of Orion Pictures 
+Corporation.
+
+Rocketeer (tm) Game
+The Rocketeer (tm) has a real task on his hands, what with the F.B.I., the 
+U.S. Army, a mad industrialist and the Nazis all after his amazing 
+rocket pack at the same time! Luckily for him he's got Game Genie (tm) 
+on his side. Who can fail with codes like ROCKET Codes 4 and 11?
+ROCKET
+CODE	KEY IN . . .	EFFECT . . .
+1	GESLNKAA	Start with 1/2 energy
+2	AOSLNKAA	Start with 2x energy
+3	AOSLNKAE	Start with 3x energy
+4	GZSSINSV	Infinite energy
+5	IAOZZXZA	1/2 normal bullets picked up
+6	GPOZZXZA	2x normal bullets picked up
+7	TPOZZXZE	3x normal bullets picked up
+8	ZAEZGZGO	1/2 silver bullets picked up
+9	AZEZGZGO	2x silver bullets picked up
+10	GLEZGZGO	3x silver bullets picked up
+11	AAVLKIIA	Loads of all weapons with infinite ammunition!
+Remember, you can pick 'n mix your codes!
+Rocketeer is a trademark of the Walt Disney Company.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+The Simpsons: Bartman Meets Radioactive Man (tm) Game
+Another fun and exciting Bart (tm) adventure! Try RADIO Code 5 for 
+infinite lives, Code 6 for infinite credits, and play on, man!
+NOTE: CODES WORK, BUT THERE MAY BE A BLACK AREA AT THE 
+BOTTOM OF YOUR SCREEN. MAY NOT BE COMPATIBLE WITH GAME GENIE
+RADIO
+CODE	KEY IN . . .	EFFECT . . .
+1	PAVAYYLA	Start with 2 lives and 2 credits
+2	IAVAYYLA	Start with 6 lives and 6 credits
+3	YAVAYYLA	Start with 8 lives and 8 credits
+4	PAVAYYLE	Start with 10 lives and 10 credits
+5	OLVYAZOP	Infinite lives
+6	SZENNEVK	Infinite credits
+7	ASVTOZAZ	Laser bolts worth more on pick up
+8	SXNNVEVK	Infinite laser bolts
+9	AAUY-PYGA	Infinite energy
+10	AXUVSZIA	Cold breath worth more on pick up
+11	AAKYKPPA	Infinite cold breaths
+DON'T COMBINE CODES 12 AND 13
+12	OAKNUEEE	Don't lose laser bolts when you die
+13	EAKNVEOE	Don't lose cold breaths when you die
+14	ZAUZAYAA	Start in chapter 1 level 2
+15	IAUZAYAA	Start in chapter 1 level 3
+Simpsons: Bartman Meets Radioactive Man and Bart are trademarks 
+of Twentieth Century Fox Film Corporation.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+Tale Spin (tm) Game
+SPIN Code 13 will make Baloo (tm) the richest bear in the cape, and 
+aircraft maintenance problems will be a thing of the past. Use SPIN 
+Codes 3, 6 and 11 for a real chance of completing this wacky 
+airborne adventure. And if you're the bravest pilot in the cape, try 
+SPIN Codes 1, 4 and 9 for a truly awesome test.
+SPIN
+CODE	KEY IN . . . 	EFFECT . . .
+1	AYVKZYLY	Start with 1 life
+2	TYVKZYLY	Start with 7 lives
+3	PYVKZYLN	Start with 10 lives
+4	ANNGVLLY	1 life after continue
+5	TNNGVLLY	7 lives after continue
+6	PNNGVLLN	10 lives after continue
+7	GZKGNKVK	Infinite lives from getting trapped by obstacles
+8	AAXEGPTA	Infinite energy
+9	PYEGITLY	1 continue
+10	TYEGITLY	6 continues
+11	PYEGITLN	9 continues
+12	SXNKXLVG	Infinite continues
+13	PYVGUAAY	Add $1,000,000 to end-of-level bonus
+Remember, you can pick 'n mix your codes!
+Tale Spin and Baloo are trademarks of The Walt Disney Company.
+
+Tecmo (tm) NBA (tm) Basketball Game
+Take total control of the court! Note that if you combine BALL Codes 
+8 and 9, you'll have no 5- or 10-second violations to worry about. 
+Codes 10 and 11 do not affect the shot clock except when taking 
+down a rebound.
+BALL
+CODE	KEY IN . . .	EFFECT . . .
+1	SLVUPUVS	Infinite timeouts
+2	AEOLVPPA	2-pt. shots worth 1, 3-pt. shots worth 2
+3	ZEOLVPPA	2-pt. shots worth 3, 3-pt. shots worth 4
+4	LEOLVPPA	2-pt. shots worth 4, 3-pt. shots worth 5
+5	GEOLVPPA	2-pt. shots worth 5, 3-pt. shots worth 6
+6	IEOLVPPA	2-pt. shots worth 6, 3-pt. shots worth 7
+7	AVNUVOVT	3-pt. shots worth 2 pts.
+8	NYSENZYE	5-second violations become 10-second 
+violations
+9	NYOPTNZE	No 10-second violations
+10	ASOLSEAO	Longer shot clock after getting ball on rebound
+11	AEOLSEAO	Shorter shot clock after getting ball on rebound
+Pick and mix your codes!
+Tecmo is a trademark of Tecmo, Ltd. NBA is a trademark of NBA 
+Properties, Inc.
+
+Tom and Jerry (tm) Game
+You've heard the one about the cat with 9 lives? Well, Game Genie (tm) 
+can bring you a mouse with 9 lives--or even infinite lives! We've also 
+got level warps so you can start where you want to in your quest to 
+rescue Tuffy (tm). Also, why not give Tom (tm) an infuriating time with 
+TOM Code 5?
+TOM
+CODE	KEY IN . . .	EFFECT . . . 
+1	PASNVZLA	Start with 1 life
+2	TASNVZLA	Start with 6 lives
+3	PASNVZLE	Start with 9 lives
+4	SXSNYEVK	Infinite lives
+5	AEXYPAPA	Infinite energy
+6	LEXYPAPA	Minimum energy--one touch kills!
+7	AEVYKPAE	Start on world 2
+8	AOVYKPAA	Start on world 3
+9	AOVYKPAE	Start on world 4
+10	AXVYKPAA	Start on world 5
+Remember, you can pick 'n mix your codes!
+Tom and Jerry, Tom and Tuffy are trademarks of Turner 
+Entertainment Co.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+Wacky Races (tm) Game
+We've got some excellent codes to help Muttley (tm) rescue his pal Dick 
+Dastardly (tm). RACES Code 20 is good if you want to practice beating 
+all the level bosses before you meet them for real in the game. There 
+are also loads of codes to let you to start wherever you want.
+RACES
+CODE	KEY IN . . .	EFFECT . . . 
+1	AAKVEIZA	Start with 1 life
+2	GAKVEIZA	Start with 5 lives
+3	TAKVEIZA	Start with 7 lives
+4	AAKVEIZE 	Start with 9 lives
+5	SASSZEVK + SEKIYEVK	Infinite lives
+6	TASTOILA	Start with 6 hearts
+7	AASTOILE	Start with 8 hearts
+8	GXSGSVVK	Don't take most damage
+9	GXSGSVVK + GZNKVVVK + GXUKUSVK	Infinite hearts
+10	EKUVKIKK	Start at race 1, end of stage 1
+11	NKUVKIKK	Start at race 1, end of stage 2
+12	KSUVKIKG	Start at race 1, end of stage 3
+13	ESUVVIVS	Start at race 2, end of stage 1
+14	KSUVVIVS	Start at race 2, end of stage 2
+15	EVUVVIVI	Start at race 2, end of stage 3
+16	KVKTEIXT	Start at race 3, end of stage 1
+17	EVKTEIXV	Start at race 3, end of stage 2
+18	KVKTEIXV	Start at race 3, end of stage 3
+19	ENKTEIXT	Start at race 3, end of stage 4
+20	XNUVKIKG	Go straight to level boss--use with one of Codes 10 
+thru 19 to select which boss
+Remember, you can pick 'n mix your codes!
+Wacky Races, Muttley (tm) and Dick Dastardly are trademarks of Hanna-
+Barbera Productions, Inc. 
+
+Wizards & Warriors III (tm) Game
+Evil Wizard Malkil (tm) is a persistent character, and just can't stay 
+out of mischief. So plug in your Game Genie (tm) and help Kuros (tm) rid the 
+world of him forever.
+WAW3
+CODE	KEY IN . . .	EFFECT . . .
+1	PAXXPYLA	Start with 2 lives
+2	TAXXPYLA	Start with 7 lives
+3	PAXXPYLE 	Start with 10 lives
+4	SXNTPLVG	Infinite lives--except at boss stages
+5	POSAGGZU	Coins worth 25
+6	GVSAGGZL	Coins worth 100
+7	NNSAGGZU	Coins worth 255
+8	IESAZKZA	Bags worth 5
+9	ZUSAZKZA	Bags worth 50
+10	NNSAZKZE	Bags worth 255
+11	AGKZGYEA	Less energy
+12	ELKZGYEA	More energy
+13	AGELLZEA	Less energy after death--except atboss stages
+14	ELELLZEA	More energy after death--except at boss stages
+Remember to mix your codes. You can enter up to three at one time.
+Wizards & Warriors III, Evil Wizard Malkil and Kuros are trademarks 
+of Acclaim Entertainment, Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+

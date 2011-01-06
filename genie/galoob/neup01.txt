@@ -1,0 +1,124 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available through 
+VideoGames & Computer Entertainment for the private use of Game 
+Genie owners. No commercial use without authorization. This file 
+may be freely distributed for private, non-commercial use as long as 
+it is not altered and all text remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+1, #1.
+
+1.      DR. MARIO(tm) GAME
+2.      BATTLETOADS(tm) GAME
+3.      MARBLE MADNESS(tm) GAME
+4.      STARTROPICS(tm) GAME
+
+DR. MARIO(tm) GAME
+Just what the Dr. ordered-Game Genie(tm) codes for the excellent Dr. 
+Mario(tm) game! Key in DR. Code 1 and vitamin hey 
+only drop down when you pull down on your control pad, giving you as 
+much time as you like to position each one. And DR. Codes 2 thru 7 
+adjust the number of the same-colored capsules needed to complete 
+lines. Ready? The Dr. will see you now!
+DR.
+CODE    KEY IN...       EFFECT...
+1       GZNEVIVT        Vitamin capsules don't fall
+To complete a vertical (upright) line:
+2       GEXPYGLA        5 in a row needed instead of 4
+3       IEXPYGLA        6 in a row needed instead of 4
+4       TEXPYGLA        7 in a row needed instead of 4
+To complete a horizontal (flat) line:
+5       GAKPPZLA        5 in a row needed instead of 4
+6       IAKPPZLA        6 in a row needed instead of 4
+7       TAKPPZLA        7 in a row needed instead of 4
+When two or more rows or columns are eliminated at once in a 2-
+player game:
+8       AUVONUAO        More pieces sent across to other player
+9       GXXOZGVT + GZKPGZVT     No pieces sent across to other 
+player
+Remember that you can pick 'n' mix your codes. You can enter up to 
+THREE separate codes at one time.
+Dr. Mario is a trademark of Nintendo of America Inc. Game Genie is a 
+trademark of Lewis Galoob Toys, Inc.
+
+BATTLETOADS(tm) GAME
+You just can't have too many "Toad" Codes-right dudes? This super 
+rock-hard game has codes for lives, mega-jumping, super punching, 
+extra energy and to start on any level! There's also TOAD Code 5, to 
+ke all the enemies easier to kill, but take care-you also start off 
+your new life with minimum energy!
+TOAD
+CODE    KEY IN...       EFFECT...
+1       PENVZILA        1 life 
+2       TENVZILA        6 lives
+3       PENVZILE        9 lives
+4       GXXZZLVI        Infinite lives
+5       GXEILUSO        Enemies easier to kill
+6       EYSAUVEI        Mega-jumping
+7       AEUZITPA        Super fast punching
+8       ZAXAALAA        Start on level 2 - Wookie Hole(tm)
+9       LAXAALAA        Start on level 3 - Turbo Tunnel(tm)
+10      GAXAALAA        Start on level 4 - Arctic Cavern(tm)
+11      IAXAALAA        Start on level 5 - Surf City(tm)
+12      TAXAALAA        Sta6 - Karnath's Lair(tm)
+13      YAXAALAA        Start on level 7 - Volkmire's Inferno(tm)
+14      AAXAALAE        Start on level 8 - Intruder Excluder(tm)
+15      PAXAALAE        Start on level 9 - Terra Tubes(tm)
+16      ZAXAALAE        Start on level 10 - Rat Race(tm)
+17      LAXAALAE        Start on level 11 - 
+18      GAXAALAE        Start on level 12 - The Revolution(tm)!
+19      AOUKXNAA        Double energy from flies
+20      YXUKXNAE        Maximum energy from flies!
+Remember that you can pick 'n' mix your codes. You can enter up to 
+THREE separate codes at one time.
+Battletoads, Wookie HolTurbo Tunnel, Arctic Cavern, Surf City, 
+Karnath's Lair, Volkmire's Inferno, Intruder Excluder, Terra Tubes, 
+Rat Race, Clinger Winger and The Revolution are trademarks of Rare, 
+Ltd.
+
+MARBLE MADNESS(tm) GAME
+Losing your marbles over this challenging gamMAD Codes 1 and 2 
+give you extra time to complete the practice and beginner races. MAD 
+code 3 is a good handicap-it stops your bonus time from being added 
+to the time allowed for the next race. MAD Code 4 gives you infinite 
+time, great for exploring and finding extra bonus areas . . . and for 
+getting to higher levels than ever before!
+MAD
+CODE    KEY IN...       EFFECT...
+1       GOOZPLAA        Extra 20 seconds to complete beginner race
+2       AXOZPLAE        Extra 40 seconds to complete beginner race
+3       GXEXTLEL        Bonus time not added
+4       OXVXLZVS        Infinite time
+Marble Madness is a trademark of Tengen.
+
+STARTROPICS(tm) GAME
+Adventure fans, check out these great codes for StarTropics(tm)! TROP 
+Codes 1 thru 5 give you a choice of lives. TROP Codes 6 thru 8 give 
+you energy options, andcrease your weaponry, see TROP Codes 9 
+thru 13!
+TROP
+CODE    KEY IN...       EFFECT...
+1       SXETAKVK        Infinite lives
+2       PASTYZLA        1 life with a new character
+3       TASTYZLA        6 lives with a new character
+4       PAUTGILA        1 life after continue
+5       TAUTGILA        6 lives after continue
+6       SZNZGPAX + VZVZLOSV     Infinite energy
+7       PEXXYTIA + PEUZLTIA     Only 1 star needed to restore energy
+8       PEXXYTIE + PEUZLTIE     9 stars needed to restore energy
+9       SUXXPSVS        Infinite weapons
+10      ZUVLZEPP        Gain 50 fire weapons on pick-up
+11      ZUSUYETP        Gain 50 bat weapons on pick-up
+12      IEUZZNGA        Only 3 hearts needed to use shooting-star
+13      AEOZPYTO        Only 8 hearts needed to use super-nova
+Remember that you can pick 'n' mix your codes. You can enter up to 
+THREE separate codes at one time.
+StarTropics is a trademark of Nintendo of America Inc.
+

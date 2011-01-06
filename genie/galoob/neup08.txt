@@ -1,0 +1,377 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available for the 
+private use of Game Genie owners. NO COMMERCIAL USE WITHOUT 
+AUTHORIZATION. This file may be freely distributed for PRIVATE, 
+NON-COMMERCIAL USE as long as it is not altered and all text 
+remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+2, #4 (the 8th Update published).
+
+1. Battleship(tm) Game
+2. Bram Stoker's Dracula(tm) Game
+3. Bubble Bobble II(tm) Game
+4. Championship Pool(tm) Game
+5. Indiana Jones and the Last Crusade(tm) Game
+6. Jimmy Connors Tennis(tm) Game
+7. Last Action Hero(tm) Game
+8. Legends of the Diamond(tm) Game
+9. Nigel Mansell's World Championship Racing(tm) Game
+10. Pro Sport Hockey(tm) Game
+11. Pugsley's Scavenger Hunt(tm) Game
+12. The Ren & Stimpy Show Buckeroos(tm) Game
+13. Star Trek: The Next Generation(tm) Game
+14. Tetris 2(tm) Game
+15. Wayne's World(tm) Game
+
+Battleship(tm) Game
+WAR
+CODE KEY IN  . . . EFFECT . . .
+1 PEUAUGIA 1 round per level
+2 LEUAUGIA 3 rounds per level
+3 PASAKGAA + VASEOGSA + VASASGSA Start on level 2
+4 ZASAKGAA + VASEOGSA + VASASGSA Start on level 3
+5 LASAKGAA + VASEOGSA + VASASGSA Start on level 4
+6 GASAKGAA + VASEOGSA + VASASGSA Start on level 5
+7 IASAKGAA + VASEOGSA + VASASGSA Start on level 6
+8 TASAKGAA + VASEOGSA + VASASGSA Start on level 7
+9 YASAKGAA + VASEOGSA + VASASGSA Start on level 8
+10 SZUAOSOU Each ship can take only 1 hit
+11 SAXAOISP You only have RIM-66 missiles
+Battleship is a trademark of Milton Bradley Company, a Division of 
+Hasbro Inc.
+
+Bram Stoker's Dracula(tm) Game
+BRAM
+CODE KEY IN  . . . EFFECT . . .
+1 NUNTZUKU Infinite lives
+2 SUXLISVS Infinite energy--EXCEPT FALLING OFF CLIFFS
+3 AEVGPPPA Infinite time
+4 ZEVGPPPA Faster timer
+5 UUETEIZE Infinite weapons--EXCEPT SCENE 1 DAYTIME
+6 NNSNGPZE Disable axe
+Bram Stoker's Dracula is a trademark of Columbia Pictures 
+Industries Inc.
+
+Bubble Bobble II(tm) Game
+BUB2
+CODE KEY IN . . . EFFECT . . . 
+1 PEXEEALA Start with 1 life--player 1
+2 TEXEEALA Start with 6 lives--player 1
+3 PEXEEALE Start with 9 lives--player 1
+4 TEVATZLA Start with 6 lives--player 2
+5 PEVATZLE Start with 9 lives--player 2
+6 SZNOASVK Infinite lives--both players
+CODES 7 AND 8: NOT ON THE 1ST LIFE AFTER A CONTINUE
+7 LEXAUAPA + LESOZTPA Start each life with 3 hearts
+8 IEXAUAPA + IESOZTPA Start each life with 5 hearts
+9 OXXANUPX Blow bubbles farther
+10 IEKEGZPA Start on level 5
+11 ZEKEGZPE Start on level 10
+12 YEKEGZPE Start on level 15
+13 GOKEGZPA Start on level 20
+14 POKEGZPE Start on level 25
+15 TOKEGZPE Start on level 30
+16 AXKEGZPE Start on level 40
+17 IXKEGZPE Start on level 45
+18 ZUKEGZPA Start on level 50
+19 YUKEGZPA Start on level 55
+20 GUKEGZPE Start on level 60
+21 PKKEGZPA Start on level 65
+22 TKKEGZPA Start on level 70
+23 LKKEGZPE Start on level 75 
+24 ASKEGZPA Start on level 80
+Bubble Bobble II is a trademark of Taito.
+
+Championship Pool(tm) Game
+POOL
+CODE KEY IN  . . . EFFECT . . .
+1 PAOUYALA 1 foul loses the game (instead of 3)--only in 10-
+ball in party mode
+2 ZAOUYALA 2 fouls in a row loses the game--only on 9- and 
+10-ball in party mode
+3 SLNUKXSO Fouls don't count--only on 9- and 10-ball and 
+rotation in party mode
+4 SUOLXXSO Number of fouls is not cleared after a good shot (3 
+fouls don't have to be in a row to lose)--only on 10-ball in party 
+mode
+5 OZVETASX + AAVEYEST Player 1 always breaks in 9- or 
+10-ball
+6 OZVETASX + PAVEYEST Player 2 always breaks in 9- or 
+10-ball
+Championship Pool is a trademark of Mindscape Inc.
+
+Indiana Jones and the Last Crusade(tm) Game
+JR.
+CODE KEY IN  . . . EFFECT . . .
+1 PAVKGALA Start with 1 life
+2 IAVKGALA Start with 5 lives
+3 YAVKGALA Start with 7 lives
+4 PAVKGALE Start with 9 lives
+5 PEUZPALA Continue with 1 life
+6 IEUZPALA Continue with 5 lives
+7 YEUZPALA Continue with 7 lives
+8 PEUZPALE Continue with 9 lives
+9 KYSTEGGE Infinite lives
+10 VYONKZGE Infinite energy--BUT BE CAREFUL, YOU CAN GET 
+TRAPPED IN CERTAIN AREAS
+11 AEKPXLPA Heart does nothing--MAY GOOF UP ENERGY BAR
+12 SXXXIEVK Infinite credits
+13 AEEOYTPA Infinite time
+CODES 14 THRU 18 ARE FOR PRACTICE ONLY. AFTER YOU FINISH THE 
+LEVEL, YOU GO BACK TO LEVEL 1
+14 PANGPAAA Play level 2
+15 ZANGPAAA Play level 3
+16 LANGPAAA Play level 4
+17 GANGPAAA Play level 5
+18 IANGPAAA Play level 6
+19 IAVTKAPA Super jump
+20 PAVTKAPE Mega-jump
+Indiana Jones and the Last Crusade is a trademark of LucasFilm Ltd.
+
+Jimmy Connors Tennis(tm) Game
+JIM
+CODE KEY IN  . . . EFFECT . . .
+1 AEVTIPLA Only need 15 points to win game
+2 PEVTIPLA Only need 30 points to win game
+3 ZEVTIPLA Only need 40 points to win game
+4 AEEVAZTA Only need 1 game to win set instead of 6
+5 PEEVAZTA Only need 2 games to win set
+6 ZEEVAZTA Only need 3 games to win set
+7 GEEVAZTA Only need 4 games to win set
+8 IEEVAZTA Only need 5 games to win set
+9 EEVVIPEI Must get 2 points after 40 to win and no deuces 
+(always shows advantage after 40)
+10 PEKVGPZA Don't need to win by 2 to win tiebreaker
+11 ZEUVIPYA 2 points needed to win tiebreaker instead of 7
+12 LEUVIPYA 3 points needed to win tiebreaker 
+13 GEUVIPYA 4 points needed to win tiebreaker 
+14 IEUVIPYA 5 points needed to win tiebreaker 
+15 TEUVIPYA 6 points needed to win tiebreaker 
+16 ZEUVIPYE 10 points needed to win tiebreaker 
+Jimmy Connors Tennis is a trademark of UBI Soft Inc.
+
+Last Action Hero(tm) Game
+LAST 
+CODE KEY IN  . . . EFFECT . . .
+1 AAUVSTLA Start with 1 life
+2 TAUVSTLA Start with 7 lives
+3 PAUVSTLE Start with 10 lives
+4 AASTAILA Continue with 1 life
+5 PASTAILA Continue with 2 lives
+6 ZASTAILA Continue with 3 lives
+7 SXXLOGVG Infinite lives
+8 AAKTOTZA Start with 0 continues
+9 IAKTOTZA Start with 5 continues
+10 PAKTOTZE Start with 9 continues
+11 SZEVZIVG Infinite continues
+12 ESXZLAEY Kill bosses with one hit
+13 VZSAEYVT Red hearts worth nothing instead of 1 life
+14 SXOLSGTG Infinite energy
+15 ZENTAAAA Start on stage 2: Hamlet
+16 GENTAAAA Start on stage 3: The House
+17 IENTAAAA Start on stage 4: The Freeway
+18 TENTAAAA Start on stage 5: The Office block
+19 YENTAAAA Start on stage 6: The Helicopter
+20 AENTAAAE Start on stage 7: The Film Premiere
+21 PENTAAAE Start on Stage 8: The Cinema
+22 ZENTAAAE Start on the end-of-level bad guy
+Last Action Hero is a trademark of Columbia Pictures Industries Inc.
+
+Legends of the Diamond(tm) Game
+BASE
+CODE KEY IN  . . . EFFECT . . .
+FOR CODES 1 THRU 3, FOULS DON'T COUNT AS STRIKES
+1 PASUGILA 1 strike and you're out
+2 ZASUGILA 2 strikes and you're out
+3 IASUGILA 5 strikes and you're out--ignore counter
+4 PEKLAIGA 1 ball and you walk
+5 ZEKLAIGA 2 balls and you walk
+6 TEKLAIGA 6 balls to walk
+Legends of the Diamond is a trademark of Bandai of America, Inc.
+
+Nigel Mansell's World Championship Racing(tm) Game
+NIGE
+CODE KEY IN . . . EFFECT . . .
+1 GZSULOVV No extra time in the pits
+2 IVSNIOIN Accelerate faster
+3 IVSNIOIN + AAKNALGE Accelerate a lot faster
+4 GANKXZYA Only need 3 laps in South Africa instead of 6
+5 GANKUZYA Only need 3 laps in Mexico instead of 6
+6 GANKKZTA Only need 3 laps in Brazil instead of 5
+7 GANKSZIA Only need 3 laps in Spain instead of 4
+8 GANKVZYA Only need 3 laps in San Marino instead of 6
+9 GANKNZTA Only need 3 laps in Monaco instead of 5
+10 GEEGEZYA Only need 3 laps in Canada instead of 6
+11 GEEGOZIA Only need 3 laps in France instead of 4
+12 GEEGXZTA Only need 3 laps in Great Britian instead of 5
+13 GEEGUZTA Only need 3 laps in Germany instead of 5
+14 GEEGKZTA Only need 3 laps in Hungary instead of 5
+15 GEEGSZTA Only need 3 laps in Belgium instead of 5
+16 GEEGVZYA Only need 3 laps in Italy instead of 6
+17 GEEGNZIA Only need 3 laps in Portugal instead of 4
+18 GEEKEZTA Only need 3 laps in Japan instead of 5
+19 GEEKOZTA Only need 3 laps in Australia instead of 5
+20 ZANKXZYA + SXNKSESU Only need 1 lap on all tracks
+21 AEEKXAAO Start with 1/2 normal tire tread
+22 SZSTLEVK Less tire wear
+23 SZSTLEVK + SZNNXEVK Almost no tire wear
+24 PEOXOZAP Full season ends after South Africa
+25 ZEOXOZAP Full season ends after Mexico
+26 LEOXOZAP Full season ends after Brazil
+27 GEOXOZAP Full season ends after Spain
+28 IEOXOZAP Full season ends after San Marino
+29 TEOXOZAP Full season ends after Monaco
+30 YEOXOZAP Full season ends after Canada
+31 AEOXOZAO Full season ends after France
+32 PEOXOZAO Full season ends after Great Britian
+33 ZEOXOZAO Full season ends after Germany
+34 LEOXOZAO Full season ends after Hungary
+35 GEOXOZAO Full season ends after Belgium
+36 IEOXOZAO Full season ends after Italy
+37 TEOXOZAO Full season ends after Portugal
+38 YEOXOZAO Full season ends after Japan
+Nigel Mansell's World Championship Racing is a trademark of 
+Gametek, Inc.
+
+Pro Sport Hockey(tm) Game
+PRO
+CODE KEY IN  . . . EFFECT . . .
+1 ZESUZYPA Player 1 goals worth 2
+2 LESUZYPA Player 1 goals worth 3
+3 GESUZYPA Player 1 goals worth 4
+4 IESUZYPA Player 1 goals worth 5
+5 TESUZYPA Player 1 goals worth 6
+6 YESUZYPA Player 1 goals worth 7
+7 AESUZYPE Player 1 goals worth 8
+8 ZENLZYPA Player 2 goals worth 2
+9 LENLZYPA Player 2 goals worth 3
+10 GENLZYPA Player 2 goals worth 4
+11 IENLZYPA Player 2 goals worth 5
+12 TENLZYPA Player 2 goals worth 6
+13 YENLZYPA Player 2 goals worth 7
+14 AENLZYPE Player 2 goals worth 8
+15 VVNPTOSE Player 1 starts with 1 point
+16 ZENPIPAA + VVNOZPNT Player 1 starts with 2 points
+17 GENPIPAA + VVNOZPNT Player 1 starts with 4 points
+18 TENPIPAA + VVNOZPNT Player 1 starts with 6 points
+19 AENPIPAE + VVNOZPNT Player 1 starts with 8 points
+20 ZENPIPAE + VVNOZPNT Player 1 starts with 10 points
+21 VVNOPOSE Player 2 starts with 1 point
+22 ZENPIPAA + NVNPYPVT Player 2 starts with 2 points
+23 GENPIPAA + NVNPYPVT Player 2 starts with 4 points
+24 TENPIPAA + NVNPYPVT Player 2 starts with 6 points
+25 AENPIPAE + NVNPYPVT Player 2 starts with 8 points
+26 ZENPIPAE + NVNPYPVT Player 2 starts with 10 points
+Pro Sport Hockey is a trademark of Jaleco USA, Inc.
+
+Pugsley's Scavenger Hunt(tm) Game
+PUGS
+CODE KEY IN  . . . EFFECT . . .
+1 PEVKZTIA Start with 1 life
+2 PEVKZTIE Start with 9 lives
+3 SXUGZKVK Infinite lives
+4 PENKZTZA Start with 1 heart
+5 GENKZTZA Start with 4 hearts
+6 AASVUGIL Always be able to fly
+7 AAKGYGPA Infinite hearts
+8 AOVTETAO Mega-jump
+Pugsley's Scavenger Hunt is a trademark of Paramount Pictures.
+
+The Ren & Stimpy Show Buckeroos(tm) Game
+ROOS
+CODE KEY IN  . . . EFFECT . . .
+1 NYOYXLYE Infinite health
+2 NYUVOZTE Infinite lives
+3 PEUAPZLA Start with 2 lives
+4 IEUAPZLA Start with 6 lives
+5 YEUAPZLA Start with 8 lives
+6 PEUAPZLE Start with 10 lives
+7 VNXELSSO Start with $11 instead of 0
+8 OUEAXXOO Infinite collectibles
+9 OZEEPYES + PAEEZYZZ Start on Rescue the Maiden level
+10 OZEEPYES + PAEEZYZZ + SAEELNVV Start on Out West 
+level
+11 OZEEPYES + ZAEEZYZZ + SAEELNVV Start on Robin Hoek(tm) 
+level
+12 YPEYOUGU Shorter invincibility after getting hit
+13 ITEYOUGL Longer invincibility after getting hit
+14 ZAXNPZIA 2 custard pies picked up
+15 PAXNPZIE 9 custard pies picked up
+The Ren & Stimpy Show Buckeroos and Robin Hoek are trademarks of 
+Nickelodeon, a Programming Service of Viacom International, Inc.
+
+Star Trek: The Next Generation(tm) Game
+NEXT
+CODE KEY IN  . . . EFFECT . . .
+1 OUXTPYOP All systems are immune to damage--shields down
+2 SXUVTNSE Shields are immune to damage--shields up
+3 AGKVTTEP Quicker damage repair
+4 APKVTTEP Very quick damage repair
+5 EGKVTTEP Slower damage repair
+6 ZKNVLEZE Enemy does less damage
+7 ATETISVT Stop game time ticking over
+8 AAUZPAGY Photon Torpedoes(tm) always work
+9 AAEXTPNY Phasers(tm) always work
+10 AAOXPOKT Phasers fire for longer
+11 AAVTZVIL Damage is repaired immediately
+12 SXVUSTVG Transporter power does not decrease most of the 
+time
+13 IANUXTAZ Less transporter power required most of the time
+14 GVNZOZIT Stardate does not advance
+Star Trek: The Next Generation, Photon Torpedoes and Phaser are 
+trademarks of Paramount Pictures.
+
+Tetris 2(tm) Game
+TET2
+CODE KEY IN . . . EFFECT . . .
+1-Player Game Codes:
+1 AAUEUSSO Speed doesn't increase
+2 VNUEUSSO Speed increases much faster
+3 TEXAKYPA Start and stay at speed of 25
+4 ZEKESSPP + PESAOSAP Max speed is 2
+5 ZEKESSPO + PESAOSAO Max speed is 10
+6 YEKESSPO + TESAOSAO Max speed is 15
+7 GOKESSPP + LOSAOSAP Max speed is 20
+1-Player vs 2-Player or 1-Player vs Computer Game Codes:
+8 OZNETPOU + PANEYPAA Every round starts with 4 fixed 
+blocks
+9 OZNETPOU + YANEYPAA Every round starts with 10 fixed 
+blocks
+10 OZNETPOU + GANEYPAE Every round starts with 15 fixed 
+blocks
+11 OZNETPOU + PPNEYPAA Every round starts with 20 fixed 
+blocks
+All Games Codes:
+12 AAVZVYEA Cannot pause game with START button
+13 AVEXOYXZ Don't hide remaining pieces during pause
+Tetris 2 is a trademark of Elorg.
+
+Wayne's World(tm) Game
+WAY
+CODE KEY IN  . . . EFFECT . . .
+1 PANEYAGA Start with 2 lives
+2 YANEYAGA Start with 8 lives
+3 PANEYAGE Start with 10 lives
+4 VXKESXVK Infinite lives
+5 EANEZAEL Start with less Worthiness(tm)
+6 AGNEZAEL Start with much less Worthiness
+7 SZSEXUSE Infinite Worthiness
+8 NNSLYYKU More time in level 1
+9 NNNLIYZU More time in Donut shop in level 1
+10 SXSALOVK Infinite time
+11 AANAKLZA Power-up restores all Worthiness
+12 SZNANUSE Power-up worth nothing
+13 SZOOSUVV Getting all donuts is worth no extra lives
+14 YOKEZOLU Faster timer
+15 AVKEZOLL Slower timer
+16 IAEZXAGP 5 special moves picked up
+17 AZEZXAGO 40 special moves picked up
+Wayne's World and Worthiness are trademarks of NBC and Paramount.

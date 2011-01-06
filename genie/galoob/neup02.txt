@@ -1,0 +1,411 @@
+GAME GENIE(tm) FOR NES(r) CODES
+
+(c) 1993 Lewis Galoob Toys, Inc. All Rights Reserved.
+Excerpts from Game Genie(tm) Code Updates made available through 
+VideoGames & Computer Entertainment for the private use of Game 
+Genie owners. No commercial use without authorization. This file 
+may be freely distributed for private, non-commercial use as long as 
+it is not altered and all text remains intact.
+Game Genie is a product of Lewis Galoob Toys, Inc., and is not 
+manufactured, distributed or endorsed by Nintendo of America Inc. 
+NES is a trademark of Nintendo of America Inc. Game titles are 
+trademarks of their respective owners. Game Genie is a trademark of 
+Lewis Galoob Toys, Inc. U.S. Patent No. 5,112,051.
+
+THIS FILE CONTAINS ALL THE GAMES IN CODE UPDATE/NES VOL. 
+1, #2.
+
+1.      DRAGON WARRIOR II(tm) GAME
+2.      DRAGON'S LAIR(tm) GAME
+3.      FOX'S PETER PAN AND THE PIRATES(tm) GAME
+4.      SKI OR DIE(tm) GAME
+5.      INDIANA JONES AND THE LAST CRUSADE(tm) GAME
+6.      KIWI KRAZE(tm) GAME
+7.      METAL STORM(tm) GAME
+8.      MICRO MACHINES(tm) THE OFFICIAL VIDEO GAME
+9.      IKARI III: THE RESCUE(tm) GAME
+10.     TOTAL RECALL(tm) GAME
+11.     TOTALLY RAD(tm) GAME
+12.     WEREWOLF: THE LAST WARRIOR(tm) GAME
+13.     WHOMP 'EM(tm) GAME
+14.     WWF WRESTLEMANIA CHALLENGE(tm) GAME
+15.     THE LEGEND OF ZELDA(tm) GAME
+
+DRAGON WARRIOR II(tm) GAME
+Hail, warrior! Once again it is left to you to defeat the minions of 
+the Dark--but nobody said it would be easy! To help you along in this 
+vast quest, we've conjured up a cauldron of excellent Game 
+Genie(tm) codes to adjust each character's powers.
+Four different types of codes will help you--the Prince of 
+Midenhall(tm)--in your quest. Three types (hit points, strength 
+points and agility points) affect your own powers as well as those 
+of the Prince of Cannock(tm) and Princess of Moonbrooke(tm), the 
+characters you meet on your journey and then travel with. The fourth 
+set of codes--for magic points--affect only the Prince of 
+Cannock(tm) and the Princess.
+DW2
+CODE    KEY IN...       EFFECT
+Prince of Midenhall 
+1       ZUKLUSGP        Start with 50 hit points
+2       LVKLUSGP        Start with 99 hit points
+3       AXKLOIIE        Start with 40 strength points
+4       ASKLOIIA        Start with 80 strength points
+5       AXKLXIGE        Start with 40 agility points
+6       ASKLXIGA Start with 80 agility points
+Prince of Cannock 
+7       ZUKLNSYP        Start with 50 hit points
+8       LVKLNSYP        Start with 99 hit points
+9       AXKLSIGE        Start with 40 strength points
+10      GUKLSIGE        Start with 60 strength points
+11      TOKLVIGE        Start with 30 agility points
+12      GUKLVIGE        Start with 60 agility points
+13      AXKUEITE        Start with 40 magic points
+14      GUKUEITE        Start with 60 magic points Princess of Moonbrooke 
+15      ZUKUUIAZ        Start with 50 hit points
+16      LVKUUIAZ        Start with 99 hit points
+17      POKUOIZE        Start with 25 strength points
+18      ZUKUOIZA        Start with 50 strength points
+19      AXKUXITO        Start with 40 agility points
+20      AXKUKSGO        Start with 40 magic points
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Dragon Warrior II, Prince of Midenhall, Prince of Cannock and 
+Princess of Moonbrooke are trademarks of Enix of America Co. Used 
+by Nintendo of America Inc. under license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+DRAGON'S LAIR(tm) GAME
+Enter the Dragon's Lair(tm)--if you dare! And when you're armed 
+with these Game Genie(tm) codes, you need not fear. For example, 
+LAIR Code 13 gives you protection against creatures (like bats) that 
+would normally deplete your energy.
+LAIR 
+CODE    KEY IN...       EFFECT
+1       AAXITVNY        Infinite lives
+2       NNXSGSUY        Start with 2 lives
+3       KNXSGSUN        Start with 7 lives
+4       NNXSGSUN        Start with 10 lives
+5       PEUIGIAA        Start with axe
+6       ZEUIGIAA        Start with fireball
+7       PANSZIAA        Start on level 2
+8       ZANSZIAA        Start on level 3
+9       LANSZIAA        Start on level 4
+10      SXKYUOVK + SXVYXOVK     Infinite candle energy
+11      IAVNPYAP        Less energy gained on pick-up
+12      YZVNPYAP        More energy gained on pick-up
+13      AEXSGEKY        Protection!
+Remember that you can pick'n'mix your codes.
+Dragon's Lair is a trademark of Bluth Group, Ltd.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+FOX'S PETER PAN AND THE PIRATES(tm) GAME
+With your Game Genie(tm), you can help Peter Pan foil "The Revenge 
+of Captain Hook(tm)" and drive those nasty pirates out of Neverland-
+-never to return. PETE Codes 1 thru 4 let you adjust Peter Pan's 
+lives, Codes 5 thru 7 and 10 let you modify his flying power, and 
+Codes 8 and 9 change his energy level. For you expert pirate 
+punishers, Codes 2, 6 and 9 make your task more of a challenge!
+PETE 
+CODE    KEY IN . . .    EFFECT . . .
+1       SZOKYLVG        Infinite lives
+2       PENKLGLA        1 life
+3       TENKLGLA        6 lives
+4       PENKLGLE        9 lives
+5       GASSNZGE        Slower flight meter
+6       ZASSNZGA        Faster flight meter
+7       SZVSXXVK        Infinite flight power
+8       TONGZKZE + TPXKYUZE     Start with more energy
+9       IENGZKZA + IAXKYUZA     Start with less energy
+10      ZAUIUZPA + ZAOIVAPA     Faster flying left and right
+Remember that you can pick'n'mix your codes.
+Fox's Peter Pan and the Pirates and The Revenge of Captain Hook are 
+trademarks of Fox Children's Productions used by THQ, Inc. under 
+license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+SKI OR DIE(tm) GAME
+Well, dudes, you've got to be good to survive the slopes, or you'll end 
+up plowing them--with your face! For help, key in Ski or Die(tm) 
+codes for more snowballs, time, ammo and jumps. For you skiin' 
+sensations, try combining SKI Codes 3 and 7, and then see how far 
+you get!
+SKI 
+CODE    KEY IN . . .    EFFECT . . .
+Snowball Blast(tm)
+1       ZENXTTPA        More snowballs picked up
+2       OOEPVAAV        Start with more time
+3       AKEPVAAT Start with less time
+4       IOKXITAP        More time gained
+5       IEKXITAP        Less time gained
+6       GAUPVAZA        Start with more ammo
+7       PAUPVAZA        Start with less ammo
+Acro Aerials(tm)
+8       IESTEYLA + IAVVNILA     More jumps allowed
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time, or SKI Code 8 and one other.
+Ski or Die, Snowball Blast and Acro Aerials are trademarks of 
+Electronic Arts.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+INDIANA JONES AND THE LAST CRUSADE(tm) GAME
+Indy(tm) needs your help to complete his latest and most difficult 
+quest. Check out the list below, where you'll find codes for each 
+section of the game. Dial in a code for more lives--or, if you think 
+you're hot, dial in one for fewer lives. On the bike-riding section, 
+you can have infinite lives!
+JONES
+CODE    KEY IN...       EFFECT...
+1       SZUEEIVG        Infinite lives on bike section
+2       PAVAGYIE        More lives on ship section
+3       PAVAGYIA        Fewer lives on ship section
+4       PAEPIITE        More lives on tank section
+5       PAEPIITA        Fewer lives on tank section
+6       PEXPTALE        More lives on castle section
+7       PEXPTALA        Fewer lives on castle section
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd. 
+Used by Taito America Corporation under license.
+
+KIWI KRAZE(tm) GAME
+Yo, Tiki(tm) dude. Here's some heavy-duty help in your quest to bring 
+back your bird-brained buddies and phind your phabulous phemale 
+phriend Phee Phee(tm). KIWI Codes 3 thru 5 let you choose the 
+number of lives to start with and also affect the number of times 
+you can continue the game. KIWI Codes 10 thru 13 allow you to warp 
+to any level. But the star code for this game is KIWI Code 1--check 
+it out!
+KIWI
+CODE
+        KEY IN . . .    EFFECT . . .
+1       XYKTISKN        Super jump
+2       SUSKLYVI        Infinite lives
+3       AANGLLZA        Start with 1 life (and 1 continue)
+4       IANGLLZA        Start with 6 lives (and 6 continues)
+5       AANGLLZE        Start with 9 lives (and 9 continues)
+6       AAEGNPZA        1 life after continue
+7       IAEGNPZA        6 lives after continue
+8       AAEGNPZE        9 lives after continue
+9       GZEKXPVS        Infinite continues
+10      GZVKAUSE + GAVGYLAA     Start on level 2
+11      GZVKAUSE + AAVGYLAE       Start on level 3
+12      GZVKAUSE + GAVGYLAE     Start on level 4
+13      GZVKAUSE + PPVGYLAA     Start on level 5
+Remember that you can pick'n'mix your codes.
+Kiwi Kraze, Tiki and Phee Phee are trademarks of Taito America 
+Corporation.
+
+METAL STORM(tm) GAME
+Your mission is to destroy the berserk computer that's about to turn 
+the Earth into toast! Key in MET Codes 7 and 8 to arm yourself with 
+permanent weapons. MET Code 4 will let you start with extra 
+weapons. Combined with MET Code 3, they will make you a force to 
+be reckoned with!
+MET
+CODE    KEY IN...  EFFECT...
+1       TEXUNLZA        Start with 6 lives
+2       PEXUNLZE        Start with 9 lives
+3       AASOYYPA        Infinite lives
+4       NNNLOLAE        Start with extra weapons
+5       AVKYPSGL        Slower timer
+6       AXKYPSGL        Faster timer
+7       AESTKXGA        Permanent fireball
+8       AESXXNGY        Permanent shield
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate 
+codes at one time.
+Metal Storm is a trademark of IREM America Corp.
+
+MICRO MACHINES(tm) THE OFFICIAL VIDEO GAME
+At last it's here! The video game of your favorite vehicles! And 
+here's a whole host of mega Game Genie(tm) codes to go with it. If 
+you're having trouble with the Micro Machines(tm) Challenge, you'll 
+love MICRO Codes 1 thru 11--they'll help you get farther into the 
+game than you've ever been before! That's not all: MICRO Codes 12 
+thru 31 will let you change the performance of your favorite Micro 
+Machines vehicle so you can speed up faster, put the brakes on 
+quicker and bounce WAY higher. Pedal to the metal and check 'em out!
+MICRO
+CODE    KEY IN . . .    EFFECT . . .
+These codes can only be used in the Micro Machines Challenge (NOT in 
+the two-player 
+one-on-one game):
+1       PEKNAYLE / PAXNAYLE     Play with 9 lives
+2       GXSZZVVK / GZNXGVVK     Infinite lives
+3       GEKYSZZA / GAXYSZZA     Qualify every race!
+4       PEUYXZLA / PAOYXZLA     Ruff Trux(tm) after every race
+5       PASYNALA / PEUYYYLA     Kid out of game after every race
+6       GEKNIYAA / GAXNIYAA     Start on race 5
+7       PEKNIYAE / PAXNIYAE     Start on race 10
+8       TEKNIYAE / TAXNIYAE     Start on race 15        
+9       LOKNIYAA / LPXNIYAA     Start on race 20
+10      AOKNIYAE / APXNIYAE     Start on race 25 (Final Race!)
+11      GESYOZPA / GAUYOZPA     Win Championship race!
+12      AAOEIAIA        Faster Boat acceleration
+13      AAOEGAIA  Faster Sports Car acceleration  
+14      AAOETAIA        Faster Formula 1 acceleration
+15      AAOEYAIA        Faster Turbo Wheels(tm) acceleration
+16      AAXAAAIA        Faster 4x4 acceleration
+17      AAXAZAZA        Faster Tank acceleration
+18      AAXALAIA        Faster Chopper acceleration
+19      AAXATEPA        Quicker Boat deceleration
+20      AAXAIEPA        Quicker Sports Car deceleration
+21      AAXAYEPA        Quicker Formula 1 deceleration
+22      AAXEAEPA        Quicker Turbo Wheels deceleration
+23      AAXEPEPA        Quicker Jeep deceleration
+24      AAXELAZA        Quicker Tank deceleration
+25      AAXEGEYA        Quicker Chopper deceleration
+26      YAEAZAPA        Higher bounce for Boats
+27      IAEAPAPA        Higher bounce for Sports Car
+28      YAEALAPA        Higher bounce for Formula 1's
+29      YAEAGAPA        Higher bounce for Turbo Wheels
+30      YAEAIAPA        Higher bounce for Jeeps
+31      YAEAYAPA        Higher bounce for Tanks
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are 
+trademarks of Lewis Galoob Toys, Inc.
+
+IKARI III: THE RESCUE(tm) GAME
+The battle is on again for those soldiers of fortune. And fortunately 
+for you there are codes like IKAR Codes 1 thru 3, which adjust the 
+number of lives you start with. Or, since you normally get three 
+lives after continuing, there are IKAR Codes 4 thru 6 so you can 
+change all that. IKAR Code 8 is brilliant, allowing you to kill 
+enemies much faster and progress quickly through the stages. And 
+IKAR Code 9 protects you from almost all damage!
+IKAR
+CODE    KEY IN...       EFFECT...
+1       PEOKUALA        Start with 1 life
+2       TEOKUALA        Start with 6 lives
+3       PEOKUALE        Start with 9 lives
+4       PEXKZLLA        1 life after continue
+5       TEXKZLLA        6 lives after continue
+6       PEXKZLLE 9 lives after continue
+7       AEUGNYPA        Infinite lives
+8       YESKVGPA        3-way firing, instead of punching
+9       GZSUOAST        Immune to most kicks and punches
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Ikari III: The Rescue is a trademark of SNK Corporation of America.
+
+TOTAL RECALL(tm) GAME
+Let's see . . . we forgot. Oh, yes! What a mind-blowing adventure this 
+is, with some unforgettable Game Genie(tm) codes. CALL Code 1 
+gives you infinite energy. CALL Codes 2 and 3 start you with more or 
+less energy on ALL lives. With CALL Code 5 you take only about one-
+tenth the usual damage from enemy attackers. With all this help, you 
+may have a chance to save your home. Set your mind to it and do it!
+CALL
+CODE    KEY IN...       EFFECT...
+1       AVNVOAKZ        Infinite energy!
+2       OZNKEPSX + ALNKOOLZ     Start with less energy
+3       OZNKEPSX + NYNKOOLX     Start with more energy
+4       GXUIIXSO        Most enemies easier to kill
+5       PENVKEGE        Take less damage
+6       XYUVNUXT        Gain maximum energy from canisters
+Remember that you can pick'n'mix your codes.
+Total Recall is a trademark of Carolco Pictures, Inc. Used by Acclaim 
+Entertainment, Inc. under license.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+TOTALLY RAD(tm) GAME
+Super, dude. We've got some way-cool codes for this mega-hot game. 
+Check out RAD Codes 7 and 8 for increased jumping power. Or RAD 
+Code 5 for protection against attacks. And check this out: Before 
+now, when you wanted to have unlimited use of your magic powers, 
+there was "no way"! Now there's "yes way" with RAD Code 6!
+RAD
+CODE    KEY IN...       EFFECT...
+1       SZSEYXVK        Infinite lives
+2       AEUXSTZA        Start with 1 life
+3       IEUXSTZA Start with 6 lives
+4       AEUXSTZE        Start with 9 lives
+5       SVVNTKON        Don't lose energy from bad guys
+6       GXXAPKSN        Infinite magic
+7       AOOAYGAO        Super jump
+8       YOOAYGAO        Mega-jump!
+9       TEEONALA        Half a life or half magic give full energy
+10      SZVAYIVG        Immune to fire and water!
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Totally Rad is a trademark of Jaleco USA, Inc.
+
+WEREWOLF: THE LAST WARRIOR(tm) GAME
+When the moon rises, things can can get pretty hairy! But you can 
+escape a lot of close shaves with your Game Genie(tm). How about 
+having infinite time to complete your game (WOLF Code 1)? Or 
+becoming Super-Werewolf after finding only one anger point pill 
+(WOLF Code 2)? Codes like these make playing this game a real howl!
+WOLF
+CODE    KEY IN...       EFFECT...
+1       SZXTTLVG        Infinite time
+2       PAENGTIA        Only 1 anger point needed to become Super-
+Werewolf!
+3       AAUNGVZA + AAUNPVAA     Don't lose energy from blue "W"
+4       SZXNPVVK        Blue "W" won't change you back to a man
+5       ESKNTIKI        Gain maximum energy from small hearts
+Remember that you can pick'n'mix your codes.
+Werewolf: The Last Warrior is a trademark of Data East USA Inc. 
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
+WHOMP 'EM(tm) GAME
+WHOMP Code 4 prevents you from losing a life when your energy 
+hearts run out, but beware, 'cause you can still lose lives when 
+certain creatures touch you. Check out WHOMP Code 7--it lets you 
+keep the buffalo headdress for the whole level that you find it on, 
+when normally it only lasts for a short time. WHOMP Code 8 gives 
+you the effect of having a headdress for the whole game, but it will 
+not be shown on the screen!
+WHOMP
+CODE    KEY IN...       EFFECT...
+1       AEKKGALA        Start with 1 life
+2       LAVKYAAA        Start with 5 lives
+3       AAVKYAAE        Start with 10 lives
+4       SXEEZPVG        Don't lose a life from energy loss
+5       SXXOUPVG        Creatures can't steal extra lives
+6       SZNATPSA        Infinite energy
+7       SZKEGPVG        Keep buffalo headdress for present level
+8       ZAKELOAA        Always have buffalo headdress
+Remember that you can pick'n'mix your codes. You can enter up to 
+THREE separate codes at one time.
+Whomp'Em is a trademark of Jaleco Ltd.
+
+WWF WRESTLEMANIA CHALLENGE(tm) GAME
+The star code for this brawlin' game is WRES Code 1, which extends 
+the normal 3-second count to 9 seconds, giving you more of a chance 
+to break free from the pin. On the other hand, WRES Code 2 reduces 
+the count by half, so you have to be quick and get back in the ring or 
+your corner once the count starts! If your wish is to adjust all the 
+timers, grant it with WRES Code 3 or 4.
+WRES
+CODE    KEY IN...       EFFECT...
+1       ZEELLGGE        Pin count extended to 9 seconds
+2       TESGYOLA        10-count reduced to 5 seconds
+3       IVNKGOGL        All counts slower
+4       YONKGOGU        All counts faster
+WWF Wrestlemania Challenge is a trademark of TitanSports, Inc.
+
+THE LEGEND OF ZELDA(tm) GAME
+Help Link(tm) save Zelda(tm) with these excellent Game Genie(tm) 
+codes--at last you will be able to complete this epic adventure, 
+destroy the evil Ganon,(tm) and rescue the Princess! When using ZELD 
+Code 7 or 8 you will have a protection ring, although it will not show 
+on your menu. ZELD Code 4 makes sure you don't get charged when 
+you buy things--but you do have to have enough money to cover the 
+purchase price. With ZELD Code 5, you don't even need to have that!
+ZELD
+CODE    KEY IN...       EFFECT...
+1       AVVLAUSZ        Don't take damage from anything
+2       YYKPOYZZ        Create character with 8 life hearts
+3       NYKPOYZX        Create character with 16 life hearts
+4       SZVXASVK        Don't lose rubies when buying
+5       SZVXASVK + AEVEVALG     All items for free
+6       SZNZVOVK        Infinite bombs
+7       ESKUILTA        Wear a blue ring
+8       OSKUILTA        Wear a red ring
+Remember that you can pick'n'mix your codes.
+The Legend of Zelda, Link, Zelda and Ganon are trademarks of 
+Nintendo of America Inc.
+Game Genie is a trademark of Lewis Galoob Toys, Inc.
+
