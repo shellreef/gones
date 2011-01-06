@@ -6,6 +6,7 @@
 
 open(FH, "<gamelist-gg.csv") || die;
 my %galoobs;
+my %ids;
 while(<FH>) {
     chomp;
     my ($id, $name) = split /,/, $_, 2;
@@ -19,6 +20,7 @@ while(<FH>) {
             last;
         }
     }
+    $ids{$name} = $id;
 
     die "incorrect game name: $name" if !$found;
 
@@ -36,6 +38,7 @@ $goodnes{$_} = 1 for @goodnes;
 close(FH);
 
 open(FH, "<gg2gn.csv") || die;
+my %map;
 my $i;
 while(<FH>) {
     chomp;
@@ -44,10 +47,22 @@ while(<FH>) {
     die "incorrect Galoob game name: $galoob" if !$galoobs{$galoob};
     die "incorrect GoodNES game name: $goodnes" if !$goodnes{$goodnes};
     $i++;
+
+    $map{$galoob} = $goodnes;
 }
 my $j = scalar keys %galoobs;
 die "missing some games from gg2gn.csv ($i != $j)" if $i != $j;
 
 print "gg2gn.csv OK\n";
 print "$i games matched\n";
+
+open(MASTER,">gggg.csv")||die;
+for my $galoob (sort keys %ids) {
+    my $id = $ids{$galoob};
+    die "no id?!" if !defined($id);
+    my $gn = $map{$galoob};
+    die "no gn?!" if !defined($gn);
+    print MASTER "$galoob\t$id\t$gn\n";
+}
+close(MASTER);
 
