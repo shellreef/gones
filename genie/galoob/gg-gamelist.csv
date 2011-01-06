@@ -77,7 +77,7 @@ CAS2,Casino Kid II (tm) Game
 CAST,Castelian(tm) Game
 CAST,Castle of Dragon(tm) Game
 QEST,CastleQuest(tm) Game
-NOTE: You may notice some extra flicker on the screen. Try pressing ,CastleVania(tm) Game
+CAS,CastleVania(tm) Game
 VAN,CastleVania(tm) II: Simon's Quest(tm) Game
 POOL,Championship Pool (tm) Game
 CHIP,Chip 'N Dale(tm) Game
@@ -97,7 +97,7 @@ CONT,Contra(tm) Game
 CON,Contra Force(tm) Game
 COOL,Cool World(tm) Game
 CRYS,Crystalis(tm) Game
-cybe,Cybernoid(tm) Game
+CYBE,Cybernoid(tm) Game
 DWD,Darkwing Duck(tm) Game
 DASH,Dash Galaxy in the Alien Asylum(tm) Game
 DAYS,Days of Thunder(tm) Game
@@ -115,7 +115,7 @@ HARRY,Dirty Harry(tm) Game
 DUCK,Disney's Duck Tales(tm) Game
 DK3,Donkey Kong(tm) Game
 DK3,Donkey Kong 3(tm) Game
-IMPORTANT: CODES FOR DONKEY KONG JR.(tm) ARE ONLY FOR THE ,Donkey Kong Classics(tm) Game
+CLAS,Donkey Kong Classics(tm) Game
 DUB,Double Dragon(tm) Game
 DD2,Double Dragon II: The Revenge(tm) Game
 DD3,Double Dragon III--The Sacred Stones(tm) Game
@@ -125,7 +125,7 @@ DR.,Dr. Mario(tm) Game
 DRAG,Dragon Power(tm) Game
 WAR,Dragon Warrior(tm) Game
 DW2,Dragon Warrior II(tm) Game
-MANY OF THESE CODES WILL GIVE DIFFERENT QUANTITIES OF ,Dragon Warrior III(tm) Game
+DRAG,Dragon Warrior III(tm) Game
 DRAG4,Dragon Warrior IV(tm) Game
 DRAG,DragonStrike(tm) Game
 LAIR ,Dragon's Lair(tm) Game
@@ -142,6 +142,7 @@ FAR,Faria(tm) Game
 FAX,Faxanadu(tm) Game
 FELI,Felix the Cat(tm) Game
 FINAL,Final Fantasy(tm) Game
+FIRE,Firehawk(tm)
 FIST,Fist of the North Star(tm) Game
 INT,Flight of the Intruder(tm) Game
 FLINT,The Flintstones: The Rescue of Dino and Hoppy(tm) Game
@@ -181,7 +182,7 @@ HOGE,Hogan's Alley(tm) Game
 HOME2,Home Alone 2(tm) Game
 HOOK,Hook(tm) Game
 AI,Hudson's Adventure Island(tm) Game
-NOTE: THESE CODES MAY NOT WORK ON some COPies OF THE GAME. ,The Hunt for Red October(tm) Game
+RED,The Hunt for Red October(tm) Game
 LIDE,Hydlide(tm) Game
 ICE,Ice Climber(tm) Game
 IK,Ikari Warriors(tm) Game
@@ -228,7 +229,7 @@ LAST,The Last Starfighter(tm) Game
 LETH,Lethal Weapon (tm) Game
 WIZ,Legacy of the Wizard(tm) Game
 KAGE,The Legend of Kage(tm) Game
-NOTE: When continuing a saved game, you must re-enter the same ,The Legend of Zelda(tm) Game
+ZELD,The Legend of Zelda(tm) Game
 WING,Legendary Wings(tm) Game
 BASE,Legends of the Diamond(tm) Game
 LEM,Lemmings(tm) Game
@@ -248,7 +249,7 @@ BROS,Mario Bros.(tm) Game
 KIDS,M.C. Kids(tm) Game
 MEC,Mechanized Attack(tm) Game
 MEGA,MegaMan(tm) Game
-note: all codes make the music sound strange. It's harmless. mega ,MegaMan 2(tm) Game
+MEGA,MegaMan 2(tm) Game
 MEGA,MegaMan 3(tm) Game
 MM4,MegaMan 4(tm) Game
 MEG5,MegaMan 5(tm) Game
@@ -259,7 +260,7 @@ MECH,Metal Mech(tm) Game
 MET,Metal Storm(tm) Game
 MET,Metroid(tm) Game
 MICK,Mickey Mousecapade(tm) Game
-NOTE: There are two versions given for some of the following Codes. ,Micro Machines(tm) The Official Video Game
+MICRO,Micro Machines(tm) The Official Video Game
 MIG,MIG 29 Soviet Fighter (tm) Game
 JACK,Mighty Bomb Jack(tm) Game
 MFF,Mighty Final Fight(tm) Game
@@ -294,7 +295,7 @@ BOT,Pin-Bot(tm) Game
 PIN,Pinball Game
 PIPE,Pipe Dream(tm) Game
 PLAT,Platoon(tm) Game
-NOTE: THESE CODES MAY NOT WORK ON some copies OF THE GAME. ,Popeye(tm) Game
+POP,Popeye(tm) Game
 POWB,Power Blade(tm) Game
 BLADE,Power Blade 2 (tm) Game
 PRED,Predator(tm) Game
@@ -306,20 +307,14 @@ BOOT,Puss 'n Boots--Pero's Great Adventure(tm) Game
 PUZZ,Puzznic(tm) Game
 BERT,Q*Bert(tm) Game
 QIX,Qix(tm) Game
-1) Boomerang Kid(tm) Game,Quattro Adventure(tm) Game
-LINU,2) Linus Spacehead(tm) Game
-ROB,3) Super Robin Hood(tm) Game
-TREAS,4) Treasure Island Dizzy(tm) Game
-1) Go! Dizzy Go!(tm) Game,Quattro Arcade(tm) Game
-BUGG,2) Stunt Buggies(tm) Game
-F-16,3) F-16 Renegade(tm) Game
-C.J,4) C.J.'s Elephant Antics(tm) Game
+BOOM/LINU//ROB/TREAS,Quattro Adventure(tm) Game
+GODIZ/BUGG/F-16/C.J.,Quattro Arcade(tm) Game
 RAD,Rad Racer(tm) Game
 RAID,Raid on Bungeling Bay(tm) Game
 RAL,Rally Bike(tm) Game
 BO,Rambo(tm) Game
 RAM,Rampage(tm) Game
-NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF ,RC Pro Am(tm) Game
+PRO,RC Pro Am(tm) Game
 PRO 2,R.C. Pro-Am II(tm) Game
 PRO,Renegade(tm) Game
 ROOS,The Ren & Stimpy Show Buckeroos (tm) Game
@@ -349,8 +344,9 @@ SHOO,Shooting Range(tm) Game
 SIL,Silent Service(tm) Game
 SILK,Silkworm(tm) Game
 SURF,Silver Surfer(tm) Game
-NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF ,The Simpsons(tm): Bart(tm) vs. The Space Mutants Game
-NOTE: CODES WORK, BUT THERE MAY BE A BLACK AREA AT THE ,The Simpsons: Bartman Meets Radioactive Man(tm) Game
+BART,The Simpsons(tm): Bart(tm) vs. The Space Mutants Game
+BAR2,The Simpsons(tm): Bart Vs. The World(tm)
+RADIO,The Simpsons: Bartman Meets Radioactive Man(tm) Game
 DIE,Skate or Die 2(tm) Game
 SKI ,Ski or Die(tm) Game
 SKULL,Skull & Crossbones (tm) Game
@@ -377,7 +373,7 @@ HEC,Starship Hector(tm) Game
 TREK,Star Trek 25th Anniversary (tm) Game
 NEXT,Star Trek: The Next Generation(tm) Game
 ATF,Stealth ATF(tm) Game
-NOTE: WHEN USING STING CODES 1 THRU 5 YOU MUST WAIT FOR THE ,Stinger(tm) Game
+STING,Stinger(tm) Game
 COP,Street Cop(tm) Game
 FIGHT,Street Fighter 2010: The Final Fight(tm) Game
 STRI,Strider(tm) Game
@@ -398,6 +394,8 @@ TAR,Target: Renegade(tm) Game
 BOWL,Tecmo Bowl(tm) Game
 BALL,Tecmo(tm) NBA(tm) Basketball Game
 TEEN,Teenage Mutant Ninja Turtles(tm) Game
+TMNT2,Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm)
+TMNT3,Teenage Mutant Ninja Turtles III-The Manhattan Project(tm)
 TERA,Terra Cresta(tm) Game
 TET,Tetris(tm) Game
 TET2,Tetris 2(tm) Game
@@ -420,7 +418,7 @@ TWIN,Twin Eagle(tm) Game
 ULT,Ultima Exodus(tm) Game
 AVA,Ultima, Quest of the Avatar(tm) Game
 DEST,Ultima, Warriors of Destiny(tm) Game
-NOTE: THERE ARE TWO VERSIONS GIVEN FOR MOST OF THE FOLLOWING ,Ultimate Stuntman (tm) Game
+ULT,Ultimate Stuntman (tm) Game
 UNTO,The Untouchables(tm) Game
 URB,Urban Champion(tm) Game
 VICE,Vice: Project Doom(tm) Game
