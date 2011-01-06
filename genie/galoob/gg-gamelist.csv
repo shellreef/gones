@@ -65,13 +65,13 @@ BUB,Bubble Bobble(tm) Game
 BUB,Bubble Bobble II(tm) Game
 HARE,Bucky O'Hare(tm) Game
 BUGS,The Bugs Bunny(tm) Birthday Blow Out(tm) Game
-,Bugs Bunny(tm)--The Bugs Bunny Crazy Castle(tm) Game
+BUGS,Bugs Bunny(tm)--The Bugs Bunny Crazy Castle(tm) Game
 BUMP,Bump'n'Jump(tm) Game
 BURA,Burai Fighter(tm) Game
 BURG,BurgerTime(tm) Game
 CAB,Cabal(tm) Game
 PLAN,Captain Planet and the Planeteers(tm) Game
-,Captain Skyhawk (tm) Game
+HAWK,Captain Skyhawk (tm) Game
 CAS2,Casino Kid II (tm) Game
 CAST,Castelian(tm) Game
 CAST,Castle of Dragon(tm) Game
@@ -120,10 +120,10 @@ DD2,Double Dragon II: The Revenge(tm) Game
 DD3,Double Dragon III--The Sacred Stones(tm) Game
 CHAOS,Dr. Chaos (tm) Game
 HYDE,Dr. Jekyll and Mr. Hyde (tm) Game
-,Dr. Mario(tm) Game
+DR.,Dr. Mario(tm) Game
 DRAG,Dragon Power(tm) Game
 WAR,Dragon Warrior(tm) Game
-,Dragon Warrior II(tm) Game
+DW2,Dragon Warrior II(tm) Game
 MANY OF THESE CODES WILL GIVE DIFFERENT QUANTITIES OF ,Dragon Warrior III(tm) Game
 DRAG4,Dragon Warrior IV(tm) Game
 DRAG,DragonStrike(tm) Game
@@ -154,7 +154,7 @@ FUN,Fun House (tm) Game
 G.I.,G.I. Joe(tm) Game
 GALA,Galaga(tm) Demons of Death(tm) Game
 GAL,Galaxy 5000(tm) Game
-,Gauntlet II(tm) Game
+GAUNT,Gauntlet II(tm) Game
 GB,Ghostbusters(tm) Game
 BUST,Ghostbusters(tm) II Game
 GOB,Ghosts 'n Goblins(tm) Game
@@ -245,7 +245,7 @@ BROS,Mario Bros.(tm) Game
 KIDS,M.C. Kids(tm) Game
 MEC,Mechanized Attack(tm) Game
 MEGA,MegaMan(tm) Game
-,MegaMan 2(tm) Game
+note: all codes make the music sound strange. It's harmless. mega ,MegaMan 2(tm) Game
 MEGA,MegaMan 3(tm) Game
 MM4,MegaMan 4(tm) Game
 MEG5,MegaMan 5(tm) Game
@@ -356,7 +356,7 @@ SLALOM,Slalom(tm) Game
 SNAKE,Snake's Revenge(tm) Game
 RAT,Snake, Rattle 'N' Roll(tm) Game
 SNOW,Snow Brothers(tm) Game
-,Soccer Game
+SOC,Soccer Game
 JET,Solar Jetman(tm) Game
 SOL,Solomon's Key(tm) Game
 SOLS,Solstice(tm) Game
@@ -366,7 +366,7 @@ SPYS,Spy vs Spy(tm) Game
 SQOO,Squoon (tm) Game
 STAR,Star Soldier(tm) Game
 TROP,StarTropics(tm) Game
-,Star Voyager(tm) Game
+VOY,Star Voyager(tm) Game
 STAR,Star Wars(tm) Game
 FORCE,Starforce(tm) Game
 HEC,Starship Hector(tm) Game
@@ -379,7 +379,7 @@ FIGHT,Street Fighter 2010: The Final Fight(tm) Game
 STRI,Strider(tm) Game
 STUNT,Stunt Kids(tm) Game
 SUPBOL,Super Bowl(tm) Game
-,Super C(tm) Game
+SUPER,Super C(tm) Game
 SMB,Super Mario Bros.(tm) Game
 SMB2,Super Mario Bros.(tm) 2 Game
 SMB3,Super Mario Bros.(tm) 3 Game

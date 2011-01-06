@@ -9,7 +9,10 @@ while(<FH>) {
     chomp;
     if (m/Game$/ || $_ eq 'Adventures of Lolo 3(tm)') {
         my $name = $_;
-        chomp(my $gameid = <FH>);
+        my $gameid = "";
+        while (!length($gameid)) {
+            chomp($gameid = <FH>);
+        }
 
         print "$gameid,$name\n";
         ++$i;
