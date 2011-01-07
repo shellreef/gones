@@ -4563,8 +4563,7 @@ The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	3	ANENPXGU / AYN
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	4	AXENPXGL / AZNNIXGL	Speed up timer
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	5	PAONAYAA / PAENGYAA	Gain 2 coins for every 1 collected
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	6	PAONTNTE / PAOYZNTE	Only 10 coins needed to get an extra life
-The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	7	GXXZZOVK + GXXULEVK / 	Buy items for free!
-The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	info		GXOXIXVK + GXXLIEVK	
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	7	GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK 	Buy items for free!
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	info	The Simpsons and Bart are trademarks of Twentieth Century Fox	
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	info	Film Corporation. Used by Acclaim Entertainment, Inc. under license.	
 The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	code	1	SZONIPST	Infinite lives
@@ -5308,9 +5307,9 @@ Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	2	AUXAGAEL	
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	3	OZNEOXPV + ZANEXZPA	Only need to win one round to win  match
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	4	NYUESPYE	Both players can select ultra strength--
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info				ignore strength meter and keep pushing to the right	
-Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info	5.	YAVAZLGA	You can select any character in story mode	
-Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info	6.	OKKEZTVG	Infinite continues	
-Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info	7.	PEXAGAEL	Whoever gets the first hit wins the round	
+Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	5	YAVAZLGA	You can select any character in story mode	
+Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	6	OKKEZTVG	Infinite continues	
+Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	7	PEXAGAEL	Whoever gets the first hit wins the round	
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info	Teenage Mutant Ninja Turtles is a trademark of Mirage Studios. Tournament Fighters is a trademark of Konami (America) Inc	
 Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm) Game	TMNT2	code	1	PEOIAPZA	Start with 1 life
 Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm) Game	TMNT2	code	2	TEOIAPZA	Start with 6 lives
@@ -5671,8 +5670,7 @@ Ultimate Stuntman(tm) Game	ULT	code	4	SZEIPUVK / SXNSYXVK	Infinite time
 Ultimate Stuntman(tm) Game	ULT	code	5	SXXSVUVK / SXXSNUVK	Infinite 'Crez' weapon until end of stage
 Ultimate Stuntman(tm) Game	ULT	code	6	PEXXOAIE / PEXXSATE	9 seconds on clock pick-up
 Ultimate Stuntman(tm) Game	ULT	code	7	AEEZSPZA / AEOZXPZA	Full energy on pick-up
-Ultimate Stuntman(tm) Game	ULT	info	8	OVXZNPSV + PEXXEONY /	
-Ultimate Stuntman(tm) Game	ULT	info		OVUZKPSV + PEUZSONY	Minimum damage taken	
+Ultimate Stuntman(tm) Game	ULT	code	8	OVXZNPSV + PEXXEONY / OVUZKPSV + PEUZSONY	Minimum damage taken	
 Ultimate Stuntman(tm) Game	ULT	code	9	NYXXXVAN / NYXXVVAN	Shield lasts longer on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	code	10	AGXXXVAY / AGXXVVAY	Shield lasts a shorter time on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	code	11	GXUAOKVK	Don't lose a life on Ground Pursuit, Boat and Hang Glider stages
