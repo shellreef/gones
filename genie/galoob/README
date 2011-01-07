@@ -1,10 +1,13 @@
 Galoob's Official Game Genie Codes
 JC20110104
 
-nev9.txt - final official codebook, 481 games, from http://www.gshi.org/ugetab/RoughGenie/gg_nes.html
+all-nev.csv - 5218 codes
+
+nev9.txt - nearly official codebook, 481 games, from http://www.gshi.org/ugetab/RoughGenie/gg_nes.html
+ but it has errors, missing 22 codes - see below
 
 Files from http://www.nesworld.com/genie.php:
-nev8.txt - codebook released online by Galoob (1994), 456 games. No game introduction text.
+nev8.txt - codebook released online by Galoob (1994), 456 games. No game introduction text. Missing 25 games.
  Despite the comments on http://www.nesworld.com/genie.php, this is not the final version
 neup01.txt - update volume 1 #1 (1993)
 neup02.txt - update volume 1 #2
@@ -16,9 +19,29 @@ neup07.txt - update volume 2 #3
 neup08.txt - update volume 2 #4
 None of these show the category for each code.
 
-http://www.gshi.org/official_codes.html
-Their database says they have 478 games listed, but Galoob made a total of 481
-They have 5261 total official codes.
+GSHI
+http://www.gshi.org/?s=v2&sys=21&pp=all has codes clearly in the official manual, 
+but which are not in http://www.gshi.org/ugetab/RoughGenie/gg_nes.html (aka "nev9.txt"):
+20	Indiana Jones and the Last Crusade(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2099 has 27 codes, but nev9 only 7 --  missing 20 in neup08.txt, not nev9
+1       Star Trek: The Next Generation(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2280 ATETISVT Stop game time ticking over - missing 1 in neup08.txt, not nev9
+1	Star Wars(tm) Game      http://www.gshi.org/?s=v2&sys=21&gid=2285 - transcription error? not in nev8/nev9/* code #4 Infinite lives  SZEAYXVK
+total: 22 codes missing from nev9, added to all-nev.csv
+
+But...
+http://www.gshi.org/official_codes.html claims 5261 codes among 478 games for NES Game Gnenie
+http://www.gshi.org/?s=v2&m=h&sys=21 claims 5250 codes and 477 games by Galoob, and one each by nobody (blank code)
+http://www.gshi.org/?s=v2&sys=21&pp=all actually shows 5247 codes for 476 games
+Galoob made codes for a total of 481 games, so some are missing
+
+Also, codes are overcounted, for alternate versions of the games:
+-1	Dragon Warrior II(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2025 has a blank entry counted as a code
+-11	RC Pro Am(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2226 double-counted for two versions
+-7	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game http://www.gshi.org/?s=v2&sys=21&gid=2257 double-count for two versions
+-5	Super Mario Bros.(tm) 2 Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
+-13	Ultimate Stuntman(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
+total: -37
+
+which brings the actual total down to 5210. 
 
 Missing games, not on gshi at all:
 7	1942(tm) Game
@@ -33,19 +56,9 @@ Missing codes, the game is there but not the code on gshi:
 4	Roadblasters(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2232 missing start with codes
 total: 39 missing codes
 
-Overcounted codes, for alternate versions:
--1	Dragon Warrior II(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2025
--11	RC Pro Am(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2226 double-counted for two versions
--7	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game http://www.gshi.org/?s=v2&sys=21&gid=2257 double-count for two versions
--5	Super Mario Bros.(tm) 2 Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
--13	Ultimate Stuntman(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
-total: -37
 
-Missing from nev9 but in gshi:
-20	Indiana Jones and the Last Crusade(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2099 has 27 codes, but nev9 only 7 --  missing 20 in neup08.txt, not nev9
-1       Star Trek: The Next Generation(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2280 ATETISVT Stop game time ticking over - missing 1 in neup08.txt, not nev9
-1	Star Wars(tm) Game      http://www.gshi.org/?s=v2&sys=21&gid=2285 - transcription error? not in nev8/nev9/* code #4 Infinite lives  SZEAYXVK
-total: 22 codes I need to add
+
+
 
 Photographs of official codebook from 1991:
 http://www.flickr.com/search/?q=game%20genie&w=60991646%40N00
