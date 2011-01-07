@@ -2563,28 +2563,28 @@ The Immortal(tm) Game	MORT	code	5	SZSLTXVK	Don't lose energy from fighting!
 The Immortal(tm) Game	MORT	code	6	SZNLPXVV	Your fatigue level never rises
 The Immortal(tm) Game	MORT	code	7	ZAKSIYPA	More damage from fireballs
 The Immortal(tm) Game	MORT	info	The Immortal is a trademark of Electronic Arts.	
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    1	PAVKGALA	Start with 1 life
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    2	IAVKGALA	Start with 5 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    3	YAVKGALA	Start with 7 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    4	PAVKGALE	Start with 9 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    5	PEUZPALA	Continue with 1 life
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    6	IEUZPALA	Continue with 5 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    7	YEUZPALA	Continue with 7 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    8	PEUZPALE	Continue with 9 lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    9	KYSTEGGE	Infinite lives
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    10	VYONKZGE	Infinite energy--BUT BE CAREFUL, YOU CAN GET TRAPPED IN CERTAIN AREAS
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    11	AEKPXLPA	Heart does nothing--MAY GOOF UP ENERGY BAR
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    12	SXXXIEVK	Infinite credits
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    13	AEEOYTPA	Infinite time
-Indiana Jones and the Last Crusade(tm) Game     JONES   info	CODES 14 THRU 18 ARE FOR PRACTICE ONLY. AFTER YOU FINISH THE 
-Indiana Jones and the Last Crusade(tm) Game     JONES   info	LEVEL, YOU GO BACK TO LEVEL 1
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    14	PANGPAAA	Play level 2
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    15	ZANGPAAA	Play level 3
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    16	LANGPAAA	Play level 4
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    17	GANGPAAA	Play level 5
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    18	IANGPAAA	Play level 6
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    19	IAVTKAPA	Super jump
-Indiana Jones and the Last Crusade(tm) Game     JONES   code    20	PAVTKAPE	Mega-jump
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	1	PAVKGALA	Start with 1 life
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	2	IAVKGALA	Start with 5 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	3	YAVKGALA	Start with 7 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	4	PAVKGALE	Start with 9 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	5	PEUZPALA	Continue with 1 life
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	6	IEUZPALA	Continue with 5 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	7	YEUZPALA	Continue with 7 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	8	PEUZPALE	Continue with 9 lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	9	KYSTEGGE	Infinite lives
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	10	VYONKZGE	Infinite energy--BUT BE CAREFUL, YOU CAN GET TRAPPED IN CERTAIN AREAS
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	11	AEKPXLPA	Heart does nothing--MAY GOOF UP ENERGY BAR
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	12	SXXXIEVK	Infinite credits
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	13	AEEOYTPA	Infinite time
+Indiana Jones and the Last Crusade(tm) Game	JONES	info	CODES 14 THRU 18 ARE FOR PRACTICE ONLY. AFTER YOU FINISH THE 
+Indiana Jones and the Last Crusade(tm) Game	JONES	info	LEVEL, YOU GO BACK TO LEVEL 1
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	14	PANGPAAA	Play level 2
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	15	ZANGPAAA	Play level 3
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	16	LANGPAAA	Play level 4
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	17	GANGPAAA	Play level 5
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	18	IANGPAAA	Play level 6
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	19	IAVTKAPA	Super jump
+Indiana Jones and the Last Crusade(tm) Game	JONES	code	20	PAVTKAPE	Mega-jump
 Indiana Jones and the Last Crusade(tm) Game	JONES	code	21	SZUEEIVG	Infinite lives on bike section
 Indiana Jones and the Last Crusade(tm) Game	JONES	code	22	PAVAGYIE	More lives on ship section
 Indiana Jones and the Last Crusade(tm) Game	JONES	code	23	PAVAGYIA	Fewer lives on ship section
@@ -5238,15 +5238,15 @@ T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	code	8	LAOOVZZA + LAUOXZZA	
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	code	9	LESPKGZA + LEVPEGZA	Faster and longer jumping
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	info	T2 Terminator 2: Judgment Day and T-1000 are trademarks of	
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	info	Carolco Pictures Inc. Used by LJN under license.	
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	intro	SURF
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	1	GXUZZZVG	Infinite lives for skating
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	2	GXNKALVG	Infinite lives for surfing
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	3	PEOGILZA	When surfing lose only 1 symbol
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	4	PAEZYALA	When skating lose only 1 symbol if you fall into the ocean or a crack
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	5	GXKLXAVG	Stop timer
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	code	6	LESPGZPA	Increase time
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	info	T & C Surf Designs is a trademark of Town & Country Surf Shop Inc.	
-T & C Surf Designs(tm) Game	CODE	KEY IN . . .	KEY IN . . .	info	Used by LJN Toys, Ltd. under license.	
+T & C Surf Designs(tm) Game	SURF	intro	SURF
+T & C Surf Designs(tm) Game	SURF	code	1	GXUZZZVG	Infinite lives for skating
+T & C Surf Designs(tm) Game	SURF	code	2	GXNKALVG	Infinite lives for surfing
+T & C Surf Designs(tm) Game	SURF	code	3	PEOGILZA	When surfing lose only 1 symbol
+T & C Surf Designs(tm) Game	SURF	code	4	PAEZYALA	When skating lose only 1 symbol if you fall into the ocean or a crack
+T & C Surf Designs(tm) Game	SURF	code	5	GXKLXAVG	Stop timer
+T & C Surf Designs(tm) Game	SURF	code	6	LESPGZPA	Increase time
+T & C Surf Designs(tm) Game	SURF	info	T & C Surf Designs is a trademark of Town & Country Surf Shop Inc.	
+T & C Surf Designs(tm) Game	SURF	info	Used by LJN Toys, Ltd. under license.	
 T & C Surf 2: Thrilla's Safari(tm) Game		code	1	PAXEPPLA	Start with 1 life
 T & C Surf 2: Thrilla's Safari(tm) Game		code	2	IAXEPPLA	Start with 5 lives
 T & C Surf 2: Thrilla's Safari(tm) Game		code	3	YAXEPPLA	Start with 7 lives

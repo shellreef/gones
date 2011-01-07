@@ -1,9 +1,11 @@
 Galoob's Official Game Genie Codes
 JC20110104
 
-all-nev.csv - 5218 codes
+all-nev.csv - comprehensive list of all 5244 official codes across all 481 games
+    all official NES Game Genie codes in one place for the first time ever!
 
-nev9.txt - nearly official codebook, 481 games, from http://www.gshi.org/ugetab/RoughGenie/gg_nes.html
+
+nev9.txt - *almost* official codebook, 481 games, from http://www.gshi.org/ugetab/RoughGenie/gg_nes.html
  but it has errors, missing 22 codes - see below
 
 Files from http://www.nesworld.com/genie.php:
@@ -35,13 +37,14 @@ Galoob made codes for a total of 481 games, so some are missing
 
 Also, codes are overcounted, for alternate versions of the games:
 -1	Dragon Warrior II(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2025 has a blank entry counted as a code
+-11	Micro Machines(tm) The Official Video	http://www.gshi.org/?s=v2&sys=21&gid=2170 double-counted for two versions
 -11	RC Pro Am(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2226 double-counted for two versions
 -7	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game http://www.gshi.org/?s=v2&sys=21&gid=2257 double-count for two versions
 -5	Super Mario Bros.(tm) 2 Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
 -13	Ultimate Stuntman(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
-total: -37
+total: -48
 
-which brings the actual total down to 5210. 
+which brings the actual total of Galoob's codes on GSHI down to 5199
 
 Missing games, not on gshi at all:
 7	1942(tm) Game
@@ -54,7 +57,8 @@ Missing codes, the game is there but not the code on gshi:
 4	Double Dragon II: The Revenge(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2019 all level warp codes
 5	The Little Mermaid(tm) Game		http://www.gshi.org/?s=v2&sys=21&gid=2144 level warps missing
 4	Roadblasters(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2232 missing start with codes
-total: 39 missing codes
+6	T & C Surf Designs(tm)	not to be confused with T & C Surf 2: Thrilla's Safari(tm)
+total: 45 missing official codes not on GSHI
 
 
 

@@ -1,0 +1,66 @@
+-1942 Game                                                                        missing
++1942 Game                                                                        7
+
+		7/
+-1943 Game                                                                        missing
++1943 Game                                                                        7
+
+		14/
+-Bonk's Adventure                                                                 9
++Bonk's Adventure Game                                                            12
+
+		17/
+-Bubble Bobble 2                                                                  23
++Bubble Bobble II Game                                                            24
+
+		18/
+-Double Dragon 2: The Revenge                                                     8
++Double Dragon II: The Revenge Game                                               12
+
+		22/
+-Dragon Warrior 2                                                                 21
++Dragon Warrior II Game                                                           20
+
+		22/-1
+-Godzilla                                                                         missing
++Godzilla Game                                                                    4
+
+		26/-1
+-Little Mermaid, The                                                              11
++Little Mermaid Game, The                                                         16
+
+		31/-1
+-Micro Machines                                                                   42
++Micro Machines The Official Video Game                                           31
+
+		31/-12
+-RC Pro Am                                                                        22
++RC Pro Am Game                                                                   11
+
+		31/-23
+-Roadblasters                                                                     9
++Roadblasters Game                                                                13
+
+		35/-23
+-Simpsons: Bart vs. Space Mutants, The                                            14
++Simpsons: Bart vs. The Space Mutants Game, The                                   7
+
+		35/-30
+-Super Mario Bros. 2                                                              38
++Super Mario Bros. 2 Game                                                         33
+
+		35/-35
+-T & C Surf Designs Game                                                          missing
++T & C Surf Designs Game                                                          6
+
+		41/-35
+-Ultimate Stuntman                                                                26
++Ultimate Stuntman Game                                                           13
+
+		41/-48
+-WWF Wrestlemania Challenge Game                                                  missing
++WWF Wrestlemania Challenge Game                                                  4
+
+		45/-48
+GSHI has 5247, you have 5244
+GSHI is missing 45, and has -48 extra
