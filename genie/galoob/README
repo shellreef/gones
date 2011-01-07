@@ -17,8 +17,35 @@ neup08.txt - update volume 2 #4
 None of these show the category for each code.
 
 http://www.gshi.org/official_codes.html
-Their database has 478 games listed, but Galoob made a total of 481.
+Their database says they have 478 games listed, but Galoob made a total of 481
 They have 5261 total official codes.
+
+Missing games, not on gshi at all:
+7	1942(tm) Game
+7	1943(tm) Game
+4	Godzilla(tm) Game
+4	WWF Wrestlemania Challenge(tm) Game	not to be confused with WWF Wrestlemania(tm) Game
+Missing codes, the game is there but not the code on gshi:
+3	Bonk's Adventure(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=1953 all world warp codes
+1	Bubble Bobble II(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=1960 PEXEEALA        1 life--player 1
+4	Double Dragon II: The Revenge(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2019 all level warp codes
+5	The Little Mermaid(tm) Game		http://www.gshi.org/?s=v2&sys=21&gid=2144 level warps missing
+4	Roadblasters(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2232 missing start with codes
+total: 39 missing codes
+
+Overcounted codes, for alternate versions:
+-1	Dragon Warrior II(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2025
+-11	RC Pro Am(tm) Game	http://www.gshi.org/?s=v2&sys=21&gid=2226 double-counted for two versions
+-7	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game http://www.gshi.org/?s=v2&sys=21&gid=2257 double-count for two versions
+-5	Super Mario Bros.(tm) 2 Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
+-13	Ultimate Stuntman(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2296 double-count two versions
+total: -37
+
+Missing from nev9 but in gshi:
+20	Indiana Jones and the Last Crusade(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2099 has 27 codes, but nev9 only 7 --  missing 20 in neup08.txt, not nev9
+1       Star Trek: The Next Generation(tm) Game http://www.gshi.org/?s=v2&sys=21&gid=2280 ATETISVT Stop game time ticking over - missing 1 in neup08.txt, not nev9
+1	Star Wars(tm) Game      http://www.gshi.org/?s=v2&sys=21&gid=2285 - transcription error? not in nev8/nev9/* code #4 Infinite lives  SZEAYXVK
+total: 22 codes I need to add
 
 Photographs of official codebook from 1991:
 http://www.flickr.com/search/?q=game%20genie&w=60991646%40N00

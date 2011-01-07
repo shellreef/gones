@@ -1452,23 +1452,24 @@ Disney's Duck Tales(tm) Game	DUCK	code	7	ZAXSKLIE + SXNIUKOU + SZNISESU	Double u
 Disney's Duck Tales(tm) Game	DUCK	code	8	OVUVAZSV	Freeze timer
 Disney's Duck Tales(tm) Game	DUCK	info	Disney's Duck Tales and Uncle Scrooge are trademarks of Walt Disney	
 Disney's Duck Tales(tm) Game	DUCK	info	Company. Used by Capcom USA, Inc., under license	
-1	PAEGVGTA	Start practice level with 1 life		code	2	LAEGVGTA	Start practice level with 3 lives
-1	PAEGVGTA	Start practice level with 1 life		code	3	PAEGVGTE	Start practice level with 9 lives
-1	PAEGVGTA	Start practice level with 1 life		code	4	PAEGNGIA	Start normal level with 1 life
-1	PAEGVGTA	Start practice level with 1 life		code	5	LAEGNGIA	Start normal level with 3 lives
-1	PAEGVGTA	Start practice level with 1 life		code	6	PAEGNGIE	Start normal level with 9 lives
-1	PAEGVGTA	Start practice level with 1 life		code	7	GZVEOSSE	Infinite lives
-1	PAEGVGTA	Start practice level with 1 life		code	8	AAVEEYPA	Infinite time
-1	PAEGVGTA	Start practice level with 1 life		code	9	IAVYZLAA	Start with 5 of each weapon
-1	PAEGVGTA	Start practice level with 1 life		code	10	APVYZLAA	Start with 10 of each weapon
-1	PAEGVGTA	Start practice level with 1 life		code	11	AZVYZLAA	Start with 20 of each weapon
-1	PAEGVGTA	Start practice level with 1 life		code	12	ALVYZLAA	Start with 30 of each weapon
-1	PAEGVGTA	Start practice level with 1 life		code	13	EPVYZLAA	Start with 90 of each weapon
-1	PAEGVGTA	Start practice level with 1 life		code	14	PENEEIAA	Infinite weapons
-1	PAEGVGTA	Start practice level with 1 life		code	15	ZEKKULAP + SXXNLKOU	Need 2 gems to finish levels 1,3,4,7,9
-1	PAEGVGTA	Start practice level with 1 life		code	16	GEKKULAP + SXXNLKOU	Need 4 gems to finish levels 1,3,4,7,9
-1	PAEGVGTA	Start practice level with 1 life		code	17	AEKKULAO + SXXNLKOU	Need 8 gems to finish levels 1,3,4,7,9
-1	PAEGVGTA	Start practice level with 1 life		info	Disney's The Jungle Book is a trademark of The Walt Disney Company	
+Disney's The Jungle Book(tm) Game		code	1	PAEGVGTA	Start practice level with 1 life
+Disney's The Jungle Book(tm) Game		code	2	LAEGVGTA	Start practice level with 3 lives
+Disney's The Jungle Book(tm) Game		code	3	PAEGVGTE	Start practice level with 9 lives
+Disney's The Jungle Book(tm) Game		code	4	PAEGNGIA	Start normal level with 1 life
+Disney's The Jungle Book(tm) Game		code	5	LAEGNGIA	Start normal level with 3 lives
+Disney's The Jungle Book(tm) Game		code	6	PAEGNGIE	Start normal level with 9 lives
+Disney's The Jungle Book(tm) Game		code	7	GZVEOSSE	Infinite lives
+Disney's The Jungle Book(tm) Game		code	8	AAVEEYPA	Infinite time
+Disney's The Jungle Book(tm) Game		code	9	IAVYZLAA	Start with 5 of each weapon
+Disney's The Jungle Book(tm) Game		code	10	APVYZLAA	Start with 10 of each weapon
+Disney's The Jungle Book(tm) Game		code	11	AZVYZLAA	Start with 20 of each weapon
+Disney's The Jungle Book(tm) Game		code	12	ALVYZLAA	Start with 30 of each weapon
+Disney's The Jungle Book(tm) Game		code	13	EPVYZLAA	Start with 90 of each weapon
+Disney's The Jungle Book(tm) Game		code	14	PENEEIAA	Infinite weapons
+Disney's The Jungle Book(tm) Game		code	15	ZEKKULAP + SXXNLKOU	Need 2 gems to finish levels 1,3,4,7,9
+Disney's The Jungle Book(tm) Game		code	16	GEKKULAP + SXXNLKOU	Need 4 gems to finish levels 1,3,4,7,9
+Disney's The Jungle Book(tm) Game		code	17	AEKKULAO + SXXNLKOU	Need 8 gems to finish levels 1,3,4,7,9
+Disney's The Jungle Book(tm) Game		info	Disney's The Jungle Book is a trademark of The Walt Disney Company	
 Donkey Kong(tm) Game	DK3	code	1	SXNGOZVG	Infinite lives
 Donkey Kong(tm) Game	DK3	code	2	PENKNPLA	Start with 1 life
 Donkey Kong(tm) Game	DK3	code	3	PENKNPLE	Start with 9 lives
@@ -1621,10 +1622,8 @@ Dragon Warrior III(tm) Game	DRAG	code	5	LTNLPZIA	Player starts with increased ag
 Dragon Warrior III(tm) Game	DRAG	code	6	NYNLPZIE	Player starts with greatly increased agility and/or defense
 Dragon Warrior III(tm) Game	DRAG	code	7	LTNLTZYA	Player starts with increased vitality and/or hit points
 Dragon Warrior III(tm) Game	DRAG	code	8	NYNLTZYE	Player starts with greatly increased vitality and/or hit points
-Dragon Warrior III(tm) Game	DRAG	code	9	LTNULZTA	Player starts with increased magic, maximum magic points and/or
-Dragon Warrior III(tm) Game	DRAG	info				intelligence	
-Dragon Warrior III(tm) Game	DRAG	code	10	NYNULZTE	Player starts with greatly increased magic, maximum magic points and/or
-Dragon Warrior III(tm) Game	DRAG	info				intelligence	
+Dragon Warrior III(tm) Game	DRAG	code	9	LTNULZTA	Player starts with increased magic, maximum magic points and/or intelligence
+Dragon Warrior III(tm) Game	DRAG	code	10	NYNULZTE	Player starts with greatly increased magic, maximum magic points and/or intelligence
 Dragon Warrior III(tm) Game	DRAG	code	11	ZVELAZGA	Player starts with increased luck
 Dragon Warrior III(tm) Game	DRAG	code	12	VNELAZGE	Player starts with greatly increased luck
 Dragon Warrior III(tm) Game	DRAG	code	13	LTVUIZPA	Wizard starts with increased strength and/or attack power
