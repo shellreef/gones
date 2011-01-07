@@ -70,7 +70,7 @@ while(<FH>)
     }
     for my $line (@codelines)
     {
-        if ($line =~ m/^(\d+)\t([APZLGITYEOXUKSVN]{6,8})\t(.*)/) {
+        if ($line =~ m/^(\d+)\s+([APZLGITYEOXUKSVN]{6,8}[^\t]*)\t(.*)/) {
             my ($no, $code, $title) = ($1, $2, $3);
 
             print join("\t", $name, $id, "code", $no, $code, $title), "\n";
