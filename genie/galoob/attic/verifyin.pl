@@ -4,30 +4,31 @@
 
 # Verify all games in gamelist-gg.csv can be found in nev8.txt
 
-open(FH, "<gamelist-gg.csv") || die;
+open(FH, "<gamelist-galoob.csv") || die;
 my %galoobs;
 my %ids;
 while(<FH>) {
     chomp;
-    my ($id, $name) = split /,/, $_, 2;
+    my ($name, $id) = split /\t/, $_, 2;
 
-    open(IN, "<nev8.txt")||die;
+    open(IN, "<all-nev.csv")||die;
     my $found = 0;
     while(<IN>) {
         chomp;
-        if ($_ eq $name) {
+        my ($that_name) = split /\t/;
+        if ($that_name eq $name) {
             $found = 1;
             last;
         }
     }
     $ids{$name} = $id;
 
-    die "incorrect game name: $name" if !$found;
+    die "incorrect game name: |$name|" if !$found;
 
     $galoobs{$name} = 1;
 }
 close(FH);
-print "gamelist-gg.csv OK\n";
+print "gamelist-galoob.csv Galoob game names OK\n";
 
 open(FH, "<gamelist-goodnes314.csv")||die;
 chomp(my @goodnes = <FH>);
@@ -37,12 +38,12 @@ my %goodnes;
 $goodnes{$_} = 1 for @goodnes;
 close(FH);
 
-open(FH, "<gg2gn.csv") || die;
+open(FH, "<gamelist-galoob.csv") || die;
 my %map;
 my $i;
 while(<FH>) {
     chomp;
-    my ($galoob, $goodnes) = split /\t/;
+    my ($galoob, $id, $goodnes) = split /\t/;
 
     die "incorrect Galoob game name: $galoob" if !$galoobs{$galoob};
     die "incorrect GoodNES game name: $goodnes" if !$goodnes{$goodnes};
@@ -51,9 +52,9 @@ while(<FH>) {
     $map{$galoob} = $goodnes;
 }
 my $j = scalar keys %galoobs;
-die "missing some games from gg2gn.csv ($i != $j)" if $i != $j;
+die "missing some games ($i != $j)" if $i != $j;
 
-print "gg2gn.csv OK\n";
+print "gamelist-galoob.csv GoodNES names mapping OK\n";
 print "$i games matched\n";
 
 open(MASTER,">gggg.csv")||die;

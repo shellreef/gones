@@ -2232,15 +2232,16 @@ Gilligan's Island(tm) Game	GILL	code	10	SZENLZVG	Infinite time
 Gilligan's Island(tm) Game	GILL	code	11	PAVSXGAA + GZVSUGSA	Start on Episode 2
 Gilligan's Island(tm) Game	GILL	code	12	ZAVSXGAA + GZVSUGSA	Start on Episode 3
 Gilligan's Island(tm) Game	GILL	info	Gilligan's Island is a trademark of Bandai America, Inc.	
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	1	AZKIANPA	Start with more KP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	2	AIKIANPA	Start with a lot of KP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	3	OPKIANPE	Start with mega KP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	4	AZKIPYYA	Start with more TP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	5	AIKIPYYA	Start with a lot of TP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	6	OPKIPYYE	Start with mega TP
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	7	SZEYAPVG	Infinite time
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	code	8	SXNELNSE	Player 2 or computer can't score
-Goal Two(tm) Game	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2	info	Goal Two is a trademark of Jaleco USA Inc.	
+Goal Two(tm) Game		info	NOTE: YOU MUST SELECT ITALY AS YOUR TEAM--THESE CODES ONLY ALTER PLAYER #2
+Goal Two(tm) Game		code	1	AZKIANPA	Start with more KP
+Goal Two(tm) Game		code	2	AIKIANPA	Start with a lot of KP
+Goal Two(tm) Game		code	3	OPKIANPE	Start with mega KP
+Goal Two(tm) Game		code	4	AZKIPYYA	Start with more TP
+Goal Two(tm) Game		code	5	AIKIPYYA	Start with a lot of TP
+Goal Two(tm) Game		code	6	OPKIPYYE	Start with mega TP
+Goal Two(tm) Game		code	7	SZEYAPVG	Infinite time
+Goal Two(tm) Game		code	8	SXNELNSE	Player 2 or computer can't score
+Goal Two(tm) Game		info	Goal Two is a trademark of Jaleco USA Inc.	
 Godzilla(tm) Game	ZILLA	code	1	AEUSLKNY	Both monsters never lose power
 Godzilla(tm) Game	ZILLA	code	2	AEKSAGPE	Both monsters' power replenishes more quickly
 Godzilla(tm) Game	ZILLA	code	3	AAXITSNY	Both monsters invincible!
@@ -2930,16 +2931,17 @@ Kiwi Kraze(tm) Game	KIWI	code	11	GZVKAUSE + AAVGYLAE	Start on level 3
 Kiwi Kraze(tm) Game	KIWI	code	12	GZVKAUSE + GAVGYLAE	Start on level 4
 Kiwi Kraze(tm) Game	KIWI	code	13	GZVKAUSE + PPVGYLAA	Start on level 5
 Kiwi Kraze(tm) Game	KIWI	info	Kiwi Kraze is a trademark of Taito America Corporation.	
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	1	IAUUOOAZ	Very little team stamina
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	2	AGUUOOAZ	More team stamina
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	3	OPUUOOAX	Mega team stamina
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	4	GAUUKPZA	Power is doubled for the whole team
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	5	TAUUKPZA	Power is tripled for the whole team
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	6	PAUUKPZE	Mega power for the whole team
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	7	GZSXTEAU + GZSXTESN	All players, including computer, have 255 skill
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	8	GXEZAVSO	Never lose stamina
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	code	9	SZSEZGVT	Computer can't score
-KlashBall(tm) Game	SELECT THE MIDDLE TEAM FOR THESE EFFECTS	info	KlashBall is a trademark of  the Sofel Corporation	
+KlashBall(tm) Game		info	SELECT THE MIDDLE TEAM FOR THESE EFFECTS
+KlashBall(tm) Game		code	1	IAUUOOAZ	Very little team stamina
+KlashBall(tm) Game		code	2	AGUUOOAZ	More team stamina
+KlashBall(tm) Game		code	3	OPUUOOAX	Mega team stamina
+KlashBall(tm) Game		code	4	GAUUKPZA	Power is doubled for the whole team
+KlashBall(tm) Game		code	5	TAUUKPZA	Power is tripled for the whole team
+KlashBall(tm) Game		code	6	PAUUKPZE	Mega power for the whole team
+KlashBall(tm) Game		code	7	GZSXTEAU + GZSXTESN	All players, including computer, have 255 skill
+KlashBall(tm) Game		code	8	GXEZAVSO	Never lose stamina
+KlashBall(tm) Game		code	9	SZSEZGVT	Computer can't score
+KlashBall(tm) Game		info	KlashBall is a trademark of  the Sofel Corporation	
 Klax(tm) Game	KLAX	code	1	PAVESGLA	Start with 0 drops allowed
 Klax(tm) Game	KLAX	code	2	IAVESGLA	Start with 5 drops allowed
 Klax(tm) Game	KLAX	code	3	PANENGGA	When starting on level 6: 0 drops allowed
