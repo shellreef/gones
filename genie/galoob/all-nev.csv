@@ -107,9 +107,9 @@ Adventures In The Magic Kingdom(tm) Game	MAGIC	code	5	IASLAKZA	'Invincible' cost
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	6	GPSLAKZA	'Invincible' costs more
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	7	TASLPKGA	'Life Up' costs less
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	8	APSLPKGE	'Life Up' costs more
-Adventures In The Magic Kingdom(tm) Game	MAGIC	info	9 	GXELLXSN + AAXUAXGY	All items for free!	
+Adventures In The Magic Kingdom(tm) Game	MAGIC	code	9	GXELLXSN + AAXUAXGY	All items for free!
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	10	PEVEIALA	Start with 1 life
-Adventures In The Magic Kingdom(tm) Game	MAGIC	info	11 	TEVEIALA	Start with 6 lives	
+Adventures In The Magic Kingdom(tm) Game	MAGIC	code	11	TEVEIALA	Start with 6 lives
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	12	PEVEIALE	Start with 9 lives
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	13	SXKYUOVK	Never lose a life in 'attractions'
 Adventures In The Magic Kingdom(tm) Game	MAGIC	code	14	NYKULZKU	More 'Freeze' time
@@ -1080,7 +1080,7 @@ Chip 'N Dale(tm) Game	CHIP	code	5	AVNOLKSL	Freeze buzz bomb
 Chip 'N Dale(tm) Game	CHIP	code	6	AVVPZSSL	Freeze racket-rod
 Chip 'N Dale(tm) Game	CHIP	code	7	ATSOYKSL	Freeze ditz
 Chip 'N Dale(tm) Game	CHIP	code	8	ATSPANSL	Freeze hawk bomber
-Chip 'N Dale(tm) Game	CHIP	info	9 	AVVOOUSL	Freeze bouncing boxes	
+Chip 'N Dale(tm) Game	CHIP	code	9	AVVOOUSL	Freeze bouncing boxes
 Chip 'N Dale(tm) Game	CHIP	code	10	ZEXKNPTE	Mega-jump
 Chip 'N Dale(tm) Game	CHIP	info	Chip 'N Dale is a trademark of The Walt Disney Company.	
 Chip 'N Dale Rescue Rangers 2(tm) Game	CND2	code	1	PEUYIILA	Both start with 1 life
@@ -1480,7 +1480,7 @@ Donkey Kong 3(tm) Game	DK3	code	4	ZEKKGYEE	Reduce the time for pros
 Donkey Kong 3(tm) Game	DK3	code	5	ZAOSZAPA	Normal spray more powerful
 Donkey Kong 3(tm) Game	DK3	code	6	ZLOSLAAA	Normal spray longer
 Donkey Kong 3(tm) Game	DK3	code	7	AASSYPPA	Spray cuts through baddies
-Donkey Kong 3(tm) Game	DK3	info	8 	AAKVZALL	Normal bees explode	
+Donkey Kong 3(tm) Game	DK3	code	8	AAKVZALL	Normal bees explode
 Donkey Kong 3(tm) Game	DK3	code	9	TEXKVGLA	Speeding Stanley(tm)
 Donkey Kong 3(tm) Game	DK3	info	Donkey Kong 3 and Stanley are trademarks of Nintendo of America,	
 Donkey Kong 3(tm) Game	DK3	info	Inc.	
@@ -1544,7 +1544,7 @@ Dr. Chaos(tm) Game	CHAOS	code	1	LTKKVPZL	Start with more energy
 Dr. Chaos(tm) Game	CHAOS	code	2	PPKKVPZU	Start with less energy
 Dr. Chaos(tm) Game	CHAOS	code	3	PASKSPAA + ZISKNPLG	Start with Shield Suit
 Dr. Chaos(tm) Game	CHAOS	code	4	AEEGUZLE	Mega-jump
-Dr. Chaos(tm) Game	CHAOS	info	5 	GXKIKIST	Immune to damage	
+Dr. Chaos(tm) Game	CHAOS	code	5	GXKIKIST	Immune to damage
 Dr. Chaos(tm) Game	CHAOS	code	6	AKSSKIGP	More invincibility time
 Dr. Chaos(tm) Game	CHAOS	code	7	GESSKIGP	Less invincibility time
 Dr. Chaos(tm) Game	CHAOS	code	8	OVKIKISV + PEKISIGY	Take minimal damage
@@ -2185,7 +2185,7 @@ Gauntlet II(tm) Game	GAUNT	code	5	IAUTEUZA	5 super shots picked up
 Gauntlet II(tm) Game	GAUNT	code	6	GPUTEUZA	20 super shots picked up
 Gauntlet II(tm) Game	GAUNT	code	7	AYETVUGU	Invincibility lasts longer
 Gauntlet II(tm) Game	GAUNT	code	8	LPETVUGU	Invincibility doesn't last as long
-Gauntlet II(tm) Game	GAUNT	info	9 	ANNTUXGU	Repulsiveness lasts longer	
+Gauntlet II(tm) Game	GAUNT	code	9	ANNTUXGU	Repulsiveness lasts longer
 Gauntlet II(tm) Game	GAUNT	code	10	LONTUXGU	Repulsiveness doesn't last as long
 Gauntlet II(tm) Game	GAUNT	code	11	AYOTKUGU	Invisibility lasts longer
 Gauntlet II(tm) Game	GAUNT	code	12	LPOTKUGU	Invisibility doesn't last as long
@@ -2375,14 +2375,14 @@ Harlem Globetrotters(tm) Game	TROT	code	3	IIVGKOIZ	Slower shot clock
 Harlem Globetrotters(tm) Game	TROT	code	4	GPVGKOIX	Faster shot clock
 Harlem Globetrotters(tm) Game	TROT	info	Harlem Globetrotters is a trademark of International Broadcasting	
 Harlem Globetrotters(tm) Game	TROT	info	Corporation.	
-Heavy Barrel(tm) Game	BAR	info	1 	ENSTPVSN	Autofire for player 1	
-Heavy Barrel(tm) Game	BAR	info	2 	EYNVINSN	Autofire for player 2	
-Heavy Barrel(tm) Game	BAR	info	3 	AEKVXLII	Hand weapons last 4 times longer	
-Heavy Barrel(tm) Game	BAR	info	4 	ZAOVEPAA	Only 1 hand weapon	
-Heavy Barrel(tm) Game	BAR	info	5 	ENVVKLEI	Infinite hand weapons on pick-up for players 1 and 2	
-Heavy Barrel(tm) Game	BAR	info	6 	OXVVVLVS	Infinite hand weapons and firearms on pick-up for players 1 and 2	
-Heavy Barrel(tm) Game	BAR	info	7 	XVKZVEXK	Enemies don't fire handguns	
-Heavy Barrel(tm) Game	BAR	info	8 	XTOVVEXK	Become invisible and invincible!	
+Heavy Barrel(tm) Game	BAR	code	1	ENSTPVSN	Autofire for player 1
+Heavy Barrel(tm) Game	BAR	code	2	EYNVINSN	Autofire for player 2
+Heavy Barrel(tm) Game	BAR	code	3	AEKVXLII	Hand weapons last 4 times longer
+Heavy Barrel(tm) Game	BAR	code	4	ZAOVEPAA	Only 1 hand weapon
+Heavy Barrel(tm) Game	BAR	code	5	ENVVKLEI	Infinite hand weapons on pick-up for players 1 and 2
+Heavy Barrel(tm) Game	BAR	code	6	OXVVVLVS	Infinite hand weapons and firearms on pick-up for players 1 and 2
+Heavy Barrel(tm) Game	BAR	code	7	XVKZVEXK	Enemies don't fire handguns
+Heavy Barrel(tm) Game	BAR	code	8	XTOVVEXK	Become invisible and invincible!
 Heavy Barrel(tm) Game	BAR	info	Heavy Barrel is a trademark of Data East USA, Inc.	
 Heavy Shreddin'(tm) Game	SHRED	code	1	AUEXNVAO	Slow timer
 Heavy Shreddin'(tm) Game	SHRED	code	2	SXSOYIVG + SXOPPLVG + SXUOZLVG	Infinite penalties
@@ -2451,7 +2451,7 @@ Hudson's Adventure Island(tm) Game	AI	code	7	GZXEAPSA	Keep weapons
 Hudson's Adventure Island(tm) Game	AI	code	8	SPEEIIEG	Can mega jump while at rest
 Hudson's Adventure Island(tm) Game	AI	code	9	SPEETSOZ	Can mega jump while running
 Hudson's Adventure Island(tm) Game	AI	code	10	AAEAYIPA + AEVEZGPZ	Multi-mega-maxi-moonjumps!
-Hudson's Adventure Island(tm) Game	AI	info	11 	AEKAPIPA + PEEEZIAA	Weird . . . Hudson(tm) can moonwalk!	
+Hudson's Adventure Island(tm) Game	AI	code	11	AEKAPIPA + PEEEZIAA	Weird . . . Hudson(tm) can moonwalk!
 Hudson's Adventure Island(tm) Game	AI	info	Hudson's Adventure Island and Hudson are trademarks of Hudson Soft USA, Inc.	
 The Hunt for Red October(tm) Game	RED	intro	NOTE: THESE CODES MAY NOT WORK ON some COPies OF THE GAME.
 The Hunt for Red October(tm) Game	RED	intro	NO other CODES ARE AVAILABLE.
@@ -2961,7 +2961,7 @@ Krusty's Fun House(tm) Game	FUN	code	4	AAUXAEZA	Infinite energy
 Krusty's Fun House(tm) Game	FUN	code	5	AEOXSLPA	Pick up super balls instead of custard pies
 Krusty's Fun House(tm) Game	FUN	code	6	TAKELEPA	Start with 6 pies
 Krusty's Fun House(tm) Game	FUN	code	7	ZPKELEPA	Start with 18 pies
-Krusty's Fun House(tm) Game	FUN	info	8 	GXKZPKVK	Infinite pies--first life only	
+Krusty's Fun House(tm) Game	FUN	code	8	GXKZPKVK	Infinite pies--first life only
 Krusty's Fun House(tm) Game	FUN	info	Krusty's Fun House is a trademark of Twentieth Century Fox Film	
 Krusty's Fun House(tm) Game	FUN	info	Corporation.	
 Kung Fu(tm) Game	KUNG	code	1	SUAAXA	Both players have infinite lives
@@ -3398,7 +3398,7 @@ Metal Storm(tm) Game	MET	code	8	AESXXNGY	Permanent shield
 Metal Storm(tm) Game	MET	info	Metal Storm is a trademark of IREM America Corp.	
 Metroid(tm) Game	MET	code	1	SXSGNVSE	Minimum energy of 30
 Metroid(tm) Game	MET	code	2	SZUILUVK	Infinite rockets on pick-up
-Metroid(tm) Game	MET	info	3 	ZENSXLIE	Gain 10 rockets on pick-up	
+Metroid(tm) Game	MET	code	3	ZENSXLIE	Gain 10 rockets on pick-up
 Metroid(tm) Game	MET	code	4	YENSXLIE	Gain 15 rockets on pick-up
 Metroid(tm) Game	MET	code	5	YAXGVPLA	Extra energy
 Metroid(tm) Game	MET	info	Metroid and Motherbrain are trademarks of Nintendo of America Inc.	
@@ -3462,17 +3462,17 @@ MIG 29 Soviet Fighter(tm) Game	MIG	code	11	OZOOYPSX + LAXPAPIP + XIXPZPPS	Start 
 MIG 29 Soviet Fighter(tm) Game	MIG	code	12	OZOOYPSX + GAXPAPIP + XIXPZPPS	Start on mission 5
 MIG 29 Soviet Fighter(tm) Game	MIG	code	13	OZOOYPSX + IAXPAPIP + XIXPZPPS	Start on mission 6
 MIG 29 Soviet Fighter(tm) Game	MIG	info	MIG 29 Soviet Fighter is a trademark of Codemasters Software Co. Ltd.	
-Mighty Bomb Jack(tm) Game	JACK	info	1 	PAOEZZLA	1 life	
-Mighty Bomb Jack(tm) Game	JACK	info	2 	TAOEZZLA	6 lives	
-Mighty Bomb Jack(tm) Game	JACK	info	3 	PAOEZZLE	9 lives	
-Mighty Bomb Jack(tm) Game	JACK	info	4 	VZUEZNVK	Infinite lives	
-Mighty Bomb Jack(tm) Game	JACK	info	5 	AKOEGYAT	Less time in game	
-Mighty Bomb Jack(tm) Game	JACK	info	6 	EEOEGYAT	More time in game	
-Mighty Bomb Jack(tm) Game	JACK	info	7 	SXXALNVK	Stop timer	
-Mighty Bomb Jack(tm) Game	JACK	info	8 	SXOESEVK	Enemies don't return from coin transformation	
-Mighty Bomb Jack(tm) Game	JACK	info	9 	SZEEXUVK	Power coins are not used up	
-Mighty Bomb Jack(tm) Game	JACK	info	10 	OESPNTLA	Disable torture room	
-Mighty Bomb Jack(tm) Game	JACK	info	11 	ZEUOUAPA	Jump through walls	
+Mighty Bomb Jack(tm) Game	JACK	code	1	PAOEZZLA	1 life
+Mighty Bomb Jack(tm) Game	JACK	code	2	TAOEZZLA	6 lives
+Mighty Bomb Jack(tm) Game	JACK	code	3	PAOEZZLE	9 lives
+Mighty Bomb Jack(tm) Game	JACK	code	4	VZUEZNVK	Infinite lives
+Mighty Bomb Jack(tm) Game	JACK	code	5	AKOEGYAT	Less time in game
+Mighty Bomb Jack(tm) Game	JACK	code	6	EEOEGYAT	More time in game
+Mighty Bomb Jack(tm) Game	JACK	code	7	SXXALNVK	Stop timer
+Mighty Bomb Jack(tm) Game	JACK	code	8	SXOESEVK	Enemies don't return from coin transformation
+Mighty Bomb Jack(tm) Game	JACK	code	9	SZEEXUVK	Power coins are not used up
+Mighty Bomb Jack(tm) Game	JACK	code	10	OESPNTLA	Disable torture room
+Mighty Bomb Jack(tm) Game	JACK	code	11	ZEUOUAPA	Jump through walls
 Mighty Bomb Jack(tm) Game	JACK	info	Mighty Bomb Jack is a trademark of Tecmo, Ltd.	
 Mighty Final Fight(tm) Game	MFF	info	CODES 1 THRU 4 DON'T WORK ON CONTINUES	
 Mighty Final Fight(tm) Game	MFF	code	1	PEVKTYIA	Start with 2 lives
@@ -3643,7 +3643,7 @@ Mystery Quest(tm) Game	MYST	info	Mystery Quest is a trademark of Kabushiki Kaish
 Mystery Quest(tm) Game	MYST	info	Used by Taxan USA Corp. under license.	
 Narc(tm) Game	NARC	code	1	AAUAZPZA	1 life
 Narc(tm) Game	NARC	code	2	IAUAZPZA	6 lives
-Narc(tm) Game	NARC	info	3 	AAUAZPZE	9 lives	
+Narc(tm) Game	NARC	code	3	AAUAZPZE	9 lives
 Narc(tm) Game	NARC	code	4	SUKVTLVI	Infinite lives
 Narc(tm) Game	NARC	code	5	PUVAGAIU	More missiles
 Narc(tm) Game	NARC	code	6	PEUZPZIA	1 missile picked up
@@ -3767,7 +3767,7 @@ Ninja Kid(tm) Game	KID	code	5	SZXXITVG	Infinite Stars
 Ninja Kid(tm) Game	KID	code	6	SXNOGGVG	Infinite Boomerangs
 Ninja Kid(tm) Game	KID	code	7	SXUZZYVG	Infinite Fireflames
 Ninja Kid(tm) Game	KID	code	8	PAXSXALA	Only 1 Feather picked up
-Ninja Kid(tm) Game	KID	info	9 	TAXSXALA	6 Feathers picked up	
+Ninja Kid(tm) Game	KID	code	9	TAXSXALA	6 Feathers picked up
 Ninja Kid(tm) Game	KID	code	10	ZAXSUAGO	Only 10 Stars picked up
 Ninja Kid(tm) Game	KID	code	11	AZXSUAGO	40 Stars picked up
 Ninja Kid(tm) Game	KID	code	12	ZAXSKAGA	Only 1 Boomerang picked up
@@ -4044,7 +4044,7 @@ Qix(tm) Game	QIX	code	3	IANAZZPA	Start on Level 5, player 1 game
 Qix(tm) Game	QIX	code	4	ZANAZZPE	Start on Level 10, player 1 game
 Qix(tm) Game	QIX	code	5	GPNAZZPA	Start on Level 20, player 1 game
 Qix(tm) Game	QIX	code	6	IEEEGZPA	Start on Level 5, player 2 game
-Qix(tm) Game	QIX	info	7 	ZEEEGZPE	Start on Level 10, player 2 game	
+Qix(tm) Game	QIX	code	7	ZEEEGZPE	Start on Level 10, player 2 game
 Qix(tm) Game	QIX	code	8	GOEEGZPA	Start on Level 20, player 2 game
 Qix(tm) Game	QIX	info	Qix is a trademark of Taito America Corporation.	
 Quattro Adventure(tm) Game	BOOM	intro	1) Boomerang Kid(tm) Game
@@ -4076,7 +4076,7 @@ Quattro Adventure(tm) Game	BOOM	info	KEEP WALKING
 Quattro Adventure(tm) Game	BOOM	info	LEFT AND YOU WILL ARRIVE AT THE ORIGINAL STARTING POINT	
 Quattro Adventure(tm) Game	BOOM	code	1	PEXSZYAA	Invincible Dizzy(tm)!
 Quattro Adventure(tm) Game	BOOM	code	2	OZNTKASX	Walk backwards
-Quattro Adventure(tm) Game	BOOM	info	3 	PEUSYYAA	Start with snorkel	
+Quattro Adventure(tm) Game	BOOM	code	3	PEUSYYAA	Start with snorkel
 Quattro Adventure(tm) Game	BOOM	code	4	PEUSYYAA + PEKNIZZP	Start with axe
 Quattro Adventure(tm) Game	BOOM	code	5	PEUSYYAA + ZEKNIZZP	Start with dynamite
 Quattro Adventure(tm) Game	BOOM	code	6	PEUSYYAA + IEKNIZZP	Start with heavy weight
@@ -5326,7 +5326,7 @@ Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm) Game	TMNT2	info	player 
 Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm) Game	TMNT2	info	Teenage Mutant Ninja Turtles II and The Arcade Game are trademarks	
 Teenage Mutant Ninja Turtles(tm) II: The Arcade Game(tm) Game	TMNT2	info	of Mirage Studios, U.S.A. Used by Ultra Software Corporation under license.	
 Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	code	1	AENKLZPA	Infinite lives
-Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	info	2 	AEOAALLA	Start with 1 life instead of 4	
+Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	code	2	AEOAALLA	Start with 1 life instead of 4
 Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	code	3	IEOAALLA	Start with 6 lives
 Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	code	4	AEOAALLE	Start with 9 lives
 Teenage Mutant Ninja Turtles III-The Manhattan Project(tm) Game	TMNT3	code	5	SLXUTXVS + SLKXPKSO	Infinite energy
