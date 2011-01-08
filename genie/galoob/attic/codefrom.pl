@@ -10,8 +10,11 @@ use Data::Dumper;
 open(DB,"<all-nev.csv")||die;
 my %game2id;
 my %code2game;
+my %code2sources;
+my @ourlines;
 while(<DB>) {
     chomp;
+    push @ourlines, $_;
     my ($game, $id, @rest) = split /\t/;
 
     $game2id{$game} = $id;
@@ -23,13 +26,28 @@ while(<DB>) {
         $code2game{$code} = $game;
 
         my @sources = where_from($code);
-        print scalar(@sources), "\t", $code, "\t", join("\t", @sources), "\n";
+        #print scalar(@sources), "\t", $code, "\t", join("\t", @sources), "\n";
+        print STDERR ".";
+        $code2sources{$code} = \@sources;
     }
 }
 
-for my $code (sort keys %code2game) {
-    my $game = $code2game{$code};
-    printf "%-40s %s\n", $code, $game;
+#for my $code (sort keys %code2game) { my $game = $code2game{$code}; printf "%-40s %s\n", $code, $game; }
+
+for my $ourline (@ourlines)
+{
+    my ($game, $id, $type, @rest) = split /\t/, $ourline;
+    if ($type eq "code") {
+        my ($no, $code, $title) = @rest;
+
+        die "code2sources missing $code" if !exists $code2sources{$code};
+        my $sources = join(",", @{$code2sources{$code}});
+
+        # add source field
+        print "$game\t$id\t$type\t$sources\t$no\t$code\t$title\n";
+    } else {
+        print "$ourline\n";
+    }
 }
 
 # Find where a code came from
