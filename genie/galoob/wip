@@ -167,19 +167,14 @@ Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	16	EGSUYXGL	More 'I
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	17	SZSTGVVK	Infinite candles
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	18	EYKVNKXN	Mega-jump
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	19	SXKYUOVK	Infinite lives
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	Adventures In The Magic Kingdom is a trademark of The Walt Disney 
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	20	PAVAZPLA	Start with less energy in attractions
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	Company. Used by Capcom USA, Inc. under license.
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	21	IAVAZPLA	Start with more energy in attractions
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	The Adventures of Bayou Billy(tm) Game
+Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	The Adventures of Bayou Billy(tm) Game
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	22	PAVAZPLE	Start with even more energy in attractions
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	BILL
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	23	SXXNXPVG	Almost infinite energy in attractions
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	1	GZOVLLVG	Infinite lives  
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	24	SZSTGVVK	Infinite candles
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	2	PEKVIZYA + SXOOUKVK	Infinite energy 
 Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	Adventures In The Magic Kingdom is a trademark of The Walt Disney
--- 	Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	code	3	AAETAGZA	Start with 1 life
+Adventures In The Magic Kingdom(tm) Game	MAGIC	nev8.txt	info	Company. Used by Capcom USA, Inc. under license.
 Adventures of Dino-Riki(tm) Game	DINO	nev8.txt	code	1	SZEETTVG	Start with infinite lives
 Adventures of Dino-Riki(tm) Game	DINO	nev8.txt	code	2	AESEPGZA	Start with 1 life
 Adventures of Dino-Riki(tm) Game	DINO	nev8.txt	code	3	IESEPGZA	Start with 6 lives
@@ -213,9 +208,7 @@ Adventures of Lolo 2(tm) Game	LOLO	nev8.txt	code	13	IOUPKPAE	Start at world 30
 Adventures of Lolo 3(tm)	LOLO3	neup04.txt	intro	This latest sequel in the popular series is an excellent adventure 
 Adventures of Lolo 3(tm)	LOLO3	neup04.txt	intro	with a puzzle challenge on every level. Use this powerful Game 
 Adventures of Lolo 3(tm)	LOLO3	neup04.txt	intro	Genie(tm) code to help Lolo(tm) and Lala(tm) defeat the evil King!
-Adventures of Lolo 3(tm)	LOLO3	neup04.txt	code	1	SXOASZVG	Infinite shots for the room on pick-up
--- 	Adventures of Lolo 3(tm)	LOLO3	neup04.txt	code	1       SXOASZVG        Infinite shots for each room on pick-up
-Adventures of Lolo 3(tm)	LOLO3	nev8.txt	code	1	SXOASZVG	Infinite shots for the room on pick-up
+Adventures of Lolo 3(tm)	LOLO3	neup04.txt	code	1       SXOASZVG        Infinite shots for each room on pick-up
 Adventures of Lolo(tm) Game	LOL	nev8.txt	code	1	SXOPSPVG	Infinite lives
 Adventures of Lolo(tm) Game	LOL	nev8.txt	code	2	PEKPOAIA	1 life for Lolo(tm)
 Adventures of Lolo(tm) Game	LOL	nev8.txt	code	3	PEKPOAIE	9 lives for Lolo
@@ -450,7 +443,6 @@ Barbie(tm) Game	BARB	neup03.txt	intro	Code 3, which gives you only one Z, and BA
 Barbie(tm) Game	BARB	neup03.txt	intro	you from re-entering the dream--when the Z's are gone, so is the 
 Barbie(tm) Game	BARB	neup03.txt	intro	game!
 Barbie(tm) Game	BARB	neup03.txt	code	1	SXKSKNVK	Infinite Z's on Dream Meter(tm)
--- 	Barbie(tm) Game	BARB	neup03.txt	code	1       SXKSKNVK        Infinite Z's on Dream Meter
 Barbie(tm) Game	BARB	neup03.txt	code	2	PEEZEZIE	Start with nine Z's on Dream Meter--1st credit only
 Barbie(tm) Game	BARB	neup03.txt	code	3	PEEZEZIA	Start with one Z--1st credit only
 Barbie(tm) Game	BARB	neup03.txt	info	IF YOU USE CODE 4 WITH CODES 2 OR 3, YOUR Z'S WILL BE SET BACK
@@ -580,113 +572,37 @@ Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	intro	mow down the oppositi
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	intro	With JOKE Code 2, no life increments are lost when Batman(tm) runs 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	intro	into an enemy or when various objects hit him. The same goes for 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	intro	Code 3 when he falls into one of those "electric grid" areas. Codes 6, 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	7 and 9 give you invincibility with fewer pick-ups of Backpack 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	Energy Capsules(tm), and Code 8 lets you keep that invincibility 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	until Batman dies or goes onto the next stage--instead of lasting for 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	Code 15, intense knock-back when hit, is a blast to play, but it can 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	work to your disadvantage--you can sometimes hit a wall and get 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	stuck or die!
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	1	SZXZONSE	Protection from enemy bullets
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	7 and 9 give you invincibility with fewer pick-ups of Backpack 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	2	SZSZKXSE	Protection from collisions
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	Energy Capsules(tm), and Code 8 lets you keep that invincibility 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	3	SXSATXSE	Protection from "electric grids"
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	until Batman dies or goes onto the next stage--instead of lasting for 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	4	AEXILGZA	Start with 1 life
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	just a few moments. JOKE Codes 10 and 11 are for experts. JOKE 
+Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	just a few moments. JOKE Codes 10 and 11 are for experts. JOKE 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	5	GVXILGZA	Start with 100 lives
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	Code 15, intense knock-back when hit, is a blast to play, but it can 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	6	GAVXVLZA	Each Backpack Energy Capsule(tm) counts as two
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	work to your disadvantage--you can sometimes hit a wall and get 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	7	AAVXVLZE	Each Backpack Energy Capsule counts as four
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	stuck or die!
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	8	AAKOPIZA	Invincibility lasts until next stage
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	1       SZXZONSE        Protection from enemy bullets
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	9	GEOSPKVN	Start with 7 Backpack Energy Capsules instead of none
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	2       SZSZKXSE        Protection from collisions
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	10	GEOSTKTA	Start game with 3 life increments instead of 8
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	3       SXSATXSE        Protection from "electric grids"
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	11	GASOTOTA	Continue game with 3 life increments instead of 8
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	4       AEXILGZA        Start with 1 life
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	12	SZXSZSVK	Infinite lives
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	5       GVXILGZA        Start with 100 lives
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	13	GXEUIOSE	Don't get stunned when hit
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	6       GAVXVLZA        Each Backpack Energy Capsule(tm) counts as two
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	14	AEUUAPGA + GXKLAOKE	Stand your ground!
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	7       AAVXVLZE        Each Backpack Energy Capsule counts as four
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	IMPORTANT: WITH CODE 15, YOU MAY GET STUCK OR DIE IF YOU KNOCK BACK INTO A WALL
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	8       AAKOPIZA        Invincibility lasts until next stage
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	15	VNULTONN + PEUUGPAA	INTENSE knock-back when hit!
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	code	9       GEOSPKVN        Start with 7 Backpack Energy Capsules instead of 
 Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	Batman Return of the Joker, and Backpack Energy Capsules are
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup03.txt	info	none
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	The Caped Crusader(tm) is back for another battle with the laughing 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	lunatic of lawlessness, the Joker(tm). Use these codes to help you mow 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	down the opposition on your march toward the Joker's lair. With 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	JOKE Code 2, no life increments are lost when Batman(tm) runs into an 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	enemy or when various objects hit him. The same goes for Code 3 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	intro	when he falls into one of those "electric grid" areas. Codes 6, 7 and 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	1	SZXZONSE	Protection from enemy bullets
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	9 give you invincibility with fewer pick-ups of Backpack Energy 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	2	SZSZKXSE	Protection from collisions
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	Capsules(tm), and Code 8 lets you keep that invincibility until Batman 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	3	SXSATXSE	Protection from "electric grids"
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	dies or goes onto the next stage--instead of lasting for just a few 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	4	AEXILGZA	Start with 1 life
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	moments. JOKE Codes 10 and 11 are for experts. JOKE Code 15, 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	5	GVXILGZA	Start with 100 lives
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	intense knock-back when hit, is a blast to play, but it can work to 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	6	GAVXVLZA	Each Backpack Energy Capsule(tm) counts as two
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	your disadvantage--you can sometimes hit a wall and get stuck or 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	7	AAVXVLZE	Each Backpack Energy Capsule counts as four
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	die!
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	8	AAKOPIZA	Invincibility lasts until next stage
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	1       SZXZONSE        Protection from enemy bullets
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	9	GEOSPKVN	Start with 7 Backpack Energy Capsules instead of none
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	2       SZSZKXSE        Protection from collisions
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	10	GEOSTKTA	Start game with 3 life increments instead of 8
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	3       SXSATXSE        Protection from "electric grids"
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	11	GASOTOTA	Continue game with 3 life increments instead of 8
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	4       AEXILGZA        Start with 1 life
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	12	SZXSZSVK	Infinite lives
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	5       GVXILGZA        Start with 100 lives
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	13	GXEUIOSE	Don't get stunned when hit
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	6       GAVXVLZA        Each Backpack Energy Capsule(tm) counts as two
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	14	AEUUAPGA + GXKLAOKE	Stand your ground!
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	7       AAVXVLZE        Each Backpack Energy Capsule counts as four
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	IMPORTANT: WITH CODE 15, YOU MAY GET STUCK OR DIE IF YOU KNOCK BACK INTO A WALL
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	8       AAKOPIZA        Invincibility lasts until next stage
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	15	VNULTONN + PEUUGPAA	INTENSE knock-back when hit!
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	code	9       GEOSPKVN        Start with 7 Backpack Energy Capsules instead of 
-Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	Batman Return of the Joker, and Backpack Energy Capsules are
--- 	Batman: Return of the Joker(tm) Game	JOKE	neup04.txt	info	none
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	1	SZXZONSE	Protection from enemy bullets
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	2	SZSZKXSE	Protection from collisions
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	3	SXSATXSE	Protection from "electric grids"
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	4	AEXILGZA	Start with 1 life
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	5	GVXILGZA	Start with 100 lives
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	6	GAVXVLZA	Each Backpack Energy Capsule(tm) counts as two
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	7	AAVXVLZE	Each Backpack Energy Capsule counts as four
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	8	AAKOPIZA	Invincibility lasts until next stage
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	9	GEOSPKVN	Start with 7 Backpack Energy Capsules instead of none
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	10	GEOSTKTA	Start game with 3 life increments instead of 8
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	11	GASOTOTA	Continue game with 3 life increments instead of 8
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	12	SZXSZSVK	Infinite lives
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	13	GXEUIOSE	Don't get stunned when hit
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	11	GASOTOTA	Continue game with 3 life increments instead of 8
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	14	AEUUAPGA + GXKLAOKE	Stand your ground!
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	IMPORTANT: WITH CODE 15, YOU MAY GET STUCK OR DIE IF YOU KNOCK BACK INTO A WALL
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	15	VNULTONN + PEUUGPAA	INTENSE knock-back when hit!
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	12	SZXSZSVK	Infinite lives
-Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	info	Batman Return of the Joker, and Backpack Energy Capsules are
--- 	Batman: Return of the Joker(tm) Game	JOKE	nev8.txt	code	13	GXEUIOSE	Don't get stunned when hit
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	1	AAUGPAAO	Start with less stamina
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	2	AZUGPAAP	Start with more stamina
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	3	PAUGYAAA + GZUKGASA + GZUKTASA	Start with Staff of Fennel(tm)
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	4	ZAUGYAAA + GZUKGASA + GZUKTASA	Start with Sword
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	5	LAUGYAAA + GZUKGASA + GZUKTASA	Start with Divine Sword(tm)
 Battle of Olympus(tm) Game	OLY	nev8.txt	code	6	AAEGOZZA	Start with Sandals of Hermes(tm)
--- 	Battle of Olympus(tm) Game	OLY	nev8.txt	info	
 Battle of Olympus(tm) Game	OLY	nev8.txt	info	Battle of Olympus, Staff of Fennel, Divine Sword and Sandals of
--- 	Battle of Olympus(tm) Game	OLY	nev8.txt	info	
 Battleship(tm) Game	WAR	neup08.txt	code	1	PEUAUGIA	1 round per level
 Battleship(tm) Game	WAR	neup08.txt	code	2	LEUAUGIA	3 rounds per level
 Battleship(tm) Game	WAR	neup08.txt	code	3	PASAKGAA + VASEOGSA + VASASGSA	Start on level 2
@@ -698,7 +614,6 @@ Battleship(tm) Game	WAR	neup08.txt	code	8	TASAKGAA + VASEOGSA + VASASGSA	Start o
 Battleship(tm) Game	WAR	neup08.txt	code	9	YASAKGAA + VASEOGSA + VASASGSA	Start on level 8
 Battleship(tm) Game	WAR	neup08.txt	code	10	SZUAOSOU	Each ship can take only 1 hit
 Battleship(tm) Game	WAR	neup08.txt	code	11	SAXAOISP	You have only RIM-66 missiles
--- 	Battleship(tm) Game	WAR	neup08.txt	code	11 SAXAOISP You only have RIM-66 missiles
 Battleship(tm) Game	WAR	neup08.txt	info	Battleship is a trademark of Milton Bradley Company, a Division of
 Battleship(tm) Game	WAR	nev8.txt	code	1	PEUAUGIA	1 round per level
 Battleship(tm) Game	WAR	nev8.txt	code	2	LEUAUGIA	3 rounds per level
@@ -781,22 +696,17 @@ Battletoads(tm) Game	TOAD	neup01.txt	code	9	LAXAALAA	Start on level 3 -- Turbo T
 Battletoads(tm) Game	TOAD	neup01.txt	code	10	GAXAALAA	Start on level 4 -- Arctic Cavern(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	11	IAXAALAA	Start on level 5 -- Surf City(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	12	TAXAALAA	Start on level 6 -- Karnath's Lair(tm)
--- 	Battletoads(tm) Game	TOAD	neup01.txt	code	12      TAXAALAA        Sta6 - Karnath's Lair(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	13	YAXAALAA	Start on level 7 -- Volkmire's Inferno(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	14	AAXAALAE	Start on level 8 -- Intruder Excluder(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	15	PAXAALAE	Start on level 9 -- Terra Tubes(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	16	ZAXAALAE	Start on level 10 -- Rat Race(tm)
 Battletoads(tm) Game	TOAD	neup01.txt	code	17	LAXAALAE	Start on level 11 -- Clinger Winger(tm)
--- 	Battletoads(tm) Game	TOAD	neup01.txt	code	17      LAXAALAE        Start on level 11 - 
 Battletoads(tm) Game	TOAD	neup01.txt	code	18	GAXAALAE	Start on level 12 -- The Revolution(tm)!
 Battletoads(tm) Game	TOAD	neup01.txt	code	19	AOUKXNAA	Double energy from flies
 Battletoads(tm) Game	TOAD	neup01.txt	code	20	YXUKXNAE	Maximum energy from flies!
 Battletoads(tm) Game	TOAD	neup01.txt	info	Battletoads, Wookie Hole, Turbo Tunnel, Arctic Cavern, Surf City,
--- 	Battletoads(tm) Game	TOAD	neup01.txt	info	Remember that you can pick 'n' mix your codes. You can enter up to 
 Battletoads(tm) Game	TOAD	neup01.txt	info	Karnath's Lair, Volkmire's Inferno, Intruder Excluder, Terra Tubes,
--- 	Battletoads(tm) Game	TOAD	neup01.txt	info	THREE separate codes at one time.
 Battletoads(tm) Game	TOAD	neup01.txt	info	Rat Race, Clinger Winger and The Revolution are trademarks of Rare,
--- 	Battletoads(tm) Game	TOAD	neup01.txt	info	Battletoads, Wookie HolTurbo Tunnel, Arctic Cavern, Surf City, 
 Battletoads(tm) Game	TOAD	nev8.txt	code	1	PENVZILA	1 life
 Battletoads(tm) Game	TOAD	nev8.txt	code	2	TENVZILA	6 lives
 Battletoads(tm) Game	TOAD	nev8.txt	code	3	PENVZILE	9 lives
@@ -854,15 +764,13 @@ Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	10	TANIGYPA	E
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	11	YANIGYPA	Each round is 7:00
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	12	AANIGYPE	Each round is 8:00
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	13	PANIGYPE	Each round is 9:00
-Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	14	PAOSUZIA	Each match is 1 round
--- 	Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	14 PAOSUZIA Each match is 1 round instead of 5
+Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	14	PAOSUZIA	Each match is 1 round instead of 5
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	15	ZAOSUZIA	Each match is 2 rounds
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	16	LAOSUZIA	Each match is 3 rounds
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	17	GAOSUZIA	Each match is 4 rounds
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	18	TAOSUZIA	Each match is 6 rounds
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	19	SXVSAZVG	Infinite time (round never ends)
-Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	info	CODES 20 AND 21 MAY CAUSE SOME GRAPHIC ERRORS NEAR TOP OF SCREEN
--- 	Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	info	CODES 20 AND 21 CAUSE SOME GRAPHIC ERRORS NEAR TOP OF SCREEN
+Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	info	CODES 20 AND 21 CAUSE SOME GRAPHIC ERRORS NEAR TOP OF SCREEN
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	20	OXNSGIOU + TONSIIZE	All physical types are 30
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	21	OXNSGIOU + ZUNSIIZA	All physical types are 50
 Best of the Best Championship Karate(tm) Game	BEST	neup07.txt	code	22	ZLEAZETP	Start with 50 resistance points
@@ -919,37 +827,17 @@ Bignose The Caveman(tm) Game	BIG	neup03.txt	intro	Bignose(tm) has a hankering to
 Bignose The Caveman(tm) Game	BIG	neup03.txt	intro	change, so he's off on an outrageous hunting adventure. Help this 
 Bignose The Caveman(tm) Game	BIG	neup03.txt	intro	prehistoric dude thump some dinosaur and bring back the bird for 
 Bignose The Caveman(tm) Game	BIG	neup03.txt	intro	Thanksgiving. Infinite lives is always a cool code, and with BIG Code 
+Bignose The Caveman(tm) Game	BIG	neup03.txt	code	7, you can shop til you drop!
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	1	PEUYITLA	1 life
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	7, you can shop til you drop!
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	2	TEUYITLA	6 lives
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	info	BIG     
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	3	PEUYITLE	9 lives
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	1       PEUYITLA 1 life
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	4	SXOTPAVG	Infinite lives
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	2       TEUYITLA        6 lives
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	5	ANENAKLL	Slower timer
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	3       PEUYITLE        9 lives
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	6	AXENAKLL	Faster timer
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	4       SXOTPAVG        Infinite lives
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	7	AEEYYZPA	Never lose bones when buying
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	5       ANENAKLL        Slower timer
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	8	XXXYITSZ + VEKYAVSE + AOUNGTAE	Start on Monster Island
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	6       AXENAKLL        Faster timer
 Bignose The Caveman(tm) Game	BIG	neup03.txt	code	9	XXXYITSZ + VEKYAVSE + ZOUNGTAE	Start on Terror Island
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	7       AEEYYZPA        Never lose bones when buying
 Bignose The Caveman(tm) Game	BIG	neup03.txt	info	Bignose The Caveman is a trademark of Codemasters Software Co.
--- 	Bignose The Caveman(tm) Game	BIG	neup03.txt	code	8       XXXYITSZ + VEKYAVSE + AOUGTAE   Start on Monster Island
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	1	PEUYITLA	1 life
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	2	TEUYITLA	6 lives
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	3	PEUYITLE	9 lives
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	4	SXOTPAVG	Infinite lives
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	5	ANENAKLL	Slower timer
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	6	AXENAKLL	Faster timer
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	7	AEEYYZPA	Never lose bones when buying
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	8	XXXYITSZ + VEKYAVSE + AOUNGTAE	Start on Monster Island
--- 	Bignose The Caveman(tm) Game	BIG	nev8.txt	code	8	xxxyitsz + vekyavse + aougtae	Start on Monster Island
-Bignose The Caveman(tm) Game	BIG	nev8.txt	code	9	XXXYITSZ + VEKYAVSE + ZOUNGTAE	Start on Terror Island
-Bignose The Caveman(tm) Game	BIG	nev8.txt	info	Bignose The Caveman is a trademark of Codemasters Software Co.
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	intro	Here are some truly excellent codes for this waycool game. With 
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	intro	them, you can more easily restore order to the temporal continuum 
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	intro	and have a most triumphant adventure. EXX Codes 1 through 4 work 
@@ -972,7 +860,6 @@ Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	code	6	OOSVA
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	code	7	IEKKUTIP	Ted starts with 5 coins
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	code	8	IESVAPIP	Bill starts with 5 coins
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	info	Bill & Ted's Excellent Video Game Adventure and Good Stuff are
--- 	Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	neup03.txt	info	Remember, you can pick'n'mix your codes. You can enter up to THREE 
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	nev8.txt	code	1	SZKUPXVK	Infinite skeleton keys
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	nev8.txt	code	2	SZEKUOSE	Infinite coins for locals
 Bill & Ted's Excellent Video Game Adventure(tm) Game	EXX	nev8.txt	code	3	OUOOUEOO	Infinite Good Stuff(tm)
@@ -994,7 +881,6 @@ Bill Elliott's NASCAR Challenge(tm) Game	ELL	neup03.txt	code	1	EUEKTLEP	Accelera
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	neup03.txt	code	2	SZUETKVK	Infinite 'free time' in the pits
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	neup03.txt	code	3	SXOAZVVK	Freezes timer while crew works on car in pits
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	neup03.txt	info	Bill Elliott's NASCAR Challenge and Bill Elliot are trademarks used
--- 	Bill Elliott's NASCAR Challenge(tm) Game	ELL	neup03.txt	info	Remember, you can pick'n'mix your codes. You can enter up to THREE 
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	nev8.txt	code	1	EUEKTLEP	Accelerate faster
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	nev8.txt	code	2	SZUETKVK	Infinite 'free time' in the pits
 Bill Elliott's NASCAR Challenge(tm) Game	ELL	nev8.txt	code	3	SXOAZVVK	Freezes timer while crew works on car in pits
@@ -1159,7 +1045,6 @@ Bubble Bobble II(tm) Game	BUB2	neup08.txt	info	CODES 7 AND 8: NOT ON THE 1ST LIF
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	7	LEXAUAPA + LESOZTPA	Start each life with 3 hearts
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	8	IEXAUAPA + IESOZTPA	Start each life with 5 hearts
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	9	OXXANUPX	Blow bubbles further
--- 	Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	9 OXXANUPX Blow bubbles farther
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	10	IEKEGZPA	Start on level 5
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	11	ZEKEGZPE	Start on level 10
 Bubble Bobble II(tm) Game	BUB2	neup08.txt	code	12	YEKEGZPE	Start on level 15
@@ -1306,7 +1191,6 @@ Captain Planet and the Planeteers(tm) Game	PLAN	neup03.txt	code	7	SZNXGXVK + SZV
 Captain Planet and the Planeteers(tm) Game	PLAN	neup03.txt	code	8	SXXXEUVK + SZEUGKVK	Infinite power, inside levels
 Captain Planet and the Planeteers(tm) Game	PLAN	neup03.txt	code	9	AANVAEGZ	Start inside level 1 instead of outside.
 Captain Planet and the Planeteers(tm) Game	PLAN	neup03.txt	info	Captain Planet and the Planeteers is a trademark of TBS
--- 	Captain Planet and the Planeteers(tm) Game	PLAN	neup03.txt	info	Remember, you can pick'n'mix your codes.
 Captain Planet and the Planeteers(tm) Game	PLAN	nev8.txt	code	1	PENVIGGA	Start with 2 lives instead of 5, outside levels
 Captain Planet and the Planeteers(tm) Game	PLAN	nev8.txt	code	2	PENVIGGE	Start with 10 lives, outside levels
 Captain Planet and the Planeteers(tm) Game	PLAN	nev8.txt	code	3	SXNLYVVK	Infinite lives, outside levels
@@ -1334,10 +1218,7 @@ Casino Kid II(tm) Game	CAS2	neup07.txt	code	3	AZSGGPAA	Start new game with $21,1
 Casino Kid II(tm) Game	CAS2	neup07.txt	code	4	EGSGGPAE	Start new game with $131,272
 Casino Kid II(tm) Game	CAS2	neup07.txt	code	5	AASKPPAE	Start new game with $1,342,377
 Casino Kid II(tm) Game	CAS2	neup07.txt	code	6	AZSKPPAA	Start new game with $5,368,909
-Casino Kid II(tm) Game	CAS2	neup07.txt	code	7	PAOASGIE	Can't double down in blackjack
--- 	Casino Kid II(tm) Game	CAS2	neup07.txt	code	7 PAOASGIE Can't double down in blackjack (game will say you 
-Casino Kid II(tm) Game	CAS2	neup07.txt	info				(game will say you do not have enough money)
--- 	Casino Kid II(tm) Game	CAS2	neup07.txt	info	do not have enough money)
+Casino Kid II(tm) Game	CAS2	neup07.txt	code	7	PAOASGIE	Can't double down in blackjack (game will say you do not have enough money)
 Casino Kid II(tm) Game	CAS2	neup07.txt	code	8	PAKAVIIE	Can't split in blackjack (game will say you do not have enough money)
 Casino Kid II(tm) Game	CAS2	nev9.txt	code	1	AZKKYOTG	Start new game with $82 instead of $200
 Casino Kid II(tm) Game	CAS2	nev9.txt	code	2	EGKKYOTK	Start new game with $512
@@ -1546,11 +1427,8 @@ Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	3	GPEYUXTA	Maximum e
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	4	GZXVPPAX + GZUTZPAX	Don't use up money when buying things
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	5	AAVIGTZA + PAVITTLA	Super Jump without Flight Crystal
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	info	IMPORTANT: You must ALREADY have Super Jump for codes 6 AND 7 TO WORK
--- 	Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	6       IOUSLVTA        Increase Super Jump to Mega Jump
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	6	IOUSLVTA	Increase Super Jump to Mega Jump
--- 	Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	7       IKUSLVTA        Increase Super Jump to Super Mega Jump
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	code	7	IKUSLVTA	Increase Super Jump to Super Mega Jump
--- 	Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	info	Remember that you can pick'n'mix your codes.
 Conquest of the Crystal Palace(tm) Game	CON	neup03.txt	info	Conquest of the Crystal Palace and Farron are trademarks of Asmik
 Conquest of the Crystal Palace(tm) Game	CON	nev8.txt	code	1	GZVTAPAX	Infinite lives
 Conquest of the Crystal Palace(tm) Game	CON	nev8.txt	code	2	SXXTAIAX	Infinite energy for Farron(tm)
@@ -1977,25 +1855,15 @@ Dragon Warrior II(tm) Game	DW2	neup02.txt	code	11	TOKLVIGE	Start with 30 agility
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	12	GUKLVIGE	Start with 60 agility points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	13	AXKUEITE	Start with 40 magic points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	14	GUKUEITE	Start with 60 magic points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	14      GUKUEITE        Start with 60 magic points Princess of Moonbrooke 
 Dragon Warrior II(tm) Game	DW2	neup02.txt	info	Princess of Moonbrooke:
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	15      ZUKUUIAZ        Start with 50 hit points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	15	ZUKUUIAZ	Start with 50 hit points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	16      LVKUUIAZ        Start with 99 hit points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	16	LVKUUIAZ	Start with 99 hit points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	17      POKUOIZE        Start with 25 strength points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	17	POKUOIZE	Start with 25 strength points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	18      ZUKUOIZA        Start with 50 strength points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	18	ZUKUOIZA	Start with 50 strength points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	19      AXKUXITO        Start with 40 agility points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	19	AXKUXITO	Start with 40 agility points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	code	20      AXKUKSGO        Start with 40 magic points
 Dragon Warrior II(tm) Game	DW2	neup02.txt	code	20	AXKUKSGO	Start with 40 magic points
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 Dragon Warrior II(tm) Game	DW2	neup02.txt	info	Dragon Warrior II, Prince of Midenhall, Prince of Cannock and
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	info	THREE separate codes at one time.
 Dragon Warrior II(tm) Game	DW2	neup02.txt	info	Princess of Moonbrooke are trademarks of Enix of America Co. Used
--- 	Dragon Warrior II(tm) Game	DW2	neup02.txt	info	Dragon Warrior II, Prince of Midenhall, Prince of Cannock and 
 Dragon Warrior II(tm) Game	DW2	nev8.txt	info	Prince of Midenhall
 Dragon Warrior II(tm) Game	DW2	nev8.txt	code	1	ZUKLUSGP	Start with 50 hit points
 Dragon Warrior II(tm) Game	DW2	nev8.txt	code	2	LVKLUSGP	Start with 99 hit points
@@ -2024,11 +1892,8 @@ Dragon Warrior II(tm) Game	DW2	nev8.txt	info	Princess of Moonbrooke are trademar
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	MANY OF THESE CODES WILL GIVE DIFFERENT QUANTITIES OF ATTRIBUTES AT
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	DIFFERENT TIMES. THEY ALSO MAY AFFECT MORE THAN ONE ATTRIBUTE, OR
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	JUST ONE, AT DIFFERENT TIMES CODES MAY SOMETIMES GIVE ZERO OF AN ATTRIBUTE.
--- 	Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	JUST ONE, AT DIFFERENT TIMES
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	IF THIS HAPPENS, RESET AND TRY AGAIN
--- 	Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	CODES MAY SOMETIMES GIVE ZERO OF AN ATTRIBUTE. IF THIS 
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	CODES WORK ONLY WHEN STARTING A NEW GAME
--- 	Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	HAPPENS, 
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	RESET AND TRY AGAIN
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	intro	CODES WORK ONLY WHEN STARTING A NEW GAME
 Dragon Warrior III(tm) Game	DRAG	nev8.txt	code	1	NYUOYPZU	King gives 255 gold
@@ -2440,20 +2305,17 @@ Fantasy Zone(tm) Game	FAN	nev8.txt	code	13	TASVYYAA	Start on level 7
 Faria(tm) Game	FAR	neup04.txt	intro	Only you can save the King's daughter from the clutches of the evil 
 Faria(tm) Game	FAR	neup04.txt	intro	wizard in this popular adventure game. If you think infinite energy, 
 Faria(tm) Game	FAR	neup04.txt	intro	gold and magic would help, try FAR Codes 4 thru 7. When using Code 
+Faria(tm) Game	FAR	neup04.txt	code	5 for infinite gold, however, keep in mind that you must have enough 
+Faria(tm) Game	FAR	neup04.txt	info	gold to afford each purchase. With Code 1, the item screen will only 
+Faria(tm) Game	FAR	neup04.txt	info	show 30 arrows--but on the fight screen when you choose them, 250 
+Faria(tm) Game	FAR	neup04.txt	info	arrows will be displayed and counted down correctly.
 Faria(tm) Game	FAR	neup04.txt	code	1	AAVZSPZA	Get 250 arrows when buying any amount of arrows
--- 	Faria(tm) Game	FAR	neup04.txt	code	5 for infinite gold, however, keep in mind that you must have enough 
 Faria(tm) Game	FAR	neup04.txt	code	2	SZXGINVK	Infinite batteries
--- 	Faria(tm) Game	FAR	neup04.txt	info	gold to afford each purchase. With Code 1, the item screen will only 
 Faria(tm) Game	FAR	neup04.txt	code	3	SXOLYOVK	Infinite bombs
--- 	Faria(tm) Game	FAR	neup04.txt	info	show 30 arrows--but on the fight screen when you choose them, 250 
 Faria(tm) Game	FAR	neup04.txt	code	4	SAOEGPST + SEUUEAST	Infinite energy
--- 	Faria(tm) Game	FAR	neup04.txt	info	arrows will be displayed and counted down correctly.
 Faria(tm) Game	FAR	neup04.txt	code	5	GZXXZUSE + GZXXYUSE + GZUZGUSE	Don't get charged in shops for items you can afford
--- 	Faria(tm) Game	FAR	neup04.txt	code	1       AAVZSPZA        Get 250 arrows when buying any amount of arrows
 Faria(tm) Game	FAR	neup04.txt	code	6	GXSAASVK	Infinite Sede(tm) magic
--- 	Faria(tm) Game	FAR	neup04.txt	code	2       SZXGINVK        Infinite batteries
 Faria(tm) Game	FAR	neup04.txt	code	7	GXNEZSVK	Infinite Saba(tm) magic
--- 	Faria(tm) Game	FAR	neup04.txt	code	3       SXOLYOVK        Infinite bombs
 Faria(tm) Game	FAR	nev8.txt	code	1	AAVZSPZA	Get 250 arrows when buying any amount of arrows
 Faria(tm) Game	FAR	nev8.txt	code	2	SZXGINVK	Infinite batteries
 Faria(tm) Game	FAR	nev8.txt	code	3	SXOLYOVK	Infinite bombs
@@ -2483,22 +2345,7 @@ Felix the Cat(tm) Game	FELI	necd5.txt	code	5	ZAOSOZPA + APNSOXPO	Pick up 1 head 
 Felix the Cat(tm) Game	FELI	necd5.txt	code	6	AAEENAZA	Hearts can't be replenished from bottles
 Felix the Cat(tm) Game	FELI	necd5.txt	code	7	GAEENAZA	Bottles replenish more hearts
 Felix the Cat(tm) Game	FELI	necd5.txt	code	8	AAEENAZE	Bottles replenish even more hearts
-Felix the Cat(tm) Game	FELI	necd5.txt	code	9	GZUKOSVK	Never lose current weapon (acts as invincibility too!)--
--- 	Felix the Cat(tm) Game	FELI	necd5.txt	code	9	GZUKOSVK	Never lose current weapon (acts as invincibility 
-Felix the Cat(tm) Game	FELI	necd5.txt	info				unless you fall off the screen
--- 	Felix the Cat(tm) Game	FELI	necd5.txt	info	too!)--unless you fall off the screen
-Felix the Cat(tm) Game	FELI	nev8.txt	code	1	APUGAGZO	Start with 9 lives
-Felix the Cat(tm) Game	FELI	nev8.txt	code	2	IPUGAGZP	Start with 6 lives
-Felix the Cat(tm) Game	FELI	nev8.txt	code	3	APUGAGZP	Start with 1 life
-Felix the Cat(tm) Game	FELI	nev8.txt	code	4	AEUYKPPA	Infinite lives
-Felix the Cat(tm) Game	FELI	nev8.txt	code	5	ZAOSOZPA + APNSOXPO	Pick up 1 head and get 2!
-Felix the Cat(tm) Game	FELI	nev8.txt	code	6	AAEENAZA	Hearts can't be replenished from bottles
-Felix the Cat(tm) Game	FELI	nev8.txt	code	7	GAEENAZA	Bottles replenish more hearts
-Felix the Cat(tm) Game	FELI	nev8.txt	code	8	AAEENAZE	Bottles replenish even more hearts
-Felix the Cat(tm) Game	FELI	nev8.txt	code	9	GZUKOSVK	Never lose current weapon (acts as invincibility too!)--
--- 	Felix the Cat(tm) Game	FELI	nev8.txt	code	9	GZUKOSVK	Never lose current weapon (acts as invincibility 
-Felix the Cat(tm) Game	FELI	nev8.txt	info				unless you fall off the screen
--- 	Felix the Cat(tm) Game	FELI	nev8.txt	info	too!)--unless you fall off the screen
+Felix the Cat(tm) Game	FELI	necd5.txt	code	9	GZUKOSVK	Never lose current weapon (acts as invincibility too!)--unless you fall off the screen
 Final Fantasy(tm) Game	FINAL	nev8.txt	code	1	SZULIEVS	"LIFE" Spell never uses up Magic Points
 Final Fantasy(tm) Game	FINAL	nev8.txt	code	2	SZVULEVS	"LIF2" Spell never uses up Magic Points
 Final Fantasy(tm) Game	FINAL	nev8.txt	code	3	TESGTYZA	Magic Users start with 6 Magic Points
@@ -2603,7 +2450,6 @@ Fox's Peter Pan and the Pirates(tm) Game	PETE	neup02.txt	code	8	TONGZKZE + TPXKY
 Fox's Peter Pan and the Pirates(tm) Game	PETE	neup02.txt	code	9	IENGZKZA + IAXKYUZA	Start with less energy
 Fox's Peter Pan and the Pirates(tm) Game	PETE	neup02.txt	code	10	ZAUIUZPA + ZAOIVAPA	Faster flying left and right
 Fox's Peter Pan and the Pirates(tm) Game	PETE	neup02.txt	info	Fox's Peter Pan and the Pirates and The Revenge of Captain Hook are
--- 	Fox's Peter Pan and the Pirates(tm) Game	PETE	neup02.txt	info	Remember that you can pick'n'mix your codes.
 Frankenstein the Monster Returns(tm) Game		nev9.txt	code	1	SXKELLSA	Almost infinite energy
 Frankenstein the Monster Returns(tm) Game		nev9.txt	code	2	SZKEPASA + SZEGPASA	Invincible after you die once--may get stuck in boss stages
 Frankenstein the Monster Returns(tm) Game		nev9.txt	code	3	PEOGYPLA	Start with 0 continue
@@ -2634,29 +2480,17 @@ Fun House(tm) Game	FUN	neup03.txt	info	Codes 11 thru 14 for some wacky warping!
 Fun House(tm) Game	FUN	neup03.txt	code	1	PEOGXALA	Start with 1 turn
 Fun House(tm) Game	FUN	neup03.txt	code	2	PEOGXALE	Start with 9 turns
 Fun House(tm) Game	FUN	neup03.txt	code	3	EAXOLVGL	Slower timer
--- 	Fun House(tm) Game	FUN	neup03.txt	code	1       PEOGXALA        Start with 1 turn
 Fun House(tm) Game	FUN	neup03.txt	code	4	YPXOLVGU	Faster timer
--- 	Fun House(tm) Game	FUN	neup03.txt	code	2       PEOGXALE        Start with 9 turns
 Fun House(tm) Game	FUN	neup03.txt	code	5	ZESXVGGA	Quicker turning
--- 	Fun House(tm) Game	FUN	neup03.txt	code	3       EAXOLVGL        Slower timer
 Fun House(tm) Game	FUN	neup03.txt	code	6	TOVOUEYE	More time from Large Glop Clocks(tm)
--- 	Fun House(tm) Game	FUN	neup03.txt	code	4       YPXOLVGU        Faster timer
 Fun House(tm) Game	FUN	neup03.txt	code	7	YEVOUEYA	Less time from Large Glop Clocks
--- 	Fun House(tm) Game	FUN	neup03.txt	code	5       ZESXVGGA        Quicker turning
 Fun House(tm) Game	FUN	neup03.txt	code	8	SXNKSKVK	Infinite turns
--- 	Fun House(tm) Game	FUN	neup03.txt	code	6       TOVOUEYE        More time from Large Glop Clocks(tm)
 Fun House(tm) Game	FUN	neup03.txt	code	9	PAXGSILA	1 turn after continuing
--- 	Fun House(tm) Game	FUN	neup03.txt	code	7       YEVOUEYA        Less time from Large Glop Clocks
 Fun House(tm) Game	FUN	neup03.txt	code	10	PAXGSILE	9 turns after continuing
--- 	Fun House(tm) Game	FUN	neup03.txt	code	8       SXNKSKVK        Infinite turns
 Fun House(tm) Game	FUN	neup03.txt	code	11	YEEKSAPA	Start on Floor 2
--- 	Fun House(tm) Game	FUN	neup03.txt	code	9       PAXGSILA        1 turn after continuing
 Fun House(tm) Game	FUN	neup03.txt	code	12	LOEKSAPA	Start on Floor 4
--- 	Fun House(tm) Game	FUN	neup03.txt	code	10      PAXGSILE        9 turns after continuing
 Fun House(tm) Game	FUN	neup03.txt	code	13	YOEKSAPE	Start on Floor 6
--- 	Fun House(tm) Game	FUN	neup03.txt	code	11      YEEKSAPA        Start on Floor 2
 Fun House(tm) Game	FUN	neup03.txt	code	14	LXEKSAPE	Start on Floor 8
--- 	Fun House(tm) Game	FUN	neup03.txt	code	12      LOEKSAPA        Start on Floor 4
 Fun House(tm) Game	FUN	nev9.txt	code	1	PEOGXALA	Start with 1 turn
 Fun House(tm) Game	FUN	nev9.txt	code	2	PEOGXALE	Start with 9 turns
 Fun House(tm) Game	FUN	nev9.txt	code	3	EAXOLVGL	Slower timer
@@ -2697,7 +2531,6 @@ G.I. Joe(tm) Game	G.I.	neup03.txt	code	18	AXNVVSGP	Mega jump for Snake Eyes
 G.I. Joe(tm) Game	G.I.	neup03.txt	code	19	AXNVNIGP	Mega jump for Capt. Grid-Iron
 G.I. Joe(tm) Game	G.I.	neup03.txt	code	20	AZETETAP	Mega jump for Rock & Roll
 G.I. Joe(tm) Game	G.I.	neup03.txt	info	G.I. Joe, Duke, Blizzard, Snake Eyes, Capt. Grid-Iron and Rock & Roll
--- 	G.I. Joe(tm) Game	G.I.	neup03.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 G.I. Joe(tm) Game	G.I.	nev8.txt	code	1	AENATLPA	Stop timer
 G.I. Joe(tm) Game	G.I.	nev8.txt	code	2	GOUTKSIA	More energy for Duke(tm)
 G.I. Joe(tm) Game	G.I.	nev8.txt	code	3	GOUTSSGA	More energy for Blizzard(tm)
@@ -2739,18 +2572,14 @@ Galaga(tm) Demons of Death(tm) Game	GALA	nev8.txt	code	9	GXOKOTEI	Play challenge
 Galaxy 5000(tm) Game	GAL	neup03.txt	intro	Leap into the 51st Century with these Game Genie(tm) codes and 
 Galaxy 5000(tm) Game	GAL	neup03.txt	intro	beat the best the galaxy has to offer. Save cash with GAL Code 2. 
 Galaxy 5000(tm) Game	GAL	neup03.txt	intro	Experience the time-space continuum without stress using GAL Code 
+Galaxy 5000(tm) Game	GAL	neup03.txt	intro	1. For the players who think they can handle more of a challenge, 
+Galaxy 5000(tm) Game	GAL	neup03.txt	intro	check out GAL Codes 5 and 6.
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	1	SLKPAEVS	Stop timer
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	code	1. For the players who think they can handle more of a challenge, 
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	2	GXNXSVSN	Reduce damage free of charge
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	info	check out GAL Codes 5 and 6.
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	3	SXKZEPAX	No damage from falling
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	code	1       SLKPAEVS        Stop timer
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	4	OXNNVPSX + PENNNOZP	Take less damage
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	code	2       GXNXSVSN        Reduce damage free of charge
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	5	SXUXSOSU + ALVUVYLZ	More damage from falling
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	code	3       SXKZEPAX        No damage from falling
 Galaxy 5000(tm) Game	GAL	neup03.txt	code	6	TEEOZGVV + NUEOLKVN	More damage from shots
--- 	Galaxy 5000(tm) Game	GAL	neup03.txt	code	4       OXNNVPSX + PENNNOZP     Take less damage
 Galaxy 5000(tm) Game	GAL	nev8.txt	code	1	SLKPAEVS	Stop timer
 Galaxy 5000(tm) Game	GAL	nev8.txt	code	2	GXNXSVSN	Reduce damage free of charge
 Galaxy 5000(tm) Game	GAL	nev8.txt	code	3	SXKZEPAX	No damage from falling
@@ -2927,7 +2756,6 @@ Harlem Globetrotters(tm) Game	TROT	neup03.txt	code	2	GPUGSOIX	Faster timer
 Harlem Globetrotters(tm) Game	TROT	neup03.txt	code	3	IIVGKOIZ	Slower shot clock
 Harlem Globetrotters(tm) Game	TROT	neup03.txt	code	4	GPVGKOIX	Faster shot clock
 Harlem Globetrotters(tm) Game	TROT	neup03.txt	info	Harlem Globetrotters is a trademark of International Broadcasting
--- 	Harlem Globetrotters(tm) Game	TROT	neup03.txt	info	Remember that you can pick'n'mix your codes.
 Harlem Globetrotters(tm) Game	TROT	nev8.txt	code	1	IIUGSOIZ	Slower timer
 Harlem Globetrotters(tm) Game	TROT	nev8.txt	code	2	GPUGSOIX	Faster timer
 Harlem Globetrotters(tm) Game	TROT	nev8.txt	code	3	IIVGKOIZ	Slower shot clock
@@ -3110,65 +2938,35 @@ Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	intro	section of th
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	intro	you're hot, dial in one for fewer lives. On the bike-riding section, 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	intro	you can have infinite lives!
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	1	PAVKGALA	Start with 1 life
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	1       SZUEEIVG        Infinite lives on bike section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	2	IAVKGALA	Start with 5 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	2       PAVAGYIE        More lives on ship section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	3	YAVKGALA	Start with 7 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	3       PAVAGYIA        Fewer lives on ship section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	4	PAVKGALE	Start with 9 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	4       PAEPIITE        More lives on tank section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	5	PEUZPALA	Continue with 1 life
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	5       PAEPIITA        Fewer lives on tank section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	6	IEUZPALA	Continue with 5 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	6       PEXPTALE        More lives on castle section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	7	YEUZPALA	Continue with 7 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	7       PEXPTALA        Fewer lives on castle section
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	8	PEUZPALE	Continue with 9 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	9	KYSTEGGE	Infinite lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	THREE separate codes at one time.
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	10	VYONKZGE	Infinite energy--BUT BE CAREFUL, YOU CAN GET TRAPPED IN CERTAIN AREAS
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd. 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	11	AEKPXLPA	Heart does nothing--MAY GOOF UP ENERGY BAR
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	Used by Taito America Corporation under license.
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	12	SXXXIEVK	Infinite credits
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	13	AEEOYTPA	Infinite time
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	KIWI KRAZE(tm) GAME
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	CODES 14 THRU 18 ARE FOR PRACTICE ONLY. AFTER YOU FINISH THE 
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	Yo, Tiki(tm) dude. Here's some heavy-duty help in your quest to bring 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	LEVEL, YOU GO BACK TO LEVEL 1
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	back your bird-brained buddies and phind your phabulous phemale 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	14	PANGPAAA	Play level 2
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	phriend Phee Phee(tm). KIWI Codes 3 thru 5 let you choose the 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	15	ZANGPAAA	Play level 3
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	number of lives to start with and also affect the number of times 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	16	LANGPAAA	Play level 4
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	you can continue the game. KIWI Codes 10 thru 13 allow you to warp 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	17	GANGPAAA	Play level 5
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	to any level. But the star code for this game is KIWI Code 1--check 
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	18	IANGPAAA	Play level 6
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	it out!
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	19	IAVTKAPA	Super jump
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	KIWI
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	20	PAVTKAPE	Mega-jump
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	CODE
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	21	SZUEEIVG	Infinite lives on bike section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	        KEY IN . . .    EFFECT . . .
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	22	PAVAGYIE	More lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	1       XYKTISKN        Super jump
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	23	PAVAGYIA	Fewer lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	2       SUSKLYVI        Infinite lives
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	24	PAEPIITE	More lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	3       AANGLLZA        Start with 1 life (and 1 continue)
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	25	PAEPIITA	Fewer lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	4       IANGLLZA        Start with 6 lives (and 6 continues)
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	26	PEXPTALE	More lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	5       AANGLLZE        Start with 9 lives (and 9 continues)
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	27	PEXPTALA	Fewer lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	6       AAEGNPZA        1 life after continue
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	info	Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd.
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup02.txt	code	7       IAEGNPZA        6 lives after continue
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	1	PAVKGALA	Start with 1 life
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	2	IAVKGALA	Start with 5 lives
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	3	YAVKGALA	Start with 7 lives
@@ -3192,94 +2990,13 @@ Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	18	IANGPAAA	Pl
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	19	IAVTKAPA	Super jump
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	20	PAVTKAPE	Mega-jump
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	21	SZUEEIVG	Infinite lives on bike section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	info	Indiana Jones and the Last Crusade is a trademark of LucasFilm Ltd.
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	22	PAVAGYIE	More lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	info	
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	23	PAVAGYIA	Fewer lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	info	Jimmy Connors Tennis(tm) Game
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	24	PAEPIITE	More lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	info	JIM
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	25	PAEPIITA	Fewer lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	1 AEVTIPLA Only need 15 points to win game
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	26	PEXPTALE	More lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	2 PEVTIPLA Only need 30 points to win game
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	27	PEXPTALA	Fewer lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	3 ZEVTIPLA Only need 40 points to win game
 Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	info	Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd.
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	neup08.txt	code	4 AEEVAZTA Only need 1 game to win set instead of 6
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	1	PAVKGALA	Start with 1 life
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	1	SZUEEIVG	Infinite lives on bike section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	2	IAVKGALA	Start with 5 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	2	PAVAGYIE	More lives on ship section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	3	YAVKGALA	Start with 7 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	3	PAVAGYIA	Fewer lives on ship section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	4	PAVKGALE	Start with 9 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	4	PAEPIITE	More lives on tank section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	5	PEUZPALA	Continue with 1 life
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	5	PAEPIITA	Fewer lives on tank section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	6	IEUZPALA	Continue with 5 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	6	PEXPTALE	More lives on castle section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	7	YEUZPALA	Continue with 7 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	7	PEXPTALA	Fewer lives on castle section
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	8	PEUZPALE	Continue with 9 lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd. 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	9	KYSTEGGE	Infinite lives
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Used by Taito America Corporation under license.
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	10	VYONKZGE	Infinite energy--BUT BE CAREFUL, YOU CAN GET TRAPPED IN CERTAIN AREAS
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Indiana Jones and the Temple of Doom(tm) Game
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	11	AEKPXLPA	Heart does nothing--MAY GOOF UP ENERGY BAR
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	INDY
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	12	SXXXIEVK	Infinite credits
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	1	SZEXOKVK	Infinite lives 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	13	AEEOYTPA	Infinite time
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	2	AEKLULGA	Start with 1 life
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	CODES 14 THRU 18 ARE FOR PRACTICE ONLY. AFTER YOU FINISH THE 
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	3	PEKLULGE	Start with 10 lives 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	LEVEL, YOU GO BACK TO LEVEL 1
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	4	TEKLULGE	Start with 15 lives
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	14	PANGPAAA	Play level 2
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	5	SZSZGUVK	Always keep sword
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	15	ZANGPAAA	Play level 3
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	6	SZUXZVVK	Always keep gun 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	16	LANGPAAA	Play level 4
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	7	SZXZAEVK	Freeze timer
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	17	GANGPAAA	Play level 5
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	8	GLKUXGLV + LVEXUUGL + LTOXVKGL	Start with less time 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	18	IANGPAAA	Play level 6
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	9	PPKLEKYA	Start on level 2
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	19	IAVTKAPA	Super jump
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	10	IPKLEKYA	Start on level 4
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	20	PAVTKAPE	Mega-jump
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	11	PPKLEKYE	Start on level 6 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	21	SZUEEIVG	Infinite lives on bike section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	12	IPKLEKYE	Start on level 8
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	22	PAVAGYIE	More lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Indiana Jones and the Temple of Doom is a trademark of Lucasfilm 
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	23	PAVAGYIA	Fewer lives on ship section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Ltd. Used by Mindscape Inc. under license.
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	24	PAEPIITE	More lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Infiltrator (tm) Game
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	25	PAEPIITA	Fewer lives on tank section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	TRATOR
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	26	PEXPTALE	More lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	1	ZPSLPXZA	Start with more Grenades
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	27	PEXPTALA	Fewer lives on castle section
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	2	IASLPXZA	Start with fewer Grenades
-Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	info	Indiana Jones and the Last Crusade is a trademark of Lucasfilm Ltd.
--- 	Indiana Jones and the Last Crusade(tm) Game	JONES	nev8.txt	code	3	AASLPXZA	Start with no Grenades
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	1	SZEXOKVK	Infinite lives
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	2	AEKLULGA	Start with 1 life
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	3	PEKLULGE	Start with 10 lives
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	4	TEKLULGE	Start with 15 lives
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	5	SZSZGUVK	Always keep sword
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	6	SZUXZVVK	Always keep gun
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	7	SZXZAEVK	Freeze timer
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	8	GLKUXGLV + LVEXUUGL + LTOXVKGL	Start with less time
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	9	PPKLEKYA	Start on level 2
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	10	IPKLEKYA	Start on level 4
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	11	PPKLEKYE	Start on level 6
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	code	12	IPKLEKYE	Start on level 8
-Indiana Jones and the Temple of Doom(tm) Game	INDY	nev8.txt	info	Indiana Jones and the Temple of Doom is a trademark of Lucasfilm
 Infiltrator(tm) Game	TRATOR	nev9.txt	code	1	ZPSLPXZA	Start with more Grenades
 Infiltrator(tm) Game	TRATOR	nev9.txt	code	2	IASLPXZA	Start with fewer Grenades
 Infiltrator(tm) Game	TRATOR	nev9.txt	code	3	AASLPXZA	Start with no Grenades
@@ -3365,7 +3082,6 @@ James Bond Jr.(tm) Game	BOND	necd5.txt	code	7	YESOENYO	Speed up rate of air loss
 James Bond Jr.(tm) Game	BOND	necd5.txt	code	8	GZUYZIST	Shield doesn't take damage from bullets
 James Bond Jr.(tm) Game	BOND	necd5.txt	code	9	GZVYPIST	Immune to most damage
 James Bond Jr.(tm) Game	BOND	necd5.txt	info	James Bond Jr. is a trademark of EON Productions, Ltd., MACB, Inc.,
--- 	James Bond Jr.(tm) Game	BOND	necd5.txt	info	Try your codes in different combinations for more fun.
 James Bond Jr.(tm) Game	BOND	nev9.txt	code	1	PANTTATA	Start with 2 lives
 James Bond Jr.(tm) Game	BOND	nev9.txt	code	2	TANTTATE	Start with 15 lives
 James Bond Jr.(tm) Game	BOND	nev9.txt	code	3	SXEKSOVK	Infinite lives
@@ -3383,23 +3099,14 @@ Jaws(tm) Game	JAW	nev9.txt	code	4	TEOAGZLA	Start with double lives
 Jaws(tm) Game	JAW	nev9.txt	code	5	SZSELSTK	Don't lose shells on dying
 Jaws(tm) Game	JAW	nev9.txt	code	6	SZSETSVK	Don't lose power on dying
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	1	AEVTIPLA	Only 15 points required to win game
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	1 AEVTIPLA Only need 15 points to win game
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	2	PEVTIPLA	Only 30 points required to win game
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	2 PEVTIPLA Only need 30 points to win game
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	3	ZEVTIPLA	Only 40 points required to win game
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	3 ZEVTIPLA Only need 40 points to win game
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	4	AEEVAZTA	Only 1 game required to win set instead of 6
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	4 AEEVAZTA Only need 1 game to win set instead of 6
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	5	PEEVAZTA	Only 2 games required to win set
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	5 PEEVAZTA Only need 2 games to win set
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	6	ZEEVAZTA	Only 3 games required to win set
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	6 ZEEVAZTA Only need 3 games to win set
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	7	GEEVAZTA	Only 4 games required to win set
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	7 GEEVAZTA Only need 4 games to win set
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	8	IEEVAZTA	Only 5 games required to win set
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	8 IEEVAZTA Only need 5 games to win set
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	9	EEVVIPEI	Must get 2 points after 40 to win and no duece
--- 	Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	9 EEVVIPEI Must get 2 points after 40 to win and no deuces 
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	info				(always shows advantage after 40)
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	10	PEKVGPZA	Don't need to win by 2 to win tiebreaker
 Jimmy Connors Tennis(tm) Game	JIM	neup08.txt	code	11	ZEUVIPYA	2 points needed to win tiebreaker instead of 7
@@ -3416,10 +3123,7 @@ Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	5	PEEVAZTA	Only 2 games required
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	6	ZEEVAZTA	Only 3 games required to win set
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	7	GEEVAZTA	Only 4 games required to win set
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	8	IEEVAZTA	Only 5 games required to win set
-Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	9	EEVVIPEI	Must get 2 points after 40 to win and no duece
--- 	Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	9	EEVVIPEI	Must get 2 points after 40 to win and no 
-Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	info				(always shows advantage after 40)
--- 	Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	info	duece (always shows advantage after 40)
+Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	9	EEVVIPEI	Must get 2 points after 40 to win and no duece (always shows advantage after 40)
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	10	PEKVGPZA	Don't need to win by 2 to win tiebreaker
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	11	ZEUVIPYA	2 points needed to win tiebreaker instead of 7
 Jimmy Connors Tennis(tm) Game	JIM	nev8.txt	code	12	LEUVIPYA	3 points needed to win tiebreaker
@@ -3589,18 +3293,14 @@ Kid Klown(tm) Game	KID	neup07.txt	code	2	SZKEOESE	Infinite energy
 Kid Klown(tm) Game	KID	neup07.txt	code	3	AAEAUGLA	Full energy from hearts
 Kid Klown(tm) Game	KID	neup07.txt	code	4	ZENANLIA	Less energy from hearts
 Kid Klown(tm) Game	KID	neup07.txt	code	5	ZENANLIE	More energy from hearts
-Kid Klown(tm) Game	KID	neup07.txt	code	6	GXEZYVVV	Mega jump--DON'T HOLD JUMP BUTTON DOWN
--- 	Kid Klown(tm) Game	KID	neup07.txt	code	6 GXEZYVVV Mega jump--DON'T HOLD JUMP BUTTON DOWN FOR 
-Kid Klown(tm) Game	KID	neup07.txt	info	FOR TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
--- 	Kid Klown(tm) Game	KID	neup07.txt	info	TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
+Kid Klown(tm) Game	KID	neup07.txt	code	6	GXEZYVVV	Mega jump--DON'T HOLD JUMP BUTTON DOWN FOR TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
 Kid Klown(tm) Game	KID	neup07.txt	code	7	GZSEIYVG	Infinite chances in sub-game (press Start to re-enter the main game)
 Kid Klown(tm) Game	KID	nev8.txt	code	1	AANAUAPA	Infinite lives
 Kid Klown(tm) Game	KID	nev8.txt	code	2	SZKEOESE	Infinite energy
 Kid Klown(tm) Game	KID	nev8.txt	code	3	AAEAUGLA	Full energy from hearts
 Kid Klown(tm) Game	KID	nev8.txt	code	4	ZENANLIA	Less energy from hearts
 Kid Klown(tm) Game	KID	nev8.txt	code	5	ZENANLIE	More energy from hearts
-Kid Klown(tm) Game	KID	nev8.txt	code	6	GXEZYVVV	Mega jump--DON'T HOLD JUMP BUTTON DOWN
-Kid Klown(tm) Game	KID	nev8.txt	info	FOR TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
+Kid Klown(tm) Game	KID	nev8.txt	code	6	GXEZYVVV	Mega jump--DON'T HOLD JUMP BUTTON DOW FOR TOO LONG OR YOU MAY GET STUCK AT TOP OF SCREEN
 Kid Klown(tm) Game	KID	nev8.txt	code	7	GZSEIYVG	Infinite chances in sub-game (press Start to re-enter the main game)
 Kid Kool(tm) Game	KOOL	nev8.txt	code	1	PAVGIALA	Start with one life
 Kid Kool(tm) Game	KOOL	nev8.txt	code	2	TAVGIALA	Start with double lives
@@ -3719,7 +3419,6 @@ Krusty's Fun House(tm) Game	FUN	necd5.txt	code	6	TAKELEPA	Start with 6 pies
 Krusty's Fun House(tm) Game	FUN	necd5.txt	code	7	ZPKELEPA	Start with 18 pies
 Krusty's Fun House(tm) Game	FUN	necd5.txt	code	8	GXKZPKVK	Infinite pies--first life only
 Krusty's Fun House(tm) Game	FUN	necd5.txt	info	Krusty's Fun House is a trademark of Twentieth Century Fox Film
--- 	Krusty's Fun House(tm) Game	FUN	necd5.txt	info	Remember to mix those codes.
 Krusty's Fun House(tm) Game	FUN	nev9.txt	code	1	PAKATALA	Start with 1 life
 Krusty's Fun House(tm) Game	FUN	nev9.txt	code	2	TAKATALA	Start with 6 lives
 Krusty's Fun House(tm) Game	FUN	nev9.txt	code	3	PAKATALE	Start with 9 lives
@@ -3826,10 +3525,8 @@ Legends of the Diamond(tm) Game	BASE	neup08.txt	info	FOR CODES 1 THRU 3, FOULS D
 Legends of the Diamond(tm) Game	BASE	neup08.txt	code	1	PASUGILA	1 strike and you're out
 Legends of the Diamond(tm) Game	BASE	neup08.txt	code	2	ZASUGILA	2 strikes and you're out
 Legends of the Diamond(tm) Game	BASE	neup08.txt	code	3	IASUGILA	5 strikes and you're out--ignore counter
-Legends of the Diamond(tm) Game	BASE	neup08.txt	code	4	PEKLAIGA	1 ball to walk
--- 	Legends of the Diamond(tm) Game	BASE	neup08.txt	code	4 PEKLAIGA 1 ball and you walk
-Legends of the Diamond(tm) Game	BASE	neup08.txt	code	5	ZEKLAIGA	2 balls to walk
--- 	Legends of the Diamond(tm) Game	BASE	neup08.txt	code	5 ZEKLAIGA 2 balls and you walk
+Legends of the Diamond(tm) Game	BASE	neup08.txt	code	4	PEKLAIGA	1 ball and you walk
+Legends of the Diamond(tm) Game	BASE	neup08.txt	code	5	ZEKLAIGA	2 balls and you walk
 Legends of the Diamond(tm) Game	BASE	neup08.txt	code	6	TEKLAIGA	6 balls to walk
 Legends of the Diamond(tm) Game	BASE	nev8.txt	info	FOR CODES 1 THRU 3, FOULS DON'T COUNT AS STRIKES
 Legends of the Diamond(tm) Game	BASE	nev8.txt	code	1	PASUGILA	1 strike and you're out
@@ -3864,48 +3561,19 @@ Lethal Weapon(tm) Game	LETH	necd5.txt	intro	For Codes 12 and 13, you will still 
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	1, but you will actually start on the selected level.
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	1	OLSSGSOO	Infinite ammo when shooting on the ground
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	2	OUSSISOO + OUXIPSOO	Infinite ammo when shooting in the air
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	1	OLSSGSOO	Infinite ammo when shooting on the ground
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	3	AKVIXAAP	E restores energy fully
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	2	OUSSISOO + OUXIPSOO	Infinite ammo when shooting in the air
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	4	AEVIXAAP	E worth nothing
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	3	AKVIXAAP	E restores energy fully
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	5	AKKSEAAP	Extra ammo restores energy fully
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	4	AEVIXAAP	E worth nothing
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	6	AEKSEAAP	Extra ammo worth nothing--
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	5	AKKSEAAP	Extra ammo restores energy fully
 Lethal Weapon(tm) Game	LETH	necd5.txt	info				if you run out of ammo you can't use gun till next stage
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	6	AEKSEAAP	Extra ammo worth nothing--if you run out of ammo 
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	7	AEUYXAAZ	No energy lost when falling off screen
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	info	you can't use gun till next stage
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	8	AKUYXAAZ	Falling off screen is fatal
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	7	AEUYXAAZ	No energy lost when falling off screen
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	9	NNNISAAU	Bullet proof vest lasts longer
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	8	AKUYXAAZ	Falling off screen is fatal
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	10	ZENISAAU or AONISAAL	Bullet proof vest does not last as long
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	9	NNNISAAU	Bullet proof vest lasts longer
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	11	XVUKOOXK	Bullet proof vest lasts until end of stage--
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	10	ZENISAAU or AONISAAL	Bullet proof vest does not last as 
 Lethal Weapon(tm) Game	LETH	necd5.txt	info				except when you die from punches or falling off screen
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	info	long
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	12	XTUGTXXK	Start on Level 2
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	code	11	XVUKOOXK	Bullet proof vest lasts until end of stage--except 
 Lethal Weapon(tm) Game	LETH	necd5.txt	code	13	XZUGLXVL + LAUGGZNP + XTUGIZEK	Start on Level 3
--- 	Lethal Weapon(tm) Game	LETH	necd5.txt	info	when you die from punches or falling off screen
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	1	OLSSGSOO	Infinite ammo when shooting on the ground
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	2	OUSSISOO + OUXIPSOO	Infinite ammo when shooting in the air
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	3	AKVIXAAP	E restores energy fully
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	4	AEVIXAAP	E worth nothing
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	5	AKKSEAAP	Extra ammo restores energy fully
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	6	AEKSEAAP	Extra ammo worth nothing--
-Lethal Weapon(tm) Game	LETH	nev9.txt	info				if you run out of ammo you can't use gun till next stage
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	7	AEUYXAAZ	No energy lost when falling off screen
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	8	AKUYXAAZ	Falling off screen is fatal
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	9	NNNISAAU	Bullet proof vest lasts longer
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	10	ZENISAAU or AONISAAL	Bullet proof vest does not last as long
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	11	XVUKOOXK	Bullet proof vest lasts until end of stage--
-Lethal Weapon(tm) Game	LETH	nev9.txt	info				except when you die from punches or falling off screen
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	12	XTUGTXXK	Start on Level 2
-Lethal Weapon(tm) Game	LETH	nev9.txt	code	13	XZUGLXVL + LAUGGZNP + XTUGIZEK	Start on Level 3
 Life Force(tm) Game	LIFE	nev8.txt	code	1	GZKGILVI	Infinite lives
 Life Force(tm) Game	LIFE	nev8.txt	code	2	PEKVNTLA	Start with 1 life
 Life Force(tm) Game	LIFE	nev8.txt	code	3	TEKVNTLA	Start with 6 lives
@@ -4098,10 +3766,7 @@ Mechanized Attack(tm) Game	MEC	nev8.txt	code	4	EZOKIAXZ + PAOKTAAE + KANKPEVE	St
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	5	AEVOAPLA	Reduce damage by half
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	6	EZOKIAXZ + AAOKTAAA + KANKTEVE	Start with only 1 magazine
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	7	EZOKIAXZ + YAOKTAAA + KANKTEVE	Start with 8 magazines
-Mechanized Attack(tm) Game	MEC	nev8.txt	code	8	GPONAOAZ + GPEYLEAZ	Magazine holds only half normal amount of bullets
--- 	Mechanized Attack(tm) Game	MEC	nev8.txt	code	8	GPONAOAZ + GPEYLEAZ	Magazine holds only half normal 
-Mechanized Attack(tm) Game	MEC	nev8.txt	info						after first magazine used
--- 	Mechanized Attack(tm) Game	MEC	nev8.txt	info	amount of bullets after first magazine used
+Mechanized Attack(tm) Game	MEC	nev8.txt	code	8	GPONAOAZ + GPEYLEAZ	Magazine holds only half normal amount of bullets after first magazine used
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	9	EZOKIAXZ + PAOKTAAA + KEEGZEVE	Start with only 1 grenade
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	10	EZOKIAXZ + AAOKTAAE + KEEGZEVE	Start with 8 grenades
 Mechanized Attack(tm) Game	MEC	nev8.txt	code	11	SZUNTOVK	Infinite grenades
@@ -4271,164 +3936,52 @@ Mickey Mousecapade(tm) Game	MICK	nev8.txt	code	4	AESOIPGE	Start with 9 lives
 Mickey Mousecapade(tm) Game	MICK	nev8.txt	code	5	OVOPPTSV	Infinite energy
 Mickey Mousecapade(tm) Game	MICK	nev8.txt	code	6	GPSIEVGE + LAVSVTZA	Mickey(tm) and Minnie(tm) can shoot on any level
 Mickey Mousecapade(tm) Game	MICK	nev8.txt	info	Mickey Mousecapade, Mickey and Minnie are trademarks of Walt
-Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	NOTE: There are two versions given for some of the following Codes.
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	At last it's here! The video game of your favorite vehicles! And 
-Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	If one code doesn't work on your game, then try the alternate Code.
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	here's a whole host of mega Game Genie(tm) codes to go with it. If 
+Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	At last it's here! The video game of your favorite vehicles! And 
+Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	here's a whole host of mega Game Genie(tm) codes to go with it. If 
+
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	you're having trouble with the Micro Machines(tm) Challenge, you'll 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	love MICRO Codes 1 thru 11--they'll help you get farther into the 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	game than you've ever been before! That's not all: MICRO Codes 12 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	thru 31 will let you change the performance of your favorite Micro 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	Machines vehicle so you can speed up faster, put the brakes on 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	quicker and bounce WAY higher. Pedal to the metal and check 'em out!
-Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	These codes can only be used in the Micro Machines Challenge (NOT in 
-Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	the two-player 
-Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	one-on-one game):
+Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	NOTE: There are two versions given for some of the following Codes.
+Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	intro	If one code doesn't work on your game, then try the alternate Code.
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	These codes can only be used in the Micro Machines Challenge
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	1       PEKNAYLE / PAXNAYLE     Play with 9 lives
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	(NOT in the two-player one-on-one game):
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	2       GXSZZVVK / GZNXGVVK     Infinite lives
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	1	PEKNAYLE / PAXNAYLE	Play with 9 lives
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	3       GEKYSZZA / GAXYSZZA     Qualify every race!
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	2	GXSZZVVK / GZNXGVVK	Infinite lives
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	4       PEUYXZLA / PAOYXZLA     Ruff Trux(tm) after every race
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	3	GEKYSZZA / GAXYSZZA	Qualify every race!
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	5       PASYNALA / PEUYYYLA     Kid out of game after every race
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	4	PEUYXZLA / PAOYXZLA	Ruff Trux(tm) after every race
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	6       GEKNIYAA / GAXNIYAA     Start on race 5
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	5	PASYNALA / PEUYYYLA	Kid out of game after every race
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	7       PEKNIYAE / PAXNIYAE     Start on race 10
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	6	GEKNIYAA / GAXNIYAA	Start on race 5
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	8       TEKNIYAE / TAXNIYAE     Start on race 15        
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	7	PEKNIYAE / PAXNIYAE	Start on race 10
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	9       LOKNIYAA / LPXNIYAA     Start on race 20
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	8	TEKNIYAE / TAXNIYAE	Start on race 15
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	10      AOKNIYAE / APXNIYAE     Start on race 25 (Final Race!)
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	9	LOKNIYAA / LPXNIYAA	Start on race 20
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	11      GESYOZPA / GAUYOZPA     Win Championship race!
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	10	AOKNIYAE / APXNIYAE	Start on race 25 (Final Race!)
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	12      AAOEIAIA        Faster Boat acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	11	GESYOZPA / GAUYOZPA	Win Championship race!
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	13      AAOEGAIA  Faster Sports Car acceleration  
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	These codes can be used in either the Micro Machines Challenge OR the one-on-one game
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	14      AAOETAIA        Faster Formula 1 acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	12	AAOEIAIA	Faster Boat acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	15      AAOEYAIA        Faster Turbo Wheels(tm) acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	13	AAOEGAIA	Faster Sports Car acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	16      AAXAAAIA        Faster 4x4 acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	14	AAOETAIA	Faster Formula 1 acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	17      AAXAZAZA        Faster Tank acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	15	AAOEYAIA	Faster Turbo Wheels(tm) acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	18      AAXALAIA        Faster Chopper acceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	16	AAXAAAIA	Faster 4x4 acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	19      AAXATEPA        Quicker Boat deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	17	AAXAZAZA	Faster Tank acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	20      AAXAIEPA        Quicker Sports Car deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	18	AAXALAIA	Faster Chopper acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	21      AAXAYEPA        Quicker Formula 1 deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	19	AAXATEPA	Quicker Boat deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	22      AAXEAEPA        Quicker Turbo Wheels deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	20	AAXAIEPA	Quicker Sports Car deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	23      AAXEPEPA        Quicker Jeep deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	21	AAXAYEPA	Quicker Formula 1 deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	24      AAXELAZA        Quicker Tank deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	22	AAXEAEPA	Quicker Turbo Wheels deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	25      AAXEGEYA        Quicker Chopper deceleration
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	23	AAXEPEPA	Quicker Jeep deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	26      YAEAZAPA        Higher bounce for Boats
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	24	AAXELAZA	Quicker Tank deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	27      IAEAPAPA        Higher bounce for Sports Car
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	25	AAXEGEYA	Quicker Chopper deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	28      YAEALAPA        Higher bounce for Formula 1's
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	26	YAEAZAPA	Higher bounce for Boats
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	29      YAEAGAPA        Higher bounce for Turbo Wheels
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	27	IAEAPAPA	Higher bounce for Sports Car
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	30      YAEAIAPA        Higher bounce for Jeeps
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	28	YAEALAPA	Higher bounce for Formula 1's
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	31      YAEAYAPA        Higher bounce for Tanks
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	29	YAEAGAPA	Higher bounce for Turbo Wheels
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	30	YAEAIAPA	Higher bounce for Jeeps
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	THREE separate codes at one time.
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	code	31	YAEAYAPA	Higher bounce for Tanks
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are 
 Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are
--- 	Micro Machines(tm) The Official Video Game	MICRO	neup02.txt	info	trademarks of Lewis Galoob Toys, Inc.
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	intro	NOTE: There are two versions given for some of the following Codes.
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	intro	If one code doesn't work on your game, then try the alternate Code.
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	intro	These codes can only be used in the Micro Machines Challenge (NOT in 
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	intro	the two-player 
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	intro	one-on-one game):
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	These codes can only be used in the Micro Machines Challenge
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	1	PEKNAYLE / PAXNAYLE	Play with 9 lives
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	(NOT in the two-player one-on-one game):
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	2	GXSZZVVK / GZNXGVVK	Infinite lives
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	1	PEKNAYLE / PAXNAYLE	Play with 9 lives
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	3	GEKYSZZA / GAXYSZZA	Qualify every race!
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	2	GXSZZVVK / GZNXGVVK	Infinite lives
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	4	PEUYXZLA / PAOYXZLA	Ruff Trux(tm) after every race
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	3	GEKYSZZA / GAXYSZZA	Qualify every race!
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	5	PASYNALA / PEUYYYLA	Kid out of game after every race
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	4	PEUYXZLA / PAOYXZLA	Ruff Trux(tm) after every race
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	6	GEKNIYAA / GAXNIYAA	Start on race 5
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	5	PASYNALA / PEUYYYLA	Kid out of game after every race
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	7	PEKNIYAE / PAXNIYAE	Start on race 10
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	6	GEKNIYAA / GAXNIYAA	Start on race 5
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	8	TEKNIYAE / TAXNIYAE	Start on race 15
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	7	PEKNIYAE / PAXNIYAE	Start on race 10
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	9	LOKNIYAA / LPXNIYAA	Start on race 20
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	8	TEKNIYAE / TAXNIYAE	Start on race 15
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	10	AOKNIYAE / APXNIYAE	Start on race 25 (Final Race!)
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	9	LOKNIYAA / LPXNIYAA	Start on race 20
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	11	GESYOZPA / GAUYOZPA	Win Championship race!
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	10	AOKNIYAE / APXNIYAE	Start on race 25 (Final Race!)
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	These codes can be used in either the Micro Machines Challenge OR 
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	11	GESYOZPA / GAUYOZPA	Win Championship race!
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	the one-on-one game
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	These codes can be used in either the Micro Machines Challenge OR the one-on-one game
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	12	AAOEIAIA	Faster Boat acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	12	AAOEIAIA	Faster Boat acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	13	AAOEGAIA	Faster Sports Car acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	13	AAOEGAIA	Faster Sports Car acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	14	AAOETAIA	Faster Formula 1 acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	14	AAOETAIA	Faster Formula 1 acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	15	AAOEYAIA	Faster Turbo Wheels(tm) acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	15	AAOEYAIA	Faster Turbo Wheels(tm) acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	16	AAXAAAIA	Faster 4x4 acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	16	AAXAAAIA	Faster 4x4 acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	17	AAXAZAZA	Faster Tank acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	17	AAXAZAZA	Faster Tank acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	18	AAXALAIA	Faster Chopper acceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	18	AAXALAIA	Faster Chopper acceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	19	AAXATEPA	Quicker Boat deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	19	AAXATEPA	Quicker Boat deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	20	AAXAIEPA	Quicker Sports Car deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	20	AAXAIEPA	Quicker Sports Car deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	21	AAXAYEPA	Quicker Formula 1 deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	21	AAXAYEPA	Quicker Formula 1 deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	22	AAXEAEPA	Quicker Turbo Wheels deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	22	AAXEAEPA	Quicker Turbo Wheels deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	23	AAXEPEPA	Quicker Jeep deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	23	AAXEPEPA	Quicker Jeep deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	24	AAXELAZA	Quicker Tank deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	24	AAXELAZA	Quicker Tank deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	25	AAXEGEYA	Quicker Chopper deceleration
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	25	AAXEGEYA	Quicker Chopper deceleration
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	26	YAEAZAPA	Higher bounce for Boats
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	26	YAEAZAPA	Higher bounce for Boats
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	27	IAEAPAPA	Higher bounce for Sports Car
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	27	IAEAPAPA	Higher bounce for Sports Car
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	28	YAEALAPA	Higher bounce for Formula 1's
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	28	YAEALAPA	Higher bounce for Formula 1's
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	29	yaeagapa	Higher bounce for Turbo Wheels
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	29	YAEAGAPA	Higher bounce for Turbo Wheels
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	30	yaeaiapa	Higher bounce for Jeeps
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	30	YAEAIAPA	Higher bounce for Jeeps
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	31	yaeayapa	Higher bounce for Tanks
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	code	31	YAEAYAPA	Higher bounce for Tanks
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are 
-Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	Micro Machines, Ruff Trux, Turbo Wheels, and Game Genie are
--- 	Micro Machines(tm) The Official Video Game	MICRO	nev8.txt	info	trademarks of Lewis Galoob Toys, Inc.
 Mighty Bomb Jack(tm) Game	JACK	nev8.txt	code	1	PAOEZZLA	1 life
 Mighty Bomb Jack(tm) Game	JACK	nev8.txt	code	2	TAOEZZLA	6 lives
 Mighty Bomb Jack(tm) Game	JACK	nev8.txt	code	3	PAOEZZLE	9 lives
@@ -4637,27 +4190,17 @@ Mystery Quest(tm) Game	MYST	nev8.txt	code	6	PEUOKPAA	Start with raft and key
 Mystery Quest(tm) Game	MYST	nev8.txt	code	7	GXVOOYSA	Never lose key
 Mystery Quest(tm) Game	MYST	nev8.txt	code	8	PENOPTAA	Never lose raft
 Mystery Quest(tm) Game	MYST	nev8.txt	info	Mystery Quest is a trademark of Kabushiki Kaisha Carry Lab.
--- 	Mystery Quest(tm) Game	MYST	nev8.txt	info	Mystery Quest is a trademark of Kabushiki Kaisha Carry Lab. Used by 
 NES Play Action Football(tm) Game	PLAY	neup04.txt	intro	If you're having a hard time breaking through Chicago's bone-
 NES Play Action Football(tm) Game	PLAY	neup04.txt	intro	crushing defense and need more time to plan your plays, try PLAY 
 NES Play Action Football(tm) Game	PLAY	neup04.txt	intro	Code 4. If you want to play a longer or shorter game, try Codes 1 or 
-NES Play Action Football(tm) Game	PLAY	neup04.txt	code	1	TOKYLKYE	30-minute quarters
--- 	NES Play Action Football(tm) Game	PLAY	neup04.txt	code	2. If you're a certified champion armchair QB, try playing against a 
-NES Play Action Football(tm) Game	PLAY	neup04.txt	code	2	ZEKYLKYE	10-minute quarters
--- 	NES Play Action Football(tm) Game	PLAY	neup04.txt	info	lesser player using Code 3, or against the computer using Code 5. 
-NES Play Action Football(tm) Game	PLAY	neup04.txt	code	3	KEKLUNSE	No timeouts--player 2
--- 	NES Play Action Football(tm) Game	PLAY	neup04.txt	info	Hut!
-NES Play Action Football(tm) Game	PLAY	neup04.txt	code	4	TEUUNYLA	6 timeouts per half
--- 	NES Play Action Football(tm) Game	PLAY	neup04.txt	code	1       TOKYLKYE        30-minute quarters
-NES Play Action Football(tm) Game	PLAY	neup04.txt	code	5	PEUUNYLA	1 timeout per half
--- 	NES Play Action Football(tm) Game	PLAY	neup04.txt	code	2       ZEKYLKYE        10-minute quarters
+NES Play Action Football(tm) Game	PLAY	neup04.txt	code	2. If you're a certified champion armchair QB, try playing against a 
+NES Play Action Football(tm) Game	PLAY	neup04.txt	info	lesser player using Code 3, or against the computer using Code 5. 
+NES Play Action Football(tm) Game	PLAY	neup04.txt	info	Hut!
 NES Play Action Football(tm) Game	PLAY	nev8.txt	code	1	TOKYLKYE	30-minute quarters
 NES Play Action Football(tm) Game	PLAY	nev8.txt	code	2	ZEKYLKYE	10-minute quarters
 NES Play Action Football(tm) Game	PLAY	nev8.txt	code	3	KEKLUNSE	No timeouts--player 2
-NES Play Action Football(tm) Game	PLAY	nev8.txt	code	4	TEUUNYLA	6 timeouts per half
--- 	NES Play Action Football(tm) Game	PLAY	nev8.txt	code	4	TEUUNYLA + TEUUNYLA	6 timeouts per half
-NES Play Action Football(tm) Game	PLAY	nev8.txt	code	5	PEUUNYLA	1 timeout per half
--- 	NES Play Action Football(tm) Game	PLAY	nev8.txt	code	5	PEUUNYLA + PEUUNYLA	1 timeout per half
+NES Play Action Football(tm) Game	PLAY	nev8.txt	code	4	TEUUNYLA + TEUUNYLA	6 timeouts per half
+NES Play Action Football(tm) Game	PLAY	nev8.txt	code	5	PEUUNYLA + PEUUNYLA	1 timeout per half
 Narc(tm) Game	NARC	nev8.txt	code	1	AAUAZPZA	1 life
 Narc(tm) Game	NARC	nev8.txt	code	2	IAUAZPZA	6 lives
 Narc(tm) Game	NARC	nev8.txt	code	3	AAUAZPZE	9 lives
@@ -4673,72 +4216,40 @@ Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	1	GZSULO
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	2	IVSNIOIN	Accelerate faster
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	3	IVSNIOIN + AAKNALGE	Accelerate a lot faster
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	4	GANKXZYA	Only 3 laps required in South Africa instead of 6
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	4 GANKXZYA Only need 3 laps in South Africa instead of 6
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	5	GANKUZYA	Only 3 laps required in Mexico instead of 6
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	5 GANKUZYA Only need 3 laps in Mexico instead of 6
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	6	GANKKZTA	Only 3 laps required in Brazil instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	6 GANKKZTA Only need 3 laps in Brazil instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	7	GANKSZIA	Only 3 laps required in Spain instead of 4
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	7 GANKSZIA Only need 3 laps in Spain instead of 4
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	8	GANKVZYA	Only 3 laps required in San Marino instead of 6
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	8 GANKVZYA Only need 3 laps in San Marino instead of 6
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	9	GANKNZTA	Only 3 laps required in Monaco instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	9 GANKNZTA Only need 3 laps in Monaco instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	10	GEEGEZYA	Only 3 laps required in Canada instead of 6
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	10 GEEGEZYA Only need 3 laps in Canada instead of 6
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	11	GEEGOZIA	Only 3 laps required in France instead of 4
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	11 GEEGOZIA Only need 3 laps in France instead of 4
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	12	GEEGXZTA	Only 3 laps required in Great Britian instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	12 GEEGXZTA Only need 3 laps in Great Britian instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	13	GEEGUZTA	Only 3 laps required in Germany instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	13 GEEGUZTA Only need 3 laps in Germany instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	14	GEEGKZTA	Only 3 laps required in Hungary instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	14 GEEGKZTA Only need 3 laps in Hungary instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	15	GEEGSZTA	Only 3 laps required in Belgium instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	15 GEEGSZTA Only need 3 laps in Belgium instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	16	GEEGVZYA	Only 3 laps required in Italy instead of 6
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	16 GEEGVZYA Only need 3 laps in Italy instead of 6
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	17	GEEGNZIA	Only 3 laps required in Portugal instead of 4
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	17 GEEGNZIA Only need 3 laps in Portugal instead of 4
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	18	GEEKEZTA	Only 3 laps required in Japan instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	18 GEEKEZTA Only need 3 laps in Japan instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	19	GEEKOZTA	Only 3 laps required in Australia instead of 5
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	19 GEEKOZTA Only need 3 laps in Australia instead of 5
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	20	ZANKXZYA + SXNKSESU	Only 1 lap required on all tracks
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	20 ZANKXZYA + SXNKSESU Only need 1 lap on all tracks
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	21	AEEKXAAO	Start with 1/2 normal tire tread
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	22	SZSTLEVK	Less tire wear
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	23	SZSTLEVK + SZNNXEVK	Almost no tire wear
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	24	PEOXOZAP	The full season ends after South Africa
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	24 PEOXOZAP Full season ends after South Africa
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	25	ZEOXOZAP	The full season ends after Mexico
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	25 ZEOXOZAP Full season ends after Mexico
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	26	LEOXOZAP	The full season ends after Brazil
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	26 LEOXOZAP Full season ends after Brazil
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	27	GEOXOZAP	The full season ends after Spain
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	27 GEOXOZAP Full season ends after Spain
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	28	IEOXOZAP	The full season ends after San Marino
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	28 IEOXOZAP Full season ends after San Marino
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	29	TEOXOZAP	The full season ends after Monaco
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	29 TEOXOZAP Full season ends after Monaco
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	30	YEOXOZAP	The full season ends after Canada
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	30 YEOXOZAP Full season ends after Canada
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	31	AEOXOZAO	The full season ends after France
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	31 AEOXOZAO Full season ends after France
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	32	PEOXOZAO	The full season ends after Great Britian
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	32 PEOXOZAO Full season ends after Great Britian
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	33	ZEOXOZAO	The full season ends after Germany
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	33 ZEOXOZAO Full season ends after Germany
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	34	LEOXOZAO	The full season ends after Hungary
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	34 LEOXOZAO Full season ends after Hungary
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	35	GEOXOZAO	The full season ends after Belgium
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	35 GEOXOZAO Full season ends after Belgium
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	36	IEOXOZAO	The full season ends after Italy
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	36 IEOXOZAO Full season ends after Italy
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	37	TEOXOZAO	The full season ends after Portugal
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	37 TEOXOZAO Full season ends after Portugal
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	38	YEOXOZAO	The full season ends after Japan
--- 	Nigel Mansell's World Championship Racing(tm) Game	NIGE	neup08.txt	code	38 YEOXOZAO Full season ends after Japan
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	nev8.txt	code	1	GZSULOVV	No extra time in the pits
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	nev8.txt	code	2	IVSNIOIN	Accelerate faster
 Nigel Mansell's World Championship Racing(tm) Game	NIGE	nev8.txt	code	3	IVSNIOIN + AAKNALGE	Accelerate a lot faster
@@ -5028,24 +4539,16 @@ Power Blade(tm) Game	POWB	neup03.txt	intro	Being Nova(tm), master of the ancient
 Power Blade(tm) Game	POWB	neup03.txt	intro	job, but it also has its disadvantages--like being roused from your 
 Power Blade(tm) Game	POWB	neup03.txt	intro	easy chair on your day off to save New Earth's Master Computer from 
 Power Blade(tm) Game	POWB	neup03.txt	intro	the evil aliens! Check out these codes, especially POWB Codes 6 and 
+Power Blade(tm) Game	POWB	neup03.txt	code	7, to help you meet the job requirements.
 Power Blade(tm) Game	POWB	neup03.txt	code	1	AAXYZYZA	1 life
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	7, to help you meet the job requirements.
 Power Blade(tm) Game	POWB	neup03.txt	code	2	IAXYZYZA	6 lives
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	1       AAXYZYZA 1 life
 Power Blade(tm) Game	POWB	neup03.txt	code	3	AAXYZYZE	9 lives
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	2       IAXYZYZA        6 lives
 Power Blade(tm) Game	POWB	neup03.txt	code	4	SZSIAAVG	Infinite lives
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	3       AAXYZYZE        9 lives
 Power Blade(tm) Game	POWB	neup03.txt	code	5	SZKAKXOU	Take minimum damage
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	4       SZSIAAVG        Infinite lives
 Power Blade(tm) Game	POWB	neup03.txt	code	6	GZUITAVG + GZVITASA	Don't lose boomerang strength when you die
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	5       SZKAKXOU        Take minimum damage
 Power Blade(tm) Game	POWB	neup03.txt	code	7	GZUSGAVG + GZVSZASA	Don't lose multi-boomerangs when you die
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	6       GZUITAVG + GZVITASA     Don't lose boomerang strength 
 Power Blade(tm) Game	POWB	neup03.txt	code	8	OTKESZSV	Don't take damage from monsters!
--- 	Power Blade(tm) Game	POWB	neup03.txt	info	when you die
 Power Blade(tm) Game	POWB	neup03.txt	code	9	AZXSAVAU	Mega jump
--- 	Power Blade(tm) Game	POWB	neup03.txt	code	7       GZUSGAVG + GZVSZASA     Don't lose multi-boomerangs when 
 Power Blade(tm) Game	POWB	nev8.txt	code	1	AAXYZYZA	1 life
 Power Blade(tm) Game	POWB	nev8.txt	code	2	IAXYZYZA	6 lives
 Power Blade(tm) Game	POWB	nev8.txt	code	3	AAXYZYZE	9 lives
@@ -5214,166 +4717,86 @@ Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	SZOGXVVK	Infinite lives
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	2) Linus Spacehead(tm) Game
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	LINU
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PEKGGLLE	Start with 9 lives
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PEKGGLLE	Start with 9 lives
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	AZKKPNAP	Increase oxygen
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	AZKKPNAP	Increase oxygen
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3	AEULZIPA	Never lose oxygen
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3	AEULZIPA	Never lose oxygen
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	SXEGLYVG	Never lose life in the water
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	SXEGLYVG	Never lose life in the water
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	SZXIILVG	Never lose life in the land
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	SZXIILVG	Never lose life in the land
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3) Super Robin Hood(tm) Game
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	3) Super Robin Hood(tm) Game
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	ROB
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	ROB
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PAVGILLA	Start with 1 life
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	TAVGILLA	Start with 6 lives
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PAVGILLA	Start with 1 life
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3	PAVGILLE	Start with 9 lives
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	TAVGILLA	Start with 6 lives
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	SXNKZIVG	Infinite lives
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3	PAVGILLE	Start with 9 lives
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	AVONISPG	Become invincible
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	SXNKZIVG	Infinite lives
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	6	PAEGLTLE	9 energy hearts--you may lose some of the 
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	AVONISPG	Become invincible
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	hearts you have when you pick up new ones
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	6	PAEGLTLE	9 energy hearts--you may lose some of the
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4) Treasure Island Dizzy(tm) Game
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	hearts you have when you pick up new ones
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	TREAS
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	4) Treasure Island Dizzy(tm) Game
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	WITH CODE 1 YOU WILL START ON THE ISLAND IN THE SKY, SO JUST 
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	TREAS
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	KEEP WALKING 
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	LEFT AND YOU WILL ARRIVE AT THE ORIGINAL STARTING POINT
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	WITH CODE 1 YOU WILL START ON THE ISLAND IN THE SKY, SO JUST
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PEXSZYAA	Invincible Dizzy(tm)!
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	KEEP WALKING
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	OZNTKASX	Walk backwards
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	LEFT AND YOU WILL ARRIVE AT THE ORIGINAL STARTING POINT
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3 	PEUSYYAA	Start with snorkel
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1	PEXSZYAA	Invincible Dizzy(tm)!
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	PEUSYYAA + PEKNIZZP	Start with axe
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	2	OZNTKASX	Walk backwards
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	PEUSYYAA + ZEKNIZZP	Start with dynamite
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	3	PEUSYYAA	Start with snorkel
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	6	PEUSYYAA + IEKNIZZP	Start with heavy weight
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	4	PEUSYYAA + PEKNIZZP	Start with axe
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	Quattro Adventure, Boomerang Kid, Linus Spacehead, Linus, Linoleum, 
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	5	PEUSYYAA + ZEKNIZZP	Start with dynamite
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	Super Robin Hood, Treasure Island Dizzy, Dizzy, Daisy and Yolkfolk 
 Quattro Adventure(tm) Game	BOOM	nev8.txt	code	6	PEUSYYAA + IEKNIZZP	Start with heavy weight
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	are trademarks of Codemasters Software Ltd.
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	Quattro Adventure, Boomerang Kid, Linus Spacehead, Linus, Linoleum,
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	info	Quattro Arcade(tm) Game
 Quattro Adventure(tm) Game	BOOM	nev8.txt	info	Super Robin Hood, Treasure Island Dizzy, Dizzy, Daisy and Yolkfolk
--- 	Quattro Adventure(tm) Game	BOOM	nev8.txt	code	1) Go! Dizzy Go!(tm) Game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	intro	1) Go! Dizzy Go!(tm) Game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PAVGZILA	Start with 1 life
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Here's some codes to give you a head start in the race to rescue 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TAVGZILA	Start with 6 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Dizzy's(tm) pals from the treacherous mazes of the Evil Wizard 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PAVGZILE	Start with 9 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Zaks(tm).
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	ZEEKGIPA	Start on world 1, stage 3
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PAVGZILA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	GEEKGIPA	Start on world 1, stage 5
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TAVGZILA	Start with 6 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	TEEKGIPA	Start on world 2, stage 2
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PAVGZILE	Start with 9 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	AEEKGIPE	Start on world 2, stage 4
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	ZEEKGIPA	Start on world 1, stage 3
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	8	AOEKGIPA	Start on world 4, stage 2
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	GEEKGIPA	Start on world 1, stage 5
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	9	ZOEKGIPA	Start on world 4, stage 4
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	TEEKGIPA	Start on world 2, stage 2
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	10	GOEKGIPA	Start on world 5, stage 1
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	AEEKGIPE	Start on world 2, stage 4
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	11	TOEKGIPA	Start on world 5, stage 3
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	8	AOEKGIPA	Start on world 4, stage 2
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	12	AOEKGIPE	Start on world 5, stage 5
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	9	ZOEKGIPA	Start on world 4, stage 4
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	13	XVTISU + XVTIVU	Always kill monsters
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	10	GOEKGIPA	Start on world 5, stage 1
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Quattro Arcade, Go! Dizzy Go!, Dizzy and Evil Wizard Zaks are
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	11	TOEKGIPA	Start on world 5, stage 3
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	trademarks of Codemasters Software Company Ltd.
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	12	AOEKGIPE	Start on world 5, stage 5
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	2) Stunt Buggies(tm) Game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	13	XVTISU + XVTIVU	Always kill monsters
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	BUGG
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Quattro Arcade, Go! Dizzy Go!, Dizzy and Evil Wizard Zaks are 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	trademarks of Codemasters Software Company Ltd.
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PAKVXGLA	Start with 1 life
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2) Stunt Buggies(tm) Game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TAKVXGLA	Start with 6 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Here are some codes to help (or hinder) you in this tricky game.
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PAKVXGLE	Start with 9 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	BUGG
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	SXOXZEVK	Infinite lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PAKVXGLA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Stunt Buggies is a trademark of Codemasters Software Company Ltd.
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TAKVXGLA	Start with 6 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	3) F-16 Renegade(tm) Game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PAKVXGLE	Start with 9 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	F-16
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	SXOXZEVK	Infinite lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Stunt Buggies is a trademark of Codemasters Software Company Ltd.
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PEUGEALA	Start with 2 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3) F-16 Renegade(tm) Game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TEUGEALA	Start with 7 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	F-16
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PEUGEALE	Start with 10 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PEUGEALA	Start with 2 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	LEUGSAPA + PEKGXAAA	Start on level 3
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	TEUGEALA	Start with 7 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	IEUGSAPA + ZEKGXAAA	Start on level 5
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	PEUGEALE	Start with 10 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	YEUGSAPA + LEKGXAAA	Start on level 7
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	LEUGSAPA + PEKGXAAA	Start on level 3
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	PEUGSAPE + GEKGXAAA	Start on level 9
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	IEUGSAPA + ZEKGXAAA	Start on level 5
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	F-16 Renegade is a trademark of Codemasters Software Company
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	YEUGSAPA + LEKGXAAA	Start on level 7
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Ltd.
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	PEUGSAPE + GEKGXAAA	Start on level 9
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	4) C.J.'s Elephant Antics(tm) Game
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	F-16 Renegade is a trademark of Codemasters Software Company 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	C.J
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Ltd.
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4) C.J.'s Elephant Antics(tm) Game
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PASTSVPA	Start with 1 life
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	For C.J. Codes 9 and 10, you have to lose all your lives on your first 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	IASTSVPA	Start with 5 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	go, then the Codes will be activated--and don't use them with C.J. 
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	YASTSVPE	Start with 15 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	Code 5, although you probably figured that one out already.
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	GPSTSVPA	Start with 20 lives
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	C.J
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	SUKTZUVS	Infinite lives--don't use with Codes 9 and 10
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	1	PASTSVPA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	PAEYOAAA	Start in Switzerland
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	2	IASTSVPA	Start with 5 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	ZAEYOAAA	Start in Egypt
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	3	YASTSVPE	Start with 15 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	8	LAEYOAAA	Start in Africa
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	4	GPSTSVPA	Start with 20 lives
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	WITH CODES 9 AND 10, YOU HAVE TO LOSE ALL YOUR LIVES BEFORE
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	5	SUKTZUVS	Infinite lives--don't use with Codes 9 and 10
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	info	THE CODES WILL WORK
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	6	PAEYOAAA	Start in Switzerland
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	9	PAONILAA	Always run fast
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	7	ZAEYOAAA	Start in Egypt
 Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	10	YAONILAE	Super C.J.(tm)!
--- 	Quattro Arcade(tm) Game	GODIZ	necd5.txt	code	8	LAEYOAAA	Start in Africa
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	intro	1) Go! Dizzy Go!(tm) Game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PAVGZILA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	TAVGZILA	Start with 6 lives
@@ -5393,71 +4816,38 @@ Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	trademarks of Codemasters Software C
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	2) Stunt Buggies(tm) Game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	BUGG
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PAKVXGLA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PAKVXGLA	Start with 1 life
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	TAKVXGLA	Start with 6 lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	TAKVXGLA	Start with 6 lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	PAKVXGLE	Start with 9 lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	PAKVXGLE	Start with 9 lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	SXOXZEVK	Infinite lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	SXOXZEVK	Infinite lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	Stunt Buggies is a trademark of Codemasters Software Company Ltd.
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	Stunt Buggies is a trademark of Codemasters Software Company Ltd.
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3) F-16 Renegade(tm) Game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	3) F-16 Renegade(tm) Game
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	F-16
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	F-16
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PEUGEALA	Start with 2 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	TEUGEALA	Start with 7 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PEUGEALA	Start with 2 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	PEUGEALE	Start with 10 lives--1-player game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	TEUGEALA	Start with 7 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	LEUGSAPA + PEKGXAAA	Start on level 3
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	PEUGEALE	Start with 10 lives--1-player game
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	5	IEUGSAPA + ZEKGXAAA	Start on level 5
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	LEUGSAPA + PEKGXAAA	Start on level 3
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	6	YEUGSAPA + LEKGXAAA	Start on level 7
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	5	IEUGSAPA + ZEKGXAAA	Start on level 5
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	7	PEUGSAPE + GEKGXAAA	Start on level 9
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	6	YEUGSAPA + LEKGXAAA	Start on level 7
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	F-16 Renegade is a trademark of Codemasters Software Company 
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	7	PEUGSAPE + GEKGXAAA	Start on level 9
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	Ltd.
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	F-16 Renegade is a trademark of Codemasters Software Company
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4) C.J.'s Elephant Antics(tm) Game
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	Ltd.
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	C.J
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	4) C.J.'s Elephant Antics(tm) Game
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PASTSVPA	Start with 1 life
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	C.J
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	IASTSVPA	Start with 5 lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	CODE	KEY IN . . .	EFFECT . . .
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	YASTSVPE	Start with 15 lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	1	PASTSVPA	Start with 1 life
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	GPSTSVPA	Start with 20 lives
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	2	IASTSVPA	Start with 5 lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	5	SUKTZUVS	Infinite lives--don't use with 
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	3	YASTSVPE	Start with 15 lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	Codes 9 and 10
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	4	GPSTSVPA	Start with 20 lives
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	6	PAEYOAAA	Start in Switzerland
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	5	SUKTZUVS	Infinite lives--don't use with Codes 9 and 10
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	7	ZAEYOAAA	Start in Egypt
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	6	PAEYOAAA	Start in Switzerland
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	8	LAEYOAAA	Start in Africa
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	7	ZAEYOAAA	Start in Egypt
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	WITH CODES 9 AND 10, YOU HAVE TO LOSE ALL YOUR LIVES BEFORE 
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	8	LAEYOAAA	Start in Africa
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	THE 
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	WITH CODES 9 AND 10, YOU HAVE TO LOSE ALL YOUR LIVES BEFORE
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	CODES WILL WORK
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	THE CODES WILL WORK
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	9	PAONILAA	Always run fast
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	9	PAONILAA	Always run fast
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	10	YAONILAE	Super C.J.(tm)!
 Quattro Arcade(tm) Game	GODIZ	nev8.txt	code	10	YAONILAE	Super C.J.(tm)!
--- 	Quattro Arcade(tm) Game	GODIZ	nev8.txt	info	C.J.'s Elephant Antics and C.J. are trademarks of Codemasters 
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	1	AESOLAZA	Start with 1 credit instead of 3
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	2	GESOLAZA	Start with 5 credits
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	3	TESOLAZA	Start with 7 credits
@@ -5511,12 +4901,9 @@ R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	50	SXSTZKVS	Infinite bombs on purcha
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	51	SXOVGVVS	Infinite freezes on purchase
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	52	SZXVGSVS	Infinite buckshot on purchase
 R.C. Pro-Am II(tm) Game	PRO 2	nev8.txt	code	53	SZSTTSVS	Infinite missiles on purchase
-RC Pro Am(tm) Game	PRO	neup04.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF
--- 	RC Pro Am(tm) Game	PRO	neup04.txt	intro	A few more continues will always come in handy in this game--use 
-RC Pro Am(tm) Game	PRO	neup04.txt	intro	ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE
--- 	RC Pro Am(tm) Game	PRO	neup04.txt	intro	PRO Codes 1 thru 4 to select the number of continues that you'd like. 
-RC Pro Am(tm) Game	PRO	neup04.txt	intro	CODE
--- 	RC Pro Am(tm) Game	PRO	neup04.txt	intro	(Just one continue is always useful if you have a bunch of friends 
+RC Pro Am(tm) Game	PRO	neup04.txt	intro	A few more continues will always come in handy in this game--use 
+RC Pro Am(tm) Game	PRO	neup04.txt	intro	PRO Codes 1 thru 4 to select the number of continues that you'd like. 
+RC Pro Am(tm) Game	PRO	neup04.txt	intro	(Just one continue is always useful if you have a bunch of friends 
 RC Pro Am(tm) Game	PRO	neup04.txt	intro	around!) You can also customize your car--for example, just one turbo 
 RC Pro Am(tm) Game	PRO	neup04.txt	intro	pick-up could see your car with the full turbo add-on! And check out 
 RC Pro Am(tm) Game	PRO	neup04.txt	intro	Code 11--it makes the computer cars go crazy . . . after half a lap or 
@@ -5535,20 +4922,6 @@ RC Pro Am(tm) Game	PRO	neup04.txt	code	8	ZEUGAPPA / ZAOGOAPA	Double turbo on fir
 RC Pro Am(tm) Game	PRO	neup04.txt	code	9	ZEKKGPPA / ZAXKSAPA	Double tires on first pick-up
 RC Pro Am(tm) Game	PRO	neup04.txt	code	10	ZAVGIPPA / ZEKGTYPA	Double speed on first pick-up
 RC Pro Am(tm) Game	PRO	neup04.txt	code	11	SXVLGZAK / SZKLOPAK	Computer cars go crazy!
-RC Pro Am(tm) Game	PRO	nev8.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF
-RC Pro Am(tm) Game	PRO	nev8.txt	intro	ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE
-RC Pro Am(tm) Game	PRO	nev8.txt	intro	CODE
-RC Pro Am(tm) Game	PRO	nev8.txt	code	1	AAEIPPPA /AASIUAPA	Infinite continues
-RC Pro Am(tm) Game	PRO	nev8.txt	code	2	AEXEPPZA / AAUAGZZA	No continues
-RC Pro Am(tm) Game	PRO	nev8.txt	code	3	IEXEPPZA / IAUAGZZA	5 continues
-RC Pro Am(tm) Game	PRO	nev8.txt	code	4	AEXEPPZE / AAUAGZZE	8 continues
-RC Pro Am(tm) Game	PRO	nev8.txt	code	5	GEUGAPPA / GAOGOAPA	Max turbo on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	6	GEKKGPPA / GAXKSAPA	Max tires on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	7	GAVGIPPA / GEKGTYPA	Max speed on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	8	ZEUGAPPA / ZAOGOAPA	Double turbo on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	9	ZEKKGPPA / ZAXKSAPA	Double tires on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	10	ZAVGIPPA / ZEKGTYPA	Double speed on first pick-up
-RC Pro Am(tm) Game	PRO	nev8.txt	code	11	SXVLGZAK / SZKLOPAK	Computer cars go crazy!
 Race America(tm) Game		nev9.txt	code	1	OZNOAAEN + NYNOPAIE + SAXPGZVT	Go super fast in 6th gear
 Race America(tm) Game		nev9.txt	code	2	IAVUILYA + IAKXAIYA	Cars only have 4 gears
 Race America(tm) Game		nev9.txt	code	3	SGSUGLVI	Can't down shift
@@ -6035,12 +5408,12 @@ Snow Brothers(tm) Game	SNOW	neup03.txt	intro	King Scorch's(tm) Ice Commandos(tm)
 Snow Brothers(tm) Game	SNOW	neup03.txt	intro	codes work for both Nick(tm) and Tom(tm). Increase the number of 
 Snow Brothers(tm) Game	SNOW	neup03.txt	intro	chances with SNOW Codes 1, 2 and 4. Codes 3 and 5 are for experts. 
 Snow Brothers(tm) Game	SNOW	neup03.txt	intro	Go faster with Code 6, get bigger globs of snow to throw with Code 
+Snow Brothers(tm) Game	SNOW	neup03.txt	code	7, and throw the globs farther with Code 8. Use only ONE of either 
+Snow Brothers(tm) Game	SNOW	neup03.txt	info	Code 6, 7 or 8 in combination with Code 10 and you'll start with and 
+Snow Brothers(tm) Game	SNOW	neup03.txt	info	keep the super ability!
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	1	SXNEUYVI	Infinite number of chances
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	7, and throw the globs farther with Code 8. Use only ONE of either 
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	2	PAXXPLZE	Start game with 10 chances instead of 3 (count starts at 9 instead of 2)
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	info	Code 6, 7 or 8 in combination with Code 10 and you'll start with and 
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	3	AAXXPLZA	Start game with 1 chance (count starts at 0)
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	info	keep the super ability!
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	4	PAOAYLZE	Always get 10 chances after a continue (count restarts at 9)
 -- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	1       SXNEUYVI        Infinite number of chances
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	5	AAOAYLZA	Always get 1 chance after a continue (count restarts at 0)
@@ -6235,9 +5608,7 @@ Star Wars(tm) Game	STAR	neup04.txt	code	1	AAXAGAZA	Start with 1 life
 Star Wars(tm) Game	STAR	neup04.txt	code	2	IAXAGAZA	Start with 6 lives
 Star Wars(tm) Game	STAR	neup04.txt	code	3	AAXAGAZE	Start with 9 lives
 Star Wars(tm) Game	STAR	neup04.txt	code	4	SZEAYXVK	Infinite lives
--- 	Star Wars(tm) Game	STAR	neup04.txt	info	IMPORTANT:  WHEN USING CODE 5, YOU CAN GET STUCK ON SPIKES AND 
 Star Wars(tm) Game	STAR	neup04.txt	info	IMPORTANT:  WHEN USING CODE 5, YOU CAN GET STUCK ON SPIKES AND HAVE TO RESET
--- 	Star Wars(tm) Game	STAR	neup04.txt	info	HAVE TO RESET
 Star Wars(tm) Game	STAR	neup04.txt	code	5	GZSYLSSO	Immune to spikes
 Star Wars(tm) Game	STAR	neup04.txt	code	6	SLVUYNSO	Immune to most bullets
 Star Wars(tm) Game	STAR	neup04.txt	code	7	GXNUZIST + SLKLYVSO	Immune to most collisions
@@ -6249,9 +5620,7 @@ Star Wars(tm) Game	STAR	nev8.txt	code	1	AAXAGAZA	Start with 1 life
 Star Wars(tm) Game	STAR	nev8.txt	code	2	IAXAGAZA	Start with 6 lives
 Star Wars(tm) Game	STAR	nev8.txt	code	3	AAXAGAZE	Start with 9 lives
 Star Wars(tm) Game	STAR	nev8.txt	code	4	SZEAYXVK	Infinite lives
--- 	Star Wars(tm) Game	STAR	nev8.txt	info	IMPORTANT:  WHEN USING CODE 5, YOU CAN GET STUCK ON SPIKES 
 Star Wars(tm) Game	STAR	nev8.txt	info	IMPORTANT:  WHEN USING CODE 5, YOU CAN GET STUCK ON SPIKES AND HAVE TO RESET
--- 	Star Wars(tm) Game	STAR	nev8.txt	info	AND HAVE TO RESET
 Star Wars(tm) Game	STAR	nev8.txt	code	5	GZSYLSSO	Immune to spikes
 Star Wars(tm) Game	STAR	nev8.txt	code	6	SLVUYNSO	Immune to most bullets
 Star Wars(tm) Game	STAR	nev8.txt	code	7	GXNUZIST + SLKLYVSO	Immune to most collisions
@@ -6386,7 +5755,6 @@ Super Bowl(tm) Game	SUPBOL	neup04.txt	intro	handicapping so players of different
 Super Bowl(tm) Game	SUPBOL	neup04.txt	intro	playing together (or against the computer).
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	1	APUXLZIA	10 minutes per quarter instead of 5
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	2	IPUXLZIA	15 minutes per quarter
--- 	Super Bowl(tm) Game	SUPBOL	neup04.txt	code	2       PUXLZIA 15 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	3	AZUXLZIA	20 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	4	ZAUXLZIA	2 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	5	SXNXPZVG	Freeze timer for continuous play (Press RESET to stop)
@@ -6424,7 +5792,6 @@ Super Bowl(tm) Game	SUPBOL	neup04.txt	code	36	TASASIZA	Safety scores 6--player 1
 Super Bowl(tm) Game	SUPBOL	neup04.txt	code	37	TEKEIIZA	Safety scores 6--player 2 or computer
 Super Bowl(tm) Game	SUPBOL	nev8.txt	code	1	APUXLZIA	10 minutes per quarter instead of 5
 Super Bowl(tm) Game	SUPBOL	nev8.txt	code	2	IPUXLZIA	15 minutes per quarter
--- 	Super Bowl(tm) Game	SUPBOL	nev8.txt	code	2	PUXLZIA	15 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	nev8.txt	code	3	AZUXLZIA	20 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	nev8.txt	code	4	ZAUXLZIA	2 minutes per quarter
 Super Bowl(tm) Game	SUPBOL	nev8.txt	code	5	SXNXPZVG	Freeze timer for continuous play (Press RESET to stop)
@@ -6740,7 +6107,6 @@ T & C Surf 2: Thrilla's Safari(tm) Game		nev9.txt	code	18	LAXEIPZA	Start with a 
 T & C Surf 2: Thrilla's Safari(tm) Game		nev9.txt	code	19	GAXEIPZA	Start with 2x health
 T & C Surf 2: Thrilla's Safari(tm) Game		nev9.txt	code	20	PAXEIPZE	Start with a lot more health
 T & C Surf Designs(tm) Game	SURF	nev8.txt	intro	SURF
--- 	T & C Surf Designs(tm) Game	SURF	nev8.txt	intro	CODE	KEY IN . . .	KEY IN . . .
 T & C Surf Designs(tm) Game	SURF	nev8.txt	code	1	GXUZZZVG	Infinite lives for skating
 T & C Surf Designs(tm) Game	SURF	nev8.txt	code	2	GXNKALVG	Infinite lives for surfing
 T & C Surf Designs(tm) Game	SURF	nev8.txt	code	3	PEOGILZA	When surfing lose only 1 symbol
@@ -6763,7 +6129,6 @@ T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	neup04.txt	code	7	PAOOVZZA 
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	neup04.txt	code	8	LAOOVZZA + LAUOXZZA	Faster running
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	neup04.txt	code	9	LESPKGZA + LEVPEGZA	Faster and longer jumping
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	neup04.txt	info	T2 Terminator 2: Judgment Day and T-1000 are trademarks of
--- 	T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	neup04.txt	info	Remember, you can pick'n'mix your codes! 
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	nev8.txt	code	1	SXOATOVK	Infinite lives
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	nev8.txt	code	2	PANXPLGA	Start with 1 life
 T2(tm) Terminator(tm) 2: Judgment Day(tm) Game	TERM2	nev8.txt	code	3	PANXPLGE	Start with 9 lives
@@ -6887,7 +6252,6 @@ Tetris 2(tm) Game	TET2	neup08.txt	code	12	AAVZVYEA	Cannot pause game with START 
 Tetris 2(tm) Game	TET2	neup08.txt	code	13	AVEXOYXZ	Do not hide remaining pieces during pause
 -- 	Tetris 2(tm) Game	TET2	neup08.txt	code	13 AVEXOYXZ Don't hide remaining pieces during pause
 Tetris 2(tm) Game	TET2	neup08.txt	info				(current and next are still hidden)
--- 	Tetris 2(tm) Game	TET2	neup08.txt	info	Tetris 2 is a trademark of Elorg.
 Tetris 2(tm) Game	TET2	nev8.txt	info	1-Player Game Codes:
 Tetris 2(tm) Game	TET2	nev8.txt	code	1	AAUEUSSO	Speed does not increase
 Tetris 2(tm) Game	TET2	nev8.txt	code	2	VNUEUSSO	Speed increases much faster
@@ -6911,7 +6275,6 @@ Tetris(tm) Game	TET	nev8.txt	code	3	AISEGYIZ	Must complete 50 lines in game B
 Tetris(tm) Game	TET	nev8.txt	code	4	EASEGYIZ	Must complete 80 lines in game B
 Tetris(tm) Game	TET	nev8.txt	code	5	PASAUPPE	Faster 'forced' fall rate
 Tetris(tm) Game	TET	nev8.txt	info	Tetris is a trademark of V/O Electronorgtechnica (Elorg).
--- 	Tetris(tm) Game	TET	nev8.txt	info	Tetris is a trademark of V/O Electronorgtechnica (Elorg). Used by 
 The Adventures of Bayou Billy(tm) Game	BILL	nev8.txt	code	1	GZOVLLVG	Infinite lives
 The Adventures of Bayou Billy(tm) Game	BILL	nev8.txt	code	2	PEKVIZYA + SXOOUKVK	Infinite energy
 The Adventures of Bayou Billy(tm) Game	BILL	nev8.txt	code	3	AAETAGZA	Start with 1 life
@@ -6967,7 +6330,6 @@ The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	1	TENLGIYE	Start with 14 con
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	2	GZVZTNOO	Don't take damage from most enemies
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	3	PESZYPIE	9 harpoons--scene 2
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	4	PESZYPIA	1 harpoon--scene 2
--- 	The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	4	PESZYPIA	1 harpoons--scene 2
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	5	GZVZVKVK	Infinite harpoons--scene 2
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	6	GXSLIISA	Infinite energy for ship--scene 2
 The Empire Strikes Back(tm) Game	EMP	necd5.txt	code	7	AEXOETYL	Always have Lightsaber(tm)
@@ -7083,9 +6445,7 @@ The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	code	12	
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	code	13	AAUAKVZA	Bomb doesn't use up coins
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	code	14	SZNTZKVK + SXOPZOVK	Infinite energy
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	info	The Flintstones: The Rescue of Dino and Hoppy is a trademark of
--- 	The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	info	Remember, you can pick'n'mix your codes! Check out FLINT Codes 1 
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	info	Hanna-Barbera Productions, Inc. Used by Taito America Corp. under
--- 	The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	neup04.txt	info	and 14 together!
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	nev8.txt	code	1	SXOAAEVK	Infinite lives
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	nev8.txt	code	2	AAVAYPZA	Start with 1 life
 The Flintstones: The Rescue of Dino and Hoppy(tm) Game	FLINT	nev8.txt	code	3	IAVAYPZA	Start with 6 lives
@@ -7124,27 +6484,16 @@ The Guardian Legend(tm) Game	GUARD	nev8.txt	code	1	AAXTIUNY	Infinite energy--
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	2	AXVAIAAG	Start with less energy
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	3	EEVAIAAG	Start with more energy
 The Guardian Legend(tm) Game	GUARD	nev8.txt	info	TO FINISH THE GAME USING CODE 4, SAVE YOUR POSITION IN THE GAME BEFORE
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	
 The Guardian Legend(tm) Game	GUARD	nev8.txt	info	OPENING THE ENTRANCE TO CORRIDOR 6. RESTART THE GAME WITH NO CODES
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	TO FINISH THE GAME USING CODE 4, SAVE YOUR POSITION IN THE GAME 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	info	(TURN THE DECK POWER OFF AND ON) AND GO THRU THE ENTRANCE. THEN SAVE
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	BEFORE 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	info	THE GAME AGAIN. THEN RESTART THE GAME USING THE SAME CODES YOU STARTED WITH.
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	OPENING THE ENTRANCE TO CORRIDOR 6. RESTART THE GAME WITH NO 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	4	GXOAKLST	Never use up shots
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	CODES 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	5	OVOAKLSV + PEOASLAP	Use up minimum shots
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	(TURN THE DECK POWER OFF AND ON) AND GO THRU THE ENTRANCE. 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	6	PAKVELAA	Start on area 1
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	THEN SAVE 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	7	LAKVELAA	Start on area 3
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	THE GAME AGAIN. THEN RESTART THE GAME USING THE SAME CODES 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	8	IAKVELAA	Start on area 5
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	YOU 
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	9	YAKVELAA	Start on area 7
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	info	STARTED WITH.
 The Guardian Legend(tm) Game	GUARD	nev8.txt	code	10	PAKVELAE	Start on area 9
--- 	The Guardian Legend(tm) Game	GUARD	nev8.txt	code	4	GXOAKLST	Never use up shots
 The Hunt for Red October(tm) Game	RED	nev8.txt	intro	NOTE: THESE CODES MAY NOT WORK ON some COPies OF THE GAME.
 The Hunt for Red October(tm) Game	RED	nev8.txt	intro	NO other CODES ARE AVAILABLE.
 The Hunt for Red October(tm) Game	RED	nev8.txt	code	1	PEVLYAIA	Start with 1 life
@@ -7258,10 +6607,10 @@ The Legend of Kage(tm) Game	KAGE	nev8.txt	code	1	SXVALZVG	Both players have infi
 The Legend of Kage(tm) Game	KAGE	nev8.txt	code	2	KEOATAVA	Both players start with 28 lives
 The Legend of Kage(tm) Game	KAGE	nev8.txt	code	3	YAKXYPGE + YASZAPGE + YASZPPGE	Super-ninja-power jumping ability
 The Legend of Kage(tm) Game	KAGE	nev8.txt	code	4	GASAOLZA	Super-ninja-power running ability
+The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	Help Link(tm) save Zelda(tm) with these excellent Game Genie(tm) 
+The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	codes--at last you will be able to complete this epic adventure, 
 The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	NOTE: When continuing a saved game, you must re-enter the same
--- 	The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	Help Link(tm) save Zelda(tm) with these excellent Game Genie(tm) 
 The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	code or codes you entered at the start of the game.
--- 	The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	codes--at last you will be able to complete this epic adventure, 
 The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	destroy the evil Ganon,(tm) and rescue the Princess! When using ZELD 
 The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	Code 7 or 8 you will have a protection ring, although it will not show 
 The Legend of Zelda(tm) Game	ZELD	neup02.txt	intro	on your menu. ZELD Code 4 makes sure you don't get charged when 
@@ -7305,7 +6654,6 @@ The Little Mermaid(tm) Game	MAID	neup04.txt	code	14	LAKKGTAA + ILKKTVOV	Start wi
 The Little Mermaid(tm) Game	MAID	neup04.txt	code	15	LAKKGTAA + TLKKTVOV	Start with all green pearls
 The Little Mermaid(tm) Game	MAID	neup04.txt	code	16	LASIZLAA	Get all pearls after dying
 The Little Mermaid(tm) Game	MAID	neup04.txt	info	The Little Mermaid and Ursula are trademarks of the Walt Disney
--- 	The Little Mermaid(tm) Game	MAID	neup04.txt	info	Remember, you can pick'n'mix your codes!
 The Little Mermaid(tm) Game	MAID	nev8.txt	code	1	AASGATZA	Start with 1 life
 The Little Mermaid(tm) Game	MAID	nev8.txt	code	2	IASGATZA	Start with 6 lives
 The Little Mermaid(tm) Game	MAID	nev8.txt	code	3	AASGATZE	Start with 9 lives
@@ -7416,15 +6764,15 @@ The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	nev9.txt	code	5	PAEZPAAE	Star
 The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	nev9.txt	code	6	PAXXVGLE	Start with 9 lives
 The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	nev9.txt	code	7	SZNZPEVK	Infinite tries for the card match game
 The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	nev9.txt	info	The Simpsons and Bart are trademarks of Twentieth Century Fox
-The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF
--- 	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	Wow, some really excellent codes here! First  there's super-jump--
-The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE CODE.
--- 	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	it gives your high jump a boost, so reaching those difficult spots is 
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	Wow, some really excellent codes here! First  there's super-jump--
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	it gives your high jump a boost, so reaching those difficult spots is 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	a cinch! BART Codes 2 thru 4 let you adjust the timer so you can have 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	as much or as little time as you want  to finish each level. And be 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	sure to try out BART Code 7: Now when you buy things from shops, 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	you won't get charged--there's no limit to how much equipment you 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	can have! Pretty cool, huh?
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	intro	ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE CODE.
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	1	IPKYXUGA / IPUYVUGA	Super-jumping Bart!(tm)
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	2	XVONYXXK / XVOYLXXK	Stop timer
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	3	ANENPXGU / AYNNIXGU	Slow down timer
@@ -7433,7 +6781,6 @@ The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	5	PAO
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	6	PAONTNTE / PAOYZNTE	Only 10 coins needed to get an extra life
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	code	7	GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK 	Buy items for free!
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	info	The Simpsons and Bart are trademarks of Twentieth Century Fox
--- 	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	neup03.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR THE FOLLOWING CODES. IF
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	intro	ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE CODE.
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	1	IPKYXUGA / IPUYVUGA	Super-jumping Bart!(tm)
@@ -7443,9 +6790,7 @@ The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	4	AXENP
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	5	PAONAYAA / PAENGYAA	Gain 2 coins for every 1 collected
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	6	PAONTNTE / PAOYZNTE	Only 10 coins needed to get an extra life
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	7	GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK 	Buy items for free!
--- 	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	code	7	GXXZZOVK + GXXULEVK / 	Buy items for free!
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	info	The Simpsons and Bart are trademarks of Twentieth Century Fox
--- 	The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	nev8.txt	info		GXOXIXVK + GXXLIEVK
 The Simpsons: Bartman Meets Radioactive Man(tm) Game	RADIO	nev8.txt	intro	NOTE: CODES WORK, BUT THERE MAY BE A BLACK AREA AT THE
 The Simpsons: Bartman Meets Radioactive Man(tm) Game	RADIO	nev8.txt	intro	BOTTOM OF YOUR SCREEN. MAY NOT BE COMPATIBLE WITH GAME GENIE
 The Simpsons: Bartman Meets Radioactive Man(tm) Game	RADIO	nev8.txt	code	1	PAVAYYLA	Start with 2 lives and 2 credits
@@ -7512,7 +6857,6 @@ The Untouchables(tm) Game	UNTO	nev8.txt	code	20	PAOEGATE	More ammo picked up on 
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	intro	Dial in more, fewer or infinite lives to help Indy(tm) save the world 
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	intro	from the nasty Kaiser.
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	code	1	PEKSVGLA	Start with 2 lives
--- 	The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	code	1	PEKSVGLA	Start with 2
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	code	2	TEKSVGLA	Start with 7 lives
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	code	3	PEKSVGLE	Start with 10 lives
 The Young Indiana Jones Chronicles(tm) Game	KRON	necd5.txt	code	4	SZEOUGVG	Infinite lives
@@ -7574,11 +6918,8 @@ Time Lord(tm) Game	LORD	neup03.txt	code	2	PEEKYPLA	Start with 1 life
 Time Lord(tm) Game	LORD	neup03.txt	code	3	TEEKYPLA	Start with 6 lives
 Time Lord(tm) Game	LORD	neup03.txt	code	4	PEEKYPLE	Start with 9 lives
 Time Lord(tm) Game	LORD	neup03.txt	info	NOTE: DO NOT use Codes 5 and 6 together
--- 	Time Lord(tm) Game	LORD	neup03.txt	code	5       AAXKXTPA + PAUGVTAA     Moonwalking
 Time Lord(tm) Game	LORD	neup03.txt	code	5	AAXKXTPA + PAUGVTAA	Moonwalking
--- 	Time Lord(tm) Game	LORD	neup03.txt	code	6       PESKOTAA + PEOGSTAA     Super speed 
 Time Lord(tm) Game	LORD	neup03.txt	code	6	PESKOTAA + PEOGSTAA	Super speed
--- 	Time Lord(tm) Game	LORD	neup03.txt	info	Remember that you can pick'n'mix your codes.
 Time Lord(tm) Game	LORD	nev8.txt	code	1	SZUKSKVK	Infinite lives
 Time Lord(tm) Game	LORD	nev8.txt	code	2	PEEKYPLA	Start with 1 life
 Time Lord(tm) Game	LORD	nev8.txt	code	3	TEEKYPLA	Start with 6 lives
@@ -7651,7 +6992,6 @@ Tiny Toon Adventures(tm) Game	TINY	neup04.txt	code	13	VASGOYSA + XZXKNNOZ + ZAUG
 Tiny Toon Adventures(tm) Game	TINY	neup04.txt	code	14	VASGOYSA + XZXKNNOZ + YAUGEYPE	Start on level 4
 Tiny Toon Adventures(tm) Game	TINY	neup04.txt	code	15	VASGOYSA + XZXKNNOZ + GPUGEYPA	Start on level 5
 Tiny Toon Adventures(tm) Game	TINY	neup04.txt	info	Tiny Toon Adventures is a trademark of Warner Bros. Inc. Used by
--- 	Tiny Toon Adventures(tm) Game	TINY	neup04.txt	info	Remember, you can pick'n'mix your codes!
 Tiny Toon Adventures(tm) Game	TINY	nev8.txt	code	1	AAXKUYZA	Start with 1 life
 Tiny Toon Adventures(tm) Game	TINY	nev8.txt	code	2	IAXKUYZA	Start with 6 lives
 Tiny Toon Adventures(tm) Game	TINY	nev8.txt	code	3	AAXKUYZE	Start with 9 lives
@@ -7718,7 +7058,6 @@ Toobin'(tm) Game	TOOB	nev8.txt	code	10	PAOZEAAA	Start on level 2
 Toobin'(tm) Game	TOOB	nev8.txt	code	11	LAOZEAAA	Start on level 4
 Toobin'(tm) Game	TOOB	nev8.txt	code	12	IAOZEAAA	Start on level 6
 Toobin'(tm) Game	TOOB	nev8.txt	code	13	YAOZEAAA	Start on level 8--Don't Use With Codes 1 and 5
--- 	Toobin'(tm) Game	TOOB	nev8.txt	code	13	YAOZEAAA	Start on level 8--
 Top Gun(tm) (The Second Mission) Game	GUN	nev8.txt	code	1	SZVYLIVG	Infinite lives
 Top Gun(tm) (The Second Mission) Game	GUN	nev8.txt	code	2	PASYALLA	Start with 1 life
 Top Gun(tm) (The Second Mission) Game	GUN	nev8.txt	code	3	TASYALLA	Start with 6 lives
@@ -7750,15 +7089,14 @@ Total Recall(tm) Game	CALL	neup02.txt	code	4	GXUIIXSO	Most enemies easier to kil
 Total Recall(tm) Game	CALL	neup02.txt	code	5	PENVKEGE	Take less damage
 Total Recall(tm) Game	CALL	neup02.txt	code	6	XYUVNUXT	Gain maximum energy from canisters
 Total Recall(tm) Game	CALL	neup02.txt	info	Total Recall is a trademark of Carolco Pictures, Inc.
--- 	Total Recall(tm) Game	CALL	neup02.txt	info	Remember that you can pick'n'mix your codes.
+Total Recall(tm) Game	CALL	neup02.txt	info	Remember that you can pick'n'mix your codes.
 Total Recall(tm) Game	CALL	nev8.txt	code	1	AVNVOAKZ	Infinite energy!
 Total Recall(tm) Game	CALL	nev8.txt	code	2	OZNKEPSX + ALNKOOLZ	Start with less energy
 Total Recall(tm) Game	CALL	nev8.txt	code	3	OZNKEPSX + NYNKOOLX	Start with more energy
 Total Recall(tm) Game	CALL	nev8.txt	code	4	GXUIIXSO	Most enemies easier to kill
 Total Recall(tm) Game	CALL	nev8.txt	code	5	PENVKEGE	Take less damage
 Total Recall(tm) Game	CALL	nev8.txt	code	6	XYUVNUXT	Gain maximum energy from canisters
-Total Recall(tm) Game	CALL	nev8.txt	info	Total Recall is a trademark of Carolco Pictures, Inc.
--- 	Total Recall(tm) Game	CALL	nev8.txt	info	Total Recall is a trademark of Carolco Pictures, Inc. Used by Acclaim 
+Total Recall(tm) Game	CALL	nev8.txt	info	Total Recall is a trademark of Carolco Pictures, Inc. Used by Acclaim 
 Totally Rad(tm) Game	RAD	neup02.txt	intro	Super, dude. We've got some way-cool codes for this mega-hot game. 
 Totally Rad(tm) Game	RAD	neup02.txt	intro	Check out RAD Codes 7 and 8 for increased jumping power. Or RAD 
 Totally Rad(tm) Game	RAD	neup02.txt	intro	Code 5 for protection against attacks. And check this out: Before 
@@ -7898,10 +7236,7 @@ Ultima, Quest of the Avatar(tm) Game	AVA	nev8.txt	code	24	AUNOYSLP	Fighter start
 Ultima, Quest of the Avatar(tm) Game	AVA	nev8.txt	code	25	NYOOPVSK	Fighter starts with Experience of 255 instead of 205
 Ultima, Quest of the Avatar(tm) Game	AVA	nev8.txt	code	26	LEVOZIPA	Fighter starts with 812 Hit Points instead of 300
 Ultima, Quest of the Avatar(tm) Game	AVA	nev8.txt	code	27	LKNPYIAE	Fighter starts with 75 Magic Points instead of none
-Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	1	SUSTXSVS	Infinite consumable items such as food and torches--
--- 	Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	1 SUSTXSVS Infinite consumable items such as food and 
-Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	info				MAY NOT BE ABLE TO DISCARD SOME ITEMS
--- 	Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	info	torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
+Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	1	SUSTXSVS	Infinite consumable items such as food and torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	2	AAEZIPZL	A night at the Wayfarer Inn(tm) is free
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	info	At Healer's Herbs(tm):
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	3	AEUZPAPA	Sulfurous ash is free instead of 1 GP
@@ -7931,11 +7266,7 @@ Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	25	AESXEZGA	Start new 
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	26	AOSXEZGA	Start new game with 4,297 instead of 1,225 GP
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	code	27	YNSXEZGE	Start new game with 32,713 instead of 1,225 GP
 Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	info	Ultima, Warriors of Destiny, Wayfarer Inn, Healer's Herbs, Pendra, An
--- 	Ultima, Warriors of Destiny(tm) Game	DEST	neup07.txt	info	Ultima, Warriors of Destiny, Wayfarer Inn, Healer's Herbs, Pendra, 
-Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	1	SUSTXSVS	Infinite consumable items such as food and torches--
--- 	Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	1	SUSTXSVS	Infinite consumable items such as food and 
-Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	info				MAY NOT BE ABLE TO DISCARD SOME ITEMS
--- 	Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	info	torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
+Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	1	SUSTXSVS	Infinite consumable items such as food and torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	2	AAEZIPZL	A night at the Wayfarer Inn(tm) is free
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	info	At Healer's Herbs(tm):
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	3	AEUZPAPA	Sulfurous ash is free instead of 1 GP
@@ -7965,12 +7296,9 @@ Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	25	AESXEZGA	Start new ga
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	26	AOSXEZGA	Start new game with 4,297 instead of 1,225 GP
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	code	27	YNSXEZGE	Start new game with 32,713 instead of 1,225 GP
 Ultima, Warriors of Destiny(tm) Game	DEST	nev8.txt	info	Ultima, Warriors of Destiny, Wayfarer Inn, Healer's Herbs, Pendra, An
-Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR MOST OF THE FOLLOWING
--- 	Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	Check out these ultimate Game Genie(tm) codes to help you defeat Dr. 
-Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	CODES. IF ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE
--- 	Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	Evil(tm). You can adjust your lives, have as much time as you wish, and 
-Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	ALTERNATE CODE
--- 	Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	even take less damage. And with ULT Codes 11, 12 and 13, you can 
+Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	Check out these ultimate Game Genie(tm) codes to help you defeat Dr. 
+Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	Evil(tm). You can adjust your lives, have as much time as you wish, and 
+Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	even take less damage. And with ULT Codes 11, 12 and 13, you can 
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	choose infinite lives for whichever stage you find difficult.
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR MOST OF THE FOLLOWING 
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	intro	CODES. IF ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE 
@@ -7986,10 +7314,7 @@ Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	8	OVXZNPSV + PEXXEONY / OVUZKPSV 
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	9	NYXXXVAN / NYXXVVAN	Shield lasts longer on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	10	AGXXXVAY / AGXXVVAY	Shield lasts a shorter time on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	11	GXUAOKVK	Don't lose a life on Ground Pursuit, Boat and Hang Glider stages
-Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	12	SZOUZXVK / SXNXKNVK	Don't lose a life against end-of-stage bosses and
--- 	Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	12      SZOUZXVK / SXNXKNVK     Don't lose a life against end-of-
-Ultimate Stuntman(tm) Game	ULT	neup04.txt	info					on Street Combat stages
--- 	Ultimate Stuntman(tm) Game	ULT	neup04.txt	info	stage bosses and on Street Combat stages
+Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	12	SZOUZXVK / SXNXKNVK	Don't lose a life against end-of-stage bosses and on Street Combat stages
 Ultimate Stuntman(tm) Game	ULT	neup04.txt	code	13	SXXLVSVK / SXXUXSVK	Don't lose a life on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	nev9.txt	intro	NOTE: THERE ARE TWO VERSIONS GIVEN FOR MOST OF THE FOLLOWING
 Ultimate Stuntman(tm) Game	ULT	nev9.txt	intro	CODES. IF ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE
@@ -8087,31 +7412,18 @@ Wacky Races(tm) Game	RACES	nev8.txt	code	6	TASTOILA	Start with 6 hearts
 Wacky Races(tm) Game	RACES	nev8.txt	code	7	AASTOILE	Start with 8 hearts
 Wacky Races(tm) Game	RACES	nev8.txt	code	8	GXSGSVVK	Don't take most damage
 Wacky Races(tm) Game	RACES	nev8.txt	code	9	GXSGSVVK + GZNKVVVK + GXUKUSVK	Infinite hearts
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	9	GXSGSVVK + GZNKVVVK + 	Infinite hearts
 Wacky Races(tm) Game	RACES	nev8.txt	code	10	EKUVKIKK	Start at race 1, end of stage 1
--- 	Wacky Races(tm) Game	RACES	nev8.txt	info		GXUKUSVK
 Wacky Races(tm) Game	RACES	nev8.txt	code	11	NKUVKIKK	Start at race 1, end of stage 2
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	10	EKUVKIKK	Start at race 1, end of stage 1
 Wacky Races(tm) Game	RACES	nev8.txt	code	12	KSUVKIKG	Start at race 1, end of stage 3
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	11	NKUVKIKK	Start at race 1, end of stage 2
 Wacky Races(tm) Game	RACES	nev8.txt	code	13	ESUVVIVS	Start at race 2, end of stage 1
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	12	KSUVKIKG	Start at race 1, end of stage 3
 Wacky Races(tm) Game	RACES	nev8.txt	code	14	KSUVVIVS	Start at race 2, end of stage 2
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	13	ESUVVIVS	Start at race 2, end of stage 1
 Wacky Races(tm) Game	RACES	nev8.txt	code	15	EVUVVIVI	Start at race 2, end of stage 3
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	14	KSUVVIVS	Start at race 2, end of stage 2
 Wacky Races(tm) Game	RACES	nev8.txt	code	16	KVKTEIXT	Start at race 3, end of stage 1
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	15	EVUVVIVI	Start at race 2, end of stage 3
 Wacky Races(tm) Game	RACES	nev8.txt	code	17	EVKTEIXV	Start at race 3, end of stage 2
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	16	KVKTEIXT	Start at race 3, end of stage 1
 Wacky Races(tm) Game	RACES	nev8.txt	code	18	KVKTEIXV	Start at race 3, end of stage 3
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	17	EVKTEIXV	Start at race 3, end of stage 2
 Wacky Races(tm) Game	RACES	nev8.txt	code	19	ENKTEIXT	Start at race 3, end of stage 4
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	18	KVKTEIXV	Start at race 3, end of stage 3
 Wacky Races(tm) Game	RACES	nev8.txt	code	20	XNUVKIKG	Go straight to level boss--
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	19	ENKTEIXT	Start at race 3, end of stage 4
 Wacky Races(tm) Game	RACES	nev8.txt	info				use with one of Codes 10 thru 19 to select which boss
--- 	Wacky Races(tm) Game	RACES	nev8.txt	code	20	XNUVKIKG	Go straight to level boss--use with one of Codes 10 
 Wayne's World(tm) Game	WAY	neup08.txt	code	1	PANEYAGA	Start with 2 lives
 Wayne's World(tm) Game	WAY	neup08.txt	code	2	YANEYAGA	Start with 8 lives
 Wayne's World(tm) Game	WAY	neup08.txt	code	3	PANEYAGE	Start with 10 lives
@@ -8291,15 +7603,11 @@ Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	12	ELKZGYEA	More energy
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	13	AGELLZEA	Less energy after death--except at boss stages
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	14	ELELLZEA	More energy after death--except at boss stages
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	15	PAKZGYEA	Start with very little life force
--- 	Wizards & Warriors III(tm) Game	WAW3	nev8.txt	info	Wizards & Warriors III is a trademark of Acclaim Entertainment, Inc.
+Wizards & Warriors III(tm) Game	WAW3	nev8.txt	info	Wizards & Warriors III is a trademark of Acclaim Entertainment, Inc.
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	16	AGKZGYEA	Start with about half life force
--- 	Wizards & Warriors III(tm) Game	WAW3	nev8.txt	info	Wolverine (tm) Game
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	17	SXVTGLVG	Infinite lives
--- 	Wizards & Warriors III(tm) Game	WAW3	nev8.txt	info	WOLV
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	18	SZNYZNSE	Shopkeeper sometimes forgets to charge
--- 	Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	1	PEUSZALA	Start with 1 life--player 1
 Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	19	SXXNITVG	Infinite keys
--- 	Wizards & Warriors III(tm) Game	WAW3	nev8.txt	code	2	TEUSZALA	Start with 6 lives--player 1
 Wizards and Warriors(tm) Game	WIZ	nev8.txt	code	1	GXVUZGVG	Infinite lives
 Wizards and Warriors(tm) Game	WIZ	nev8.txt	code	2	IAUUKAZA + IAXGGAZA	Start with 6 lives
 Wizards and Warriors(tm) Game	WIZ	nev8.txt	code	3	AAUUKAZE + AAXGGAZE	Start with 9 lives
@@ -8441,7 +7749,7 @@ Yoshi(tm) Game	YOSH	neup04.txt	code	4	ZEUYPEAZ	Really short wait for next charac
 Yoshi(tm) Game	YOSH	neup04.txt	code	5	NNUYPEAX	Really long wait for next characters
 Yoshi(tm) Game	YOSH	neup04.txt	code	6	AVSULYZA	Freeze characters for a short time (press 'Down')
 Yoshi(tm) Game	YOSH	neup04.txt	info	Yoshi and Victory Egg are trademarks of Nintendo of America Inc.
--- 	Yoshi(tm) Game	YOSH	neup04.txt	info	Remember, you can pick'n'mix your codes! 
+Yoshi(tm) Game	YOSH	neup04.txt	info	Remember, you can pick'n'mix your codes! 
 Yoshi(tm) Game	YOSH	nev8.txt	code	1	PAVAAPLA + PESTAZLA + PEXTZLLA	Need only 1 Victory Egg(tm) to win
 Yoshi(tm) Game	YOSH	nev8.txt	code	2	ZAVAAPLA + ZESTAZLA + ZEXTZLLA	Need only 2 Victory Eggs to win
 Yoshi(tm) Game	YOSH	nev8.txt	code	3	GOUYPEAZ	Short wait for next characters
