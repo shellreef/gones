@@ -40,7 +40,20 @@ for my $game (@gamelist)
     my @ourlines = @{$ourlines{$game}};
     my @newlines = @{$newlines{$game}};
 
-    # TODO: add intro lines
+    my @intro;
+    for (@newlines)
+    {
+        my @newfields = @$_;
+        my $source = shift @newfields;  # ignore
+        my $type = shift @newfields;
+        push @intro, join("\t", @newfields) if $type eq "intro";
+        last if $type ne "intro";  # skip after
+    }
+
+    # Add intro text
+    for (@intro) {
+        print "$game\t$game2id{$game}\tintro\t$_\n";
+    }
 
     for (@ourlines)
     {
