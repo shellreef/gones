@@ -99,7 +99,7 @@ for my $game (sort keys %ourlines) {
                         print "$game\t$game2id{$game}\t$file\t$ourtype\t$ourline\n";
                     } else {
                         print "$game\t$game2id{$game}\t$file\t$ourtype\t$ourline\n";
-                        printf "-%2s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
+                        print "-$match\t$game\t$game2id{$game}\t$file\t$theirtype\t$theirline\n";
                     }
 
                     ++$j;
