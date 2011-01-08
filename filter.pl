@@ -11,8 +11,9 @@ use Data::Dumper;
 
 our $VERBOSE = 0;
 our $ROOT = "roms/3.14/extracted/";
-#our $OUT = undef;       # copy good stuff here; undef for a dry run
+#our $OUT = undef;       # link good stuff here; undef for a dry run
 our $OUT = "roms/best/";
+our $OUT_FLAT = "roms/best2/";  # non-hierarchical
 
 # Plain strings to filter on
 our @OMISSIONS = (
@@ -21,6 +22,7 @@ our @OMISSIONS = (
     #"Demo",    # don't want to match Demon
     #"BIOS",    # could be interesting
     "(VS)",    # Vs Unisystem, maybe include?
+    "(GBA e-Reader)", # http://en.wikipedia.org/wiki/Nintendo_e-Reader  re-releases, usually more limited
     # Not applicable or present in NES enough to be worth filtering
     #"(MB)", 
     #" Sample",
@@ -170,9 +172,12 @@ sub filter_game
         next if !defined($OUT);
 
         mkdir($OUT) if !-e $OUT;
+        mkdir($OUT_FLAT) if !-e $OUT_FLAT && defined($OUT_FLAT);
         mkdir("$OUT$game") if !-e "$OUT$game";
-        system("cp", "$ROOT$game/$good", "$OUT$game/$good");
-        die "failed to copy?" if $?;
+        system("ln", "$ROOT$game/$good", "$OUT$game/$good");
+        die "failed to link? $OUT$game/$good" if $?;
+        system("ln", "$ROOT$game/$good", "$OUT_FLAT$good");
+        die "failed to link2? $OUT_FLAT$good" if $?;
     }
 }
 
