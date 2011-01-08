@@ -70,12 +70,32 @@ for my $game (sort keys %ourlines) {
                         my $next = $lines[$i + 1];
                         if (basicallyequal($ourline, "$theirline $next")) {
                             ++$i;
-                            $match = "*";
+                            $match = "++";
                             $theirline = "$theirline $next";
+                        }
+
+                        # The source has some intro text which we are missing?
+                        if ($theirtype eq "intro" && $theirtype ne $ourtype) {
+                            $match = "@";
+                            my @theintro;
+                            while($i < $#lines) {
+                                last if $lines[$i] =~ m/^\d+/ || $lines[$i] eq $game2id{$game};   # beginning of codes, or game id
+                                push @theintro, $lines[$i];
+                                ++$i;
+                            }
+                            --$i;
+                            print "%%%%%\n";
+                            print join("\n", @theintro), "\n";
+                            print "%%%%%\n";
+                            next;
                         }
                     }
 
-                    printf "%1s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
+                    
+                    if (substr($match, 0, 1) ne "+") { # hide matches
+                        printf "%2s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
+                    }
+
                     ++$j;
                 }
             }

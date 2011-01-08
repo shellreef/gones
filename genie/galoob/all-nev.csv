@@ -860,32 +860,32 @@ Bubble Bobble(tm) Game	BUB	code	12	LANEIGZA + SNEEIKVN	Angry monsters move faste
 Bubble Bobble(tm) Game	BUB	code	13	AAUILSPP	Lots of bubble power
 Bubble Bobble(tm) Game	BUB	code	14	AANSIGTA + AESIPGTA	Always wear turbo shoes
 Bubble Bobble(tm) Game	BUB	info	Bubble Bobble is a trademark of Taito America Corporation	
-Bubble Bobble II(tm) Game	BUB	code	1	PEXEEALA	1 life--player 1
-Bubble Bobble II(tm) Game	BUB	code	2	TEXEEALA	6 lives--player 1
-Bubble Bobble II(tm) Game	BUB	code	3	PEXEEALE	9 lives--player 1
-Bubble Bobble II(tm) Game	BUB	code	4	TEVATZLA	6 lives--player 2
-Bubble Bobble II(tm) Game	BUB	code	5	PEVATZLE	9 lives--player 2
-Bubble Bobble II(tm) Game	BUB	code	6	SZNOASVK	Infinite lives--both players
-Bubble Bobble II(tm) Game	BUB	info	CODES 7 AND 8: NOT ON THE 1ST LIFE AFTER A CONTINUE	
-Bubble Bobble II(tm) Game	BUB	code	7	LEXAUAPA + LESOZTPA	Start each life with 3 hearts
-Bubble Bobble II(tm) Game	BUB	code	8	IEXAUAPA + IESOZTPA	Start each life with 5 hearts
-Bubble Bobble II(tm) Game	BUB	code	9	OXXANUPX	Blow bubbles further
-Bubble Bobble II(tm) Game	BUB	code	10	IEKEGZPA	Start on level 5
-Bubble Bobble II(tm) Game	BUB	code	11	ZEKEGZPE	Start on level 10
-Bubble Bobble II(tm) Game	BUB	code	12	YEKEGZPE	Start on level 15
-Bubble Bobble II(tm) Game	BUB	code	13	GOKEGZPA	Start on level 20
-Bubble Bobble II(tm) Game	BUB	code	14	POKEGZPE	Start on level 25
-Bubble Bobble II(tm) Game	BUB	code	15	TOKEGZPE	Start on level 30
-Bubble Bobble II(tm) Game	BUB	code	16	AXKEGZPE	Start on level 40
-Bubble Bobble II(tm) Game	BUB	code	17	IXKEGZPE	Start on level 45
-Bubble Bobble II(tm) Game	BUB	code	18	ZUKEGZPA	Start on level 50
-Bubble Bobble II(tm) Game	BUB	code	19	YUKEGZPA	Start on level 55
-Bubble Bobble II(tm) Game	BUB	code	20	GUKEGZPE	Start on level 60
-Bubble Bobble II(tm) Game	BUB	code	21	PKKEGZPA	Start on level 65
-Bubble Bobble II(tm) Game	BUB	code	22	TKKEGZPA	Start on level 70
-Bubble Bobble II(tm) Game	BUB	code	23	LKKEGZPE	Start on level 75
-Bubble Bobble II(tm) Game	BUB	code	24	ASKEGZPA	Start on level 80
-Bubble Bobble II(tm) Game	BUB	info	Bubble Bobble II is a trademark of Taito.	
+Bubble Bobble II(tm) Game	BUB2	code	1	PEXEEALA	Start with 1 life--player 1
+Bubble Bobble II(tm) Game	BUB2	code	2	TEXEEALA	Start with 6 lives--player 1
+Bubble Bobble II(tm) Game	BUB2	code	3	PEXEEALE	Start with 9 lives--player 1
+Bubble Bobble II(tm) Game	BUB2	code	4	TEVATZLA	Start with 6 lives--player 2
+Bubble Bobble II(tm) Game	BUB2	code	5	PEVATZLE	Start with 9 lives--player 2
+Bubble Bobble II(tm) Game	BUB2	code	6	SZNOASVK	Infinite lives--both players
+Bubble Bobble II(tm) Game	BUB2	info	CODES 7 AND 8: NOT ON THE 1ST LIFE AFTER A CONTINUE	
+Bubble Bobble II(tm) Game	BUB2	code	7	LEXAUAPA + LESOZTPA	Start each life with 3 hearts
+Bubble Bobble II(tm) Game	BUB2	code	8	IEXAUAPA + IESOZTPA	Start each life with 5 hearts
+Bubble Bobble II(tm) Game	BUB2	code	9	OXXANUPX	Blow bubbles further
+Bubble Bobble II(tm) Game	BUB2	code	10	IEKEGZPA	Start on level 5
+Bubble Bobble II(tm) Game	BUB2	code	11	ZEKEGZPE	Start on level 10
+Bubble Bobble II(tm) Game	BUB2	code	12	YEKEGZPE	Start on level 15
+Bubble Bobble II(tm) Game	BUB2	code	13	GOKEGZPA	Start on level 20
+Bubble Bobble II(tm) Game	BUB2	code	14	POKEGZPE	Start on level 25
+Bubble Bobble II(tm) Game	BUB2	code	15	TOKEGZPE	Start on level 30
+Bubble Bobble II(tm) Game	BUB2	code	16	AXKEGZPE	Start on level 40
+Bubble Bobble II(tm) Game	BUB2	code	17	IXKEGZPE	Start on level 45
+Bubble Bobble II(tm) Game	BUB2	code	18	ZUKEGZPA	Start on level 50
+Bubble Bobble II(tm) Game	BUB2	code	19	YUKEGZPA	Start on level 55
+Bubble Bobble II(tm) Game	BUB2	code	20	GUKEGZPE	Start on level 60
+Bubble Bobble II(tm) Game	BUB2	code	21	PKKEGZPA	Start on level 65
+Bubble Bobble II(tm) Game	BUB2	code	22	TKKEGZPA	Start on level 70
+Bubble Bobble II(tm) Game	BUB2	code	23	LKKEGZPE	Start on level 75
+Bubble Bobble II(tm) Game	BUB2	code	24	ASKEGZPA	Start on level 80
+Bubble Bobble II(tm) Game	BUB2	info	Bubble Bobble II is a trademark of Taito.	
 Bucky O'Hare(tm) Game	HARE	code	1	AAELXYZA	Start with 1 life
 Bucky O'Hare(tm) Game	HARE	code	2	IAELXYZA	Start with 6 lives
 Bucky O'Hare(tm) Game	HARE	code	3	PAELXYZE	Start with 10 lives
