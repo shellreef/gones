@@ -8,6 +8,7 @@
 
 use strict;
 
+our $VERBOSE = 0;
 our $ROOT = "roms/3.14/extracted/";
 # Plain strings to filter on
 our @OMISSIONS = (
@@ -109,19 +110,49 @@ sub filter_game
     my (@files) = grep{!m/^\./}readdir(D);
     closedir(D);
 
-    print "\n$game\n";
-    # TODO: region priority
+    my (@maybe, @bad);
+
+    # Filename-based, independent filters
     for my $file (@files) {
         my $reason = filter_file($file);
         if (defined($reason)) {
-            print "-$file  reason: $reason\n";
+            print "-$file  reason: $reason\n" if $VERBOSE;
+            push @bad, [$file, $reason];
             $count_bad++;
         } else {
-            print "+$file\n";
-            $count_good++;
+            print "~$file\n" if $VERBOSE;
+            push @maybe, $file;
         }
         ++$count_total;
     }
+
+    my (@good);
+
+    if (@maybe == 0) {
+        # Nothing
+    } elsif (@maybe == 1) {
+        # Only one choice
+        push @good, pop @maybe;
+        $count_good++;
+    } else {
+        # Take first from region, in priority given
+        OUTER: for my $region (@REGION_PRIORITY) {
+            for my $file (@maybe) {
+                if (index($file, "($region)") != -1) {
+                    push @good, $file;
+                    $count_good++;
+                    last OUTER;
+                } 
+            }
+        }
+
+        # did we filter everything?
+        if (@good == 0) {
+            die "can't figure out $game: @maybe\n@good\n";
+        }
+    }
+
+    print "$game: @good\n";
 }
 
 # Return 
