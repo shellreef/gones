@@ -38,7 +38,17 @@ for my $game (sort keys %ourlines)
     my @newlines = @{$newlines{$game}};
 
     my $delta = @newlines - @ourlines;
-    printf "%-80s %2d -> %2d    (%+2d)\n", $game, scalar(@ourlines), scalar(@newlines), $delta;
+    #printf "%-80s %2d -> %2d    (%+2d)\n", $game, scalar(@ourlines), scalar(@newlines), $delta;
+
+    my $file;
+    for (@newlines) {
+        my $newline = join("\t", @$_);
+        print "$game\t$new_game2id{$game}\t$newline\n";
+        $file = $_->[0];
+    }
+    # re-add the missing line
+    my $last = join("\t", @{$ourlines[-1]});
+    print "$game\t$new_game2id{$game}\t$file\t$last\n";
 
     #splice @comparable, 2, 1; # remove "filename" field so it can be compared
 }
