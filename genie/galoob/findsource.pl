@@ -6,7 +6,7 @@
 
 use strict;
 
-my $SOURCES = "sources/";
+my %sourcefiles = %{read_sources("sources/")};
 
 open(DB,"<all-nev.csv")||die;
 while(<DB>) {
@@ -20,6 +20,25 @@ sub look
 {
     my ($match) = @_;
 
+    my $found = 0;
+    for my $file (keys %sourcefiles) {
+        my @lines = @{$sourcefiles{$file}};
+        for my $line (@lines) {
+            if (lc($match) eq lc($line)) {
+                $found = 1;
+                print "Found $match in $file\n";
+            }
+        }
+    }
+    die "unable to locate $match" if !$found;
+}
+
+# Read all sources into a hash of arrays
+sub read_sources
+{
+    my $SOURCES = $_[0];
+
+    my %sourcefiles;
     opendir(D, $SOURCES)||die "cannot opendir sources";
     my @files=grep{!m/^\./}readdir(D);
     closedir(D);
@@ -28,15 +47,12 @@ sub look
     
     for my $file (@files) {
         open(FH, "<$SOURCES/$file") || die "cannot open source: $SOURCES/$file: $!";
+        $sourcefiles{$file} = [];
         while(<FH>) {
             chomp;
-
-            if (lc($_) eq lc($match)) {
-                print "FOUND $match in $file\n";
-                push @results, $file;
-            }
+            push @{$sourcefiles{$file}}, $_;
         }
     }
 
-    die "unable to locate $match!" if !@results;
+    return \%sourcefiles;
 }
