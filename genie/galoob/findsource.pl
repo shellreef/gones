@@ -25,13 +25,15 @@ for my $game (sort keys %ourlines) {
     my @ourlines = @{$ourlines{$game}};
     print "\n$game\n";
 
-    my $found_count = 0;
+    my %foundfiles;
     for my $file (sort keys %sourcefiles) {
         my @lines = @{$sourcefiles{$file}};
         for my $i (0..$#lines) {
             my $line = $lines[$i];
             if (lc($game) eq lc($line)) {   # game header line
-                ++$found_count;
+                next if $file eq "nev9.txt" && $foundfiles{"nev8.txt"};    # nev8=nev9+additions; only match nev9 for those additions
+
+                $foundfiles{$file} = 1;
                 print "\t$file\n";
                 my @theirlines;
 
@@ -42,20 +44,47 @@ for my $game (sort keys %ourlines) {
                     my $theirline = $lines[$i];
                     next if $theirline eq $game2id{$game};      # skip game abbreviation
                     next if $theirline =~ m/CODE/i && $theirline =~ m/KEY IN/i && $theirline =~ m/EFFECT/i;   # skip field headers
-                    
+                    my ($theirtype, @theirfields);
+
+                    if ($theirline =~ m/^\d+/) {
+                        $theirtype = "code";
+                        @theirfields = split /\t/, $theirline;
+                    } else {
+                        $theirtype = "info";
+                        @theirfields = $theirline;
+                    }
+
                     my @ourfields = @{$ourlines[$j]};
+                    my $ourtype = shift @ourfields;     # what we think this line is (code, intro, info)
                     my $ourline = join("\t", @ourfields);
 
-                    printf "%-80s %-80s\n", $ourline, $theirline;
+                    my $match;
+                    if (basicallyequal($ourline, $theirline)) {
+                        $match = "+";
+                    } else {
+                        $match = "-";
+                    }
 
+                    printf "%1s%-8s|%-100s|%-100s\n", $match, $ourtype, $ourline, $theirline;
                     ++$j;
                 }
             }
         }
     }
-    die "unable to locate $game" if !$found_count;
+    die "unable to locate $game" if (scalar keys %foundfiles) == 0;
 
 
+}
+
+# Return whether two strings are equal except punctuation
+sub basicallyequal
+{
+    my ($a, $b) = @_;
+    my ($a2, $b2);
+    ($a2 = lc($a)) =~ tr/A-Za-z0-9//cd;
+    ($b2 = lc($b)) =~ tr/A-Za-z0-9//cd;
+
+    return $a2 eq $b2;
 }
 
 
