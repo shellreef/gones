@@ -23,7 +23,7 @@ while(<DB>) {
 
 for my $game (sort keys %ourlines) {
     my @ourlines = @{$ourlines{$game}};
-    print "\n$game\n";
+    #print "\n$game\n";
 
     my %foundfiles;
     for my $file (sort keys %sourcefiles) {
@@ -34,7 +34,7 @@ for my $game (sort keys %ourlines) {
                 next if $file eq "nev9.txt" && $foundfiles{"nev8.txt"};    # nev8=nev9+additions; only match nev9 for those additions
 
                 $foundfiles{$file} = 1;
-                print "\t$file\n";
+                #print "\t$file\n";
                 my @theirlines;
 
                 # Read more of lines from original source data
@@ -64,7 +64,7 @@ for my $game (sort keys %ourlines) {
                     if (basicallyequal($ourline, $theirline)) {
                         $match = "+";
                     } else {
-                        $match = "-";
+                        $match = "- ";
 
                         # Perhaps it wrapped?
                         my $next = $lines[$i + 1];
@@ -84,16 +84,22 @@ for my $game (sort keys %ourlines) {
                                 ++$i;
                             }
                             --$i;
-                            print "%%%%%\n";
-                            print join("\n", @theintro), "\n";
-                            print "%%%%%\n";
+                            print "-`intro-begin\n";
+                            for (@theintro) {
+                                print "$game\t$game2id{$game}\t$file\tintro\t$_\n";
+                            }
+                            print "-`intro-end\n";
                             next;
                         }
                     }
 
                     
-                    if (substr($match, 0, 1) ne "+") { # hide matches
-                        printf "%2s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
+                    if (substr($match, 0, 1) eq "+") {
+                        # it matches, add source 
+                        print "$game\t$game2id{$game}\t$file\t$ourtype\t$ourline\n";
+                    } else {
+                        print "$game\t$game2id{$game}\t$file\t$ourtype\t$ourline\n";
+                        printf "-%2s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
                     }
 
                     ++$j;
