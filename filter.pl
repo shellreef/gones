@@ -7,6 +7,7 @@
 # Inspired by Ungoodmerge
 
 use strict;
+use Data::Dumper;
 
 our $VERBOSE = 0;
 our $ROOT = "roms/3.14/extracted/";
@@ -128,29 +129,22 @@ sub filter_game
 
     my (@good);
 
-    if (@maybe == 0) {
-        # Nothing
-    } elsif (@maybe == 1) {
-        # Only one choice
-        push @good, pop @maybe;
-        $count_good++;
-    } else {
-        # Take first from region, in priority given
-        OUTER: for my $region (@REGION_PRIORITY) {
-            for my $file (@maybe) {
-                if (index($file, "($region)") != -1) {
-                    push @good, $file;
-                    $count_good++;
-                    last OUTER;
-                } 
+    # Identify region of each file
+    my %file2region;
+    for my $file (@maybe) {
+        # cannot simply extract (..) because it is not always the region
+        my $identified_region = 0;
+        for my $region (@REGION_PRIORITY) {
+            if (index($file, "($region)") != -1) {
+                $file2region{$file} = $region;
+                $identified_region = 1;
+                last;
             }
         }
-
-        # did we filter everything?
-        if (@good == 0) {
-            die "can't figure out $game: @maybe\n@good\n";
-        }
+        $file2region{$file} = undef if !$identified_region;
     }
+
+    print Dumper \%file2region;
 
     print "$game: @good\n";
 }
