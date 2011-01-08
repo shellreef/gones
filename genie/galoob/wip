@@ -5291,45 +5291,25 @@ Ski or Die(tm) Game	SKI	neup02.txt	intro	SKI
 Ski or Die(tm) Game	SKI	neup02.txt	intro	CODE    KEY IN . . .    EFFECT . . .
 Ski or Die(tm) Game	SKI	neup02.txt	intro	Snowball Blast(tm)
 Ski or Die(tm) Game	SKI	neup02.txt	info	Snowball Blast(tm)
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	1       ZENXTTPA        More snowballs picked up
 Ski or Die(tm) Game	SKI	neup02.txt	code	1	ZENXTTPA	More snowballs picked up
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	2       OOEPVAAV        Start with more time
 Ski or Die(tm) Game	SKI	neup02.txt	code	2	OOEPVAAV	Start with more time
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	3       AKEPVAAT Start with less time
 Ski or Die(tm) Game	SKI	neup02.txt	code	3	AKEPVAAT	Start with less time
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	4       IOKXITAP        More time gained
 Ski or Die(tm) Game	SKI	neup02.txt	code	4	IOKXITAP	More time gained
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	5       IEKXITAP        Less time gained
 Ski or Die(tm) Game	SKI	neup02.txt	code	5	IEKXITAP	Less time gained
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	6       GAUPVAZA        Start with more ammo
 Ski or Die(tm) Game	SKI	neup02.txt	code	6	GAUPVAZA	Start with more ammo
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	7       PAUPVAZA        Start with less ammo
 Ski or Die(tm) Game	SKI	neup02.txt	code	7	PAUPVAZA	Start with less ammo
--- 	Ski or Die(tm) Game	SKI	neup02.txt	info	Acro Aerials(tm)
 Ski or Die(tm) Game	SKI	neup02.txt	info	Acro Aerials(tm)
--- 	Ski or Die(tm) Game	SKI	neup02.txt	code	8       IESTEYLA + IAVVNILA     More jumps allowed
 Ski or Die(tm) Game	SKI	neup02.txt	code	8	IESTEYLA + IAVVNILA	More jumps allowed
--- 	Ski or Die(tm) Game	SKI	neup02.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 Ski or Die(tm) Game	SKI	nev8.txt	info	Snowball Blast(tm)
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	1	ZENXTTPA	More snowballs picked up
 Ski or Die(tm) Game	SKI	nev8.txt	code	1	ZENXTTPA	More snowballs picked up
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	2	OOEPVAAV	Start with more time
 Ski or Die(tm) Game	SKI	nev8.txt	code	2	OOEPVAAV	Start with more time
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	3	AKEPVAAT	Start with less time
 Ski or Die(tm) Game	SKI	nev8.txt	code	3	AKEPVAAT	Start with less time
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	4	IOKXITAP	More time gained
 Ski or Die(tm) Game	SKI	nev8.txt	code	4	IOKXITAP	More time gained
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	5	IEKXITAP	Less time gained
 Ski or Die(tm) Game	SKI	nev8.txt	code	5	IEKXITAP	Less time gained
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	6	GAUPVAZA	Start with more ammo
 Ski or Die(tm) Game	SKI	nev8.txt	code	6	GAUPVAZA	Start with more ammo
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	7	PAUPVAZA	Start with less ammo
 Ski or Die(tm) Game	SKI	nev8.txt	code	7	PAUPVAZA	Start with less ammo
--- 	Ski or Die(tm) Game	SKI	nev8.txt	info	Acro Aerials(tm)
 Ski or Die(tm) Game	SKI	nev8.txt	info	Acro Aerials(tm)
--- 	Ski or Die(tm) Game	SKI	nev8.txt	code	8	IESTEYLA + IAVVNILA	More jumps allowed
 Ski or Die(tm) Game	SKI	nev8.txt	code	8	IESTEYLA + IAVVNILA	More jumps allowed
--- 	Ski or Die(tm) Game	SKI	nev8.txt	info	Ski or Die, Snowball Blast and Acro Aerials are trademarks of 
 Skull & Crossbones(tm) Game	SKULL	nev9.txt	code	1	SZNOTNVK	Infinite continues
 Skull & Crossbones(tm) Game	SKULL	nev9.txt	code	2	PEXPTYIA	1 continue
 Skull & Crossbones(tm) Game	SKULL	nev9.txt	code	3	PEXPTYIE	9 continues
@@ -5415,23 +5395,14 @@ Snow Brothers(tm) Game	SNOW	neup03.txt	code	1	SXNEUYVI	Infinite number of chance
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	2	PAXXPLZE	Start game with 10 chances instead of 3 (count starts at 9 instead of 2)
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	3	AAXXPLZA	Start game with 1 chance (count starts at 0)
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	4	PAOAYLZE	Always get 10 chances after a continue (count restarts at 9)
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	1       SXNEUYVI        Infinite number of chances
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	5	AAOAYLZA	Always get 1 chance after a continue (count restarts at 0)
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	2       PAXXPLZE        Start game with 10 chances instead of 3 (count 
 Snow Brothers(tm) Game	SNOW	neup03.txt	info	IMPORTANT: CODES 6, 7, 8 AND 9 CANNOT BE USED IN COMBINATION
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	info	starts at 9 instead of 2)
 Snow Brothers(tm) Game	SNOW	neup03.txt	info	WITH EACH OTHER. USE CODE 9 TO GET ALL 3 SUPER ABILITIES.
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	3       AAXXPLZA        Start game with 1 chance (count starts at 0)
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	6	PAEEYAAA	Start with Speed Skates
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	4       PAOAYLZE        Always get 10 chances after a continue (count 
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	7	ZAEEYAAA	Start with Power Shots
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	info	restarts at 9)
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	8	GAEEYAAA	Start with super snow-throwing ability
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	5       AAOAYLZA        Always get 1 chance after a continue (count 
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	9	YAEEYAAE	Start with Speed Skates, Power Shots and super snow-throwing
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	info	restarts at 0)
 Snow Brothers(tm) Game	SNOW	neup03.txt	code	10	OUOOGEOO	Don't lose super ability after you lose a chance
--- 	Snow Brothers(tm) Game	SNOW	neup03.txt	code	6       PAEEYAAA        Start with Speed Skates
 Snow Brothers(tm) Game	SNOW	nev8.txt	code	1	SXNEUYVI	Infinite number of chances
 Snow Brothers(tm) Game	SNOW	nev8.txt	code	2	PAXXPLZE	Start game with 10 chances instead of 3 (count starts at 9 instead of 2)
 Snow Brothers(tm) Game	SNOW	nev8.txt	code	3	AAXXPLZA	Start game with 1 chance (count starts at 0)
@@ -5576,21 +5547,13 @@ Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	4	APKVTTEP	Very quick
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	5	EGKVTTEP	Slower damage repair
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	6	ZKNVLEZE	Enemy does less damage
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	7	ATETISVT	Stop game time ticking over
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	7	AAUZPAGY	Photon Torpedoes(tm) always work
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	8	AAUZPAGY	Photon Torpedoes(tm) always work
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	8	AAEXTPNY	Phasers(tm) always work	  
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	9	AAEXTPNY	Phasers(tm) always work
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	9	AAOXPOKT	Phasers fire for longer
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	10	AAOXPOKT	Phasers fire for longer
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	10	AAVTZVIL	Damage is repaired immediately	  
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	11	AAVTZVIL	Damage is repaired immediately
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	11	SXVUSTVG	Transporter power does not decrease most of the 
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	12	SXVUSTVG	Transporter power does not decrease most of the time
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	info	time
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	13	IANUXTAZ	Less transporter power required most of the time
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	12	IANUXTAZ	Less transporter power required most of the time
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	14	GVNZOZIT	Stardate does not advance
--- 	Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	code	13	GVNZOZIT	Stardate does not advance	  
 Star Trek: The Next Generation(tm) Game	NEXT	nev8.txt	info	Star Trek: The Next Generation, Photon Torpedoes and Phaser are
 Star Voyager(tm) Game	VOY	nev8.txt	code	1	GZSZSTVG	Infinite life support pods
 Star Voyager(tm) Game	VOY	nev8.txt	code	2	GPKIASZA	Start with double life support pods
@@ -5896,107 +5859,56 @@ Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	10	XVUXNUEE	Turbocharged running
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	POWER "TAKE OFF" METER
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	YOU MUST BE RACCOON MARIO(tm) FOR CODE 11 TO WORK
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	11	AANZKLLA	Can raise power meter while standing still
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	11	AANZKLLA	Can raise power meter while 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info				so that you can fly from a standing start
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	standing still so that you can fly 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	START ON ANY WORLD
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	from a standing start 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	12	PEUZUGAA	Start on World 2
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	START ON ANY WORLD
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	13	ZEUZUGAA	Start on World 3
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	12	PEUZUGAA	Start on World 2
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	14	LEUZUGAA	Start on World 4
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	13	ZEUZUGAA	Start on World 3
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	15	GEUZUGAA	Start on World 5
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	14	LEUZUGAA	Start on World 4
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	16	IEUZUGAA	Start on World 6
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	15	GEUZUGAA	Start on World 5
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	17	TEUZUGAA	Start on World 7
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	16	IEUZUGAA	Start on World 6
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	18	YEUZUGAA	Start on World 8
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	17	TEUZUGAA	Start on World 7
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	RE-USE ITEMS!
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	18	YEUZUGAA	Start on World 8
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	19	YPXXLVGE	Mario (not Luigi) can re-use items again and again
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	RE-USE ITEMS!
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	KEEP SPECIAL POWERS
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	19	YPXXLVGE 	Mario (not Luigi) can re-use items again and again
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	20	SZUEXNSO	Restore powers after playing an action scene (e.g.
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	KEEP SPECIAL POWERS
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	if you were "Fire Mario(tm)" on the map screen, then entered an
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	20	SZUEXNSO	Restore powers after playing an action scene (e.g. 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	action scene, died or changed to "Frog Mario(tm),"you would return
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	if you were "Fire Mario(tm)" on the map screen, then entered an 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	to the map scene as "Fire Mario")
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	action scene, died or changed to "Frog Mario(tm),"you would return 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	SELECT SUPER ABILITY
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	to the map scene as "Fire Mario")
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	The following codes are useful with Code 20.
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	SELECT SUPER ABILITY
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	21	ZEUXKGAA	Start the game as Fire Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	The following codes are useful with Code 20.
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	22	LEUXKGAA	Start the game as Raccoon Mario(tm)
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	21	ZEUXKGAA	Start the game as Fire Mario
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	23	GEUXKGAA	Start the game as Frog Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	22	LEUXKGAA	Start the game as Raccoon Mario(tm)
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	24	IEUXKGAA	Start the game as Tanooki Mario(tm)
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	23	GEUXKGAA	Start the game as Frog Mario
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	25	TEUXKGAA	Start the game as 'Sledgehammer' Mario(tm)!
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	24	IEUXKGAA	Start the game as Tanooki Mario(tm)
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	SELECT PERMANENT SUPER ABILITY
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	25	TEUXKGAA	Start the game as 'Sledgehammer' Mario(tm)!
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	IMPORTANT: IF YOU USE ANY OF CODES 26 THRU 30 TO DEFEAT
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	LECT PERMANENT SUPER ABILITY
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	BOWZER(tm), YOU SHOULD STAND IN FRONT OF THE DOOR AND HOLD
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	IMPORTANT: IF YOU USE ANY OF CODES 26 THRU 30 TO DEFEAT 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	"UP". AS SOON AS THE DOOR OPENS, YOU WILL PASS THROUGH INTO
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	BOWZER(tm), YOU SHOULD STAND IN FRONT OF THE DOOR AND HOLD 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	THE CHAMBER WHERE THE PRINCESS IS HELD.
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	"UP". AS SOON AS THE DOOR OPENS, YOU WILL PASS THROUGH INTO 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	IF YOU DO NOT DO THIS, YOU MAY GET CAUGHT IN BOWZER'S TIME TRAP
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	THE CHAMBER WHERE THE PRINCESS IS HELD. 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	AND THE GAME WILL PAUSE FOREVER!
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	IF YOU DO NOT DO THIS, YOU MAY GET CAUGHT IN BOWZER'S TIME TRAP 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	26	XUKXGLIE	Start and stay as Super Mario(tm)
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	AND THE GAME WILL PAUSE FOREVER!
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	27	UXKXGLIA	Start and stay as Fire Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	26	XUKXGLIE	Start and stay as Super Mario(tm)
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	28	NXKXGLIE	Start and stay as Raccoon Mario(tm)!
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	27	UXKXGLIA	Start and stay as Fire Mario
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	29	OUKXGLIE	Start and stay as Frog Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	28	nxkxglie	Start and stay as Raccoon Mario(tm)!
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	30	XNKXGLIE	Start and stay as Sledgehammer Mario(tm)
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	29	oukxglie	Start and stay as Frog Mario
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	INVINCIBILITY
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	30	xnkxglie	Start and stay as Sledgehammer Mario(tm)
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	31	SZKIKXSE	Invincibility after changing up from Super Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	INVINCIBILITY
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	(e.g. to Raccoon, Frog, etc.)
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	31	SZKIKXSE	Invincibility after changing up from Super Mario 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	AUTOMATIC SUPER ABILITY AFTER YOU FALL AND DIE
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	(e.g. to Raccoon, Frog, etc.)
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	With all of the following codes, you will find that you change into Super Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	AUTOMATIC SUPER ABILITY AFTER YOU FALL AND DIE
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	if you die again:
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	With all of the following codes, you will find that you change into 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	32	AEOSSZPA + PAOZTGAA	Change to SUPER MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	Super Mario 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	33	AEOSSZPA + ZAOZTGAA	Change to FIRE MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	if you die again:
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	34	AEOSSZPA + LAOZTGAA	Change to RACCOON MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	32	AEOSSZPA + PAOZTGAA	Change to SUPER MARIO if you fall 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	35	AEOSSZPA + GAOZTGAA	Change to FROG MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	off screen and die
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	36	AEOSSZPA + IAOZTGAA	Change to TANOOKI MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	33	AEOSSZPA + ZAOZTGAA	Change to FIRE MARIO if you fall 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	37	AEOSSZPA + TAOZTGAA	Change to SLEDGEHAMMER MARIO if you fall off screen and die
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	off screen and die
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	All codes (except as noted) work for Luigi as well as Mario.
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	34	AEOSSZPA + LAOZTGAA	Change to RACCOON MARIO if you 
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	Super Mario Bros., Mario, Mario Land, Luigi, Fire Mario, Raccoon
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	fall off screen and die
 Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	info	Mario, Frog Mario, Tanooki Mario, Sledgehammer Mario, Super Mario
--- 	Super Mario Bros.(tm) 3 Game	SMB3	nev8.txt	code	35	AEOSSZPA + GAOZTGAA	Change to FROG MARIO if you fall 
 Super Mario Bros.(tm) Game	SMB	nev8.txt	info	LIVES!
 Super Mario Bros.(tm) Game	SMB	nev8.txt	info	Codes 1 to 5 let you adjust lives. Code 4 is really good for
 Super Mario Bros.(tm) Game	SMB	nev8.txt	info	handicapping one player.
@@ -6231,17 +6143,12 @@ Terra Cresta(tm) Game	TERA	nev8.txt	code	7	KTKSLGAZ	Indestructible!
 Terra Cresta(tm) Game	TERA	nev8.txt	code	8	AEVKNYLA	A secret mega-weapon
 Tetris 2(tm) Game	TET2	neup08.txt	info	1-Player Game Codes:
 Tetris 2(tm) Game	TET2	neup08.txt	code	1	AAUEUSSO	Speed does not increase
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	1 AAUEUSSO Speed doesn't increase
 Tetris 2(tm) Game	TET2	neup08.txt	code	2	VNUEUSSO	Speed increases much faster
 Tetris 2(tm) Game	TET2	neup08.txt	code	3	TEXAKYPA	Start and stay at speed of 25
 Tetris 2(tm) Game	TET2	neup08.txt	code	4	ZEKESSPP + PESAOSAP	Maximum speed is 2 instead of 25
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	4 ZEKESSPP + PESAOSAP Max speed is 2
 Tetris 2(tm) Game	TET2	neup08.txt	code	5	ZEKESSPO + PESAOSAO	Maximum speed is 10
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	5 ZEKESSPO + PESAOSAO Max speed is 10
 Tetris 2(tm) Game	TET2	neup08.txt	code	6	YEKESSPO + TESAOSAO	Maximum speed is 1
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	6 YEKESSPO + TESAOSAO Max speed is 15
 Tetris 2(tm) Game	TET2	neup08.txt	code	7	GOKESSPP + LOSAOSAP	Maximum speed is 20
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	7 GOKESSPP + LOSAOSAP Max speed is 20
 Tetris 2(tm) Game	TET2	neup08.txt	info	1-Player vs 2-Player or 1-Player vs Computer Game Codes:
 Tetris 2(tm) Game	TET2	neup08.txt	code	8	OZNETPOU + PANEYPAA	Every round starts with 4 fixed blocks
 Tetris 2(tm) Game	TET2	neup08.txt	code	9	OZNETPOU + YANEYPAA	Every round starts with 10 fixed blocks
@@ -6250,7 +6157,6 @@ Tetris 2(tm) Game	TET2	neup08.txt	code	11	OZNETPOU + PPNEYPAA	Every round starts
 Tetris 2(tm) Game	TET2	neup08.txt	info	All Games Codes:
 Tetris 2(tm) Game	TET2	neup08.txt	code	12	AAVZVYEA	Cannot pause game with START button
 Tetris 2(tm) Game	TET2	neup08.txt	code	13	AVEXOYXZ	Do not hide remaining pieces during pause
--- 	Tetris 2(tm) Game	TET2	neup08.txt	code	13 AVEXOYXZ Don't hide remaining pieces during pause
 Tetris 2(tm) Game	TET2	neup08.txt	info				(current and next are still hidden)
 Tetris 2(tm) Game	TET2	nev8.txt	info	1-Player Game Codes:
 Tetris 2(tm) Game	TET2	nev8.txt	code	1	AAUEUSSO	Speed does not increase
@@ -6366,25 +6272,15 @@ The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	2	PAOAZAZE	Start 
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	3	AAVYPXAA	Spiders, bats, ants and rats do no damage
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	4	ZEKYVZGV	Start with 10 stars instead of 100
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	IMPORTANT: DIZ CODES 5 THRU 9 ARE ONLY FOR PLAYING THE SUB-
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	5       YYUZPSTE        Play bubble sub-game only
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	GAMES. ONCE YOU HAVE USED THEM YOU MUST POWER OFF AND THEN
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	6       TYUZPSTE        Play river sub-game only
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	ON TO PLAY THE MAIN GAME.
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	7       IYUZPSTE        Play mine sub-game only
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	NOTE: DIZZY(tm) MUST FIRST LEAVE HIS CABIN BEFORE YOU CAN PLAY
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	8       ZYUZPSTE        Play puzzle sub-game only
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	THE SUB GAMES.
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	Remember that you can pick'n'mix your codes. You can enter up to 
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	5	YYUZPSTE	Play bubble sub-game only
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	THREE separate codes at one time.
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	6	TYUZPSTE	Play river sub-game only
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	The Fantastic Adventures of Dizzy, Zak and Daisy are trademarks of 
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	7	IYUZPSTE	Play mine sub-game only
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	Codemasters Software Co. Ltd.
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	code	8	ZYUZPSTE	Play puzzle sub-game ony
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	The Fantastic Adventures of Dizzy, Zak and Daisy are trademarks of
--- 	The Fantastic Adventures of Dizzy(tm) Game	DIZ	neup03.txt	info	FORMULA ONE: BUILT TO WIN(tm) GAME
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	nev8.txt	code	1	SXVIAAVG	Infinite lives
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	nev8.txt	code	2	PAOAZAZE	Start with 10 lives
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	nev8.txt	code	3	AAVYPXAA	Spiders, bats, ants and rats do no damage
