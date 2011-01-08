@@ -7,7 +7,7 @@ use Data::Dumper;
 
 sub known_games
 {
-    open(FH, "<gamelist-goodnes314.csv")||die;
+    open(FH, "<gamelist-goodnes314-interesting.csv")||die;
     chomp(my @known = <FH>);
     close(FH);
     return @known;
