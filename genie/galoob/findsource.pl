@@ -39,6 +39,7 @@ for my $game (sort keys %ourlines) {
 
                 # Read more of lines from original source data
                 my $j = 0;
+                my $startedcodes = 0;
                 while($i < $#lines && $j < $#ourlines) {
                     ++$i;
                     my $theirline = $lines[$i];
@@ -48,9 +49,10 @@ for my $game (sort keys %ourlines) {
 
                     if ($theirline =~ m/^\d+/) {
                         $theirtype = "code";
+                        $startedcodes = 1;
                         @theirfields = split /\t/, $theirline;
                     } else {
-                        $theirtype = "info";
+                        $theirtype = $startedcodes ? "info" : "intro";
                         @theirfields = $theirline;
                     }
 
@@ -63,9 +65,17 @@ for my $game (sort keys %ourlines) {
                         $match = "+";
                     } else {
                         $match = "-";
+
+                        # Perhaps it wrapped?
+                        my $next = $lines[$i + 1];
+                        if (basicallyequal($ourline, "$theirline $next")) {
+                            ++$i;
+                            $match = "*";
+                            $theirline = "$theirline $next";
+                        }
                     }
 
-                    printf "%1s%-8s|%-100s|%-100s\n", $match, $ourtype, $ourline, $theirline;
+                    printf "%1s%-8s<%-100s|%-100s>%s\n", $match, $ourtype, $ourline, $theirline, $theirtype;
                     ++$j;
                 }
             }
