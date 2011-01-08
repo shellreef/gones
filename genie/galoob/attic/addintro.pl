@@ -50,8 +50,17 @@ for my $game (@gamelist)
         last if $type ne "intro";  # skip after
     }
 
+    my %existingintro;
+    for (@ourlines) 
+    {
+        my @ourfields = @$_;
+        my $type = shift @ourfields;
+        $existingintro{join("\t", @ourfields)} = 1 if $type eq "intro";
+    }
+
     # Add intro text
     for (@intro) {
+        next if $existingintro{$_};     # already have this text, thanks
         print "$game\t$game2id{$game}\tintro\t$_\n";
     }
 
