@@ -11,6 +11,9 @@ use Data::Dumper;
 
 our $VERBOSE = 0;
 our $ROOT = "roms/3.14/extracted/";
+#our $OUT = undef;       # copy good stuff here; undef for a dry run
+our $OUT = "roms/best/";
+
 # Plain strings to filter on
 our @OMISSIONS = (
     "(PD)",     # "public domain", not commercial games (although some might be interesting)"
@@ -152,7 +155,7 @@ sub filter_game
     }
 
     # Sort regions found by desired priority
-    my @regions_found = sort{index_a($a, @REGION_PRIORITY) <=> index_a($b, @REGION_PRIORITY)} keys %region2files;
+    my @regions_found = sort{index_of($b, @REGION_PRIORITY) <=> index_of($a, @REGION_PRIORITY)} keys %region2files;
     die "what? @regions_found $game" if @regions_found == 0;    # should not happen, found some above & should all be categorized
 
     # Add all from most desired region
@@ -160,13 +163,21 @@ sub filter_game
     my @good = @{$region2files{$best_region}};
     $count_good += @good;
 
-    print scalar(@good), " $game: @good\n";
+    print scalar(@good), " $game";
+    for my $good (@good) {
+        print "\t$good\n";
 
+        next if !defined($OUT);
 
+        mkdir($OUT) if !-e $OUT;
+        mkdir("$OUT$game") if !-e "$OUT$game";
+        system("cp", "$ROOT$game/$good", "$OUT$game/$good");
+        die "failed to copy?" if $?;
+    }
 }
 
 # Return the index of an element within an array, like index() but for arrays not strings
-sub index_a
+sub index_of
 {
     my ($element, @array) = @_;
     for my $i (0..$#array) {
