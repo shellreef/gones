@@ -32,7 +32,10 @@ my $ourcount = scalar keys %ourlines;
 my $newcount = scalar keys %newlines;
 die "missing games: $ourcount != $newcount" if $ourcount != $newcount;
 
-for my $game (sort keys %ourlines) 
+open(GL,"<order.txt")||die; # preserve order of games, don't sort
+my@gamelist;while(<GL>){chomp;my($name,$id,$gn)=split/\t/;push@gamelist,$name;}
+
+for my $game (@gamelist)
 {
     my @ourlines = @{$ourlines{$game}};
     my @newlines = @{$newlines{$game}};
@@ -40,16 +43,11 @@ for my $game (sort keys %ourlines)
     my $delta = @newlines - @ourlines;
     #printf "%-80s %2d -> %2d    (%+2d)\n", $game, scalar(@ourlines), scalar(@newlines), $delta;
 
-    my $file;
     for (@newlines) {
-        my $newline = join("\t", @$_);
+        my @fields = @$_;
+        shift @fields; # remove "filename" field so it can be compared
+        my $newline = join("\t", @fields);
         print "$game\t$new_game2id{$game}\t$newline\n";
-        $file = $_->[0];
     }
-    # re-add the missing line
-    my $last = join("\t", @{$ourlines[-1]});
-    print "$game\t$new_game2id{$game}\t$file\t$last\n";
-
-    #splice @comparable, 2, 1; # remove "filename" field so it can be compared
 }
 
