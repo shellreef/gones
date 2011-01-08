@@ -26,6 +26,7 @@ our @OMISSIONS = (
     #"Preview Version)",
     #"(Debug",
 
+
     #"(Sample)",    # actually would be cool to hack samples..
     #"(Unl)",       # very important to allow unlicensed games!
 );
@@ -127,26 +128,51 @@ sub filter_game
         ++$count_total;
     }
 
-    my (@good);
+    # Nothing left for this game
+    # TODO: option to maybe leave in one of the matches for each game?
+    next if @maybe == 0;
 
-    # Identify region of each file
-    my %file2region;
+    # Group files together by identified region, or unknown
+    my %region2files;
     for my $file (@maybe) {
         # cannot simply extract (..) because it is not always the region
         my $identified_region = 0;
         for my $region (@REGION_PRIORITY) {
             if (index($file, "($region)") != -1) {
-                $file2region{$file} = $region;
+                $region2files{$region} = [] if !exists $region2files{$region};
+                push @{$region2files{$region}}, $file;
                 $identified_region = 1;
                 last;
             }
         }
-        $file2region{$file} = undef if !$identified_region;
+        if (!$identified_region) {
+            $region2files{"unknown"} = [] if !exists $region2files{"unknown"};
+            push @{$region2files{"unknown"}}, $file;
+        }
     }
 
-    print Dumper \%file2region;
+    # Sort regions found by desired priority
+    my @regions_found = sort{index_a($a, @REGION_PRIORITY) <=> index_a($b, @REGION_PRIORITY)} keys %region2files;
+    die "what? @regions_found $game" if @regions_found == 0;    # should not happen, found some above & should all be categorized
 
-    print "$game: @good\n";
+    # Add all from most desired region
+    my $best_region = pop @regions_found;
+    my @good = @{$region2files{$best_region}};
+    $count_good += @good;
+
+    print scalar(@good), " $game: @good\n";
+
+
+}
+
+# Return the index of an element within an array, like index() but for arrays not strings
+sub index_a
+{
+    my ($element, @array) = @_;
+    for my $i (0..$#array) {
+        return $i if $array[$i] eq $element;
+    }
+    return -1;
 }
 
 # Return 
