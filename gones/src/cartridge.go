@@ -127,3 +127,17 @@ func (cart *Cartridge) LoadCHR(ppu *ppu2c02.PPU) {
     }
 }
 
+// Load a cartridge from a file on disk
+// TODO
+/*
+func LoadFile(filename string) (cart *Cartridge) {
+    cart = nesfile.Open(filename)
+    if cart == nil {
+        cart = unifile.Open(filename)
+    }
+    if cart == nil {
+        panic(fmt.Sprintf("unrecognizable file: %s", filename))
+    }
+
+    return cart
+}*/

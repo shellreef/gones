@@ -81,7 +81,7 @@ func New() (*ControlDeck) {
 
 // Load a game
 func (deck *ControlDeck) Load(filename string) {
-    // TODO: abstract loader for .nes/.unf/whatever
+    //TODO: cart = cartridge.Load(filename)
     cart := nesfile.Open(filename)
     if cart == nil {
         cart = unifile.Open(filename)
@@ -89,6 +89,7 @@ func (deck *ControlDeck) Load(filename string) {
     if cart == nil {
         panic(fmt.Sprintf("unrecognizable file: %s", filename))
     }
+
 
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
@@ -318,7 +319,9 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                         //fmt.Printf("ROM address: %.4X-%.4X (CPU %.4X-%.4X)\n", romAddrStart, romAddrEnd, cpuAddrStart, cpuAddrEnd)
                         romBankOffset := uint32(patch.CPUAddress() & 0xfff)
                         romAddress := romAddrStart | romBankOffset
-                        fmt.Printf("ROM address found: %.4X (%s)\n", romAddress, deck.CPU.MemName[i])
+                        fmt.Printf("ROM address found: %.4X\n", romAddress)
+                        fmt.Printf("ROM chip: %s\n", deck.CPU.MemName[i])
+                        fmt.Printf("iNES offset: %.4X\n", romAddress + 0x10)
 
                         // TODO: should we also, after finding the ROM address, search for all CPU
                         // addresses it affects, since it may be more than one? For example, 16 KB NROM
