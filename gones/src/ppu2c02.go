@@ -43,7 +43,7 @@ const SPRITE_SIZE_8x16 = true
 const PATTERN_TABLE_0 = 0x0000      // to 0x0fff, aka "left http://wiki.nesdev.com/w/index.php/PPU_pattern_tables
 const PATTERN_TABLE_1 = 0x1000      // to 0x1fff, aka "right"
 const NAME_TABLE_0 = 0x2000         // to 0x03c0
-const ATTR_TABLE_0 = 0x23c0         // to 0x2400
+const ATTR_TABLE_OFFSET = 0x3c0     // plus base address (at end of nametable)
 // Name and attribute tables 1 to 3 follow, possibly mirrored
 const IMAGE_PALETTE_1 = 0x3f00      // to 0x3f10
 const SPRITE_PALETTE_1 = 0x3f10     // to 0x3f20
@@ -452,7 +452,7 @@ func (ppu *PPU) GetAttribute(row uint16, column uint16) (uint8) {
     rowOffset := row >> 2           // 4x4 tile group
     colOffset := column >> 2        // 4x4 tile group
     byteIndex := rowOffset * 8 + colOffset
-    attrByte := ppu.Memory[base + 0x3c0 + byteIndex]
+    attrByte := ppu.Memory[base + ATTR_TABLE_OFFSET + byteIndex]
 
     // "and is divided into four 2-bit areas."
     //
@@ -464,6 +464,7 @@ func (ppu *PPU) GetAttribute(row uint16, column uint16) (uint8) {
     rowBits := (row & 3) >> 1
     attrBits := (rowBits << 1) | colBits
 
+    // "Each area covers four tiles (16x16 pixels)"
     var attr uint8
     switch attrBits {
     case 0: attr = (attrByte & 0x03) >> 0  // top-left, bits 01
@@ -472,10 +473,6 @@ func (ppu *PPU) GetAttribute(row uint16, column uint16) (uint8) {
     case 3: attr = (attrByte & 0xc0) >> 6  // bottom-right, bits 67
     }
     
-    // "Each area covers four tiles (16x16 pixels)"
-    // TODO
-    // http://www.nesdev.com/bbs/viewtopic.php?t=5040
-
     return attr
 }
 
@@ -512,8 +509,9 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int, tileAttr ui
             // Combine with attribute table
             index |= tileAttr << 2
 
-            // TODO: lookup from internal "palette" table (really a lookup table)
-            color := index
+            // Lookup from internal "palette" table (really a lookup table)
+            // TODO: background/sprite select. This one assumes background.
+            color := ppu.Memory[IMAGE_PALETTE_1 + uint16(index)]
 
             // Convert from color into RGB
             rgb := PPU_PALETTE_RGB[color]
