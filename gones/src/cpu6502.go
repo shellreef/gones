@@ -30,6 +30,7 @@ type CPU struct {
     MemWrite [16](func(address uint16, value uint8))
     MemName  [16]string         // informational, name of memory segment
     MemROMOffset [16]uint32     // informational, ROM offset mapped to, if applicable (useful for ROM patch/Game Genie code decoding)
+    MemHasROM [16]bool
 
     PC uint16   // Program counter
     S uint8     // Stack pointer, offset from $0100
@@ -336,11 +337,16 @@ func (cpu *CPU) DumpMemoryMap() {
     fmt.Printf("Start\tEnd\tMapped to\n")
     // TODO: coalesce 4 KB chunks?
     for i, name := range cpu.MemName {
-        fmt.Printf("%.4x\t%.4x\t%s\n",
+        fmt.Printf("%.4x\t%.4x\t%-20s",
                 i << 12,
                 (i << 12) + 0xfff,
-                name,
-                )
+                name)
+ 
+        if cpu.MemHasROM[i] {
+            fmt.Printf("@ %.8x", cpu.MemROMOffset[i])
+        }
+    
+        fmt.Print("\n")
     }
 }
 
@@ -850,11 +856,11 @@ func (cpu *CPU) CheckInterrupt() {
 
 
 // Map a range of memory to call given functions on read/write
-// Returns number of 4 KB banks mapped
+// Returns first and last of 4 KB banks mapped
 func (cpu *CPU) Map(start uint16, end uint16,
         read func(address uint16) (value uint8), 
         write func(address uint16, value uint8),
-        name string) (banksMapped int) {
+        name string) (firstBankMapped int, lastBankMapped int) {
 
     if start & 0xfff != 0 || end & 0xfff != 0xfff {
         panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range", start, end))
@@ -879,13 +885,19 @@ func (cpu *CPU) Map(start uint16, end uint16,
         // Map $i000 to $(i+1)fff
         base := start + (i << 12)
         index := (base & 0xf000) >> 12
+        
+        if i == 0 {
+            firstBankMapped = int(index)
+        } else if (i == count - 1) {
+            lastBankMapped = int(index)
+        }
 
         cpu.MemRead[index] = read
         cpu.MemWrite[index] = write
         cpu.MemName[index] = name
     }
 
-    return int(count)
+    return firstBankMapped, lastBankMapped
 }
 
 // Map one address, overlaying the ordinary mappers which map at 
@@ -928,13 +940,16 @@ func (cpu *CPU) MapOver(overAddress uint16,
 // Map memory from a ROM (at dest) into the CPU address space
 // The CPU address is bitwise AND'd with andMask, then bitwise OR'd with orMask, to get the ROM offset
 func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, andMask uint32, orMask uint32) {
-    //romOffsetStart := 0 & andMask | orMask     // TODO: store
-    //romOffsetEnd := 
-    banksMapped := cpu.Map(start, end, 
+    romOffsetStart := 0 & andMask | orMask     // TODO: store
+    firstBank, lastBank := cpu.Map(start, end, 
         func(address uint16)(value uint8) { return dest[uint32(address) & andMask | orMask] },
-        func(address uint16, value uint8) { /* write ignored */ },
+        func(address uint16, value uint8) { /* write ignored */ },      // TODO: provide optional mapper function to pass??
         name)
-    // TODO: store ROM offset for each bank
 
-    _ = banksMapped
+    // Store ROM offset for each bank, for informational purposes
+    for i := firstBank; i <= lastBank; i += 1 {
+        cpu.MemROMOffset[i] = romOffsetStart
+        cpu.MemHasROM[i] = true     // for printing ROM offset
+        romOffsetStart += 0x2000    // 4 KB
+    }
 }
