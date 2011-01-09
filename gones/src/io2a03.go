@@ -32,7 +32,10 @@ const (
         // SNES controller can be connected to read out additional buttons, too
       )
 
-// TODO: object to store state (shift register)
+type IO struct {
+    ButtonState uint8
+    ControllerShiftReg uint32   // TODO: shift register object
+}
 
 func ReadRegister(address uint16) (value uint8) {
     if address > LAST_REGISTER {

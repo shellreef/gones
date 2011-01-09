@@ -29,6 +29,7 @@ type ControlDeck struct {
 
     CPU *cpu6502.CPU
     PPU *ppu2c02.PPU
+    IO *io2a03.IO
 
     ShowGui bool
 }
@@ -37,6 +38,7 @@ func New() (*ControlDeck) {
     deck := new(ControlDeck)
     deck.CPU = new(cpu6502.CPU)
     deck.PPU = new(ppu2c02.PPU)
+    deck.IO = new (io2a03.IO)
     deck.ShowGui = true
 
     // PPU calls back to CPU to synchronize execution
@@ -161,12 +163,28 @@ func (deck *ControlDeck) Start() {
             func (ch chan leggo.Event) {
                 for {
                     e := <-ch
-                    if e.Type == leggo.EVENT_KEY_DOWN {
+                    switch e.Type {
+                    case leggo.EVENT_KEY_DOWN, leggo.EVENT_KEY_UP:
                         switch e.Keycode {
-                        case leggo.KEY_ESCAPE: os.Exit(0)
+                        case leggo.KEY_ESCAPE, leggo.KEY_Q: os.Exit(0)
                         case leggo.KEY_F: 
                             fmt.Printf("display FPS = %f\n", leggo.FPS())
                             fmt.Printf("PPU FPS = %f\n", deck.PPU.FPS)
+
+                        // TODO: custom controller keyboard key mapping
+                        case leggo.KEY_ALT, leggo.KEY_ALTGR:
+                            // A
+                        case leggo.KEY_LSHIFT, leggo.KEY_RSHIFT:
+                            // B
+                        case leggo.KEY_TAB:
+                            // Select
+                        case leggo.KEY_ENTER:   
+                            // Start
+
+                        case leggo.KEY_LEFT:
+                        case leggo.KEY_RIGHT:
+                        case leggo.KEY_UP:
+                        case leggo.KEY_DOWN:
                         }
                     }
                 }
