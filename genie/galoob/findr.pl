@@ -29,6 +29,8 @@ while(<M>) {
         # There 37 which Galoob made codes for
         # Most are PRG0/PRG1/REV differences, except 4 are different distributors
     printf "%d %-80s %s\n", scalar(@files), $galoob, join(" ** ", @files);
+
+    system("ln", "-s", "../../roms/best/$goodnes/$_", "../../roms/galoob/$_") for @files;
     #}
 }
 die;

@@ -440,6 +440,8 @@ func OpenINES(f *os.File) (*Cartridge) {
         cart.NoSRAM = header.Flags10 & 0x10 == 0x10
         cart.BusConflicts = header.Flags10 & 0x20 == 0x20
     }
+    
+    //fmt.Printf("ROM: %d, VROM: %d, Mapper %s (%d:%d)\n", prgPageCount, chrPageCount, cart.MapperName, mapperCode, submapperCode)
 
     cart.Prg = readChunk(f, PRG_PAGE_SIZE * prgPageCount)
     if chrPageCount != 0 {

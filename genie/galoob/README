@@ -83,6 +83,25 @@ gamelist-galoob.csv - listing all games Galoob made official Game Genie codes fo
 gamelist-goodnes314.csv - list of all games in "iMac:GoodNES 3.14 (Goodmerged by Xervils)"
 
 
+Mapper Usage
+Of all the games Galoob made codes for, here is the mapper breakdown (including alternate versions):
+156 iNes Mapper 4       MMC3
+153 iNes Mapper 1       MMC1
+69  iNes Mapper 2       UxROM
+44  iNes Mapper 3       CNROM
+41  iNes Mapper 0       NROM                No mapper; 128 KB or 256 KB chip hardwired
+29  iNes Mapper 7       AxROM   
+10  iNes Mapper 71      Camerica
+5   iNes Mapper 64      Tengen RAMBO-1
+4   iNes Mapper 118     MMC3 variant
+3   iNes Mapper 79      AVE                 F-15 City War(tm) Game [3 versions]
+3   iNes Mapper 232     Camerica            Quattro Adventure(tm) Game [2 versions] Quattro Arcade(tm) Game
+2   iNes Mapper 66      GxROM               Dragon Power(tm) Game; Gumshoe(tm) Game
+1   iNes Mapper 69      Sunsoft-5B/FME-7    Batman: Return of the Joker(tm) Game
+1   iNes Mapper 34      BNROM               Deadly Towers(tm) Game
+1   iNes Mapper 119     TQROM/MMC3 alt      Pin-Bot(tm) Game
+
+
 Analysis
 TODO: first, classify all the codes by their official category from the codebook,
 and save in a computer-readable format. There are some complexities here:
