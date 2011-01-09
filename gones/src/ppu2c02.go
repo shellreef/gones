@@ -430,10 +430,14 @@ func (ppu *PPU) GetPattern(backgroundBase uint16, tile int) (pattern [8][8]uint8
         plane1Row := ppu.Memory[base + row + 8]
 
         // Combine bits of both planes to get color of bitmapped pattern
-        for column := uint(0); column < 8; column += 1 {
+        for column := uint16(0); column < 8; column += 1 {
             bit0 := (plane0Row & (1 << column)) >> column
             bit1 := (plane1Row & (1 << column)) >> column
+            // Lower 2 bits from pattern table
             color := bit0 | (bit1 << 1)
+
+            // Upper 2 bits from attribute table
+            color |= ppu.GetAttribute(row, column) << 2
 
             pattern[row][column] = color
         }
@@ -441,6 +445,38 @@ func (ppu *PPU) GetPattern(backgroundBase uint16, tile int) (pattern [8][8]uint8
 
     return pattern
 }
+
+// Get the attribute for a nametable tile. This is the upper 2 bits
+// of the color (the pattern table supplies the lower 2 bits).
+func (ppu *PPU) GetAttribute(row uint16, column uint16) (uint8) {
+    base := ppu.nametableBase
+
+    // http://wiki.nesdev.com/w/index.php/Attribute_table
+    // Attribute table is at end of each nametable
+    // "Each byte controls the palette of a 32x32 pixel part of the nametable"
+    tileIndex := row*32 + column
+    attrOffset := tileIndex >> 2
+    attrByte := ppu.Memory[base + 0x3c0 + attrOffset]
+
+    // "and is divided into four 2-bit areas."
+    //
+    // [01] [23]
+    // [45] [67]
+    var attr uint8
+    switch tileIndex & 2 {
+    case 0: attr = (attrByte & 0x03) >> 0  // top-left, bits 01
+    case 1: attr = (attrByte & 0x0c) >> 2  // top-right, bits 23
+    case 2: attr = (attrByte & 0x30) >> 4  // bottom-left, bits 45
+    case 3: attr = (attrByte & 0xc0) >> 6  // bottom-right, bits 67
+    }
+    
+    // "Each area covers four tiles (16x16 pixels)"
+    // TODO
+    // http://www.nesdev.com/bbs/viewtopic.php?t=5040
+
+    return attr
+}
+
 
 // Print ASCII diagram of a pattern
 func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
@@ -498,38 +534,11 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
     }
 }
 
-func (ppu *PPU) GetAttribute(i int) (uint8) {
-    base := int(ppu.nametableBase)
-
-    // http://wiki.nesdev.com/w/index.php/Attribute_table
-    // Attribute table is at end of each nametable
-    attrByte := ppu.Memory[base + 0x3c0 + i]
-
-    // "Each byte controls the palette of a 32x32 pixel part of the nametable 
-    // and is divided into four 2-bit areas."
-    //
-    // [01] [23]
-    // [45] [67]
-    
-    // "Each area covers four tiles (16x16 pixels)"
-    // TODO
-    // http://www.nesdev.com/bbs/viewtopic.php?t=5040
-
-    return attrByte
-}
-
 
 func (ppu *PPU) ShowNametable() {
     // http://wiki.nesdev.com/w/index.php/PPU_nametables 
     // TODO: mirroring, access other nametables (4)
     base := int(ppu.nametableBase)
-
-    fmt.Printf("ATTR ")
-    for i := 0; i < 64; i += 1 {
-        attr := ppu.GetAttribute(i)
-        fmt.Printf("%.2x ", attr)
-    }
-    fmt.Printf("\n")
 
     // Beginning of nametable is the tile indices, for 8x8 tiles
     for row := 0; row < 30; row += 1 {
