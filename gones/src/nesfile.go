@@ -460,12 +460,11 @@ func OpenINES(f *os.File) (*Cartridge) {
         default: panic(fmt.Sprintf("invalid NROM size: %.4x\n", len(cart.Prg)))
         }
     default:
-        cart.MapperName = fmt.Sprintf("iNes Mapper %d", mapperCode)
-        fmt.Printf("WARNING: nesfile: unrecognized iNES mapper %d (sub %d)\n", mapperCode, submapperCode)
+        cart.MapperName = fmt.Sprintf("iNes Mapper %d:%d", mapperCode, submapperCode)
+        //fmt.Printf("WARNING: nesfile: unrecognized iNES mapper %d (sub %d)\n", mapperCode, submapperCode)
     }
 
-    fmt.Printf("ROM: %d, VROM: %d, Mapper %s (%d:%d)\n", len(cart.Prg), len(cart.Chr), cart.MapperName,
-            mapperCode, submapperCode)
+    //fmt.Printf("ROM: %d, VROM: %d, Mapper %s (%d:%d)\n", len(cart.Prg), len(cart.Chr), cart.MapperName, mapperCode, submapperCode)
 
     f.Close()
 

@@ -11,6 +11,7 @@ import (
     "fmt"
     "strconv"
     "strings"
+    "io/ioutil"
     
     "readline"  // http://bitbucket.org/taruti/go-readline/
     "leggo" // install from ../leggo-my-allegro
@@ -82,7 +83,6 @@ func New() (*ControlDeck) {
 func (deck *ControlDeck) Load(filename string) {
     cart := cartridge.LoadFile(filename)
 
-
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
     matches := cartdb.Identify(cartdb.Load(), cart)
@@ -124,6 +124,31 @@ func (deck *ControlDeck) Load(filename string) {
                     return 0x60 },
                 func(address uint16, value uint8) { },
                 "nestest-automation")
+    }
+}
+
+// Read a bunch of files from a directory
+func (deck *ControlDeck) LoadDir(dirname string) {
+    filenames, err := ioutil.ReadDir(dirname)
+    if err != nil {
+        panic(fmt.Sprintf("LoadDir(%s) failed: %s", dirname, err))
+    }
+
+    mapperUsage := make(map[string]int)
+
+    // Show information about each file
+    for _, fileInfo := range filenames {
+        path := fmt.Sprintf("%s/%s", dirname, fileInfo.Name)
+        fmt.Printf("%s\n", path)
+        cart := cartridge.LoadFile(path)
+        fmt.Printf("%s\t%s\n", cart.MapperName, fileInfo.Name)
+        mapperUsage[cart.MapperName] += 1
+    }
+
+    // Show mapper usage frequency
+    fmt.Printf("\n")
+    for mapper, count := range mapperUsage {
+        fmt.Printf("%d\t%s\n", count, mapper)
     }
 }
 
@@ -191,6 +216,11 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         } else {
             fmt.Printf("usage: l <filename>\n")
         }
+    case "load-dir":
+        if len(args) > 0 {
+            deck.LoadDir(strings.Join(args, " ")) // TODO: use cmd directly instead of rejoining
+        }
+
     // hide GUI
     case "h", "hide": deck.ShowGui = false
 

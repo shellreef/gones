@@ -45,7 +45,7 @@ func OpenUNIF(f *os.File) (*Cartridge) {
         if len(data) == 0 {
             break
         }
-        fmt.Printf("chunk: %s: %d bytes\n", id, len(data))
+        //fmt.Printf("chunk: %s: %d bytes\n", id, len(data))
 
         switch id {
         case "MAPR": mapperName := string(data[:])
