@@ -957,7 +957,10 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addre
     }
 
     firstBank, lastBank := cpu.Map(start, end, 
-        func(address uint16)(value uint8) { return dest[uint32(address) & addressLinesOffset | *addressLinesBank ] },
+        func(cpuAddress uint16)(value uint8) { 
+            romAddress := uint32(cpuAddress) & addressLinesOffset | *addressLinesBank 
+            return dest[romAddress]
+        },
         mapperWrite,
         name)
 

@@ -91,7 +91,7 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
         cpu.MapROM(0xc000, 0xffff, cart.Prg, "NROM-128 (mirror)", 0x3fff, nil, nil)
 
     case "NES-NROM-256":
-        cpu.MapROM(0x8000, 0xffff, cart.Prg, "NROM-256", 0x7ffff, nil, nil)
+        cpu.MapROM(0x8000, 0xffff, cart.Prg, "NROM-256", 0x7fff, nil, nil)
 
     case "CNROM":
         // Fixed PRG 
