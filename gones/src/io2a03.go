@@ -8,6 +8,8 @@
 
 package io2a03
 
+import "fmt"
+
 // I/O ports
 // http://wiki.nesdev.com/w/index.php/2A03
 
@@ -21,7 +23,7 @@ const LAST_REGISTER     = IO_JOY2
 // Bits for state of each button
 // http://wiki.nesdev.com/w/index.php/Standard_controller
 const (
-        BUTTON_A=0 << iota
+        BUTTON_A=1 << iota
         BUTTON_B
         BUTTON_SELECT
         BUTTON_START
@@ -33,11 +35,11 @@ const (
       )
 
 type IO struct {
-    ButtonState uint8
-    ControllerShiftReg uint32   // TODO: shift register object
+    ButtonState [2]uint8
+    ControllerShiftReg [2]uint32   // TODO: shift register object
 }
 
-func ReadRegister(address uint16) (value uint8) {
+func (io *IO) ReadRegister(address uint16) (value uint8) {
     if address > LAST_REGISTER {
         return 0
     }
@@ -52,7 +54,7 @@ func ReadRegister(address uint16) (value uint8) {
     return value
 }
 
-func WriteRegister(address uint16, value uint8) {
+func (io *IO) WriteRegister(address uint16, value uint8) {
     if address > LAST_REGISTER {
         return
     }
@@ -69,3 +71,20 @@ func WriteRegister(address uint16, value uint8) {
 
     return
 }
+
+// Record when a standard controller button is pressed/depressed by the user
+// controller: number of controller
+// buttonMask: BUTTON_*
+// pressed: true if pressed, false if released
+func (io *IO) SetButtonState(controller int, buttonMask uint8, pressed bool) {
+    if pressed {
+        io.ButtonState[controller] |= buttonMask
+    } else {
+        io.ButtonState[controller] &^= buttonMask
+    }
+    // TODO: don't allow pressing up+down or left+right simultaneously, as this is
+    // not possible on a standard controller D-Pad, and is not expected by most software
+    // See http://nesdev.parodius.com/bbs/viewtopic.php?t=5051
+    fmt.Printf("(pressed=%t, mask=%.8b) state = %.4x\n", pressed, buttonMask, io.ButtonState[controller])
+}
+

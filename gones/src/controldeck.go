@@ -59,7 +59,10 @@ func New() (*ControlDeck) {
 
     // APU & I/O registers, $4000-4017
     // These *are* completely decoded, but for simplicity, map all 4K
-    deck.CPU.Map(0x4000, 0x4fff, io2a03.ReadRegister, io2a03.WriteRegister, "2A03 I/O")
+    deck.CPU.Map(0x4000, 0x4fff, 
+        func(address uint16)(value uint8) { return deck.IO.ReadRegister(address) },
+        func(address uint16, value uint8) { deck.IO.WriteRegister(address, value) },
+        "2A03 I/O")
 
     // $4018-FFFF are available to cartridge
   
@@ -163,6 +166,7 @@ func (deck *ControlDeck) Start() {
             func (ch chan leggo.Event) {
                 for {
                     e := <-ch
+                    pressed := e.Type == leggo.EVENT_KEY_DOWN
                     switch e.Type {
                     case leggo.EVENT_KEY_DOWN, leggo.EVENT_KEY_UP:
                         switch e.Keycode {
@@ -171,20 +175,23 @@ func (deck *ControlDeck) Start() {
                             fmt.Printf("display FPS = %f\n", leggo.FPS())
                             fmt.Printf("PPU FPS = %f\n", deck.PPU.FPS)
 
-                        // TODO: custom controller keyboard key mapping
+                        // TODO: custom controller keyboard key mapping; refactor all this
                         case leggo.KEY_ALT, leggo.KEY_ALTGR:
-                            // A
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_A, pressed)
                         case leggo.KEY_LSHIFT, leggo.KEY_RSHIFT:
-                            // B
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_B, pressed)
                         case leggo.KEY_TAB:
-                            // Select
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_SELECT, pressed)
                         case leggo.KEY_ENTER:   
-                            // Start
-
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_START, pressed)
                         case leggo.KEY_LEFT:
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_LEFT, pressed)
                         case leggo.KEY_RIGHT:
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_RIGHT, pressed)
                         case leggo.KEY_UP:
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_UP, pressed)
                         case leggo.KEY_DOWN:
+                            deck.IO.SetButtonState(0, io2a03.BUTTON_DOWN, pressed)
                         }
                     }
                 }
