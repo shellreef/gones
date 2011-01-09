@@ -92,15 +92,6 @@ func decodePatch(s string) (c GameGenieCode) {
     return c
 }
 
-// String representation of hex addresses and value
-func (c GameGenieCode) String() (string) {
-    if c.HasKey {
-        return fmt.Sprintf("%.4X?%.2X:%.2X", c.Address, c.Key, c.Value)
-    } 
-    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
-}
-
-
 // Encode to Game Genie
 func (c GameGenieCode) Encode() (s string) {
     var digits [8]uint8
@@ -137,4 +128,18 @@ func (c GameGenieCode) Encode() (s string) {
     }
 
     return s
+}
+
+
+// String representation of hex addresses and value
+func (c GameGenieCode) String() (string) {
+    if c.HasKey {
+        return fmt.Sprintf("%.4X?%.2X:%.2X", c.Address, c.Key, c.Value)
+    } 
+    return fmt.Sprintf("%.4X:%.2X", c.Address, c.Value)
+}
+
+// Return the CPU address the code affects
+func (c GameGenieCode) CPUAddress() (uint16) {
+    return c.Address | 0x8000      // simply sets high bit, since ROM is always loaded there, and GG only modifies ROM
 }

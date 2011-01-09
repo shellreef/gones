@@ -298,6 +298,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
             patch := gamegenie.Decode(code)
             fmt.Printf("%s = %s\n", patch, patch.Encode())
+            fmt.Printf("CPU address: %.4X\n", patch.CPUAddress())
             // TODO: apply
         }
         if len(args) == 0 {
