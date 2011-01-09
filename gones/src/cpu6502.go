@@ -939,11 +939,18 @@ func (cpu *CPU) MapOver(overAddress uint16,
 
 // Map memory from a ROM (at dest) into the CPU address space
 // The CPU address is bitwise AND'd with andMask, then bitwise OR'd with orMask, to get the ROM offset
-func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, andMask uint32, orMask uint32) {
+// -- this is used to clear (not wired) and set (connected to register) bits in the address lines
+// mapperWrite is an optional function to call when writing to the ROM, if nil, it defaults to nothing
+func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, andMask uint32, orMask uint32, mapperWrite func(uint16, uint8)) {
     romOffsetStart := 0 & andMask | orMask     // TODO: store
+
+    if mapperWrite == nil {
+        mapperWrite = func(address uint16, value uint8) { /* ignore write */ }
+    }
+
     firstBank, lastBank := cpu.Map(start, end, 
         func(address uint16)(value uint8) { return dest[uint32(address) & andMask | orMask] },
-        func(address uint16, value uint8) { /* write ignored */ },      // TODO: provide optional mapper function to pass??
+        mapperWrite,
         name)
 
     // Store ROM offset for each bank, for informational purposes
