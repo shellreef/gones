@@ -7,6 +7,8 @@ package cartridge
 
 import (
         "fmt"
+        "os"
+        "encoding/binary"
 
         "ppu2c02"
         "cpu6502"
@@ -127,18 +129,34 @@ func (cart *Cartridge) LoadCHR(ppu *ppu2c02.PPU) {
     }
 }
 
-// Load a cartridge from a file on disk
+// Load a game cartridge from a file on disk
 func LoadFile(filename string) (cart *Cartridge) {
-    // TODO: look at signature instead of brute force
-    cart = OpenINES(filename)
-    if cart == nil {
-        cart = OpenUNIF(filename)
-    }
-    if cart == nil {
-        panic(fmt.Sprintf("unrecognizable file: %s", filename))
+    f, err := os.Open(filename, os.O_RDONLY, 0)
+    if f == nil {
+        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
     }
 
-    // TODO: support zip, 7z, fds, prg/chr
+    // Read beginning of file to identify what it is
+    signature := make([]byte, 4) 
+    //var signature [4]byte     // for some reason: binary.Read: invalid type [4]uint8
+    err = binary.Read(f, binary.BigEndian, signature)
+    if err != nil {
+        panic(fmt.Sprintf("cannot read signature from %s: %s", filename, err))
+    }
+
+    // Go to beginning of file and read it completely
+    f.Seek(0, 0)
+    switch string(signature[:]) {
+    case "NES\x1a": cart = OpenINES(f)
+    case "UNIF": cart = OpenUNIF(f)
+    // TODO: support zip, 7z, fds, split prg/chr
+    default: panic(fmt.Sprintf("unrecognizable file format: %s, signature=%.8x", filename, signature))
+    }
+
+    if cart == nil {
+        panic(fmt.Sprintf("failed to load: %s", filename))
+    }
+
 
     return cart
 }

@@ -27,13 +27,9 @@ type UnifChunkHeader struct {
     Length uint32
 }
 
-func OpenUNIF(filename string) (*Cartridge) {
+// Open a Universal NES Image Format file
+func OpenUNIF(f *os.File) (*Cartridge) {
     cart := new(Cartridge)
-
-    f, err := os.Open(filename, os.O_RDONLY, 0)
-    if f == nil {
-        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
-    }
 
     // Header
     header := new(UnifFileHeader)

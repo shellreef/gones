@@ -297,13 +297,7 @@ var INesMapperCode2Name = []string{
 }
 
 // Load a .nes file
-func OpenINES(filename string) (*Cartridge) {
-    f, err := os.Open(filename, os.O_RDONLY, 0)
-    if f == nil {
-        panic(fmt.Sprintf("cannot open %s: %s", filename, err))
-    }
-
-
+func OpenINES(f *os.File) (*Cartridge) {
     header := new(NesfileHeader)
     cart := new(Cartridge)
 
