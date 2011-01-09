@@ -957,6 +957,6 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, andMa
     for i := firstBank; i <= lastBank; i += 1 {
         cpu.MemROMOffset[i] = romOffsetStart
         cpu.MemHasROM[i] = true     // for printing ROM offset
-        romOffsetStart += 0x2000    // 4 KB
+        romOffsetStart += 0x1000    // 4 KB
     }
 }

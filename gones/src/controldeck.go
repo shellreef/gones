@@ -291,14 +291,50 @@ func (deck *ControlDeck) RunCommand(cmd string) {
     // cheat code
     case "c", "code": 
         for _, code := range(args) {
-            // TODO: PAR codes (RAM patches), FCEU ("emulator PAR"; 001234 FF) and PAR format (1234 FF)
-            // TODO: ROM patches, complete addresses in PRG chip to patch, more precise than
-            //  GG codes since can specify entire address (rXXXXX:XX?)
-            // TODO: maybe CHR ROM patches too? vXXXXX:XX
+            // TODO: Pro Action Replay/PAR codes (RAM patches), FCEU ("emulator PAR"; 001234 FF) and PAR format (1234 FF)
+            // TODO: ROM patches, complete addresses in PRG chip to patch, more precise than GG
+            //  since can specify entire address (XXXXX=XX?)
+            // TODO: maybe CHR ROM patches too? (XXXXX=XX, but with higher address? PRG+CHR)
+            // TODO: Pro Action Rocky (ROM patcher like Game Genie but for Famicom) - see http://www.disgruntleddesigner.com/chrisc/fcrocky.html - need more info
 
             patch := gamegenie.Decode(code)
             fmt.Printf("%s = %s\n", patch, patch.Encode())
             fmt.Printf("CPU address: %.4X\n", patch.CPUAddress())
+
+            // TODO: move this somewhere more appropriate
+            // Search through CPU addresses for ROMs that are mapped to it, live
+            // TODO: do this statically! The code below will only find what is currently loaded.
+            for i := 0; i < 16; i += 1 {
+                if deck.CPU.MemHasROM[i] {
+                    // Where it is loaded in the CPU
+                    cpuAddrStart := uint16(i << 12)
+                    cpuAddrEnd := cpuAddrStart | 0xfff
+
+                    // What part of ROM it maps to
+                    romAddrStart := deck.CPU.MemROMOffset[i]
+                    //romAddrEnd := romAddrStart | 0xfff // 4K-1
+
+                    if patch.CPUAddress() >= cpuAddrStart && patch.CPUAddress() <= cpuAddrEnd {
+                        //fmt.Printf("ROM address: %.4X-%.4X (CPU %.4X-%.4X)\n", romAddrStart, romAddrEnd, cpuAddrStart, cpuAddrEnd)
+                        romBankOffset := uint32(patch.CPUAddress() & 0xfff)
+                        romAddress := romAddrStart | romBankOffset
+                        fmt.Printf("ROM address found: %.4X (%s)\n", romAddress, deck.CPU.MemName[i])
+
+                        // TODO: should we also, after finding the ROM address, search for all CPU
+                        // addresses it affects, since it may be more than one? For example, 16 KB NROM
+                        // games (like Mario Bros.) have codes like SXTIEG = 5ce0:a5 = CPU address dce0,
+                        // which affects ROM address 1ce0, since CPU d000-dfff is mapped to ROM 1000-1fff;
+                        // however, paching ROM 1ce0 would ALSO affect CPU 9ce0, since CPU 8000-8fff is 
+                        // mapped there, too. Game Genie, since it uses CPU addresses, can affect each of
+                        // these mirrors independently. The code for the mirrored bank is 1ce0:a5=SXTPEG,
+                        // but it has no effect because the program in this case runs from c000-ffff not
+                        // the mirrored 8000-bfff. 
+                        // Point is, GG codes can not only be LESS specific than ROM patches (affecting multiple
+                        // addresses in the ROM), they can also be MORE specific, since they use the CPU address.
+                    }
+                }
+            }
+
             // TODO: apply
         }
         if len(args) == 0 {
