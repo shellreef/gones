@@ -21,15 +21,15 @@ while(<M>) {
     die "nothing to be found in $dir" if @files == 0;
     closedir(D);
 
-    my $file;
-    if (@files == 1) {
-        $file = pop @files;
-    } else {
+    #my $file;
+    #if (@files == 1) {
+    #    $file = pop @files;
+    #} else {
         # Show games that have alternate versions
         # There 37 which Galoob made codes for
         # Most are PRG0/PRG1/REV differences, except 4 are different distributors
-        printf "%d %-80s %s\n", scalar(@files), $galoob, join(" ** ", @files);
-    }
+    printf "%d %-80s %s\n", scalar(@files), $galoob, join(" ** ", @files);
+    #}
 }
 die;
 

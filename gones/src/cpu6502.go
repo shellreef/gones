@@ -28,7 +28,8 @@ type CPU struct {
     // 8 KB, 16 KB, or 32 KB banks (NSF uses 4 KB) so they'll map multiple.
     MemRead  [16](func(address uint16)(value uint8))
     MemWrite [16](func(address uint16, value uint8))
-    MemName  [16]string     // informational
+    MemName  [16]string         // informational, name of memory segment
+    MemROMOffset [16]uint32     // informational, ROM offset mapped to, if applicable (useful for ROM patch/Game Genie code decoding)
 
     PC uint16   // Program counter
     S uint8     // Stack pointer, offset from $0100
@@ -848,11 +849,12 @@ func (cpu *CPU) CheckInterrupt() {
 }
 
 
-// Map a range of memory
+// Map a range of memory to call given functions on read/write
+// Returns number of 4 KB banks mapped
 func (cpu *CPU) Map(start uint16, end uint16,
         read func(address uint16) (value uint8), 
         write func(address uint16, value uint8),
-        name string) {
+        name string) (banksMapped int) {
 
     if start & 0xfff != 0 || end & 0xfff != 0xfff {
         panic(fmt.Sprintf("Map(%.4X,%.4X): invalid memory range", start, end))
@@ -882,6 +884,8 @@ func (cpu *CPU) Map(start uint16, end uint16,
         cpu.MemWrite[index] = write
         cpu.MemName[index] = name
     }
+
+    return int(count)
 }
 
 // Map one address, overlaying the ordinary mappers which map at 
@@ -919,4 +923,18 @@ func (cpu *CPU) MapOver(overAddress uint16,
     }
 
     cpu.MemName[index] += fmt.Sprintf(" + %.4x=%s", overAddress, name)
+}
+
+// Map memory from a ROM (at dest) into the CPU address space
+// The CPU address is bitwise AND'd with andMask, then bitwise OR'd with orMask, to get the ROM offset
+func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, andMask uint32, orMask uint32) {
+    //romOffsetStart := 0 & andMask | orMask     // TODO: store
+    //romOffsetEnd := 
+    banksMapped := cpu.Map(start, end, 
+        func(address uint16)(value uint8) { return dest[uint32(address) & andMask | orMask] },
+        func(address uint16, value uint8) { /* write ignored */ },
+        name)
+    // TODO: store ROM offset for each bank
+
+    _ = banksMapped
 }
