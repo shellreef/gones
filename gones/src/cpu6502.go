@@ -938,13 +938,13 @@ func (cpu *CPU) MapOver(overAddress uint16,
 }
 
 // Map memory from a ROM (at dest) into the CPU address space
-// addressLinesWired: bitmask of address lines wired from the CPU to the ROM
+// addressLinesOffset: bitmask of address lines wired from the CPU to the ROM
 //  This mask is AND'd with the CPU address to get the offset within the ROM bank
-// addressLinesSelect: pointer to bitmask of additional ROM address lines to set
+// addressLinesBank: pointer to bitmask of additional ROM address lines wired to bank register
 //  This mask is OR'd with the previous result to select the ROM bank, and 
 //  should point to the mapper register (if any), shifted appropriately
 // mapperWrite is an optional function to call when writing to the ROM, if nil, it defaults to nothing
-func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addressLinesWired uint32, addressLinesSelect *uint32, mapperWrite func(uint16, uint8)) {
+func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addressLinesOffset uint32, addressLinesBank *uint32, mapperWrite func(uint16, uint8)) {
     // Default to ignoring wires
     if mapperWrite == nil {
         mapperWrite = func(address uint16, value uint8) { /* ignore write */ }
@@ -952,15 +952,15 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addre
 
     // Default to no bank select
     zero := uint32(0)
-    if addressLinesSelect == nil {
-        addressLinesSelect = &zero
+    if addressLinesBank == nil {
+        addressLinesBank = &zero
     }
 
-    romOffsetStart := 0 & addressLinesWired | *addressLinesSelect
+    romOffsetStart := 0 & addressLinesOffset | *addressLinesBank
 
 
     firstBank, lastBank := cpu.Map(start, end, 
-        func(address uint16)(value uint8) { return dest[uint32(address) & addressLinesWired | *addressLinesSelect ] },
+        func(address uint16)(value uint8) { return dest[uint32(address) & addressLinesOffset | *addressLinesBank ] },
         mapperWrite,
         name)
 
