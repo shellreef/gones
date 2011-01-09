@@ -453,17 +453,24 @@ func (ppu *PPU) GetAttribute(row uint16, column uint16) (uint8) {
 
     // http://wiki.nesdev.com/w/index.php/Attribute_table
     // Attribute table is at end of each nametable
-    // "Each byte controls the palette of a 32x32 pixel part of the nametable"
-    tileIndex := row*32 + column
-    attrOffset := tileIndex >> 2
-    attrByte := ppu.Memory[base + 0x3c0 + attrOffset]
+    // "Each byte controls the palette of a 32x32 pixel [4x4 tile group] part of the nametable"
+    rowOffset := row >> 2           // 4x4 tile group
+    colOffset := column >> 2        // 4x4 tile group
+    byteIndex := rowOffset * 8 + colOffset
+    attrByte := ppu.Memory[base + 0x3c0 + byteIndex]
 
     // "and is divided into four 2-bit areas."
     //
     // [01] [23]
     // [45] [67]
+    // Columns 0,1,4,5 are bits x0; columns 2,3,6,7 are x1
+    // Rows 0,1,4,5 are bits 0x; rows 2,3,6,7 are 1x
+    colBits := (column & 3) >> 1
+    rowBits := (row & 3) >> 1
+    attrBits := (rowBits << 1) | colBits
+
     var attr uint8
-    switch tileIndex & 2 {
+    switch attrBits {
     case 0: attr = (attrByte & 0x03) >> 0  // top-left, bits 01
     case 1: attr = (attrByte & 0x0c) >> 2  // top-right, bits 23
     case 2: attr = (attrByte & 0x30) >> 4  // bottom-left, bits 45
