@@ -433,12 +433,7 @@ func (ppu *PPU) GetPattern(backgroundBase uint16, tile int) (pattern [8][8]uint8
         for column := uint16(0); column < 8; column += 1 {
             bit0 := (plane0Row & (1 << column)) >> column
             bit1 := (plane1Row & (1 << column)) >> column
-            // Lower 2 bits from pattern table
             color := bit0 | (bit1 << 1)
-
-            // Upper 2 bits from attribute table
-            color |= ppu.GetAttribute(row, column) << 2
-
             pattern[row][column] = color
         }
     }
@@ -498,12 +493,12 @@ func (ppu *PPU) PrintPattern(pattern [8][8]uint8) {
 // Show pattern table for debugging purposes
 func (ppu *PPU) ShowPatterns() {
     for i := 0; i < 255; i += 1 {
-        ppu.DrawPattern(ppu.GetPattern(0, i), (i % 16) * 8, (i / 16) * 8)
+        ppu.DrawPattern(ppu.GetPattern(0, i), (i % 16) * 8, (i / 16) * 8, 0)
     }
 }
 
 // Draw pattern to screen for debugging purposes
-func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
+func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int, tileAttr uint8) {
     for row := 0; row < 8; row += 1 {
         for column := 0; column < 8; column += 1 {
             // Lower 3 bits of color index
@@ -514,7 +509,8 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
                 continue
             }*/
 
-            // TODO: combine with attribute table
+            // Combine with attribute table
+            index |= tileAttr << 2
 
             // TODO: lookup from internal "palette" table (really a lookup table)
             color := index
@@ -536,7 +532,10 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
                 continue
             }
 
-            leggo.WritePixel(row+offX, (7-column)+offY, uint8(r*255),uint8(g*255),uint8(b*255),0)
+            drawX := row + offX
+            drawY := (7 - column) + offY
+
+            leggo.WritePixel(drawX, drawY, uint8(r*255),uint8(g*255),uint8(b*255),0)
         }
     }
 }
@@ -551,9 +550,13 @@ func (ppu *PPU) ShowNametable() {
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
             tile := ppu.Memory[base + row*32 + column]
+            // Pattern table has lower 2 bits of color
             pattern := ppu.GetPattern(ppu.backgroundBase, int(tile))
+           
+            // Attribute table has upper 2 bits of color, per tile (or actually 4x4 tile groups)
+            tileAttr := ppu.GetAttribute(uint16(row), uint16(column)) 
 
-            ppu.DrawPattern(pattern, column*8, row*8)
+            ppu.DrawPattern(pattern, column*8, row*8, tileAttr)
         }
     }
 }
