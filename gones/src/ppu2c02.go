@@ -131,6 +131,7 @@ type PPU struct {
     vblankStarted bool
 
     vblankStartedAt int64       // For framerate
+    FPS float                   // Frames per second (informational)
 
     Verbose bool
 
@@ -235,9 +236,9 @@ func (ppu *PPU) VBlank() {
     // TODO: only run if VBlank flag is not disabled
 
     nsPerFrame := time.Nanoseconds() - ppu.vblankStartedAt
-    fps := 1 / (float(nsPerFrame) / 1e9)
+    ppu.FPS = 1 / (float(nsPerFrame) / 1e9)
     if ppu.Verbose {
-        fmt.Printf("VBLANK: %f frames per second\n", fps)
+        fmt.Printf("VBLANK: %f frames per second\n", ppu.FPS)
     }
 
     ppu.vblankStarted = true
