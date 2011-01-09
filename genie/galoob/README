@@ -71,15 +71,16 @@ http://www.flickr.com/search/?q=game%20genie&w=60991646%40N00
 This is the most in-depth information on the codes, including categories and notes,
 not available elsewhere, but it does not include the code updates.
 
-gamelist-gg.csv - listing all games Galoob made official Game Genie codes for, along 
+gamelist-galoob.csv - listing all games Galoob made official Game Genie codes for, along 
     with the abbreviation used for the game (SMB3 etc.), which would almost
     be useful, but is not unique (MEGA is for multiple Mega Man games, and more).
     But this file is a comprehensive list of all GG games, easily parseable.
-gamelist-goodnes314.csv - list of all games in "iMac:GoodNES 3.14 (Goodmerged by Xervils)"
-gg2gn.csv - file mapping what Galoob calls each game to what GoodNES calls it
+    The last field is the name of the game as GoodNES calls it.
     Galoob sometimes doesn't use the full name of the game, and has superfluous
     (tm)s, and in one case a misspelling (Squoon should be Sqoon, easy mistake), so
     this file maps to the real names of the games for authoritive reference.
+
+gamelist-goodnes314.csv - list of all games in "iMac:GoodNES 3.14 (Goodmerged by Xervils)"
 
 
 Analysis

@@ -13,7 +13,7 @@ our $VERBOSE = 0;
 our $ROOT = "roms/3.14/extracted/";
 #our $OUT = undef;       # link good stuff here; undef for a dry run
 our $OUT = "roms/best/";
-our $OUT_FLAT = "roms/best2/";  # non-hierarchical
+our $OUT_FLAT = "roms/bestflat/";  # non-hierarchical
 
 # Plain strings to filter on
 our @OMISSIONS = (
@@ -30,6 +30,8 @@ our @OMISSIONS = (
     #"Demo)",
     #"Preview Version)",
     #"(Debug",
+    "(Prototype)",  # interesting, but not the latest release
+    "(Older Beta)", #
 
 
     #"(Sample)",    # actually would be cool to hack samples..
@@ -65,13 +67,14 @@ our @REGION_PRIORITY = (
     "UK",       # United Kingdom
     "A",        # Australia
     "PAL",
-    "W",
+    "W",        # World
     "B",
     "GC",
     "E-GC",
     "GBA e-Reader",
     "NSS",
     "PC10",
+    "unknown",      # No region
     );
 
 # Regions you don't want
@@ -96,7 +99,12 @@ our @REGION_EXCLUDE = (
     "FC",
     "C"
     );
-    
+
+# File type extensions to allow
+our @ALLOWED_FILE_TYPES = (
+    "nes",              # iNES
+    #"unif", "unf",     # UNIF, an alternate format, not bad, but all games are also available in iNES
+    );
 
 opendir(D, $ROOT) || die;
 my @games = grep{!m/^\./}readdir(D);
@@ -162,6 +170,7 @@ sub filter_game
 
     # Add all from most desired region
     my $best_region = pop @regions_found;
+    print "$game best region: $best_region\n";
     my @good = @{$region2files{$best_region}};
     $count_good += @good;
 
@@ -188,7 +197,7 @@ sub index_of
     for my $i (0..$#array) {
         return $i if $array[$i] eq $element;
     }
-    return -1;
+    return 999;   # high, if unindentifiable (not low, not -1)
 }
 
 # Return 
@@ -211,6 +220,17 @@ sub filter_file
     for (@REGION_EXCLUDE) {
         return "region: $_" if index($file, "($_)") != -1;
     }
+
+    my $allowed = 0;
+    my $extension = (split(/\./, $file))[-1];
+    for (@ALLOWED_FILE_TYPES) {
+        if ($extension eq $_) {
+            $allowed = 1;
+            last;
+        }
+    }
+    return "unacceptable file type: $extension" if !$allowed;
+    
 
     # don't filter
     return undef;
