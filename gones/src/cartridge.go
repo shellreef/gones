@@ -87,11 +87,11 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
     // Wire up mappers
     switch cart.MapperName {
     case "NES-NROM-128":
-        cpu.MapROM(0x8000, 0xbfff, cart.Prg, "NROM-128",          0x3fff, 0, nil)
-        cpu.MapROM(0xc000, 0xffff, cart.Prg, "NROM-128 (mirror)", 0x3fff, 0, nil)
+        cpu.MapROM(0x8000, 0xbfff, cart.Prg, "NROM-128",          0x3fff, nil, nil)
+        cpu.MapROM(0xc000, 0xffff, cart.Prg, "NROM-128 (mirror)", 0x3fff, nil, nil)
 
     case "NES-NROM-256":
-        cpu.MapROM(0x8000, 0xffff, cart.Prg, "NROM-256", 0x7ffff, 0, nil)
+        cpu.MapROM(0x8000, 0xffff, cart.Prg, "NROM-256", 0x7ffff, nil, nil)
 
     default:
         fmt.Printf("WARNING: no support for mapper %s!\n", cart.MapperName)
