@@ -15,8 +15,7 @@ import (
     "readline"  // http://bitbucket.org/taruti/go-readline/
     "leggo" // install from ../leggo-my-allegro
 
-    "nesfile"
-    "unifile"
+    "cartridge"
     "cartdb"
     "cpu6502"
     "ppu2c02"
@@ -81,14 +80,7 @@ func New() (*ControlDeck) {
 
 // Load a game
 func (deck *ControlDeck) Load(filename string) {
-    //TODO: cart = cartridge.Load(filename)
-    cart := nesfile.Open(filename)
-    if cart == nil {
-        cart = unifile.Open(filename)
-    }
-    if cart == nil {
-        panic(fmt.Sprintf("unrecognizable file: %s", filename))
-    }
+    cart := cartridge.LoadFile(filename)
 
 
     // Check ROM against known hashes

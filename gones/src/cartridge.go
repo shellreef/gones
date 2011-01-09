@@ -128,16 +128,17 @@ func (cart *Cartridge) LoadCHR(ppu *ppu2c02.PPU) {
 }
 
 // Load a cartridge from a file on disk
-// TODO
-/*
 func LoadFile(filename string) (cart *Cartridge) {
-    cart = nesfile.Open(filename)
+    // TODO: look at signature instead of brute force
+    cart = OpenINES(filename)
     if cart == nil {
-        cart = unifile.Open(filename)
+        cart = OpenUNIF(filename)
     }
     if cart == nil {
         panic(fmt.Sprintf("unrecognizable file: %s", filename))
     }
 
+    // TODO: support zip, 7z, fds, prg/chr
+
     return cart
-}*/
+}

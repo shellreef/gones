@@ -15,7 +15,6 @@ import ("fmt"
         "crypto/sha1"
         
         "cartridge"
-        "nesfile"
         )
 
 // See schema http://bootgod.dyndns.org:7777/downloads/nesdb.xsd
@@ -288,6 +287,9 @@ func CartHash(cart *cartridge.Cartridge) (string) {
     // no unintentional collisions in NES games (but could be fabricated easily!)
 }
 
+/*
+
+        import "nesfile"
 func main() {
     db := Load()
     //Dump(db)
@@ -302,3 +304,4 @@ func main() {
         DumpCart(cart)
     }
 }
+*/

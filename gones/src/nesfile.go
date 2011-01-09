@@ -3,9 +3,7 @@
 
 // .nes file reader
 
-package nesfile
-
-import . "cartridge"
+package cartridge
 
 import (
     "fmt"
@@ -299,7 +297,7 @@ var INesMapperCode2Name = []string{
 }
 
 // Load a .nes file
-func Open(filename string) (*Cartridge) {
+func OpenINES(filename string) (*Cartridge) {
     f, err := os.Open(filename, os.O_RDONLY, 0)
     if f == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
@@ -344,7 +342,7 @@ func Open(filename string) (*Cartridge) {
 
     if header.Flags6 & 4 == 4 {
         // "512-byte trainer at $7000-$71FF (stored before PRG data)"
-        cart.Trainer = read(f, TRAINER_SIZE)
+        cart.Trainer = readChunk(f, TRAINER_SIZE)
     }
 
     
@@ -449,14 +447,14 @@ func Open(filename string) (*Cartridge) {
         cart.BusConflicts = header.Flags10 & 0x20 == 0x20
     }
 
-    cart.Prg = read(f, PRG_PAGE_SIZE * prgPageCount)
+    cart.Prg = readChunk(f, PRG_PAGE_SIZE * prgPageCount)
     if chrPageCount != 0 {
-        cart.Chr = read(f, CHR_PAGE_SIZE * chrPageCount)
+        cart.Chr = readChunk(f, CHR_PAGE_SIZE * chrPageCount)
     }
 
     if cart.Platform == PlatformPlayChoice {
         // "PlayChoice-10 (8KB of Hint Screen data stored after CHR data)"
-        cart.HintScreen = read(f, HINTSCREEN_SIZE)
+        cart.HintScreen = readChunk(f, HINTSCREEN_SIZE)
     }
 
     // Decode the mapper code to a descriptive name (TODO: use INesMapperCode2Name)
@@ -481,7 +479,7 @@ func Open(filename string) (*Cartridge) {
 }
 
 // Read fixed-size chunk of data 
-func read(buffer *os.File, size int) ([]byte) {
+func readChunk(buffer *os.File, size int) ([]byte) {
     data := make([]byte, size)
 
     readLength, err := buffer.Read(data)

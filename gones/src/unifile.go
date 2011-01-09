@@ -5,9 +5,7 @@
 //
 // http://web.archive.org/web/20040614053359/www.parodius.com/~veilleux/UNIF_current.txt
 
-package unifile
-
-import . "cartridge"
+package cartridge
 
 import (
     "fmt"
@@ -24,12 +22,12 @@ type UnifFileHeader struct {
     Expansion [24]byte
 }
 
-type ChunkHeader struct {
+type UnifChunkHeader struct {
     ID [4]byte
     Length uint32
 }
 
-func Open(filename string) (*Cartridge) {
+func OpenUNIF(filename string) (*Cartridge) {
     cart := new(Cartridge)
 
     f, err := os.Open(filename, os.O_RDONLY, 0)
@@ -47,7 +45,7 @@ func Open(filename string) (*Cartridge) {
     }
 
     for {
-        id, data := readChunk(f)
+        id, data := readUnifChunk(f)
         if len(data) == 0 {
             break
         }
@@ -75,8 +73,8 @@ func Open(filename string) (*Cartridge) {
     return cart
 }
 
-func readChunk(f *os.File) (ID string, data []byte) {
-    header := new(ChunkHeader)
+func readUnifChunk(f *os.File) (ID string, data []byte) {
+    header := new(UnifChunkHeader)
     binary.Read(f, binary.LittleEndian, header)
     data = make([]byte, header.Length)
 
