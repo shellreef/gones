@@ -71,10 +71,10 @@ var INTENSIFY_COEFFICIENTS = [8][3]float{
    {0.82, 0.83, 1.12}, 
    {0.81, 0.71, 0.87}, 
    {0.68, 0.79, 0.79}, 
-   {0.70, 0.70, 0.70} }
+   {0.70, 0.70, 0.70}}
 
 // Color index to RGB
-// From http://nesdev.parodius.com/nespal.txt - or visually (approx): http://gmc.yoyogames.com/index.php?showtopic=215169
+// From http://nesdev.parodius.com/nespal.txt - or visually (approx): http://www.thealmightyguru.com/Games/Hacking/Wiki/index.php?title=NES_Palette
 // Note: NES doesn't use RGB. More accurate would be full NTSC emulation.
 var PPU_PALETTE_RGB = [64][3]byte{
    {0x80,0x80,0x80}, {0x00,0x00,0xBB}, {0x37,0x00,0xBF}, {0x84,0x00,0xA6},
@@ -464,7 +464,13 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
     for row := 0; row < 8; row += 1 {
         for column := 0; column < 8; column += 1 {
             // Lower 3 bits of color index
-            index := pattern[7-column][7-row]       
+            index := pattern[7-column][7-row]
+            /*
+            if index == 0 {
+                // TODO: 0 is transparent, don't draw it
+                continue
+            }*/
+
             // TODO: combine with attribute table
 
             // TODO: lookup from internal "palette" table (really a lookup table)
@@ -492,10 +498,40 @@ func (ppu *PPU) DrawPattern(pattern [8][8]uint8, offX int, offY int) {
     }
 }
 
+func (ppu *PPU) GetAttribute(i int) (uint8) {
+    base := int(ppu.nametableBase)
+
+    // http://wiki.nesdev.com/w/index.php/Attribute_table
+    // Attribute table is at end of each nametable
+    attrByte := ppu.Memory[base + 0x3c0 + i]
+
+    // "Each byte controls the palette of a 32x32 pixel part of the nametable 
+    // and is divided into four 2-bit areas."
+    //
+    // [01] [23]
+    // [45] [67]
+    
+    // "Each area covers four tiles (16x16 pixels)"
+    // TODO
+    // http://www.nesdev.com/bbs/viewtopic.php?t=5040
+
+    return attrByte
+}
+
+
 func (ppu *PPU) ShowNametable() {
     // http://wiki.nesdev.com/w/index.php/PPU_nametables 
     // TODO: mirroring, access other nametables (4)
     base := int(ppu.nametableBase)
+
+    fmt.Printf("ATTR ")
+    for i := 0; i < 64; i += 1 {
+        attr := ppu.GetAttribute(i)
+        fmt.Printf("%.2x ", attr)
+    }
+    fmt.Printf("\n")
+
+    // Beginning of nametable is the tile indices, for 8x8 tiles
     for row := 0; row < 30; row += 1 {
         for column := 0; column < 32; column += 1 {
             tile := ppu.Memory[base + row*32 + column]

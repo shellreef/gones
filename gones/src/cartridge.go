@@ -93,14 +93,16 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
     case "NES-NROM-256":
         cpu.MapROM(0x8000, 0xffff, cart.Prg, "NROM-256", 0x7ffff, nil, nil)
 
+    case "CNROM":
+        // Fixed PRG 
+        cpu.MapROM(0x8000, 0xffff, cart.Prg, "CNROM", 0x7fff, nil, nil)
+        // TODO: bankable CHR
+
     default:
         fmt.Printf("WARNING: no support for mapper %s!\n", cart.MapperName)
 
-        // Take a wild guess
-        cpu.Map(0x8000, 0xffff,
-                func(address uint16)(value uint8) { return cart.Prg[address & 0x7fff] },
-                func(address uint16, value uint8) { },
-                fmt.Sprintf("Unknown mapper %s\n", cart.MapperName))
+        // Take a wild guess, which is probably wrong
+        cpu.MapROM(0x8000, 0xffff, cart.Prg, fmt.Sprintf("Unknown mapper %s", cart.MapperName), 0x7fff, nil, nil)
     }
 
     // SRAM (assumed)  TODO: assume nothing
