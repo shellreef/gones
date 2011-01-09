@@ -956,15 +956,13 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addre
         addressLinesBank = &zero
     }
 
-    romOffsetStart := 0 & addressLinesOffset | *addressLinesBank
-
-
     firstBank, lastBank := cpu.Map(start, end, 
         func(address uint16)(value uint8) { return dest[uint32(address) & addressLinesOffset | *addressLinesBank ] },
         mapperWrite,
         name)
 
     // Store ROM offset for each bank, for informational purposes
+    romOffsetStart := 0 & addressLinesOffset | *addressLinesBank
     for i := firstBank; i <= lastBank; i += 1 {
         cpu.MemROMOffset[i] = romOffsetStart
         cpu.MemHasROM[i] = true     // for printing ROM offset
