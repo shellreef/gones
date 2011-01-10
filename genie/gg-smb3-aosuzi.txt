@@ -1,6 +1,9 @@
 Examining the Super Mario Bros. 3 code: AOSUZI
 JC20101229
 
+UPDATE 20110106: the refined code (AOSUZSSI) has been independently previously
+    discovered by hybrid & xirtamehtsitahw, see http://www.gshi.org/?s=v2&m=h&hid=92&sys=5&gid=881
+
 The Game Genie code AOSUZI lets Mario throw the background tiles as if
 they were blocks. Very cool. How does this work?
 
