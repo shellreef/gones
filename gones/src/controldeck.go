@@ -91,6 +91,7 @@ func (deck *ControlDeck) Load(filename string) {
 
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
+    /*
     matches := cartdb.Identify(cartdb.Load(), cart)
     if len(matches) != 0 {
         fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
@@ -98,7 +99,7 @@ func (deck *ControlDeck) Load(filename string) {
     for i, match := range matches {
         fmt.Printf("%d. ", i)
         cartdb.DumpMatch(match)
-    }
+    }*/
     // TODO: use info here, to display title/image, or use mapper
 
 
@@ -351,6 +352,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
             patch := gamegenie.Decode(code)
             fmt.Printf("%s = %s\n", patch, patch.Encode())
             fmt.Printf("CPU address: %.4X\n", patch.CPUAddress())
+            fmt.Printf("Value: %.2X\n", patch.Value)
 
             // TODO: move this somewhere more appropriate
             // Search through CPU addresses for ROMs that are mapped to it, live
@@ -384,6 +386,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                         // the mirrored 8000-bfff. 
                         // Point is, GG codes can not only be LESS specific than ROM patches (affecting multiple
                         // addresses in the ROM), they can also be MORE specific, since they use the CPU address.
+                        // TODO: also should check compare value, to restrict banks
                     }
                 }
             }
