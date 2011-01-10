@@ -57,12 +57,6 @@ func New() (*ControlDeck) {
             func(address uint16, value uint8) { deck.PPU.WriteRegister(address, value) },
             "PPU registers")
 
-    // APU & I/O registers, $4000-4017
-    // These *are* completely decoded, but for simplicity, map all 4K
-    deck.CPU.Map(0x4000, 0x4fff, 
-        func(address uint16)(value uint8) { return deck.IO.ReadRegister(address) },
-        func(address uint16, value uint8) { deck.IO.WriteRegister(address, value) },
-        "2A03 I/O")
 
     // $4018-FFFF are available to cartridge
   
@@ -72,6 +66,13 @@ func New() (*ControlDeck) {
         func(address uint16)(value uint8) { /*fmt.Printf("read unmapped: %.4x\n", address); */ return 0 },
         func(address uint16, value uint8) { /*fmt.Printf("write unmapped: %.4x:%.2x\n", address, value)*/ },
         "Open bus")
+
+    // APU & I/O registers, $4000-4017
+    // These *are* completely decoded, but for simplicity, map all 4K
+    deck.CPU.Map(0x4000, 0x4fff, 
+        func(address uint16)(value uint8) { return deck.IO.ReadRegister(address) },
+        func(address uint16, value uint8) { deck.IO.WriteRegister(address, value) },
+        "2A03 I/O")
 
     deck.CPU.Map(0x8000, 0xffff,
         func(address uint16)(value uint8) { /*fmt.Printf("PRG read unmapped: %.4x\n", address);*/ return 0 },

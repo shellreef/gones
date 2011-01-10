@@ -44,11 +44,15 @@ func (io *IO) ReadRegister(address uint16) (value uint8) {
         return 0
     }
 
-    // TODO
     switch address {
     case IO_JOY1: 
-        // TODO: shift out bits of register
+        // Shift out bits of register
+        value = uint8(io.ControllerShiftReg[0] & 1)
+        io.ControllerShiftReg[0] >>= 1
+        fmt.Printf(" %d", value)
+
     case IO_JOY2: 
+        // TODO
     }
 
     return value
@@ -63,6 +67,10 @@ func (io *IO) WriteRegister(address uint16, value uint8) {
     case IO_JOY1:
         if value & 1 == 1 {
             // TODO: store state of each button
+            io.ControllerShiftReg[0] = uint32(io.ButtonState[0])
+            // "all subsequent reads will return D=1 on an authentic controller"
+            io.ControllerShiftReg[0] |= 0xffffff00
+            fmt.Printf("\n")
         } else {
             // TODO: allow buttons to be read back
         }
@@ -82,9 +90,9 @@ func (io *IO) SetButtonState(controller int, buttonMask uint8, pressed bool) {
     } else {
         io.ButtonState[controller] &^= buttonMask
     }
-    // TODO: don't allow pressing up+down or left+right simultaneously, as this is
+    // TODO: option to not allow (ignore 2nd) pressing up+down or left+right simultaneously, as this is
     // not possible on a standard controller D-Pad, and is not expected by most software
     // See http://nesdev.parodius.com/bbs/viewtopic.php?t=5051
-    fmt.Printf("(pressed=%t, mask=%.8b) state = %.4x\n", pressed, buttonMask, io.ButtonState[controller])
+    //fmt.Printf("(pressed=%t, mask=%.8b) state = %.4x\n", pressed, buttonMask, io.ButtonState[controller])
 }
 
