@@ -1,0 +1,439 @@
+Decoding Galoob's "Programming Your Own Code" Guide
+JC20110122
+
+Page 13-15 of the NES Game Genie Codebook has a section on how you
+can create your own codes. Part of it has been transcribed here:
+http://www.angelfire.com/games2/codehut/GaloobNES.txt but not the
+examples. Here, I include excerpts of the guide, plus Galoob's samples.
+
+This document attempts to shed some light on what exactly the programming
+guide is talking about, now that we know how codes can be decrypted. Excerpts
+from the Galoob manual are quoted below, with my explanations.
+
+  If you are making small changes to existing codes, it is best to leave the 
+  same number of letters in the code.
+
+Codes can have 6 or 8 letters, corresponding to those without a "compare"
+value and those with. Leaving the same number of letters keeps this the same.
+
+  You can also program codes by simply using random letters. The best results are 
+  obtained when you make up codes of 6 letters.
+
+Random letters correspond to random addresses and values. 6-letter codes can have
+the greatest effect, because they 1. may affect multiple ROM address, and 2. random
+8-letter codes are likely to modify *nothing*, which happens if the compare value
+never matches. 
+
+  If you find a random code that has an interesting effect, then try changing it 
+  by using the programming techniques in the next section. This way, you are more 
+  likely to "home in" on a really good effect.
+
+Modifying nearby addresses, or the same address with different values, can have
+interesting effects.
+
+  Your success in code programming will depend a lot on
+  luck. Keep trying!
+  [...]
+
+  HOW TO PROGRAM: (Modifying existing codes) [...]
+  Using Method #1, you change either the first or second
+  letter of the code. Using Method #2, you change either
+  the first or last letter of the code.
+
+
+  Method #1 and Method #2 will work best on single codes,
+  when the effect of the code you wish to change has
+  numbers in it (for example, number of lives, number of
+  bullets, number of weapons, number of seconds or minutes
+  on the timer).
+
+This is changing the "value" that the code modifies. The
+value is spread across the first two letters and the last.
+
+  HOW TO USE THE TABLES: Find the letter you want to 
+  change in one of the tables. Then substitute one of the
+  other letters in the same table.
+
+  The farther apart two letters are in the table, the
+  bigger the change in the effect will be. For example,
+  in Table 1, changing A to Y will make a bigger 
+  difference than changing A to Z. In Table 2, changing
+  V to O will make a bigger difference than changing 
+  V to S.
+
+  TABLE 1: A P Z L G I T Y
+
+  Example: If the first or second letter of the code is P,
+  you can change it to A,Z,L,G,I,T or Y. Try them all!
+
+  TABLE 2: E O X U K S V N
+
+  Example: If the first or second letter of the code is U,
+  you can change it to E,O,X,K,S,V or N. Try them all!
+
+  METHOD #2
+  
+  In method #2, you change either the FIRST or LAST letter
+  of the original code.  First try changing the first
+  letter.  Then try changing the last.  Then try changing
+  both the first and the last at the same time.
+  
+  HOW TO USE THE TABLE: Find the letter you want to change
+  in the table below and change it to the letter on its
+  right.
+  
+  TABLE 3:
+  
+  A can be changed to E
+  E can be changed to A
+  G can be changed to K
+  K can be changed to G
+  P can be changed to O
+  O can be changed to P
+  Z can be changed to X
+  X can be changed to Z
+  L can be changed to U
+  U can be changed to L
+  I can be changed to S
+  S can be changed to I
+  T can be changed to V
+  V can be changed to T
+  Y can be changed to N
+  N can be changed to Y
+  
+  EXAMPLES: If the first letter of the code is O, you can
+  change it to P.  If the last letter of the code is Y,
+  you can change it to N.
+
+SAMPLES FOR METHOD #1
+ The Game Genie(TM) example code 6 for Super Mario Bros(TM) game is
+ APZLGK, which allows Mario(TM) to jump higher when he's not running
+ Using Method #1, look up the first letter (A) in the tables. In Table 1,
+ you find the A. One of the letters you can substitute for A is L.
+
+ Original code: APZLGK  
+ Using Table 1: LPZLGK
+
+These correspond to 3424:18 and 3424:1B. Only the value has changed. The
+way Game Genie codes are encoded, letters from the same table change only
+the value, i.e.:
+3424:18 = APZLGK
+3424:98 = EPZLGK
+3424:1C = GPZLGK
+3424:9C = KPZLGK
+3424:19 = PPZLGK
+3424:99 = OPZLGK
+3424:1A = ZPZLGK
+3424:9A = XPZLGK
+3424:1B = LPZLGK
+3424:9B = UPZLGK
+3424:1D = IPZLGK
+3424:9D = SPZLGK
+3424:1E = TPZLGK
+3424:9E = VPZLGK
+3424:1F = YPZLGK
+3424:9F = NPZLGK
+
+ Then look up the second letter, P. You find P in Table 1 also. G is one
+ of the letters you can substitute for P.
+
+ Original code: APZLGK
+ Using Table 1: AGZLGK
+
+These are 3424:18 and 3424:48. 
+
+ Try combining these last two examples See what you get!
+
+SAMPLES FOR METHOD #2
+ Go back to the Game Genie(TM) sample Code 6 for Super Mario Bros.(TM) Game,
+ APZLGK. Looking up the first letter, A, you see that A can be changed to E.
+
+ Original code: APZLGK
+ Using Table 3: EPZLGK
+
+3424:18 = APZLGK
+3424:98 = EPZLGK
+
+ Looking up the last letter, K, you see that K can be changed to G.
+
+ Original code: APZLGK
+ Using Table 3: EPZLGG
+
+3424:18 = APZLGK
+3424:90 = EPZLGG
+
+ Try combining these last two examples. See what you get!
+
+ And, using both Methods #1 and #2, you could come up with a code like:
+ 
+ Original code: APZLGK
+ Using both methods: ZPZLGG
+
+3424:12 = ZPZLGG
+
+CONCLUSIONS
+In all cases, Galoob is instructing the user to modify the value of the code.
+The complicated instructions are necessary because of the way the codes are
+encrypted. It would have been much easier if the codes could be entered in
+the raw, as I've decoded them here. 
+
+To make things clearer, here are all the 256 possible values, and their encodings:
+Notice how only the last and first two letters change. The address is encoded in
+the 3rd, 4th, and 5th letters, along with parts of the others. The table:
+          __   _
+3424:00 = AAZLGG
+3424:01 = PAZLGG
+3424:02 = ZAZLGG
+3424:03 = LAZLGG
+3424:04 = GAZLGG
+3424:05 = IAZLGG
+3424:06 = TAZLGG
+3424:07 = YAZLGG
+3424:08 = AAZLGK
+3424:09 = PAZLGK
+3424:0A = ZAZLGK
+3424:0B = LAZLGK
+3424:0C = GAZLGK
+3424:0D = IAZLGK
+3424:0E = TAZLGK
+3424:0F = YAZLGK
+3424:10 = APZLGG
+3424:11 = PPZLGG
+3424:12 = ZPZLGG
+3424:13 = LPZLGG
+3424:14 = GPZLGG
+3424:15 = IPZLGG
+3424:16 = TPZLGG
+3424:17 = YPZLGG
+3424:18 = APZLGK
+3424:19 = PPZLGK
+3424:1A = ZPZLGK
+3424:1B = LPZLGK
+3424:1C = GPZLGK
+3424:1D = IPZLGK
+3424:1E = TPZLGK
+3424:1F = YPZLGK
+3424:20 = AZZLGG
+3424:21 = PZZLGG
+3424:22 = ZZZLGG
+3424:23 = LZZLGG
+3424:24 = GZZLGG
+3424:25 = IZZLGG
+3424:26 = TZZLGG
+3424:27 = YZZLGG
+3424:28 = AZZLGK
+3424:29 = PZZLGK
+3424:2A = ZZZLGK
+3424:2B = LZZLGK
+3424:2C = GZZLGK
+3424:2D = IZZLGK
+3424:2E = TZZLGK
+3424:2F = YZZLGK
+3424:30 = ALZLGG
+3424:31 = PLZLGG
+3424:32 = ZLZLGG
+3424:33 = LLZLGG
+3424:34 = GLZLGG
+3424:35 = ILZLGG
+3424:36 = TLZLGG
+3424:37 = YLZLGG
+3424:38 = ALZLGK
+3424:39 = PLZLGK
+3424:3A = ZLZLGK
+3424:3B = LLZLGK
+3424:3C = GLZLGK
+3424:3D = ILZLGK
+3424:3E = TLZLGK
+3424:3F = YLZLGK
+3424:40 = AGZLGG
+3424:41 = PGZLGG
+3424:42 = ZGZLGG
+3424:43 = LGZLGG
+3424:44 = GGZLGG
+3424:45 = IGZLGG
+3424:46 = TGZLGG
+3424:47 = YGZLGG
+3424:48 = AGZLGK
+3424:49 = PGZLGK
+3424:4A = ZGZLGK
+3424:4B = LGZLGK
+3424:4C = GGZLGK
+3424:4D = IGZLGK
+3424:4E = TGZLGK
+3424:4F = YGZLGK
+3424:50 = AIZLGG
+3424:51 = PIZLGG
+3424:52 = ZIZLGG
+3424:53 = LIZLGG
+3424:54 = GIZLGG
+3424:55 = IIZLGG
+3424:56 = TIZLGG
+3424:57 = YIZLGG
+3424:58 = AIZLGK
+3424:59 = PIZLGK
+3424:5A = ZIZLGK
+3424:5B = LIZLGK
+3424:5C = GIZLGK
+3424:5D = IIZLGK
+3424:5E = TIZLGK
+3424:5F = YIZLGK
+3424:60 = ATZLGG
+3424:61 = PTZLGG
+3424:62 = ZTZLGG
+3424:63 = LTZLGG
+3424:64 = GTZLGG
+3424:65 = ITZLGG
+3424:66 = TTZLGG
+3424:67 = YTZLGG
+3424:68 = ATZLGK
+3424:69 = PTZLGK
+3424:6A = ZTZLGK
+3424:6B = LTZLGK
+3424:6C = GTZLGK
+3424:6D = ITZLGK
+3424:6E = TTZLGK
+3424:6F = YTZLGK
+3424:70 = AYZLGG
+3424:71 = PYZLGG
+3424:72 = ZYZLGG
+3424:73 = LYZLGG
+3424:74 = GYZLGG
+3424:75 = IYZLGG
+3424:76 = TYZLGG
+3424:77 = YYZLGG
+3424:78 = AYZLGK
+3424:79 = PYZLGK
+3424:7A = ZYZLGK
+3424:7B = LYZLGK
+3424:7C = GYZLGK
+3424:7D = IYZLGK
+3424:7E = TYZLGK
+3424:7F = YYZLGK
+3424:80 = EAZLGG
+3424:81 = OAZLGG
+3424:82 = XAZLGG
+3424:83 = UAZLGG
+3424:84 = KAZLGG
+3424:85 = SAZLGG
+3424:86 = VAZLGG
+3424:87 = NAZLGG
+3424:88 = EAZLGK
+3424:89 = OAZLGK
+3424:8A = XAZLGK
+3424:8B = UAZLGK
+3424:8C = KAZLGK
+3424:8D = SAZLGK
+3424:8E = VAZLGK
+3424:8F = NAZLGK
+3424:90 = EPZLGG
+3424:91 = OPZLGG
+3424:92 = XPZLGG
+3424:93 = UPZLGG
+3424:94 = KPZLGG
+3424:95 = SPZLGG
+3424:96 = VPZLGG
+3424:97 = NPZLGG
+3424:98 = EPZLGK
+3424:99 = OPZLGK
+3424:9A = XPZLGK
+3424:9B = UPZLGK
+3424:9C = KPZLGK
+3424:9D = SPZLGK
+3424:9E = VPZLGK
+3424:9F = NPZLGK
+3424:A0 = EZZLGG
+3424:A1 = OZZLGG
+3424:A2 = XZZLGG
+3424:A3 = UZZLGG
+3424:A4 = KZZLGG
+3424:A5 = SZZLGG
+3424:A6 = VZZLGG
+3424:A7 = NZZLGG
+3424:A8 = EZZLGK
+3424:A9 = OZZLGK
+3424:AA = XZZLGK
+3424:AB = UZZLGK
+3424:AC = KZZLGK
+3424:AD = SZZLGK
+3424:AE = VZZLGK
+3424:AF = NZZLGK
+3424:B0 = ELZLGG
+3424:B1 = OLZLGG
+3424:B2 = XLZLGG
+3424:B3 = ULZLGG
+3424:B4 = KLZLGG
+3424:B5 = SLZLGG
+3424:B6 = VLZLGG
+3424:B7 = NLZLGG
+3424:B8 = ELZLGK
+3424:B9 = OLZLGK
+3424:BA = XLZLGK
+3424:BB = ULZLGK
+3424:BC = KLZLGK
+3424:BD = SLZLGK
+3424:BE = VLZLGK
+3424:BF = NLZLGK
+3424:C0 = EGZLGG
+3424:C1 = OGZLGG
+3424:C2 = XGZLGG
+3424:C3 = UGZLGG
+3424:C4 = KGZLGG
+3424:C5 = SGZLGG
+3424:C6 = VGZLGG
+3424:C7 = NGZLGG
+3424:C8 = EGZLGK
+3424:C9 = OGZLGK
+3424:CA = XGZLGK
+3424:CB = UGZLGK
+3424:CC = KGZLGK
+3424:CD = SGZLGK
+3424:CE = VGZLGK
+3424:CF = NGZLGK
+3424:D0 = EIZLGG
+3424:D1 = OIZLGG
+3424:D2 = XIZLGG
+3424:D3 = UIZLGG
+3424:D4 = KIZLGG
+3424:D5 = SIZLGG
+3424:D6 = VIZLGG
+3424:D7 = NIZLGG
+3424:D8 = EIZLGK
+3424:D9 = OIZLGK
+3424:DA = XIZLGK
+3424:DB = UIZLGK
+3424:DC = KIZLGK
+3424:DD = SIZLGK
+3424:DE = VIZLGK
+3424:DF = NIZLGK
+3424:E0 = ETZLGG
+3424:E1 = OTZLGG
+3424:E2 = XTZLGG
+3424:E3 = UTZLGG
+3424:E4 = KTZLGG
+3424:E5 = STZLGG
+3424:E6 = VTZLGG
+3424:E7 = NTZLGG
+3424:E8 = ETZLGK
+3424:E9 = OTZLGK
+3424:EA = XTZLGK
+3424:EB = UTZLGK
+3424:EC = KTZLGK
+3424:ED = STZLGK
+3424:EE = VTZLGK
+3424:EF = NTZLGK
+3424:F0 = EYZLGG
+3424:F1 = OYZLGG
+3424:F2 = XYZLGG
+3424:F3 = UYZLGG
+3424:F4 = KYZLGG
+3424:F5 = SYZLGG
+3424:F6 = VYZLGG
+3424:F7 = NYZLGG
+3424:F8 = EYZLGK
+3424:F9 = OYZLGK
+3424:FA = XYZLGK
+3424:FB = UYZLGK
+3424:FC = KYZLGK
+3424:FD = SYZLGK
+3424:FE = VYZLGK
+3424:FF = NYZLGK
