@@ -21,6 +21,7 @@ for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
 i = 0
 game_lines = {}
 game_intro = {}
+game_order = []
 while i < len(rows):
     row = rows[i]
 
@@ -29,6 +30,7 @@ while i < len(rows):
 
     if not game_lines.has_key(game):
         game_lines[game] = []
+        game_order.append(game)
 
     if type == "intro":
         if not game_intro.has_key(game):
@@ -56,7 +58,8 @@ while i < len(rows):
 # Write
 doc = xml.dom.minidom.Document()
 root = doc.createElement("cheats")
-for game, lines in game_lines.iteritems():
+for game in game_order:
+    lines = game_lines[game]
     game_node = doc.createElement("game")
     game_node.setAttribute("galoob-name", game)
     game_node.setAttribute("galoob-id", game2id[game])
