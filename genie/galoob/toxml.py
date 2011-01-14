@@ -71,15 +71,26 @@ for game, lines in game_lines.iteritems():
         type, rest = line
 
         if type == "code":
-            source, no, code, title = rest
+            source, no, codetext, title = rest
         
-            code_node = doc.createElement("codeline")
-            code_node.setAttribute("source", source)
-            code_node.setAttribute("number", no)
-            code_node.setAttribute("code", code)
-            code_node.setAttribute("title", title)
+            effect_node = doc.createElement("effect")
+            effect_node.setAttribute("source", source)
+            effect_node.setAttribute("number", no)
+            effect_node.setAttribute("title", title)
 
-            game_node.appendChild(code_node)
+            codes_node = doc.createElement("codes")
+            # One effect can have multiple Game Genie codes you need to enter
+            # TODO: need to do something about "alternate" codes (" / ")
+            codes = codetext.split(" + ")
+            for code in codes:
+                code_node = doc.createElement("code")
+                code_node.setAttribute("genie", code)
+
+                codes_node.appendChild(code_node) 
+
+            effect_node.appendChild(codes_node)
+
+            game_node.appendChild(effect_node)
 
         else:
             text = "\t".join(rest)
