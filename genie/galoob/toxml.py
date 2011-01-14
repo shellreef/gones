@@ -14,9 +14,16 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
     game2gn[galoob] = goodnes
 
 # Read comprehensive code file, parsed
+rows = []
+for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
+    rows.append(row)
+
+i = 0
 game_lines = {}
 game_intro = {}
-for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
+while i < len(rows):
+    row = rows[i]
+
     game, id, type = row[0:3]
     rest = row[3:]
 
@@ -27,9 +34,24 @@ for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
         if not game_intro.has_key(game):
             game_intro[game] = []
         game_intro[game].append("\t".join(rest))
-        continue
+    elif type == "info":
+        # Suck up multiple info lines into one
+        info_lines = []
+        while rows[i][2] == "info":
+            rest = rows[i][3:]
+            info_lines.append("\t".join(rest))
+            i += 1
+            if i >= len(rows):
+                break
+        if i < len(rows): i -= 1    # Spit out unintended line
+        game_lines[game].append(("info", ["\n".join(info_lines)]))
+    elif type == "code":
+        game_lines[game].append((type, rest))
+    else:
+        print "unknown type: ", type
+        raise SystemExit
 
-    game_lines[game].append((type, rest))
+    i += 1
 
 # Write
 doc = xml.dom.minidom.Document()
