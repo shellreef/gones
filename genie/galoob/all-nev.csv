@@ -1089,8 +1089,7 @@ Casino Kid II(tm) Game	CAS2	code	neup07.txt	3	AZSGGPAA	Start new game with $21,1
 Casino Kid II(tm) Game	CAS2	code	neup07.txt	4	EGSGGPAE	Start new game with $131,272
 Casino Kid II(tm) Game	CAS2	code	neup07.txt	5	AASKPPAE	Start new game with $1,342,377
 Casino Kid II(tm) Game	CAS2	code	neup07.txt	6	AZSKPPAA	Start new game with $5,368,909
-Casino Kid II(tm) Game	CAS2	code	neup07.txt	7	PAOASGIE	Can't double down in blackjack
-Casino Kid II(tm) Game	CAS2	info				(game will say you do not have enough money)
+Casino Kid II(tm) Game	CAS2	code	neup07.txt	7	PAOASGIE	Can't double down in blackjack (game will say you do not have enough money)
 Casino Kid II(tm) Game	CAS2	code	neup07.txt	8	PAKAVIIE	Can't split in blackjack (game will say you do not have enough money)
 Casino Kid II(tm) Game	CAS2	info	Casino Kid II is a trademark of Sofel Corporation.
 Castelian(tm) Game	CAST	code	neup05.txt	1	PEVGYPLA	Start with 1 life
@@ -1242,8 +1241,7 @@ Cliffhanger(tm) Game	CLIFF	code	nev8.txt	13	AXOKNGAP	Start with 2x life (does no
 Cliffhanger(tm) Game	CLIFF	code	nev8.txt	14	AEOKNGAO	Start with 1/2 life
 Cliffhanger(tm) Game	CLIFF	code	nev8.txt	15	VTVKVKSE	Start with $100
 Cliffhanger(tm) Game	CLIFF	code	nev8.txt	16	VTVKUKSE	Start with $10,000
-Cliffhanger(tm) Game	CLIFF	code	nev8.txt	17	VGVKUKSE	Start with $650,000 (display shows $xx0000 until
-Cliffhanger(tm) Game	CLIFF	info				you pick up first money bag)
+Cliffhanger(tm) Game	CLIFF	code	nev8.txt	17	VGVKUKSE	Start with $650,000 (display shows $xx0000 until you pick up first money bag)
 Cliffhanger(tm) Game	CLIFF	code	nev8.txt	18	YONKKXAP	Some bags contain mega-money some contain zip
 Cliffhanger(tm) Game	CLIFF	info	Cliffhanger is a trademark of Cliffhanger B.V.
 Clu Clu Land(tm) Game	CLU	code	nev8.txt	1	GXLILL	Both players have infinite lives
@@ -2028,8 +2026,6 @@ The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	protect you from some of th
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	waterfall, bats and mice, for example. DIZ Code 4 doesn't reduce the 
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	number of stars in the game, but after you have collected only 10 
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	you are allowed entry into Zak's(tm) tower to rescue Daisy(tm)!
-The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	DIZ     
-The Fantastic Adventures of Dizzy(tm) Game	DIZ	intro	CODE    KEY IN . . .    EFFECT . . .
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	code	neup03.txt	1	SXVIAAVG	Infinite lives
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	code	neup03.txt	2	PAOAZAZE	Start with 10 lives
 The Fantastic Adventures of Dizzy(tm) Game	DIZ	code	neup03.txt	3	AAVYPXAA	Spiders, bats, ants and rats do no damage
@@ -2093,8 +2089,7 @@ Felix the Cat(tm) Game	FELI	code	necd5.txt	5	ZAOSOZPA + APNSOXPO	Pick up 1 head 
 Felix the Cat(tm) Game	FELI	code	necd5.txt	6	AAEENAZA	Hearts can't be replenished from bottles
 Felix the Cat(tm) Game	FELI	code	necd5.txt	7	GAEENAZA	Bottles replenish more hearts
 Felix the Cat(tm) Game	FELI	code	necd5.txt	8	AAEENAZE	Bottles replenish even more hearts
-Felix the Cat(tm) Game	FELI	code	necd5.txt	9	GZUKOSVK	Never lose current weapon (acts as invincibility too!)--
-Felix the Cat(tm) Game	FELI	info				unless you fall off the screen
+Felix the Cat(tm) Game	FELI	code	necd5.txt	9	GZUKOSVK	Never lose current weapon (acts as invincibility too!)--unless you fall off the screen
 Felix the Cat(tm) Game	FELI	info	Felix the Cat is a trademark of Felix the Cat Productions, Inc.
 Final Fantasy(tm) Game	FINAL	code	nev8.txt	1	SZULIEVS	"LIFE" Spell never uses up Magic Points
 Final Fantasy(tm) Game	FINAL	code	nev8.txt	2	SZVULEVS	"LIF2" Spell never uses up Magic Points
@@ -2237,8 +2232,6 @@ Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	-never to return. PETE Codes
 Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	lives, Codes 5 thru 7 and 10 let you modify his flying power, and 
 Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	Codes 8 and 9 change his energy level. For you expert pirate 
 Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	punishers, Codes 2, 6 and 9 make your task more of a challenge!
-Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	PETE 
-Fox's Peter Pan and the Pirates(tm) Game	PETE	intro	CODE    KEY IN . . .    EFFECT . . .
 Fox's Peter Pan and the Pirates(tm) Game	PETE	code	neup02.txt	1	SZOKYLVG	Infinite lives
 Fox's Peter Pan and the Pirates(tm) Game	PETE	code	neup02.txt	2	PENKLGLA	1 life
 Fox's Peter Pan and the Pirates(tm) Game	PETE	code	neup02.txt	3	TENKLGLA	6 lives
@@ -2609,8 +2602,7 @@ Home Alone 2(tm) Game	HOME2	code	neup05.txt	16	LAOVUGTA	Extra life with 3 pizza 
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	17	ZAOVUGTA	Extra life with 2 pizza slices
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	18	PAOVUGTA	Extra life with every pizza slice
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	19	SZNYSSVK	Infinite power units/life points
-Home Alone 2(tm) Game	HOME2	code	neup05.txt	20	SZSVLVVK	Become almost invincible after losing 1 life point
-Home Alone 2(tm) Game	HOME2	info				(can walk thru most enemies--vacuum cleaner can still kill you)
+Home Alone 2(tm) Game	HOME2	code	neup05.txt	20	SZSVLVVK	Become almost invincible after losing 1 life point (can walk thru most enemies--vacuum cleaner can still kill you)
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	21	SZOELKVK	Infinite slides on pick-up
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	22	SZVETKVK	Infinite darts on pick-up
 Home Alone 2(tm) Game	HOME2	code	neup05.txt	23	SZSAAKVK	Infinite flying fists on pick-up
@@ -2933,8 +2925,7 @@ Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	5	PEEVAZTA	Only 2 games requir
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	6	ZEEVAZTA	Only 3 games required to win set
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	7	GEEVAZTA	Only 4 games required to win set
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	8	IEEVAZTA	Only 5 games required to win set
-Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	9	EEVVIPEI	Must get 2 points after 40 to win and no duece
-Jimmy Connors Tennis(tm) Game	JIM	info				(always shows advantage after 40)
+Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	9	EEVVIPEI	Must get 2 points after 40 to win and no duece (always shows advantage after 40)
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	10	PEKVGPZA	Don't need to win by 2 to win tiebreaker
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	11	ZEUVIPYA	2 points needed to win tiebreaker instead of 7
 Jimmy Connors Tennis(tm) Game	JIM	code	neup08.txt	12	LEUVIPYA	3 points needed to win tiebreaker
@@ -3282,14 +3273,12 @@ Lethal Weapon(tm) Game	LETH	code	necd5.txt	2	OUSSISOO + OUXIPSOO	Infinite ammo w
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	3	AKVIXAAP	E restores energy fully
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	4	AEVIXAAP	E worth nothing
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	5	AKKSEAAP	Extra ammo restores energy fully
-Lethal Weapon(tm) Game	LETH	code	necd5.txt	6	AEKSEAAP	Extra ammo worth nothing--
-Lethal Weapon(tm) Game	LETH	info				if you run out of ammo you can't use gun till next stage
+Lethal Weapon(tm) Game	LETH	code	necd5.txt	6	AEKSEAAP	Extra ammo worth nothing--if you run out of ammo you can't use gun till next stage
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	7	AEUYXAAZ	No energy lost when falling off screen
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	8	AKUYXAAZ	Falling off screen is fatal
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	9	NNNISAAU	Bullet proof vest lasts longer
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	10	ZENISAAU or AONISAAL	Bullet proof vest does not last as long
-Lethal Weapon(tm) Game	LETH	code	necd5.txt	11	XVUKOOXK	Bullet proof vest lasts until end of stage--
-Lethal Weapon(tm) Game	LETH	info				except when you die from punches or falling off screen
+Lethal Weapon(tm) Game	LETH	code	necd5.txt	11	XVUKOOXK	Bullet proof vest lasts until end of stage--except when you die from punches or falling off screen
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	12	XTUGTXXK	Start on Level 2
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	13	XZUGLXVL + LAUGGZNP + XTUGIZEK	Start on Level 3
 Lethal Weapon(tm) Game	LETH	info	Lethal Weapon is a trademark of Warner Bros.
@@ -3549,8 +3538,7 @@ Mechanized Attack(tm) Game	MEC	code	nev8.txt	4	EZOKIAXZ + PAOKTAAE + KANKPEVE	St
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	5	AEVOAPLA	Reduce damage by half
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	6	EZOKIAXZ + AAOKTAAA + KANKTEVE	Start with only 1 magazine
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	7	EZOKIAXZ + YAOKTAAA + KANKTEVE	Start with 8 magazines
-Mechanized Attack(tm) Game	MEC	code	nev8.txt	8	GPONAOAZ + GPEYLEAZ	Magazine holds only half normal amount of bullets
-Mechanized Attack(tm) Game	MEC	info						after first magazine used
+Mechanized Attack(tm) Game	MEC	code	nev8.txt	8	GPONAOAZ + GPEYLEAZ	Magazine holds only half normal amount of bullets after first magazine used
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	9	EZOKIAXZ + PAOKTAAA + KEEGZEVE	Start with only 1 grenade
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	10	EZOKIAXZ + AAOKTAAE + KEEGZEVE	Start with 8 grenades
 Mechanized Attack(tm) Game	MEC	code	nev8.txt	11	SZUNTOVK	Infinite grenades
@@ -5504,8 +5492,7 @@ Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	9	OXKZELSX	Super speed running
 Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	10	XVUXNUEE	Turbocharged running
 Super Mario Bros.(tm) 3 Game	SMB3	info	POWER "TAKE OFF" METER
 Super Mario Bros.(tm) 3 Game	SMB3	info	YOU MUST BE RACCOON MARIO(tm) FOR CODE 11 TO WORK
-Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	11	AANZKLLA	Can raise power meter while standing still
-Super Mario Bros.(tm) 3 Game	SMB3	info				so that you can fly from a standing start
+Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	11	AANZKLLA	Can raise power meter while standing still so that you can fly from a standing start
 Super Mario Bros.(tm) 3 Game	SMB3	info	START ON ANY WORLD
 Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	12	PEUZUGAA	Start on World 2
 Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	13	ZEUZUGAA	Start on World 3
@@ -5704,8 +5691,7 @@ Teenage Mutant Ninja Turtles(tm) Game	TEEN	info	Used by Ultra Software Corp. und
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	1	GXKVKXVK	Infinite time
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	2	AUXAGAEL	Both players start with 1/3 energy
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	3	OZNEOXPV + ZANEXZPA	Only need to win one round to win  match
-Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	4	NYUESPYE	Both players can select ultra strength--
-Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		info				ignore strength meter and keep pushing to the right
+Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	4	NYUESPYE	Both players can select ultra strength--ignore strength meter and keep pushing to the right
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	5	YAVAZLGA	You can select any character in story mode
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	6	OKKEZTVG	Infinite continues
 Teenage Mutant Ninja Turtles(tm): Tournament Fighters(tm) Game		code	nev9.txt	7	PEXAGAEL	Whoever gets the first hit wins the round
@@ -5767,8 +5753,7 @@ Tetris 2(tm) Game	TET2	code	neup08.txt	10	OZNETPOU + GANEYPAE	Every round starts
 Tetris 2(tm) Game	TET2	code	neup08.txt	11	OZNETPOU + PPNEYPAA	Every round starts with 20 fixed blocks
 Tetris 2(tm) Game	TET2	info	All Games Codes:
 Tetris 2(tm) Game	TET2	code	neup08.txt	12	AAVZVYEA	Cannot pause game with START button
-Tetris 2(tm) Game	TET2	code	neup08.txt	13	AVEXOYXZ	Do not hide remaining pieces during pause
-Tetris 2(tm) Game	TET2	info				(current and next are still hidden)
+Tetris 2(tm) Game	TET2	code	neup08.txt	13	AVEXOYXZ	Do not hide remaining pieces during pause (current and next are still hidden)
 Tetris 2(tm) Game	TET2	info	Tetris 2 is a trademark of Elorg.
 Thunderbirds(tm) Game	BIRD	intro	OK, hotshot, are you hot enough? Try BIRD Code 5 for making things a 
 Thunderbirds(tm) Game	BIRD	intro	little hotter! For devastating firepower, there's BIRD Code 7. To 
@@ -6064,8 +6049,7 @@ Ultima, Quest of the Avatar(tm) Game	AVA	code	neup03.txt	25	NYOOPVSK	Fighter sta
 Ultima, Quest of the Avatar(tm) Game	AVA	code	neup03.txt	26	LEVOZIPA	Fighter starts with 812 Hit Points instead of 300
 Ultima, Quest of the Avatar(tm) Game	AVA	code	neup03.txt	27	LKNPYIAE	Fighter starts with 75 Magic Points instead of none
 Ultima, Quest of the Avatar(tm) Game	AVA	info	Ultima, Quest of the Avatar is a trademark of Origin Systems, Inc. and Richard Garriot.
-Ultima, Warriors of Destiny(tm) Game	DEST	code	neup07.txt	1	SUSTXSVS	Infinite consumable items such as food and torches--
-Ultima, Warriors of Destiny(tm) Game	DEST	info				MAY NOT BE ABLE TO DISCARD SOME ITEMS
+Ultima, Warriors of Destiny(tm) Game	DEST	code	neup07.txt	1	SUSTXSVS	Infinite consumable items such as food and torches--MAY NOT BE ABLE TO DISCARD SOME ITEMS
 Ultima, Warriors of Destiny(tm) Game	DEST	code	neup07.txt	2	AAEZIPZL	A night at the Wayfarer Inn(tm) is free
 Ultima, Warriors of Destiny(tm) Game	DEST	info	At Healer's Herbs(tm):
 Ultima, Warriors of Destiny(tm) Game	DEST	code	neup07.txt	3	AEUZPAPA	Sulfurous ash is free instead of 1 GP
@@ -6116,8 +6100,7 @@ Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	8	OVXZNPSV + PEXXEONY / OVUZKPSV 
 Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	9	NYXXXVAN / NYXXVVAN	Shield lasts longer on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	10	AGXXXVAY / AGXXVVAY	Shield lasts a shorter time on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	11	GXUAOKVK	Don't lose a life on Ground Pursuit, Boat and Hang Glider stages
-Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	12	SZOUZXVK / SXNXKNVK	Don't lose a life against end-of-stage bosses and
-Ultimate Stuntman(tm) Game	ULT	info					on Street Combat stages
+Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	12	SZOUZXVK / SXNXKNVK	Don't lose a life against end-of-stage bosses and on Street Combat stages
 Ultimate Stuntman(tm) Game	ULT	code	neup04.txt	13	SXXLVSVK / SXXUXSVK	Don't lose a life on Human Fly stages
 Ultimate Stuntman(tm) Game	ULT	info	Ultimate Stuntman and Dr. Evil are trademarks of Codemasters Software Co. Ltd.
 The Untouchables(tm) Game	UNTO	intro	OK, men, pick up those choppers and help G-man Elliot Ness and his 
@@ -6204,8 +6187,7 @@ Wacky Races(tm) Game	RACES	code	neup05.txt	16	KVKTEIXT	Start at race 3, end of s
 Wacky Races(tm) Game	RACES	code	neup05.txt	17	EVKTEIXV	Start at race 3, end of stage 2
 Wacky Races(tm) Game	RACES	code	neup05.txt	18	KVKTEIXV	Start at race 3, end of stage 3
 Wacky Races(tm) Game	RACES	code	neup05.txt	19	ENKTEIXT	Start at race 3, end of stage 4
-Wacky Races(tm) Game	RACES	code	neup05.txt	20	XNUVKIKG	Go straight to level boss--
-Wacky Races(tm) Game	RACES	info				use with one of Codes 10 thru 19 to select which boss
+Wacky Races(tm) Game	RACES	code	neup05.txt	20	XNUVKIKG	Go straight to level boss--use with one of Codes 10 thru 19 to select which boss
 Wacky Races(tm) Game	RACES	info	Wacky Races, Muttley(tm) and Dick Dastardly are trademarks of Hanna-Barbera Productions, Inc.
 Wayne's World(tm) Game	WAY	code	neup08.txt	1	PANEYAGA	Start with 2 lives
 Wayne's World(tm) Game	WAY	code	neup08.txt	2	YANEYAGA	Start with 8 lives
