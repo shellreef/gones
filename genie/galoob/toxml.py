@@ -15,12 +15,19 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
 
 # Read comprehensive code file, parsed
 game_lines = {}
+game_intro = {}
 for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
     game, id, type = row[0:3]
     rest = row[3:]
 
     if not game_lines.has_key(game):
         game_lines[game] = []
+
+    if type == "intro":
+        if not game_intro.has_key(game):
+            game_intro[game] = []
+        game_intro[game].append("\t".join(rest))
+        continue
 
     game_lines[game].append((type, rest))
 
@@ -32,6 +39,12 @@ for game, lines in game_lines.iteritems():
     game_node.setAttribute("galoob-name", game)
     game_node.setAttribute("galoob-id", game2id[game])
     game_node.setAttribute("fullname", game2gn[game])
+
+    if game_intro.has_key(game):
+        intro_node = doc.createElement("intro")
+        intro_node.appendChild(doc.createTextNode("\n".join(game_intro[game])))
+        game_node.appendChild(intro_node)
+
     for line in lines:
         type, rest = line
 
