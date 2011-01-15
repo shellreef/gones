@@ -356,45 +356,27 @@ func (deck *ControlDeck) RunCommand(cmd string) {
             fmt.Printf("%s = %s\n", patch, patch.Encode())
             fmt.Printf("CPU address: %.4X\n", patch.CPUAddress())
             fmt.Printf("Value: %.2X\n", patch.Value)
+            // TODO: apply code
 
-            // TODO: move this somewhere more appropriate
-            // Search through CPU addresses for ROMs that are mapped to it, live
-            // TODO: do this statically! The code below will only find what is currently loaded.
-            for i := 0; i < 16; i += 1 {
-                if deck.CPU.MemHasROM[i] {
-                    // Where it is loaded in the CPU
-                    cpuAddrStart := uint16(i << 12)
-                    cpuAddrEnd := cpuAddrStart | 0xfff
+            romAddress, romChip := deck.CPU.Address2ROM(patch.CPUAddress())
 
-                    // What part of ROM it maps to
-                    romAddrStart := deck.CPU.MemROMOffset[i]
-                    //romAddrEnd := romAddrStart | 0xfff // 4K-1
+            fmt.Printf("ROM address found: %.4X\n", romAddress)
+            fmt.Printf("ROM chip: %s\n", romChip)
+            fmt.Printf("iNES offset: %.4X\n", romAddress + 0x10)
 
-                    if patch.CPUAddress() >= cpuAddrStart && patch.CPUAddress() <= cpuAddrEnd {
-                        //fmt.Printf("ROM address: %.4X-%.4X (CPU %.4X-%.4X)\n", romAddrStart, romAddrEnd, cpuAddrStart, cpuAddrEnd)
-                        romBankOffset := uint32(patch.CPUAddress() & 0xfff)
-                        romAddress := romAddrStart | romBankOffset
-                        fmt.Printf("ROM address found: %.4X\n", romAddress)
-                        fmt.Printf("ROM chip: %s\n", deck.CPU.MemName[i])
-                        fmt.Printf("iNES offset: %.4X\n", romAddress + 0x10)
+            // TODO: should we also, after finding the ROM address, search for all CPU
+            // addresses it affects, since it may be more than one? For example, 16 KB NROM
+            // games (like Mario Bros.) have codes like SXTIEG = 5ce0:a5 = CPU address dce0,
+            // which affects ROM address 1ce0, since CPU d000-dfff is mapped to ROM 1000-1fff;
+            // however, paching ROM 1ce0 would ALSO affect CPU 9ce0, since CPU 8000-8fff is 
+            // mapped there, too. Game Genie, since it uses CPU addresses, can affect each of
+            // these mirrors independently. The code for the mirrored bank is 1ce0:a5=SXTPEG,
+            // but it has no effect because the program in this case runs from c000-ffff not
+            // the mirrored 8000-bfff. 
+            // Point is, GG codes can not only be LESS specific than ROM patches (affecting multiple
+            // addresses in the ROM), they can also be MORE specific, since they use the CPU address.
+            // TODO: also should check compare value, to restrict banks
 
-                        // TODO: should we also, after finding the ROM address, search for all CPU
-                        // addresses it affects, since it may be more than one? For example, 16 KB NROM
-                        // games (like Mario Bros.) have codes like SXTIEG = 5ce0:a5 = CPU address dce0,
-                        // which affects ROM address 1ce0, since CPU d000-dfff is mapped to ROM 1000-1fff;
-                        // however, paching ROM 1ce0 would ALSO affect CPU 9ce0, since CPU 8000-8fff is 
-                        // mapped there, too. Game Genie, since it uses CPU addresses, can affect each of
-                        // these mirrors independently. The code for the mirrored bank is 1ce0:a5=SXTPEG,
-                        // but it has no effect because the program in this case runs from c000-ffff not
-                        // the mirrored 8000-bfff. 
-                        // Point is, GG codes can not only be LESS specific than ROM patches (affecting multiple
-                        // addresses in the ROM), they can also be MORE specific, since they use the CPU address.
-                        // TODO: also should check compare value, to restrict banks
-                    }
-                }
-            }
-
-            // TODO: apply
         }
         if len(args) == 0 {
             fmt.Printf("usage: c game-genie-code\n")
