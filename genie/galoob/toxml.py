@@ -10,6 +10,34 @@ import hashlib
 
 ROM_ROOT = "../../roms/best"
 
+# ROM variants that are not PRG0 or PRG1
+VARIANTS = {
+"58011155EA6D62AF65C8A9D776DD8363FF40EDDD": "REV0",
+"F18C7D82F624C6EFEB73E0A212997A28B90BDF85": "REVA",
+"0EE24D0A864845449EF7434822C12FA0F063DE56": "REV1.1",
+"12F58963DD70D32CCA2784BC1D83EC889FEC8E5D": "REV1.x",
+"D1F279C5EBBB9069887CC6F2534A362286801CD1": "REV1.x [a1]",
+"36EC0A750888DB2BAAA21651528807D70CA97C6B": "Taito",
+"DD7B6084032EDCE204862153FD32039E32DA884C": "UBI Soft",
+"C7FD43041FC139DC8440C95C28A0115DC79E2691": "Aladdin",
+"84908DC67C29BE8600184FC5525B9227C8AFF830": "Camerica",
+"92C3361B9E3B28A51FD30E7845C988A6D576EE65": "Namco",
+"A34E68372082513209A795786C8EEA493CC2CD14": "Tengen",
+"06990C8573128E5548C5DCD39479FABF67234926": "Aladdin",
+"6A6C235B96C5CC51A5BF6D6FBAF30E77AD789FC7": "Camerica",
+"0C4992FC08D2278697339D3B48066E7B5F943598": "REVA",
+"DB295C6BAD1B58BC1170C4B300C1C8D2A6BC1A87": "REVB",
+"C87B3E1F17670C028CE60AF3BBC7D688DC0F9DF3": "REV0",
+"712983EAA00029C307688DE015C1B698CC4BF064": "REVA",
+"102BD0C46C5718C979EB1AC387DADE6F6EB70EE4": "Aladdin",
+"90196DBFC5337B56106B33891C5FA4B2267F3732": "Camerica",
+"42F15207D202B43802E92AF1F89300CEB9C99F12": "REV0",
+"FCE0C7B0A152DBC3B5992320211CC674E8A1622B": "REV1",
+"ED281797EFF64CBA96897B59D85AE5E61F67353A": "REVB",
+"48100033895E83877F554AB539CB028ACAAC44AC": "Family Edition",
+"5BCF47901533372B7D9828380FCF32F11C6F9CE8": "Junior Edition",
+}
+
 # Mapping of what Galoob calls a game, to its abbreviation (NOT unique), and GoodNES name
 game2id = {}
 game2gn = {}
@@ -22,25 +50,34 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
     # Cartridges (can have >1 per game, different variants)
     dir = os.path.join(ROM_ROOT, goodnes)
     filenames = os.listdir(dir)
+    hash2filename = {}
+    hash2variant = {}
+    assert len(filenames) > 0, "nothing in %s" % (dir,)
     for filename in filenames:
         # Calculate identifying hash. This is technically defined as hash(PRG+CHR),
         # but to avoid parsing the whole header, we just skip it and assume PRG+CHR
         # directly follows. Though the format does allow a "trainer" header, and a
         # hintscreen trailer, almost no files have either, so this usually works.
         f = file(os.path.join(dir, filename), "rb")
-        if not filename.endswith(".nes"):
-            # UNIF could be supported, but would require parsing out PRGx+CHRx
-            print "can only analyze iNes, sorry", filename
-            raise SystemExit
+        # UNIF could be supported, but would require parsing out PRGx+CHRx
+        assert filename.endswith(".nes"), "can only analyze iNes, sorry %s" % (filename,)
         f.read(0x10)
-        sha1 = hashlib.sha1(f.read()).hexdigest().upper()
-        print sha1, filename
-        # Quick and dirty check the hash is valid
-        ret = os.system("grep %s ~/games/nese/gones/data/cartdb.xml" % (sha1,))
-        if ret != 0:
-            print "Failed to match %s in %s" % (sha1, filename)
+        hash = hashlib.sha1(f.read()).hexdigest().upper()
 
+        if len(filenames) == 1:
+            variant = None  # no variant name needed
+        else:
+            if "PRG0" in filename:
+                variant = "PRG0"
+            elif "PRG1" in filename:
+                variant = "PRG1"
+            else:
+                variant = VARIANTS[hash]
 
+        hash2filename[hash] = filename
+        hash2variant[hash] = variant
+
+    game2carts[galoob] = hash2filename, hash2variant
 
 # Read comprehensive code file, parsed
 rows = []
@@ -97,11 +134,16 @@ for game in game_order:
     game_node.setAttribute("galoob-id", game2id[game])
     game_node.setAttribute("fullname", game2gn[game])
 
+    # Cartridge info
+    # TODO
+
+    # Intro text
     if game_intro.has_key(game):
         intro_node = doc.createElement("intro")
         intro_node.appendChild(doc.createTextNode("\n".join(game_intro[game])))
         game_node.appendChild(intro_node)
 
+    # Code and info lines
     for line in lines:
         type, rest = line
 
