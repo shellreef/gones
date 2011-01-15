@@ -976,26 +976,24 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addre
 // Convert a CPU address to a ROM address
 func (cpu *CPU) Address2ROM(cpuAddress uint16) (romAddress uint32, romChip string) {
     // Search through CPU addresses for ROMs that are mapped to it, live
-    // TODO: do this statically! The code below will only find what is currently loaded.
-    i := cpuAddress << 12
-        if cpu.MemHasROM[i] {
-            // Where it is loaded in the CPU
-            cpuAddrStart := uint16(i << 12)
-            cpuAddrEnd := cpuAddrStart | 0xfff
+    // TODO: option to attempt to do this statically.. the code below will only find what is currently loaded.
 
-            // What part of ROM it maps to
-            romAddrStart := cpu.MemROMOffset[i]
-            //romAddrEnd := romAddrStart | 0xfff // 4K-1
+    // For emulation purposes we map the CPU address space in 4K chunks
+    // Find that chunk index for the given CPU address
+    i := cpuAddress >> 12
 
-            if cpuAddress >= cpuAddrStart && cpuAddress <= cpuAddrEnd {
-                //fmt.Printf("ROM address: %.4X-%.4X (CPU %.4X-%.4X)\n", romAddrStart, romAddrEnd, cpuAddrStart, cpuAddrEnd)
-                romBankOffset := uint32(cpuAddress & 0xfff)
-                romAddress := romAddrStart | romBankOffset
+    if !cpu.MemHasROM[i] {
+        // This is a problem
+        return ^uint32(0), "no ROM"
+    }
 
-                return romAddress, cpu.MemName[i]
+    // What part of ROM it maps to, and the offset within 
+    romAddrStart := cpu.MemROMOffset[i]
+    romBankOffset := uint32(cpuAddress & 0xfff)
 
-            }
-        }
-    // TODO: better error condition. Not all CPU addresses are mapped to ROM
-    return 0, "none"
+    // Absolute ROM address
+    romAddress = romAddrStart | romBankOffset
+    romChip = cpu.MemName[i]
+
+    return romAddress, romChip
 }
