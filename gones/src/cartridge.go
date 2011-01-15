@@ -99,7 +99,7 @@ func (cart *Cartridge) LoadPRG(cpu *cpu6502.CPU) {
         // TODO: bankable CHR
 
     default:
-        fmt.Printf("WARNING: no support for mapper %s!\n", cart.MapperName)
+        panic(fmt.Sprintf("LoadPRG: no support for mapper: %s!\n", cart.MapperName))
 
         // Take a wild guess, which is probably wrong
         cpu.MapROM(0x8000, 0xffff, cart.Prg, fmt.Sprintf("Unknown mapper %s", cart.MapperName), 0x7fff, nil, nil)

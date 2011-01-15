@@ -10,7 +10,7 @@ import ("fmt"
         "os"
         )
 
-type Games struct {
+type Cheats struct {
     XMLName xml.Name "cheat-codes"
 
     Game []Game
@@ -72,7 +72,7 @@ func (effect Effect) String() (string) {
     return codeText + " " + effect.Title
 }
 
-func Load() {
+func Load() (Cheats) {
     filename := "../genie/galoob/galoob.xml"
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
@@ -81,16 +81,11 @@ func Load() {
 
     // TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
     // TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
-    games := Games{}
+    cheats := Cheats{}
 
-    xml.Unmarshal(r, &games)
+    xml.Unmarshal(r, &cheats)
 
-    for _, game := range games.Game {
-        fmt.Printf("\n%s\n", game.Name)
-        for _, effect := range game.Effect {
-            fmt.Printf("%s\n", effect)
-        }
-    }
+    return cheats
 }
 
 

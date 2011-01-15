@@ -87,7 +87,15 @@ func New() (*ControlDeck) {
 }
 
 // Load a game
-func (deck *ControlDeck) Load(filename string) {
+func (deck *ControlDeck) Load(filename string) (err string, success bool) {
+    defer func() {
+        if r := recover(); r != nil {
+            err = fmt.Sprintf("Failed to load %s: %s", filename, r)
+            success = false
+        }
+    }()
+
+
     cart := cartridge.LoadFile(filename)
 
     // Check ROM against known hashes
@@ -133,6 +141,8 @@ func (deck *ControlDeck) Load(filename string) {
                 func(address uint16, value uint8) { },
                 "nestest-automation")
     }
+
+    return err, true
 }
 
 // Read a bunch of files from a directory
@@ -342,7 +352,35 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         deck.CPU.ExecuteInstruction()
         deck.CPU.DumpRegisters()
     case "load-cheats":
-        cheatdb.Load()
+        cheats := cheatdb.Load()
+        for _, game := range cheats.Game {
+            fmt.Printf("\n%s\n", game.Name)
+            for _, effect := range game.Effect {
+                fmt.Printf("%s\n", effect)
+
+                for _, code := range effect.Code {
+                    for _, cart := range game.Cartridge {
+                        path := "../roms/best/" + game.Name + "/" + cart.Filename
+                        if code.Applies == "" || code.Applies == cart.Name {
+                            _, ok := deck.Load(path) 
+                            if !ok {        // Not everything is supported yet
+                                //fmt.Printf("Skipping %s: %s", path, err)
+                                continue
+                            }
+
+                            patch := gamegenie.Decode(code.Genie)
+                            romAddress, romChip := deck.CPU.Address2ROM(patch.CPUAddress())    
+                            // TODO: check key, refactor 'code' command below that does it
+
+                            fmt.Printf("ROM Address: %.6X\n", romAddress)
+                            fmt.Printf("ROM Chip: %s\n", romChip)
+                        }
+                    }
+                }
+            }
+        }
+
+
     // cheat code
     case "c", "code": 
         for _, code := range(args) {
