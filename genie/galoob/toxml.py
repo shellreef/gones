@@ -5,26 +5,55 @@
 import csv
 import xml.dom.minidom
 
+import os
+import hashlib
+
+ROM_ROOT = "../../roms/best"
+
 # Mapping of what Galoob calls a game, to its abbreviation (NOT unique), and GoodNES name
 game2id = {}
 game2gn = {}
+game2carts = {}
 for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
     galoob, id, goodnes = row
     game2id[galoob] = id
     game2gn[galoob] = goodnes
+
+    # Cartridges (can have >1 per game, different variants)
+    dir = os.path.join(ROM_ROOT, goodnes)
+    filenames = os.listdir(dir)
+    for filename in filenames:
+        # Calculate identifying hash. This is technically defined as hash(PRG+CHR),
+        # but to avoid parsing the whole header, we just skip it and assume PRG+CHR
+        # directly follows. Though the format does allow a "trainer" header, and a
+        # hintscreen trailer, almost no files have either, so this usually works.
+        f = file(os.path.join(dir, filename), "rb")
+        if not filename.endswith(".nes"):
+            # UNIF could be supported, but would require parsing out PRGx+CHRx
+            print "can only analyze iNes, sorry", filename
+            raise SystemExit
+        f.read(0x10)
+        sha1 = hashlib.sha1(f.read()).hexdigest().upper()
+        print sha1, filename
+        # Quick and dirty check the hash is valid
+        ret = os.system("grep %s ~/games/nese/gones/data/cartdb.xml" % (sha1,))
+        if ret != 0:
+            print "Failed to match %s in %s" % (sha1, filename)
+
+
 
 # Read comprehensive code file, parsed
 rows = []
 for row in csv.reader(file("all-nev.csv", "rb"), delimiter="\t"):
     rows.append(row)
 
+# Build structure
 i = 0
 game_lines = {}
 game_intro = {}
 game_order = []
 while i < len(rows):
     row = rows[i]
-
     game, id, type = row[0:3]
     rest = row[3:]
 
@@ -54,6 +83,9 @@ while i < len(rows):
         raise SystemExit
 
     i += 1
+
+# Read game variants
+
 
 # Write
 doc = xml.dom.minidom.Document()
