@@ -374,6 +374,9 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
                             fmt.Printf("ROM Address: %.6X\n", romAddress)
                             fmt.Printf("ROM Chip: %s\n", romChip)
+
+                            // TODO: read +/- 16 bytes around romAddress for context, romBefore, romAfter
+                            // TODO: save it for jsdis
                         }
                     }
                 }

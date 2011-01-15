@@ -7403,7 +7403,7 @@ are trademarks of Hasbro.
   <effect number="5" source="nev8.txt" title="Press START for extra life">
    <code genie="GGVSGXOX"/>
    <code genie="EZVSIZPE"/>
-   <code genie="UGVSTZSE "/>
+   <code genie="UGVSTZSE"/>
   </effect>
   <effect number="6" source="nev8.txt" title="Can't be caught by tractor beam!">
    <code genie="OXSTZPSX"/>

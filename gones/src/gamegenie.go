@@ -31,7 +31,7 @@ const LETTERS = "APZLGITYEOXUKSVN"
 func letterToDigit(letter string) (digit int) {
     digit = strings.Index(LETTERS, strings.ToUpper(letter))
     if digit == -1 {
-        panic(fmt.Sprintf("letterToValue(%s): invalid", letter))
+        panic(fmt.Sprintf("letterToValue('%s'): invalid", letter))
         // TODO: error handling
     }
     return digit
@@ -47,6 +47,12 @@ func Decode(s string) (c GameGenieCode) {
 
 // Decode a game Genie Code into its consistutent fields
 func decodeGG(s string) (c GameGenieCode) {
+    defer func() {
+        if r := recover(); r != nil {
+            panic(fmt.Sprintf("decodeGG(%s): invalid code: %s", s, r))
+        }
+    }()
+
     var digits [8]int
     for i, characterCode := range s {
         letter := string(characterCode)
