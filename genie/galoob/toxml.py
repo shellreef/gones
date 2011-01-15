@@ -7,6 +7,7 @@ import xml.dom.minidom
 
 import os
 import hashlib
+import sys
 
 ROM_ROOT = "../../roms/best"
 
@@ -160,14 +161,26 @@ for game in game_order:
             effect_node.setAttribute("title", title)
 
             codes_node = doc.createElement("codes")
-            # One effect can have multiple Game Genie codes you need to enter
-            # TODO: need to do something about "alternate" codes (" / ")
-            codes = codetext.split(" + ")
-            for code in codes:
-                code_node = doc.createElement("code")
-                code_node.setAttribute("genie", code)
 
-                codes_node.appendChild(code_node) 
+            # Alternate game cartridges can have different codes
+            alt_texts = codetext.split(" / ")
+            for alt_index, alt_text in enumerate(alt_texts):
+                # One effect can have multiple Game Genie codes you need to enter
+                codes = alt_text.split(" + ")
+                for code in codes:
+                    code_node = doc.createElement("code")
+                    code_node.setAttribute("genie", code)
+                    if len(alt_texts) > 1:
+                        if alt_index >= len(game2carts[game]):
+                            variant = "unknown-%s" % (alt_index,)
+                            sys.stderr.write("Warning: %s has multiple variants (%s), but only %s found\n" % (dir, alt_index, game2carts[game]))
+                        else:
+                            variant = game2carts[game][alt_index][2]
+                            if variant is None:
+                                variant = "unknown"
+                        code_node.setAttribute("applies", variant)
+
+                    codes_node.appendChild(code_node) 
 
             effect_node.appendChild(codes_node)
 
