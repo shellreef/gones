@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<cheats>
+<cheat-codes>
  <game galoob-id="'42" galoob-name="1942(tm) Game" name="1942">
   <cartridge filename="1942 (JU) [!].nes" sha1="7F57EACE7CADA7C36412A50F2299231B304527A8"/>
   <effect number="1" source="nev8.txt" title="Both players start with 9 rolls">
@@ -20771,5 +20771,5 @@ CODES 1 THRU 3: ONLY ON FIRST LIFE, BATTLE MODE
    Zoda's Revenge: Star Tropics II and related names are trademarks of Nintendo of America Inc.
   </info>
  </game>
-</cheats>
+</cheat-codes>
 

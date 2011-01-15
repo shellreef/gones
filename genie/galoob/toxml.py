@@ -135,7 +135,7 @@ while i < len(rows):
 
 # Write
 doc = xml.dom.minidom.Document()
-root = doc.createElement("cheats")
+root = doc.createElement("cheat-codes")
 for game in game_order:
     lines = game_lines[game]
     game_node = doc.createElement("game")

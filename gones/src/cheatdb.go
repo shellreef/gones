@@ -11,7 +11,7 @@ import ("fmt"
         )
 
 type Games struct {
-    XMLName xml.Name "cheats"
+    XMLName xml.Name "cheat-codes"
 
     Game []Game
 }
@@ -53,5 +53,8 @@ func Load() {
 
     xml.Unmarshal(r, &games)
 
-    fmt.Printf("games = %d, %s\n", len(games.Game), games)
+    fmt.Printf("games = %d\n", len(games.Game))
 }
+
+// TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
+// TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
