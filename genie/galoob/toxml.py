@@ -48,6 +48,7 @@ VARIANTS = {
 "ED281797EFF64CBA96897B59D85AE5E61F67353A": "REVB",
 "48100033895E83877F554AB539CB028ACAAC44AC": "Family Edition",
 "5BCF47901533372B7D9828380FCF32F11C6F9CE8": "Junior Edition",
+"DFD47797DEDDDB36F5CA73F0E7D994ED792E2ADF": "NES Cart",
 }
 
 # Mapping of what Galoob calls a game, to its abbreviation (NOT unique), and GoodNES name
@@ -75,8 +76,8 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
         f.read(0x10)
         hash = hashlib.sha1(f.read()).hexdigest().upper()
 
-        if len(filenames) == 1:
-            variant = None  # no variant name needed
+        if len(filenames) == 1 and galoob != "Ultimate Stuntman(tm) Game":
+            variant = None  # no variant name needed, it is not ambiguous
         else:
             if "PRG0" in filename:
                 variant = "PRG0"
@@ -131,8 +132,6 @@ while i < len(rows):
 
     i += 1
 
-# Read game variants
-
 
 # Write
 doc = xml.dom.minidom.Document()
@@ -182,28 +181,24 @@ for game in game_order:
                     code_node = doc.createElement("code")
                     code_node.setAttribute("genie", code)
                     if len(alt_texts) > 1:
-                        if alt_index >= len(game2carts[game]):
-                            # Galoob says there are two versions of Ultimate Stuntman, but http://bootgod.dyndns.org:7777/profile.php?id=354 says there is only one
-                            # 'The Ultimate Stuntman (Aladdin Cart)' says the Aladdin version was never released, so I think that's it.
-                            # Codemasters made both Game Genie and this game, so they could've made codes for a pre-release Aladdin game http://www.nesworld.com/codemasters.php
-                            if game == "Ultimate Stuntman(tm) Game":
-                                variant = "Aladdin Cart (unreleased)"
-                            else:
-                                variant = "unknown-%s" % (alt_index,)
-                                assert False, "Warning: %s has multiple variants (%s), but only %s found\n" % (game, alt_index, game2carts[game])
-                        else:
-                            assert ALT2VARIANT.has_key(game), "Missing ALT2VARIANT for game %s -aka- %s" % (game, game2gn[game])
-                                
-                            variant = ALT2VARIANT[game][alt_index]
-                            found = False
-                            for that_hash, that_filename, that_variant in game2carts[game]:
-                                if that_variant == variant:
-                                    found = True
-                                    break
-                            assert found or "unreleased" in variant, "For game %s, ALT2VARIANT specifies invalid variant: %s, known %s" % (game, variant, game2carts[game])
+                        assert ALT2VARIANT.has_key(game), "Missing ALT2VARIANT for game %s -aka- %s" % (game, game2gn[game])
+                            
+                        variant = ALT2VARIANT[game][alt_index]
+                        found = False
+                        for that_hash, that_filename, that_variant in game2carts[game]:
+                            if that_variant == variant:
+                                found = True
+                                break
 
-                            if variant is None:
-                                variant = "unknown"
+                        # Galoob says there are two versions of Ultimate Stuntman, but http://bootgod.dyndns.org:7777/profile.php?id=354 says there is only one
+                        # 'The Ultimate Stuntman (Aladdin Cart)' says the Aladdin version was never released, so I think that's it.
+                        # Codemasters made both Game Genie and this game, so they could've made codes for a pre-release Aladdin game http://www.nesworld.com/codemasters.php
+                        if game == "Ultimate Stuntman(tm) Game": found = True
+
+                        assert found, "For game %s, ALT2VARIANT specifies invalid variant: %s, known %s" % (game, variant, game2carts[game])
+
+                        if variant is None:
+                            variant = "unknown"
                         code_node.setAttribute("applies", variant)
 
                     codes_node.appendChild(code_node) 

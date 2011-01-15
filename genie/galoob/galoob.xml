@@ -29144,7 +29144,7 @@ Tym Scroll, Sant Talisman and Iolo's Bows are trademarks of Richard Garriott.
   </info>
  </game>
  <game galoob-id="ULT" galoob-name="Ultimate Stuntman(tm) Game" name="Ultimate Stuntman">
-  <cartridge filename="Ultimate Stuntman (Camerica) [!].nes" sha1="DFD47797DEDDDB36F5CA73F0E7D994ED792E2ADF"/>
+  <cartridge filename="Ultimate Stuntman (Camerica) [!].nes" name="NES Cart" sha1="DFD47797DEDDDB36F5CA73F0E7D994ED792E2ADF"/>
   <intro>
    Check out these ultimate Game Genie(tm) codes to help you defeat Dr. 
 Evil(tm). You can adjust your lives, have as much time as you wish, and 
@@ -29159,63 +29159,63 @@ ALTERNATE CODE
   <effect number="1" source="neup04.txt" title="Start with 1 life (first credit only)">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="AAOTOIZA"/>
-    <code applies="Aladdin Cart (unreleased)" genie="AENVNGZA"/>
+    <code applies="NES Cart" genie="AENVNGZA"/>
    </codes>
   </effect>
   <effect number="2" source="neup04.txt" title="Start with 6 lives (first credit only)">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="IAOTOIZA"/>
-    <code applies="Aladdin Cart (unreleased)" genie="IENVNGZA"/>
+    <code applies="NES Cart" genie="IENVNGZA"/>
    </codes>
   </effect>
   <effect number="3" source="neup04.txt" title="Start with 9 lives (first credit only)">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="AAOTOIZE"/>
-    <code applies="Aladdin Cart (unreleased)" genie="AENVNGZE"/>
+    <code applies="NES Cart" genie="AENVNGZE"/>
    </codes>
   </effect>
   <effect number="4" source="neup04.txt" title="Infinite time">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="SZEIPUVK"/>
-    <code applies="Aladdin Cart (unreleased)" genie="SXNSYXVK"/>
+    <code applies="NES Cart" genie="SXNSYXVK"/>
    </codes>
   </effect>
   <effect number="5" source="neup04.txt" title="Infinite 'Crez' weapon until end of stage">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="SXXSVUVK"/>
-    <code applies="Aladdin Cart (unreleased)" genie="SXXSNUVK"/>
+    <code applies="NES Cart" genie="SXXSNUVK"/>
    </codes>
   </effect>
   <effect number="6" source="neup04.txt" title="9 seconds on clock pick-up">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="PEXXOAIE"/>
-    <code applies="Aladdin Cart (unreleased)" genie="PEXXSATE"/>
+    <code applies="NES Cart" genie="PEXXSATE"/>
    </codes>
   </effect>
   <effect number="7" source="neup04.txt" title="Full energy on pick-up">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="AEEZSPZA"/>
-    <code applies="Aladdin Cart (unreleased)" genie="AEOZXPZA"/>
+    <code applies="NES Cart" genie="AEOZXPZA"/>
    </codes>
   </effect>
   <effect number="8" source="neup04.txt" title="Minimum damage taken">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="OVXZNPSV"/>
     <code applies="Aladdin Cart (unreleased)" genie="PEXXEONY"/>
-    <code applies="Aladdin Cart (unreleased)" genie="OVUZKPSV"/>
-    <code applies="Aladdin Cart (unreleased)" genie="PEUZSONY"/>
+    <code applies="NES Cart" genie="OVUZKPSV"/>
+    <code applies="NES Cart" genie="PEUZSONY"/>
    </codes>
   </effect>
   <effect number="9" source="neup04.txt" title="Shield lasts longer on Human Fly stages">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="NYXXXVAN"/>
-    <code applies="Aladdin Cart (unreleased)" genie="NYXXVVAN"/>
+    <code applies="NES Cart" genie="NYXXVVAN"/>
    </codes>
   </effect>
   <effect number="10" source="neup04.txt" title="Shield lasts a shorter time on Human Fly stages">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="AGXXXVAY"/>
-    <code applies="Aladdin Cart (unreleased)" genie="AGXXVVAY"/>
+    <code applies="NES Cart" genie="AGXXVVAY"/>
    </codes>
   </effect>
   <effect number="11" source="neup04.txt" title="Don't lose a life on Ground Pursuit, Boat and Hang Glider stages">
@@ -29226,13 +29226,13 @@ ALTERNATE CODE
   <effect number="12" source="neup04.txt" title="Don't lose a life against end-of-stage bosses and on Street Combat stages">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="SZOUZXVK"/>
-    <code applies="Aladdin Cart (unreleased)" genie="SXNXKNVK"/>
+    <code applies="NES Cart" genie="SXNXKNVK"/>
    </codes>
   </effect>
   <effect number="13" source="neup04.txt" title="Don't lose a life on Human Fly stages">
    <codes>
     <code applies="Aladdin Cart (unreleased)" genie="SXXLVSVK"/>
-    <code applies="Aladdin Cart (unreleased)" genie="SXXUXSVK"/>
+    <code applies="NES Cart" genie="SXXUXSVK"/>
    </codes>
   </effect>
   <info>
