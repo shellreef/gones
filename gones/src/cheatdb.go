@@ -42,6 +42,36 @@ type Code struct {
     Applies string "attr"       // refers to a Cartridge.Name
 }
 
+// Stringify an effect to how it appears in the Game Genie manual, i.e.:
+// "SLXPLOVS Infinite lives for Mario(tm) and Luigi(tm)"
+// "PEEPUZAG + IUEPSZAA + TEEPVZPA Start on World 2"
+// "AAVENYZA / AAVEUYZA Weak Birdetta"
+func (effect Effect) String() (string) {
+    codeText := ""
+    lastApplies := ""
+    for i, code := range effect.Code {
+        if i != 0 {
+            if code.Applies != "" && lastApplies != "" && code.Applies != lastApplies {
+                // Alternate version
+                codeText += " / "
+            } else {
+                // Multiple codes per effect
+                codeText += " + "
+            }
+        }
+        codeText += code.Genie
+        if code.Applies != "" {
+            codeText += "(" + code.Applies + ")"
+        }
+
+        if code.Applies != "" {
+            lastApplies = code.Applies
+        }
+    }
+
+    return codeText + " " + effect.Title
+}
+
 func Load() {
     filename := "../genie/galoob/galoob.xml"
     r, err := os.Open(filename, os.O_RDONLY, 0)
@@ -56,10 +86,7 @@ func Load() {
     for _, game := range games.Game {
         fmt.Printf("\n%s\n", game.Name)
         for _, effect := range game.Effect {
-            for _, code := range effect.Code {
-                fmt.Printf("%s ", code.Genie)
-            }
-            fmt.Printf("%s\n", effect.Title)
+            fmt.Printf("%s\n", effect)
         }
     }
 }
