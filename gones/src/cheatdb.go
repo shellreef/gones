@@ -53,7 +53,15 @@ func Load() {
 
     xml.Unmarshal(r, &games)
 
-    fmt.Printf("games = %d\n", len(games.Game))
+    for _, game := range games.Game {
+        fmt.Printf("\n%s\n", game.Name)
+        for _, effect := range game.Effect {
+            for _, code := range effect.Code {
+                fmt.Printf("%s ", code.Genie)
+            }
+            fmt.Printf("%s\n", effect.Title)
+        }
+    }
 }
 
 // TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
