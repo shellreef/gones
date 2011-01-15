@@ -170,8 +170,6 @@ for game in game_order:
             effect_node.setAttribute("number", no)
             effect_node.setAttribute("title", title)
 
-            codes_node = doc.createElement("codes")
-
             # Alternate game cartridges can have different codes
             alt_texts = codetext.split(" / ")
             for alt_index, alt_text in enumerate(alt_texts):
@@ -201,9 +199,7 @@ for game in game_order:
                             variant = "unknown"
                         code_node.setAttribute("applies", variant)
 
-                    codes_node.appendChild(code_node) 
-
-            effect_node.appendChild(codes_node)
+                    effect_node.appendChild(code_node) 
 
             game_node.appendChild(effect_node)
 

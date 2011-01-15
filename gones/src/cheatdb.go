@@ -34,7 +34,7 @@ type Effect struct {
     Number string "attr"
     Source string "attr"
     Title string "attr"
-    Codes []Code
+    Code []Code
 }
 
 type Code struct {

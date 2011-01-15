@@ -22,6 +22,7 @@ import (
     "ppu2c02"
     "io2a03"
     "gamegenie"
+    "cheatdb"
 )
 
 type ControlDeck struct {
@@ -340,6 +341,8 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         // TODO: Fix, really have to run PPU & CPU in sync..see 'g'
         deck.CPU.ExecuteInstruction()
         deck.CPU.DumpRegisters()
+    case "load-cheats":
+        cheatdb.Load()
     // cheat code
     case "c", "code": 
         for _, code := range(args) {
