@@ -79,6 +79,8 @@ func Load() {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
     }
 
+    // TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
+    // TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
     games := Games{}
 
     xml.Unmarshal(r, &games)
@@ -91,5 +93,4 @@ func Load() {
     }
 }
 
-// TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
-// TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
+

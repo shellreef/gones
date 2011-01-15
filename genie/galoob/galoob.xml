@@ -17550,14 +17550,11 @@ YOU MUST BE RACCOON MARIO(tm) FOR CODE 11 TO WORK
   <info>
    KEEP SPECIAL POWERS
   </info>
-  <effect number="20" source="nev8.txt" title="Restore powers after playing an action scene (e.g.">
+  <effect number="20" source="nev8.txt" title="Restore powers after playing an action scene (e.g. if you were &quot;Fire Mario(tm)&quot; on the map screen, then entered an action scene, died or changed to &quot;Frog Mario(tm),&quot; you would return to the map scene as &quot;Fire Mario&quot;)">
    <code genie="SZUEXNSO"/>
   </effect>
   <info>
-   if you were &quot;Fire Mario(tm)&quot; on the map screen, then entered an
-action scene, died or changed to &quot;Frog Mario(tm),&quot;you would return
-to the map scene as &quot;Fire Mario&quot;)
-SELECT SUPER ABILITY
+   SELECT SUPER ABILITY
 The following codes are useful with Code 20.
   </info>
   <effect number="21" source="nev8.txt" title="Start the game as Fire Mario">

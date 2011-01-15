@@ -5503,10 +5503,7 @@ Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	18	YEUZUGAA	Start on World 8
 Super Mario Bros.(tm) 3 Game	SMB3	info	RE-USE ITEMS!
 Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	19	YPXXLVGE	Mario (not Luigi) can re-use items again and again
 Super Mario Bros.(tm) 3 Game	SMB3	info	KEEP SPECIAL POWERS
-Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	20	SZUEXNSO	Restore powers after playing an action scene (e.g.
-Super Mario Bros.(tm) 3 Game	SMB3	info	if you were "Fire Mario(tm)" on the map screen, then entered an
-Super Mario Bros.(tm) 3 Game	SMB3	info	action scene, died or changed to "Frog Mario(tm),"you would return
-Super Mario Bros.(tm) 3 Game	SMB3	info	to the map scene as "Fire Mario")
+Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	20	SZUEXNSO	Restore powers after playing an action scene (e.g. if you were "Fire Mario(tm)" on the map screen, then entered an action scene, died or changed to "Frog Mario(tm)," you would return to the map scene as "Fire Mario")
 Super Mario Bros.(tm) 3 Game	SMB3	info	SELECT SUPER ABILITY
 Super Mario Bros.(tm) 3 Game	SMB3	info	The following codes are useful with Code 20.
 Super Mario Bros.(tm) 3 Game	SMB3	code	nev8.txt	21	ZEUXKGAA	Start the game as Fire Mario
