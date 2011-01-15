@@ -976,7 +976,6 @@ func (cpu *CPU) MapROM(start uint16, end uint16, dest []byte, name string, addre
 // Convert a CPU address to a ROM address
 func (cpu *CPU) Address2ROM(cpuAddress uint16) (romAddress uint32, romChip string) {
     // Search through CPU addresses for ROMs that are mapped to it, live
-    // TODO: option to attempt to do this statically.. the code below will only find what is currently loaded.
 
     // For emulation purposes we map the CPU address space in 4K chunks
     // Find that chunk index for the given CPU address

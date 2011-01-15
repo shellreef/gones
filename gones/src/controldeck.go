@@ -358,11 +358,19 @@ func (deck *ControlDeck) RunCommand(cmd string) {
             fmt.Printf("Value: %.2X\n", patch.Value)
             // TODO: apply code
 
+            // Find out what the CPU address currently maps to in ROM
+            // TODO: option to attempt to do this statically.. the code below will only find what is currently loaded.
             romAddress, romChip := deck.CPU.Address2ROM(patch.CPUAddress())
 
-            fmt.Printf("ROM address found: %.4X\n", romAddress)
-            fmt.Printf("ROM chip: %s\n", romChip)
-            fmt.Printf("iNES offset: %.4X\n", romAddress + 0x10)
+            currentValue := deck.CPU.ReadFrom(patch.CPUAddress())
+            if !patch.HasKey || currentValue == patch.Key {
+                fmt.Printf("ROM address found: %.6X\n", romAddress)
+                fmt.Printf("ROM chip: %s\n", romChip)
+                fmt.Printf("iNES offset: %.4X\n", romAddress + 0x10)
+            } else {
+                // The affected part of ROM is not currently loaded
+                fmt.Printf("This is NOT the ROM address: %.6X, since it currently contains %.2X, but key is %.2X\n", romAddress, currentValue, patch.Key)
+            }
 
             // TODO: should we also, after finding the ROM address, search for all CPU
             // addresses it affects, since it may be more than one? For example, 16 KB NROM
