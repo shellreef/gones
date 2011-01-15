@@ -9774,8 +9774,8 @@ the best combinations have to be F-15 Codes 1 and 5 or 1 and 6.
   </info>
  </game>
  <game galoob-id="DIZ" galoob-name="The Fantastic Adventures of Dizzy(tm) Game" name="Fantastic Adventures of Dizzy, The">
-  <cartridge filename="Fantastic Adventures of Dizzy, The (Camerica) (Aladdin) [!].nes" name="Aladdin" sha1="102BD0C46C5718C979EB1AC387DADE6F6EB70EE4"/>
-  <cartridge filename="Fantastic Adventures of Dizzy, The (Camerica) [!].nes" name="Camerica" sha1="90196DBFC5337B56106B33891C5FA4B2267F3732"/>
+  <cartridge filename="Fantastic Adventures of Dizzy, The (Camerica) (Aladdin) [!].nes" name="Aladdin Cart" sha1="102BD0C46C5718C979EB1AC387DADE6F6EB70EE4"/>
+  <cartridge filename="Fantastic Adventures of Dizzy, The (Camerica) [!].nes" name="NES Cart" sha1="90196DBFC5337B56106B33891C5FA4B2267F3732"/>
   <intro>
    Chill-infinite lives for Dizzy(tm)! DIZ Code 3 provides a cure for 
 arachniphobia. Now you can walk right past those spiders without 
@@ -17770,8 +17770,8 @@ Disney Company. Used by Capcom USA, Inc., under license.
   </info>
  </game>
  <game galoob-id="MICRO" galoob-name="Micro Machines(tm) The Official Video Game" name="Micro Machines">
-  <cartridge filename="Micro Machines (Camerica) (Aladdin) [!].nes" name="Aladdin" sha1="C7FD43041FC139DC8440C95C28A0115DC79E2691"/>
-  <cartridge filename="Micro Machines (Camerica) [!].nes" name="Camerica" sha1="84908DC67C29BE8600184FC5525B9227C8AFF830"/>
+  <cartridge filename="Micro Machines (Camerica) (Aladdin) [!].nes" name="Aladdin Cart" sha1="C7FD43041FC139DC8440C95C28A0115DC79E2691"/>
+  <cartridge filename="Micro Machines (Camerica) [!].nes" name="NES Cart" sha1="84908DC67C29BE8600184FC5525B9227C8AFF830"/>
   <intro>
    At last it's here! The video game of your favorite vehicles! And 
 here's a whole host of mega Game Genie(tm) codes to go with it. If 
@@ -17790,68 +17790,68 @@ If one code doesn't work on your game, then try the alternate Code.
   </info>
   <effect number="1" source="neup03.txt,neup02.txt" title="Play with 9 lives">
    <codes>
-    <code applies="Aladdin" genie="PEKNAYLE"/>
-    <code applies="Camerica" genie="PAXNAYLE"/>
+    <code applies="NES Cart" genie="PEKNAYLE"/>
+    <code applies="Aladdin Cart" genie="PAXNAYLE"/>
    </codes>
   </effect>
   <effect number="2" source="neup03.txt,neup02.txt" title="Infinite lives">
    <codes>
-    <code applies="Aladdin" genie="GXSZZVVK"/>
-    <code applies="Camerica" genie="GZNXGVVK"/>
+    <code applies="NES Cart" genie="GXSZZVVK"/>
+    <code applies="Aladdin Cart" genie="GZNXGVVK"/>
    </codes>
   </effect>
   <effect number="3" source="neup03.txt,neup02.txt" title="Qualify every race!">
    <codes>
-    <code applies="Aladdin" genie="GEKYSZZA"/>
-    <code applies="Camerica" genie="GAXYSZZA"/>
+    <code applies="NES Cart" genie="GEKYSZZA"/>
+    <code applies="Aladdin Cart" genie="GAXYSZZA"/>
    </codes>
   </effect>
   <effect number="4" source="neup03.txt,neup02.txt" title="Ruff Trux(tm) after every race">
    <codes>
-    <code applies="Aladdin" genie="PEUYXZLA"/>
-    <code applies="Camerica" genie="PAOYXZLA"/>
+    <code applies="NES Cart" genie="PEUYXZLA"/>
+    <code applies="Aladdin Cart" genie="PAOYXZLA"/>
    </codes>
   </effect>
   <effect number="5" source="neup03.txt,neup02.txt" title="Kid out of game after every race">
    <codes>
-    <code applies="Aladdin" genie="PASYNALA"/>
-    <code applies="Camerica" genie="PEUYYYLA"/>
+    <code applies="NES Cart" genie="PASYNALA"/>
+    <code applies="Aladdin Cart" genie="PEUYYYLA"/>
    </codes>
   </effect>
   <effect number="6" source="neup03.txt,neup02.txt" title="Start on race 5">
    <codes>
-    <code applies="Aladdin" genie="GEKNIYAA"/>
-    <code applies="Camerica" genie="GAXNIYAA"/>
+    <code applies="NES Cart" genie="GEKNIYAA"/>
+    <code applies="Aladdin Cart" genie="GAXNIYAA"/>
    </codes>
   </effect>
   <effect number="7" source="neup03.txt,neup02.txt" title="Start on race 10">
    <codes>
-    <code applies="Aladdin" genie="PEKNIYAE"/>
-    <code applies="Camerica" genie="PAXNIYAE"/>
+    <code applies="NES Cart" genie="PEKNIYAE"/>
+    <code applies="Aladdin Cart" genie="PAXNIYAE"/>
    </codes>
   </effect>
   <effect number="8" source="neup03.txt,neup02.txt" title="Start on race 15">
    <codes>
-    <code applies="Aladdin" genie="TEKNIYAE"/>
-    <code applies="Camerica" genie="TAXNIYAE"/>
+    <code applies="NES Cart" genie="TEKNIYAE"/>
+    <code applies="Aladdin Cart" genie="TAXNIYAE"/>
    </codes>
   </effect>
   <effect number="9" source="neup03.txt,neup02.txt" title="Start on race 20">
    <codes>
-    <code applies="Aladdin" genie="LOKNIYAA"/>
-    <code applies="Camerica" genie="LPXNIYAA"/>
+    <code applies="NES Cart" genie="LOKNIYAA"/>
+    <code applies="Aladdin Cart" genie="LPXNIYAA"/>
    </codes>
   </effect>
   <effect number="10" source="neup03.txt,neup02.txt" title="Start on race 25 (Final Race!)">
    <codes>
-    <code applies="Aladdin" genie="AOKNIYAE"/>
-    <code applies="Camerica" genie="APXNIYAE"/>
+    <code applies="NES Cart" genie="AOKNIYAE"/>
+    <code applies="Aladdin Cart" genie="APXNIYAE"/>
    </codes>
   </effect>
   <effect number="11" source="neup03.txt,neup02.txt" title="Win Championship race!">
    <codes>
-    <code applies="Aladdin" genie="GESYOZPA"/>
-    <code applies="Camerica" genie="GAUYOZPA"/>
+    <code applies="NES Cart" genie="GESYOZPA"/>
+    <code applies="Aladdin Cart" genie="GAUYOZPA"/>
    </codes>
   </effect>
   <info>
@@ -21045,8 +21045,8 @@ under license.
   </info>
  </game>
  <game galoob-id="BOOM/LINU//ROB/TREAS" galoob-name="Quattro Adventure(tm) Game" name="Quattro Adventure">
-  <cartridge filename="Quattro Adventure (Camerica) (Aladdin) [!].nes" name="Aladdin" sha1="06990C8573128E5548C5DCD39479FABF67234926"/>
-  <cartridge filename="Quattro Adventure (Camerica) [!p].nes" name="Camerica" sha1="6A6C235B96C5CC51A5BF6D6FBAF30E77AD789FC7"/>
+  <cartridge filename="Quattro Adventure (Camerica) (Aladdin) [!].nes" name="Aladdin Cart" sha1="06990C8573128E5548C5DCD39479FABF67234926"/>
+  <cartridge filename="Quattro Adventure (Camerica) [!p].nes" name="NES Cart" sha1="6A6C235B96C5CC51A5BF6D6FBAF30E77AD789FC7"/>
   <intro>
    1) Boomerang Kid(tm) Game
   </intro>
@@ -21693,7 +21693,8 @@ CODE
   </intro>
   <effect number="1" source="neup04.txt" title="Infinite continues">
    <codes>
-    <code genie="AAEIPPPA /AASIUAPA"/>
+    <code applies="PRG0" genie="AAEIPPPA"/>
+    <code applies="PRG1" genie="AASIUAPA"/>
    </codes>
   </effect>
   <effect number="2" source="neup04.txt" title="No continues">
@@ -26215,14 +26216,14 @@ If one code doesn't work on your game, then try the alternate Code.
   </info>
   <effect number="20" source="nev8.txt" title="Strong Wart(tm)">
    <codes>
-    <code applies="PRG0" genie="YESUAPTE"/>
-    <code applies="PRG1" genie="YESLPPTE"/>
+    <code applies="PRG1" genie="YESUAPTE"/>
+    <code applies="PRG0" genie="YESLPPTE"/>
    </codes>
   </effect>
   <effect number="21" source="nev8.txt" title="Strong Birdetta(tm)">
    <codes>
-    <code applies="PRG0" genie="IAVENYZE"/>
-    <code applies="PRG1" genie="IAVEUYZE"/>
+    <code applies="PRG1" genie="IAVENYZE"/>
+    <code applies="PRG0" genie="IAVEUYZE"/>
    </codes>
   </effect>
   <effect number="22" source="nev8.txt" title="Strong Tryclyde(tm)">
@@ -26242,20 +26243,20 @@ If one code doesn't work on your game, then try the alternate Code.
   </effect>
   <effect number="25" source="nev8.txt" title="Strong Hawkmouth(tm)">
    <codes>
-    <code applies="PRG0" genie="YEVXVYLE"/>
-    <code applies="PRG1" genie="YEVZNYLE"/>
+    <code applies="PRG1" genie="YEVXVYLE"/>
+    <code applies="PRG0" genie="YEVZNYLE"/>
    </codes>
   </effect>
   <effect number="26" source="nev8.txt" title="Weak Birdetta">
    <codes>
-    <code applies="PRG0" genie="AAVENYZA"/>
-    <code applies="PRG1" genie="AAVEUYZA"/>
+    <code applies="PRG1" genie="AAVENYZA"/>
+    <code applies="PRG0" genie="AAVEUYZA"/>
    </codes>
   </effect>
   <effect number="27" source="nev8.txt" title="Birdetta spits eggs instead of fireballs (appears in late levels of the game)">
    <codes>
-    <code applies="PRG0" genie="TPEPLAAX"/>
-    <code applies="PRG1" genie="TONENYAX"/>
+    <code applies="PRG1" genie="TPEPLAAX"/>
+    <code applies="PRG0" genie="TONENYAX"/>
    </codes>
   </effect>
   <effect number="28" source="nev8.txt" title="Start on World 2 *">
@@ -29157,64 +29158,64 @@ ALTERNATE CODE
   </intro>
   <effect number="1" source="neup04.txt" title="Start with 1 life (first credit only)">
    <codes>
-    <code applies="unknown" genie="AAOTOIZA"/>
-    <code applies="unknown-1" genie="AENVNGZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AAOTOIZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AENVNGZA"/>
    </codes>
   </effect>
   <effect number="2" source="neup04.txt" title="Start with 6 lives (first credit only)">
    <codes>
-    <code applies="unknown" genie="IAOTOIZA"/>
-    <code applies="unknown-1" genie="IENVNGZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="IAOTOIZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="IENVNGZA"/>
    </codes>
   </effect>
   <effect number="3" source="neup04.txt" title="Start with 9 lives (first credit only)">
    <codes>
-    <code applies="unknown" genie="AAOTOIZE"/>
-    <code applies="unknown-1" genie="AENVNGZE"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AAOTOIZE"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AENVNGZE"/>
    </codes>
   </effect>
   <effect number="4" source="neup04.txt" title="Infinite time">
    <codes>
-    <code applies="unknown" genie="SZEIPUVK"/>
-    <code applies="unknown-1" genie="SXNSYXVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SZEIPUVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXNSYXVK"/>
    </codes>
   </effect>
   <effect number="5" source="neup04.txt" title="Infinite 'Crez' weapon until end of stage">
    <codes>
-    <code applies="unknown" genie="SXXSVUVK"/>
-    <code applies="unknown-1" genie="SXXSNUVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXXSVUVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXXSNUVK"/>
    </codes>
   </effect>
   <effect number="6" source="neup04.txt" title="9 seconds on clock pick-up">
    <codes>
-    <code applies="unknown" genie="PEXXOAIE"/>
-    <code applies="unknown-1" genie="PEXXSATE"/>
+    <code applies="Aladdin Cart (unreleased)" genie="PEXXOAIE"/>
+    <code applies="Aladdin Cart (unreleased)" genie="PEXXSATE"/>
    </codes>
   </effect>
   <effect number="7" source="neup04.txt" title="Full energy on pick-up">
    <codes>
-    <code applies="unknown" genie="AEEZSPZA"/>
-    <code applies="unknown-1" genie="AEOZXPZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AEEZSPZA"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AEOZXPZA"/>
    </codes>
   </effect>
   <effect number="8" source="neup04.txt" title="Minimum damage taken">
    <codes>
-    <code applies="unknown" genie="OVXZNPSV"/>
-    <code applies="unknown" genie="PEXXEONY"/>
-    <code applies="unknown-1" genie="OVUZKPSV"/>
-    <code applies="unknown-1" genie="PEUZSONY"/>
+    <code applies="Aladdin Cart (unreleased)" genie="OVXZNPSV"/>
+    <code applies="Aladdin Cart (unreleased)" genie="PEXXEONY"/>
+    <code applies="Aladdin Cart (unreleased)" genie="OVUZKPSV"/>
+    <code applies="Aladdin Cart (unreleased)" genie="PEUZSONY"/>
    </codes>
   </effect>
   <effect number="9" source="neup04.txt" title="Shield lasts longer on Human Fly stages">
    <codes>
-    <code applies="unknown" genie="NYXXXVAN"/>
-    <code applies="unknown-1" genie="NYXXVVAN"/>
+    <code applies="Aladdin Cart (unreleased)" genie="NYXXXVAN"/>
+    <code applies="Aladdin Cart (unreleased)" genie="NYXXVVAN"/>
    </codes>
   </effect>
   <effect number="10" source="neup04.txt" title="Shield lasts a shorter time on Human Fly stages">
    <codes>
-    <code applies="unknown" genie="AGXXXVAY"/>
-    <code applies="unknown-1" genie="AGXXVVAY"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AGXXXVAY"/>
+    <code applies="Aladdin Cart (unreleased)" genie="AGXXVVAY"/>
    </codes>
   </effect>
   <effect number="11" source="neup04.txt" title="Don't lose a life on Ground Pursuit, Boat and Hang Glider stages">
@@ -29224,14 +29225,14 @@ ALTERNATE CODE
   </effect>
   <effect number="12" source="neup04.txt" title="Don't lose a life against end-of-stage bosses and on Street Combat stages">
    <codes>
-    <code applies="unknown" genie="SZOUZXVK"/>
-    <code applies="unknown-1" genie="SXNXKNVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SZOUZXVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXNXKNVK"/>
    </codes>
   </effect>
   <effect number="13" source="neup04.txt" title="Don't lose a life on Human Fly stages">
    <codes>
-    <code applies="unknown" genie="SXXLVSVK"/>
-    <code applies="unknown-1" genie="SXXUXSVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXXLVSVK"/>
+    <code applies="Aladdin Cart (unreleased)" genie="SXXUXSVK"/>
    </codes>
   </effect>
   <info>

@@ -11,6 +11,17 @@ import sys
 
 ROM_ROOT = "../../roms/best"
 
+# Map alternate codes to their cartridge versions
+# (Surprisingly, these are the only 4 games with alternate codes)
+ALT2VARIANT = {
+    # Name of game as Galoob calls it: [first version, second version] # code tested with to determine
+    "Micro Machines(tm) The Official Video Game": ["NES Cart", "Aladdin Cart"], # AOKNIYAE / APXNIYAE Start on race 25 (Final Race!)
+    "RC Pro Am(tm) Game": ["PRG0", "PRG1"], # AEXEPPZA / AAUAGZZA No continues (I think)
+    "The Simpsons(tm): Bart(tm) vs. The Space Mutants Game": ["PRG0", "PRG1"], # IPKYXUGA / IPUYVUGA Super-jumping Bart
+    "Super Mario Bros.(tm) 2 Game": ["PRG1", "PRG0"], # AAVENYZA / AAVEUYZA Weak Birdetta (level 1 boss kill with 1 egg hit instead of 3)
+    "Ultimate Stuntman(tm) Game": ["Aladdin Cart (unreleased)", "NES Cart"], # SZEIPUVK / SXNSYXVK Infinite time
+}
+
 # ROM variants that are not PRG0 or PRG1
 VARIANTS = {
 "58011155EA6D62AF65C8A9D776DD8363FF40EDDD": "REV0",
@@ -20,18 +31,18 @@ VARIANTS = {
 "D1F279C5EBBB9069887CC6F2534A362286801CD1": "REV1.x [a1]",
 "36EC0A750888DB2BAAA21651528807D70CA97C6B": "Taito",
 "DD7B6084032EDCE204862153FD32039E32DA884C": "UBI Soft",
-"C7FD43041FC139DC8440C95C28A0115DC79E2691": "Aladdin",
-"84908DC67C29BE8600184FC5525B9227C8AFF830": "Camerica",
+"C7FD43041FC139DC8440C95C28A0115DC79E2691": "Aladdin Cart",
+"84908DC67C29BE8600184FC5525B9227C8AFF830": "NES Cart",
 "92C3361B9E3B28A51FD30E7845C988A6D576EE65": "Namco",
 "A34E68372082513209A795786C8EEA493CC2CD14": "Tengen",
-"06990C8573128E5548C5DCD39479FABF67234926": "Aladdin",
-"6A6C235B96C5CC51A5BF6D6FBAF30E77AD789FC7": "Camerica",
+"06990C8573128E5548C5DCD39479FABF67234926": "Aladdin Cart",
+"6A6C235B96C5CC51A5BF6D6FBAF30E77AD789FC7": "NES Cart",
 "0C4992FC08D2278697339D3B48066E7B5F943598": "REVA",
 "DB295C6BAD1B58BC1170C4B300C1C8D2A6BC1A87": "REVB",
 "C87B3E1F17670C028CE60AF3BBC7D688DC0F9DF3": "REV0",
 "712983EAA00029C307688DE015C1B698CC4BF064": "REVA",
-"102BD0C46C5718C979EB1AC387DADE6F6EB70EE4": "Aladdin",
-"90196DBFC5337B56106B33891C5FA4B2267F3732": "Camerica",
+"102BD0C46C5718C979EB1AC387DADE6F6EB70EE4": "Aladdin Cart",
+"90196DBFC5337B56106B33891C5FA4B2267F3732": "NES Cart",
 "42F15207D202B43802E92AF1F89300CEB9C99F12": "REV0",
 "FCE0C7B0A152DBC3B5992320211CC674E8A1622B": "REV1",
 "ED281797EFF64CBA96897B59D85AE5E61F67353A": "REVB",
@@ -172,10 +183,25 @@ for game in game_order:
                     code_node.setAttribute("genie", code)
                     if len(alt_texts) > 1:
                         if alt_index >= len(game2carts[game]):
-                            variant = "unknown-%s" % (alt_index,)
-                            sys.stderr.write("Warning: %s has multiple variants (%s), but only %s found\n" % (dir, alt_index, game2carts[game]))
+                            # Galoob says there are two versions of Ultimate Stuntman, but http://bootgod.dyndns.org:7777/profile.php?id=354 says there is only one
+                            # 'The Ultimate Stuntman (Aladdin Cart)' says the Aladdin version was never released, so I think that's it.
+                            # Codemasters made both Game Genie and this game, so they could've made codes for a pre-release Aladdin game http://www.nesworld.com/codemasters.php
+                            if game == "Ultimate Stuntman(tm) Game":
+                                variant = "Aladdin Cart (unreleased)"
+                            else:
+                                variant = "unknown-%s" % (alt_index,)
+                                assert False, "Warning: %s has multiple variants (%s), but only %s found\n" % (game, alt_index, game2carts[game])
                         else:
-                            variant = game2carts[game][alt_index][2]
+                            assert ALT2VARIANT.has_key(game), "Missing ALT2VARIANT for game %s -aka- %s" % (game, game2gn[game])
+                                
+                            variant = ALT2VARIANT[game][alt_index]
+                            found = False
+                            for that_hash, that_filename, that_variant in game2carts[game]:
+                                if that_variant == variant:
+                                    found = True
+                                    break
+                            assert found or "unreleased" in variant, "For game %s, ALT2VARIANT specifies invalid variant: %s, known %s" % (game, variant, game2carts[game])
+
                             if variant is None:
                                 variant = "unknown"
                         code_node.setAttribute("applies", variant)
