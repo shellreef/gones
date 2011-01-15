@@ -50,8 +50,7 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
     # Cartridges (can have >1 per game, different variants)
     dir = os.path.join(ROM_ROOT, goodnes)
     filenames = os.listdir(dir)
-    hash2filename = {}
-    hash2variant = {}
+    carts = []
     assert len(filenames) > 0, "nothing in %s" % (dir,)
     for filename in filenames:
         # Calculate identifying hash. This is technically defined as hash(PRG+CHR),
@@ -74,10 +73,9 @@ for row in csv.reader(file("gamelist-galoob.csv", "rb"), delimiter="\t"):
             else:
                 variant = VARIANTS[hash]
 
-        hash2filename[hash] = filename
-        hash2variant[hash] = variant
+        carts.append((hash, filename, variant))
 
-    game2carts[galoob] = hash2filename, hash2variant
+    game2carts[galoob] = carts
 
 # Read comprehensive code file, parsed
 rows = []
@@ -132,10 +130,16 @@ for game in game_order:
     game_node = doc.createElement("game")
     game_node.setAttribute("galoob-name", game)
     game_node.setAttribute("galoob-id", game2id[game])
-    game_node.setAttribute("fullname", game2gn[game])
+    game_node.setAttribute("name", game2gn[game])
 
     # Cartridge info
-    # TODO
+    for hash, filename, variant in game2carts[game]:
+        cart_node = doc.createElement("cartridge")
+        cart_node.setAttribute("sha1", hash)
+        cart_node.setAttribute("filename", filename)
+        if variant is not None:
+            cart_node.setAttribute("name", variant)
+        game_node.appendChild(cart_node)
 
     # Intro text
     if game_intro.has_key(game):
