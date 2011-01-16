@@ -387,15 +387,15 @@ func (db *Database) CreateTables() {
 
 // Web interface
 func (db *Database) Serve() {
-    web.Get("/patches.json", func(w *web.Context) { // TODO: accept arguments to filter
+    web.Get("/patches.js", func(w *web.Context) { // TODO: accept arguments to filter
         query, _ := db.handle.Prepare("SELECT rom_address,rom_before,rom_after, cpu_address,value,compare FROM patch,code WHERE patch.code_id=code.id") // TODO: get effect,game,cart
         err := query.Exec()
         if err != nil {
             panic(fmt.Sprintf("AllCarts() failed: %s", err))
         }
 
-        w.SetHeader("Content-Type", "application/json", false)
-        w.WriteString("[\n")
+        w.SetHeader("Content-Type", "text/javascript", false)
+        w.WriteString("var PATCHES = [\n")
 
         for query.Next() {
             var romAddress int
@@ -410,7 +410,7 @@ func (db *Database) Serve() {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
             // TODO: use JSON module, avoid XSS
-            w.WriteString(fmt.Sprintf("[0x%.6X, '%s', '%s', 0x%.4X, 0x%.2X],\n", romAddress, romBefore, romAfter, cpuAddress, value))
+            w.WriteString(fmt.Sprintf("{romAddress:0x%.6X, romBefore:'%s', romAfter:'%s', cpuAddress:0x%.4X, value:0x%.2X},\n", romAddress, romBefore, romAfter, cpuAddress, value))
         }
         w.WriteString("]\n")
     })
