@@ -99,13 +99,14 @@ func (cheats Cheats) Save() {
         panic(fmt.Sprintf("cheatdb.Save(): failed to save"))
     }
 
+
+    // Code info
     db.Exec(`CREATE TABLE game(     -- an abstract "game", has ≥1 carts
         id INTEGER PRIMARY KEY, 
         name TEXT NOT NULL, 
         galoob_id TEXT NULL, 
         galoob_name TEXT NULL
         )`)
-
     db.Exec(`CREATE TABLE cart(     -- a physical cartridge, possibly different versions
         id INTEGER PRIMARY KEY, 
         game_id INTEGER NOT NULL, 
@@ -118,7 +119,10 @@ func (cheats Cheats) Save() {
         id INTEGER PRIMARY KEY,
         cart_id INTEGER NOT NULL,  
         title TEXT NOT NULL,
+        hacker_id INTEGER NOT NULL,
+        create_date DATETIME NOT NULL,
 
+        FOREIGN KEY(hacker_id) REFERENCES user(id),
         FOREIGN KEY(cart_id) REFERENCES cart(id)
         )`)
     db.Exec(`CREATE TABLE code(     -- a decoded Game Genie code, has ≥0 patches
@@ -139,6 +143,25 @@ func (cheats Cheats) Save() {
 
         FOREIGN KEY(code_id) REFERENCES code(id)
         )`)
+
+    // Extra info
+    db.Exec(`CREATE TABLE user(     -- someone that created codes or commented on them
+        id INTEGER PRIMARY KEY,
+        fullname TEXT NOT NULL
+        )`)
+    db.Exec(`CREATE TABLE comment(  -- user commentary on an effect
+        id INTEGER PRIMARY KEY,
+        effect_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        message TEXT NOT NULL,
+        create_date DATETIME NOT NULL,
+
+        FOREIGN KEY(effect_id) REFERENCES effect(id),
+        FOREIGN KEY(user_id) REFERENCES user(id)
+        )`)
+
+
+
     os.Exit(0)
 }
 
