@@ -359,7 +359,16 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
     case "analyze-cheats":
         db := cheatdb.Open()
-        db.AllCarts()
+        db.AllCarts(func(path string) (bool) { 
+            err, ok := deck.Load(path)
+            if !ok {        // Not everything is supported yet
+                fmt.Printf("Skipping %s: %s", path, err)
+                return false
+            }
+            return true
+
+        })
+
         //db.AllCodes()
         /*
         for _, game := range cheats.Game {

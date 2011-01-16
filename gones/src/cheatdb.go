@@ -121,7 +121,7 @@ func (db *Database) exec(sql string, args ...interface{}) {
 
 
 // Get all cartridges recognized in the cheat database
-func (db *Database) AllCarts() {
+func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool)) {
     query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.sha1,cart.id FROM game,cart WHERE cart.game_id=game.id")
     err := query.Exec()
     if err != nil {
@@ -142,6 +142,11 @@ func (db *Database) AllCarts() {
         }
 
         fmt.Printf("\n%s(%s) = %s\n", gameName, cartName, cartFilename)
+        success := analyzeCart(path.Join("../roms/best/", gameName, cartFilename))
+        if !success {
+            continue
+        }
+
 
         db.CodesFor(gameID)
     }
