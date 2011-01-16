@@ -55,5 +55,5 @@ loop:: gones
 	$(EMU) b g
 
 import-galoob:: gones
-	-rm /tmp/foo.db
+	-rm data/cheats.sqlite
 	$(EMU) 'import-cheats ../genie/galoob/galoob.xml'

@@ -60,6 +60,8 @@ type Cartridge struct {
     Prg []byte                      // Program data 
     PrgRam [0x7ff]byte              // Cartridge RAM (could be save RAM) TODO: abstract out of nesfile
     Chr []byte                      // Character data
+    SHA1 string                     // SHA-1 of PRG+CHR for identification purposes
+
     Platform Platform               // Platform to run on
     DisplayType DisplayType
     MapperName string               // Name of mapper

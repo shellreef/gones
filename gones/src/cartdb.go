@@ -251,7 +251,7 @@ func Identify(database *Database, cart *cartridge.Cartridge) ([]CartMatches) {
 
     hash := CartHash(cart)
 
-    fmt.Printf("Cartridge SHA-1 = %s\n", hash)
+    cart.SHA1 = hash
 
     for _, game := range database.Game {
         for _, cart := range game.Cartridge {

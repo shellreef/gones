@@ -100,9 +100,10 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
 
     deck.InsertedCartridge = cartridge.LoadFile(filename)
 
-    // Check ROM against known hashes
+    // Check ROM against known hashes, and set deck.InsertedCartridge.SHA1
     // TODO: maybe this should be in nesfile, or in controldeck?
     matches := cartdb.Identify(cartdb.Load(), deck.InsertedCartridge)
+    fmt.Printf("Cartridge SHA-1 = %s\n", deck.InsertedCartridge.SHA1)
     if len(matches) != 0 {
         fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
     }
@@ -117,8 +118,7 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
     deck.InsertedCartridge.LoadCHR(deck.PPU)
 
     // nestest.nes (TODO: better way to have local additions to cartdb!)
-    hash := cartdb.CartHash(deck.InsertedCartridge)
-    if hash == "4131307F0F69F2A5C54B7D438328C5B2A5ED0820" {
+    if deck.InsertedCartridge.SHA1 == "4131307F0F69F2A5C54B7D438328C5B2A5ED0820" {
         // TODO: only do this when running in automated mode, still want GUI mode unaffected
         fmt.Printf("Identified nestest; mapping for automation\n")
 
