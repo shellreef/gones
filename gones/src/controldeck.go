@@ -380,7 +380,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                 // Read bytes before and after the patched address, for context
                 for i := uint32(0); i < 16; i += 1 {
                     romAfter += fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress + i])
-                    romBefore = fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress - i + 1]) + romBefore
+                    romBefore = fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress - i - 1]) + romBefore
                 }
 
                 //code.ROMBefore = romBefore
