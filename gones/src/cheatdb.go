@@ -99,8 +99,35 @@ func (cheats Cheats) Save() {
         panic(fmt.Sprintf("cheatdb.Save(): failed to save"))
     }
 
-    db.Exec("CREATE TABLE game(id, name, galoob_id, galoob_name)")
-    db.Exec("CREATE TABLE cart(id, game_id, sha1, name)")
-    db.Exec("CREATE TABLE code(id, cart_id, cpu_addr, value, compare, rom_addr, rom_before, rom_after)")
+    db.Exec(`CREATE TABLE game( -- an abstract "game", has ≥1 carts
+        id INTEGER PRIMARY KEY, 
+        name TEXT NOT NULL, 
+        galoob_id TEXT NULL, 
+        galoob_name TEXT NULL
+        )`)
+
+    db.Exec(`CREATE TABLE cart( -- a physical cartridge, possibly different versions
+        id INTEGER PRIMARY KEY, 
+        game_id INTEGER NOT NULL, 
+        sha1 TEXT NOT NULL, 
+        name TEXT NULL,         -- PRG0, PRG1, etc. if multiple versions, otherwise NULL
+
+        FOREIGN KEY(game_id) REFERENCES game(id)
+        )`)
+    db.Exec(`CREATE TABLE code( -- a decoded code
+        id INTEGER PRIMARY KEY, 
+        cart_id INTEGER NOT NULL,  
+        cpu_addr INTEGER NOT NULL, 
+        value INTEGER NOT NULL, 
+        compare INTEGER NULL,   -- compare byte if 8-letter code, or NULL for 6-letter
+        -- TODO: what if this is a 6-letter code affecting multiple ROM address??
+        rom_addr INTEGER NULL,  -- corresponding ROM address if known, or NULL
+        rom_before BLOB NULL,   -- data before the affected address, if known
+        rom_after BLOB NULL,    -- data after _and_including_ the affected address
+
+        FOREIGN KEY(cart_id) REFERENCES cart(id)
+        )`)
     os.Exit(0)
 }
+
+// TODO: web interface
