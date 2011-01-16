@@ -125,17 +125,18 @@ func (db *Database) AllCodes() {
         panic(fmt.Sprintf("AllCodes() failed: %s", err))
     }
 
-    var gameName string
-    var effectTitle string
-    var cartID int
-    var cpuAddress int
-    var value int
-    var compare int
 
     for query.Next() {
-        query.Scan(&gameName, &effectTitle, &cartID, &cpuAddress, &value, &compare)
+        gameName := new(string)
+        effectTitle := new(string)
+        cartID := new(int)
+        cpuAddress := new(int)
+        value := new(int)
+        compare := new(int)
+
+        query.Scan(gameName, effectTitle, cartID, cpuAddress, value, compare)
         // uh..NULL compare?
-        fmt.Printf("%s(%d): %s: %.4X?%.2X:%.2X\n", gameName, cartID, effectTitle, cpuAddress, compare, value)
+        fmt.Printf("%s(%d): %s: %.4X?%.2X:%.2X\n", *gameName, *cartID, *effectTitle, *cpuAddress, *compare, *value)
     }
 }
 
