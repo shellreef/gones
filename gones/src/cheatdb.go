@@ -119,19 +119,33 @@ func (db *Database) exec(sql string, args ...interface{}) {
     }
 }
 
-// TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
 
+// Get all cartridges recognized in the cheat database
 func (db *Database) AllCarts() {
-    query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.id FROM game,cart WHERE cart.game_id=game.id")
+    query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.sha1,cart.id FROM game,cart WHERE cart.game_id=game.id")
     err := query.Exec()
     if err != nil {
         panic(fmt.Sprintf("AllCarts() failed: %s", err))
     }
 
     for query.Next() {
+        var gameName string
+        var gameID int
+        var cartFilename string
+        var cartName string
+        var cartSHA1 string
+        var cartID int
+
+        err := query.Scan(&gameName, &gameID, &cartFilename, &cartName, &cartSHA1, &cartID)
+        if err != nil {
+            panic(fmt.Sprintf("AllCarts() scan error: %s\n", err))
+        }
+
+        fmt.Printf("%s(%s) = %s\n", gameName, cartName, cartFilename)
     }
 }
 
+// TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
 func (db *Database) AllCodes() {
     query, _ := db.handle.Prepare("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
     err := query.Exec()

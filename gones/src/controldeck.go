@@ -359,7 +359,8 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
     case "analyze-cheats":
         db := cheatdb.Open()
-        db.AllCodes()
+        db.AllCarts()
+        //db.AllCodes()
         /*
         for _, game := range cheats.Game {
             fmt.Printf("\n%s\n", game.Name)
