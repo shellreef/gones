@@ -355,7 +355,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         deck.CPU.DumpRegisters()
     case "load-cheats":
         cheats := cheatdb.Load()
-        cheats.Save()
+        _ = cheatdb.Open()  // TODO
         for _, game := range cheats.Game {
             fmt.Printf("\n%s\n", game.Name)
             for _, effect := range game.Effect {

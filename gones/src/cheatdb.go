@@ -77,6 +77,34 @@ func (effect Effect) String() (string) {
     return codeText + " " + effect.Title
 }
 
+
+type Database struct {
+    handle *sqlite.Conn
+}
+
+func Open() (db *Database) {
+    db = new(Database)
+    
+    handle, err := sqlite.Open("/tmp/foo.db")
+    if err != nil {
+        panic(fmt.Sprintf("failed to open: %s", err))
+    }
+    // TODO: Init()
+
+    db.handle = handle
+
+    return db
+}
+
+// Execute a SQL statement, checking for error
+func (db *Database) Exec(sql string) {  // TODO: bind parameters
+    err := db.handle.Exec(sql)
+    if err != nil {
+        panic(fmt.Sprintf("%s\ncheatdb Exec failed: %s", sql, err))
+    }
+}
+
+// TODO: func (db *Database) ImportXML() {
 func Load() (Cheats) {
     filename := "../genie/galoob/galoob.xml"
     r, err := os.Open(filename, os.O_RDONLY, 0)
@@ -90,16 +118,12 @@ func Load() (Cheats) {
 
     xml.Unmarshal(r, &cheats)
 
+    // TODO: insert into database
     return cheats
 }
 
-func (cheats Cheats) Save() {
-    db, err := sqlite.Open("/tmp/foo.db")
-    if err != nil {
-        panic(fmt.Sprintf("cheatdb.Save(): failed to save"))
-    }
-
-
+// Create tables
+func (db *Database) Init() {
     // Code info
     db.Exec(`CREATE TABLE game(     -- an abstract "game", has ≥1 carts
         id INTEGER PRIMARY KEY, 
@@ -159,10 +183,6 @@ func (cheats Cheats) Save() {
         FOREIGN KEY(effect_id) REFERENCES effect(id),
         FOREIGN KEY(user_id) REFERENCES user(id)
         )`)
-
-
-
-    os.Exit(0)
 }
 
 // TODO: web interface
