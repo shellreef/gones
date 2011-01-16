@@ -128,14 +128,14 @@ func (db *Database) AllCodes() {
     var gameName string
     var effectTitle string
     var cartID int
-    var cpuAddress uint16
-    var value uint8
-    var compare uint8
+    var cpuAddress int
+    var value int
+    var compare int
 
     for query.Next() {
         query.Scan(&gameName, &effectTitle, &cartID, &cpuAddress, &value, &compare)
         // uh..NULL compare?
-        fmt.Printf("%s: %s: %.4X?%.2X:%.2X\n", gameName, effectTitle, cpuAddress, compare, value)
+        fmt.Printf("%s(%d): %s: %.4X?%.2X:%.2X\n", gameName, cartID, effectTitle, cpuAddress, compare, value)
     }
 }
 
