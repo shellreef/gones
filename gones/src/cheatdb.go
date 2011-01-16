@@ -148,12 +148,17 @@ func (db *Database) ImportXML() {
                     }()
 
                     decoded := gamegenie.Decode(code.Genie)
-                    db.exec("INSERT INTO code(cart_id,effect_id,cpu_address,value,compare) VALUES(?,?,?,?,?)",
-                        cartName2ID[code.Applies],
+                    db.exec("INSERT INTO code(effect_id,cpu_address,value,compare) VALUES(?,?,?,?)",
                         effectID, 
                         decoded.CPUAddress(),
                         decoded.Value,
                         decoded.Key)
+                    codeID := db.handle.LastInsertRowID()
+
+                    // If code only applies to a specific cart, set it; otherwise, leave NULL to apply to all
+                    if code.Applies != "" {
+                        db.exec("UPDATE code SET cart_id=? WHERE id=?", cartName2ID[code.Applies], codeID)
+                    }
                 }()
             }
         }
@@ -194,7 +199,7 @@ func (db *Database) CreateTables() {
         )`)
     db.exec(`CREATE TABLE code(     -- a decoded Game Genie code, has ≥0 patches
         id INTEGER PRIMARY KEY, 
-        cart_id INTEGER NOT NULL,  
+        cart_id INTEGER NULL,       -- set if code only applies to one cartridge version; otherwise NULL for all
         effect_id INTEGER NOT NULL,
         cpu_address INTEGER NOT NULL, -- the address referred to, $8000-FFFF
         value INTEGER NOT NULL, 
