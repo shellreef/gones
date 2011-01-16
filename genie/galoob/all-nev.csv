@@ -922,9 +922,9 @@ BreakTime(tm) Game	POOL	code	neup07.txt	2	VAVEILSA + ZAVEGLAA	Start in Atlanta
 BreakTime(tm) Game	POOL	code	neup07.txt	3	VAVEILSA + LAVEGLAA	Start in Los Angeles
 BreakTime(tm) Game	POOL	code	neup07.txt	4	VAVEILSA + GAVEGLAA	Start in Las Vegas
 BreakTime(tm) Game	POOL	info	BreakTime is a trademark of FCI, Inc.
-Bubble Bobble(tm) Game	BUB	code	nev8.txt	1	PAUKEZLA 	Both players start with 1 life
-Bubble Bobble(tm) Game	BUB	code	nev8.txt	2	TAUKEZLA 	Both players start with 6 lives
-Bubble Bobble(tm) Game	BUB	code	nev8.txt	3	PAUKEZLE 	Both players start with 9 lives
+Bubble Bobble(tm) Game	BUB	code	nev8.txt	1	PAUKEZLA	Both players start with 1 life
+Bubble Bobble(tm) Game	BUB	code	nev8.txt	2	TAUKEZLA	Both players start with 6 lives
+Bubble Bobble(tm) Game	BUB	code	nev8.txt	3	PAUKEZLE	Both players start with 9 lives
 Bubble Bobble(tm) Game	BUB	code	nev8.txt	4	ZAUGEZPE	Start game on level 10
 Bubble Bobble(tm) Game	BUB	code	nev8.txt	5	PPUGEZPE	Start game on level 25
 Bubble Bobble(tm) Game	BUB	code	nev8.txt	6	ZLUGEZPA	Start game on level 50
@@ -3277,7 +3277,7 @@ Lethal Weapon(tm) Game	LETH	code	necd5.txt	6	AEKSEAAP	Extra ammo worth nothing--
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	7	AEUYXAAZ	No energy lost when falling off screen
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	8	AKUYXAAZ	Falling off screen is fatal
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	9	NNNISAAU	Bullet proof vest lasts longer
-Lethal Weapon(tm) Game	LETH	code	necd5.txt	10	ZENISAAU or AONISAAL	Bullet proof vest does not last as long
+Lethal Weapon(tm) Game	LETH	code	necd5.txt	10	ZENISAAU + AONISAAL	Bullet proof vest does not last as long
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	11	XVUKOOXK	Bullet proof vest lasts until end of stage--except when you die from punches or falling off screen
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	12	XTUGTXXK	Start on Level 2
 Lethal Weapon(tm) Game	LETH	code	necd5.txt	13	XZUGLXVL + LAUGGZNP + XTUGIZEK	Start on Level 3
@@ -4030,8 +4030,8 @@ Ninja Gaiden(tm) Game	NINJ	code	nev8.txt	7	AAVTNYLA	Use shuriken without losing 
 Ninja Gaiden(tm) Game	NINJ	code	nev8.txt	8	APEIKGTA	Maximum strength regained from restorer
 Ninja Gaiden(tm) Game	NINJ	info	Ninja Gaiden is a trademark of Tecmo, Inc.
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	1	AEKGVTZA	Start with 1 life
-Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	2	IEKGVTZA + SEKKKTSP 	Start with 6 lives
-Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	3	AEKGVTZE + SEKKKTSP 	Start with 9 lives
+Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	2	IEKGVTZA + SEKKKTSP	Start with 6 lives
+Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	3	AEKGVTZE + SEKKKTSP	Start with 9 lives
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	4	SXXGXAVG	Infinite lives
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	5	SZNGKGSA	Almost invincible!
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	6	LEUOSATA	Half-energy from medicine
@@ -4040,7 +4040,7 @@ Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	8	IAUONEZA + IAKOOEZA	Half-energy fr
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	9	GPUONEZA + GPKOOEZA	Double energy from Blue Ninja power
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	10	GOEPOEZA + ZEOOEAPA	Double maximum Ninja power from scroll
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	11	SXVKLTVG	Stop timer
-Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	12	SVOPXXSN + SVOOKXSN + SVXOXXSN 	All powers use up only 5 points
+Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	12	SVOPXXSN + SVOOKXSN + SVXOXXSN	All powers use up only 5 points
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	13	XXEOSZVZ + LOEOVXIY + PUOOSXLK	Infinite Ninja power
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	14	GXKKUIVA	Never lose Ninja power item
 Ninja Gaiden II(tm) Game	GAID	code	nev8.txt	15	ZEXGYAPA + SNEKYEVN	Fast running Ryu
@@ -4911,7 +4911,7 @@ The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	3	ANE
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	4	AXENPXGL / AZNNIXGL	Speed up timer
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	5	PAONAYAA / PAENGYAA	Gain 2 coins for every 1 collected
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	6	PAONTNTE / PAOYZNTE	Only 10 coins needed to get an extra life
-The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	7	GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK 	Buy items for free!
+The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	code	neup03.txt	7	GXXZZOVK + GXXULEVK / GXOXIXVK + GXXLIEVK	Buy items for free!
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	info	The Simpsons and Bart are trademarks of Twentieth Century Fox
 The Simpsons(tm): Bart(tm) vs. The Space Mutants Game	BART	info	Film Corporation. Used by Acclaim Entertainment, Inc. under license.
 The Simpsons(tm): Bart Vs. The World(tm) Game	BAR2	code	neup03.txt	1	SZONIPST	Infinite lives

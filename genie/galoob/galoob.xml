@@ -2950,13 +2950,13 @@ Industries Inc.
  <game galoob-id="BUB" galoob-name="Bubble Bobble(tm) Game" name="Bubble Bobble">
   <cartridge filename="Bubble Bobble (U) [!].nes" sha1="C1A8F6A9316080487CFEACA62F3D573CD9D484E9"/>
   <effect number="1" source="nev8.txt" title="Both players start with 1 life">
-   <code genie="PAUKEZLA "/>
+   <code genie="PAUKEZLA"/>
   </effect>
   <effect number="2" source="nev8.txt" title="Both players start with 6 lives">
-   <code genie="TAUKEZLA "/>
+   <code genie="TAUKEZLA"/>
   </effect>
   <effect number="3" source="nev8.txt" title="Both players start with 9 lives">
-   <code genie="PAUKEZLE "/>
+   <code genie="PAUKEZLE"/>
   </effect>
   <effect number="4" source="nev8.txt" title="Start game on level 10">
    <code genie="ZAUGEZPE"/>
@@ -10476,7 +10476,8 @@ Corporation.
    <code genie="NNNISAAU"/>
   </effect>
   <effect number="10" source="necd5.txt" title="Bullet proof vest does not last as long">
-   <code genie="ZENISAAU or AONISAAL"/>
+   <code genie="ZENISAAU"/>
+   <code genie="AONISAAL"/>
   </effect>
   <effect number="11" source="necd5.txt" title="Bullet proof vest lasts until end of stage--except when you die from punches or falling off screen">
    <code genie="XVUKOOXK"/>
@@ -12873,11 +12874,11 @@ Heron Venture. Used by LJN Toys, Ltd. under license.
   </effect>
   <effect number="2" source="nev8.txt" title="Start with 6 lives">
    <code genie="IEKGVTZA"/>
-   <code genie="SEKKKTSP "/>
+   <code genie="SEKKKTSP"/>
   </effect>
   <effect number="3" source="nev8.txt" title="Start with 9 lives">
    <code genie="AEKGVTZE"/>
-   <code genie="SEKKKTSP "/>
+   <code genie="SEKKKTSP"/>
   </effect>
   <effect number="4" source="nev8.txt" title="Infinite lives">
    <code genie="SXXGXAVG"/>
@@ -12909,7 +12910,7 @@ Heron Venture. Used by LJN Toys, Ltd. under license.
   <effect number="12" source="nev8.txt" title="All powers use up only 5 points">
    <code genie="SVOPXXSN"/>
    <code genie="SVOOKXSN"/>
-   <code genie="SVXOXXSN "/>
+   <code genie="SVXOXXSN"/>
   </effect>
   <effect number="13" source="nev8.txt" title="Infinite Ninja power">
    <code genie="XXEOSZVZ"/>
@@ -15688,7 +15689,7 @@ ONE CODE DOESN'T WORK ON YOUR GAME, THEN TRY THE ALTERNATE CODE.
    <code applies="PRG0" genie="GXXZZOVK"/>
    <code applies="PRG0" genie="GXXULEVK"/>
    <code applies="PRG1" genie="GXOXIXVK"/>
-   <code applies="PRG1" genie="GXXLIEVK "/>
+   <code applies="PRG1" genie="GXXLIEVK"/>
   </effect>
   <info>
    The Simpsons and Bart are trademarks of Twentieth Century Fox
