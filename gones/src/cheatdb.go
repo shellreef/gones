@@ -119,13 +119,23 @@ func (db *Database) exec(sql string, args ...interface{}) {
 }
 
 func (db *Database) AllCodes() {
-    query, _ := db.handle.Prepare("SELECT * FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
+    query, _ := db.handle.Prepare("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
     err := query.Exec()
     if err != nil {
         panic(fmt.Sprintf("AllCodes() failed: %s", err))
     }
 
+    var gameName string
+    var effectTitle string
+    var cartID int
+    var cpuAddress uint16
+    var value uint8
+    var compare uint8
+
     for query.Next() {
+        query.Scan(&gameName, &effectTitle, &cartID, &cpuAddress, &value, &compare)
+        // uh..NULL compare?
+        fmt.Printf("%s: %s: %.4X?%.2X:%.2X\n", gameName, effectTitle, cpuAddress, compare, value)
     }
 }
 

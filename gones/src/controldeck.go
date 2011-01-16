@@ -358,6 +358,8 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         db.ImportXML(filename)
 
     case "analyze-cheats":
+        db := cheatdb.Open()
+        db.AllCodes()
         /*
         for _, game := range cheats.Game {
             fmt.Printf("\n%s\n", game.Name)
