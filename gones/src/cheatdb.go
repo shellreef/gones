@@ -10,7 +10,9 @@ import ("fmt"
         "os"
         "path"
 
-        "gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
+        "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
+        //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
+            // there are also other implementations, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
         
         "gamegenie"
         )
@@ -82,7 +84,7 @@ func (effect Effect) String() (string) {
 
 
 type Database struct {
-    handle *sqlite.Conn
+    handle *sqlite.Connection
 }
 
 func Open() (db *Database) {
@@ -98,7 +100,7 @@ func Open() (db *Database) {
         }()
     }
     
-    handle, err := sqlite.Open(filename)
+    handle, err := sqlite.Connect(filename)
     if err != nil {
         panic(fmt.Sprintf("failed to open: %s", err))
     }
@@ -142,6 +144,12 @@ func (db *Database) ImportXML(filename string) {
     for _, game := range cheats.Game {
         db.exec("INSERT INTO game(name,galoob_id,galoob_name) VALUES(?,?,?)", game.Name, game.Galoob_id, game.Galoob_name)
         // LastInsertedRowID() requires gosqlite patch at http://code.google.com/p/gosqlite/issues/detail?id=7
+        // or for https://github.com/kless/go-sqlite, add to end of connection.go:
+        /*
+func (c *Connection) LastInsertRowID() (int64) {
+    return int64(C.sqlite3_last_insert_rowid(c.db))
+}
+*/
         gameID := db.handle.LastInsertRowID()
         gamesInserted += 1
 
@@ -188,6 +196,7 @@ func (db *Database) ImportXML(filename string) {
         gamesInserted, cartsInserted, effectsInserted, codesInserted)
 }
 
+// Database schema
 func (db *Database) CreateTables() {
     // Code info
     db.exec(`CREATE TABLE game(     -- an abstract "game", has ≥1 carts
@@ -255,5 +264,6 @@ func (db *Database) CreateTables() {
         FOREIGN KEY(user_id) REFERENCES user(id)
         )`)
 }
+
 
 // TODO: web interface
