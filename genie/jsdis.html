@@ -129,10 +129,15 @@ function hex(x, width, bare) {
 }
 
 // Disassemble a string in 6502 machine code
-function disasm(data) {
+function disasm(data, start) {
     var instructions = [];
-    var i = 0;
-    while (i < data.length) {
+
+    if (start === undefined) {
+        start = 0;
+    }
+
+    var i = start;
+    while (data[i] !== undefined) {
         var startOffset = i;
 
         var opcodeByte = data[i++];
@@ -226,7 +231,7 @@ function parseHex(inputString) {
         if (ch.match(/[a-fA-F0-9]/)) {
             hexString = ch;
             ch = inputString[i++];
-            if (ch.match(/[a-fA-F0-9]/)) {
+            if (ch !== undefined && ch.match(/[a-fA-F0-9]/)) {
                 hexString += ch;
                 var octet = parseInt(hexString, 16);
                 if (isNaN(octet) || octet === undefined || octet === null) {
@@ -261,6 +266,7 @@ function array2Object(arr, baseAddress) {
     for (var i = 0; i < arr.length; i += 1) {
         obj[i + baseAddress] = arr[i];
     }
+
 
     return obj;
 }
@@ -414,8 +420,7 @@ function applyPatch(bytes) {
 function update() {
     if (!ROM_USE_FILE) {
         var inputString = dojo.byId("in").value;
-        ROM_DATA = parseHex(inputString);
-        console.log(array2Object(ROM_DATA));
+        ROM_DATA = array2Object(parseHex(inputString), 0);
     }
     var before, after, stats1, stats2;
 
@@ -551,10 +556,10 @@ function parseNesFile(data) {
     prg = data.substring(0x10, 0x10 + prgCount * 16384);
     console.log("PRG",prgCount,prg.length);
 
-    ROM_DATA = prg.split("").map(function(x) { 
+    ROM_DATA = array2Object(prg.split("").map(function(x) { 
             // Binary data from XHR has to be masked to 8 bits
             return x.charCodeAt(0) & 0xff; 
-    });
+    }));
     ROM_USE_FILE = true;
 
     update();
