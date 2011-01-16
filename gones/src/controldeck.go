@@ -393,6 +393,10 @@ func (deck *ControlDeck) RunCommand(cmd string) {
             return false, romAddress, romChip, romBefore, romAfter
         })
 
+    case "serve-cheats":
+        db := cheatdb.Open()
+        db.Serve() 
+
     // cheat code
     case "c", "code": 
         for _, code := range(args) {

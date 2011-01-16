@@ -12,7 +12,11 @@ import ("fmt"
 
         "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
         //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
-            // there are also other implementations, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
+        // there are also other incompatible SQLite wrappers, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
+        // probably the right direction is: https://github.com/thomaslee/go-dbi - but it only supports MySQL
+
+        "web" // http://www.getwebgo.com/
+
         
         "gamegenie"
         )
@@ -381,4 +385,29 @@ func (db *Database) CreateTables() {
 }
 
 
-// TODO: web interface
+// Web interface
+func (db *Database) Serve() {
+    web.Get("/(.*)", func(val string) (html string) {
+
+        query, _ := db.handle.Prepare("SELECT rom_address,rom_before,rom_after FROM patch")  // TODO: get code,effect,game,cart
+        err := query.Exec()
+        if err != nil {
+            panic(fmt.Sprintf("AllCarts() failed: %s", err))
+        }
+
+        for query.Next() {
+            var romAddress int
+            var romBefore string
+            var romAfter string
+            err := query.Scan(&romAddress, &romBefore, &romAfter)
+            if err != nil {
+                panic(fmt.Sprintf("failed to Scan: %s", err))
+            }
+            html += fmt.Sprintf("%.6X: %s | %s<br>", romAddress, romBefore, romAfter)
+        }
+
+       
+        return html
+        })
+    web.Run("0.0.0.0:9999")
+}
