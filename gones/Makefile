@@ -53,3 +53,7 @@ clean::
 
 loop:: gones
 	$(EMU) b g
+
+import-galoob:: gones
+	-rm /tmp/foo.db
+	$(EMU) 'import-cheats ../genie/galoob/galoob.xml'

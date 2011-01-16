@@ -107,8 +107,11 @@ func (db *Database) exec(sql string, args ...interface{}) {
     }
 }
 
-func (db *Database) ImportXML() {
-    filename := "../genie/galoob/galoob.xml"
+// Import GoNES XML cheat database 
+// TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
+// TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
+func (db *Database) ImportXML(filename string) {
+    fmt.Printf("Importing %s\n", filename)
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
@@ -121,23 +124,31 @@ func (db *Database) ImportXML() {
     db.exec("INSERT INTO user(fullname) VALUES(?)", "Galoob")
     userID := db.handle.LastInsertRowID()
 
+    gamesInserted := 0
+    cartsInserted := 0
+    effectsInserted := 0
+    codesInserted := 0
+
     // Insert into database
     for _, game := range cheats.Game {
         db.exec("INSERT INTO game(name,galoob_id,galoob_name) VALUES(?,?,?)", game.Name, game.Galoob_id, game.Galoob_name)
         // LastInsertedRowID() requires gosqlite patch at http://code.google.com/p/gosqlite/issues/detail?id=7
         gameID := db.handle.LastInsertRowID()
+        gamesInserted += 1
 
         cartName2ID := make(map[string]int64)
 
         for _, cart := range game.Cartridge {
             db.exec("INSERT INTO cart(game_id,sha1,name,filename) VALUES(?,?,?,?)", gameID, cart.SHA1, cart.Name, cart.Filename)
             cartName2ID[cart.Name] = db.handle.LastInsertRowID()
+            cartsInserted += 1
         }
 
         for _, effect := range game.Effect {
             db.exec("INSERT INTO effect(game_id,number,source,title,hacker_id,create_date) VALUES(?,?,?,?,?,?)", 
                 gameID, effect.Number, effect.Source, effect.Title, userID, "1994")
             effectID := db.handle.LastInsertRowID()
+            effectsInserted += 1
 
             for _, code := range effect.Code {
                 func() {
@@ -154,6 +165,7 @@ func (db *Database) ImportXML() {
                         decoded.Value,
                         decoded.Key)
                     codeID := db.handle.LastInsertRowID()
+                    codesInserted += 1
 
                     // If code only applies to a specific cart, set it; otherwise, leave NULL to apply to all
                     if code.Applies != "" {
@@ -163,9 +175,9 @@ func (db *Database) ImportXML() {
             }
         }
     }
+    fmt.Printf("Imported %d games, %d carts, %d effects, and %d total codes\n",
+        gamesInserted, cartsInserted, effectsInserted, codesInserted)
 }
-// TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
-// TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
 
 func (db *Database) CreateTables() {
     // Code info

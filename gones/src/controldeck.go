@@ -353,10 +353,11 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         // TODO: Fix, really have to run PPU & CPU in sync..see 'g'
         deck.CPU.ExecuteInstruction()
         deck.CPU.DumpRegisters()
-    case "load-cheats":
+    case "import-cheats":
         //cheats := cheatdb.Load()
         db := cheatdb.Open()
-        db.ImportXML()
+        filename := strings.Join(args, " ") // TODO: use cmd directly instead of rejoining
+        db.ImportXML(filename)
         /*
         for _, game := range cheats.Game {
             fmt.Printf("\n%s\n", game.Name)
