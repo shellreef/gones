@@ -56,7 +56,7 @@ func New() (*ControlDeck) {
     // PPU registers, mirrored many times
     deck.CPU.Map(0x2000, 0x3fff,
             // TODO: would be nice to write ppu.ReadRegister directly, but Go doesn't let you :(
-            func(address uint16)(value uint8) { _, v := deck.PPU.ReadRegister(address); return v }, // TODO: remove wants junk
+            func(address uint16)(value uint8) { return deck.PPU.ReadRegister(address) },
             func(address uint16, value uint8) { deck.PPU.WriteRegister(address, value) },
             "PPU registers")
 
@@ -353,7 +353,6 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         deck.CPU.ExecuteInstruction()
         deck.CPU.DumpRegisters()
     case "import-cheats":
-        //cheats := cheatdb.Load()
         db := cheatdb.Open()
         filename := strings.Join(args, " ") // TODO: use cmd directly instead of rejoining
         db.ImportXML(filename)

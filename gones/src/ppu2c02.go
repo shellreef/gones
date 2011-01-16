@@ -250,19 +250,18 @@ func (ppu *PPU) VBlank() {
 
 
 // Read registers
-func (ppu *PPU) ReadRegister(operAddr uint16) (wants bool, ret uint8) {
+func (ppu *PPU) ReadRegister(operAddr uint16) (ret uint8) {
         if operAddr < 0x2000 || operAddr > 0x3fff {
             if ppu.Verbose { 
                 fmt.Printf("mapper: PPU doesn't care about read %.4X\n", operAddr)
             }
-            return false, ret
+            return ret
         }
 
         // $2000-2007 is mirrored every 8 bytes
         // TODO: replace with & 7!
         operAddr &^= 0x1ff8
 
-        wants = true
         switch operAddr {
         case PPU_STATUS: 
             // $2002.5 "Sprite overflow. The PPU can handle only eight sprites on one
@@ -301,10 +300,10 @@ func (ppu *PPU) ReadRegister(operAddr uint16) (wants bool, ret uint8) {
             ppu.vramAddress &= VRAM_ADDRESS_MASK
 
         default:
-            wants = false
+            // TODO
         }
 
-        return wants, ret
+        return ret
 }
 
 // Write registers
