@@ -89,7 +89,7 @@ func Open() (db *Database) {
     db = new(Database)
 
     root, _ := path.Split(os.Args[0])
-    filename := path.Join(root, "data/cheats.sqlite")
+    filename := path.Join(root, "data", "cheats.sqlite")
     _, err := os.Stat(filename)
     if err != nil {
         // Does not exist, so initialize it before returning

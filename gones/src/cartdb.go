@@ -13,6 +13,7 @@ import ("fmt"
         "gob"
         "time"
         "crypto/sha1"
+        "path"
         
         "cartridge"
         )
@@ -107,8 +108,11 @@ type CartMatches struct {
 // Load game database from gob if possible; if not, load from XML
 // then create gob for faster future loading
 func Load() (*Database) {
-    fastFile := "data/cartdb.gob"
-    slowFile := "data/cartdb.xml"
+    
+    root, _ := path.Split(os.Args[0])
+
+    fastFile := path.Join(root, "data", "cartdb.gob")
+    slowFile := path.Join(root, "data", "cartdb.xml")
 
     database, err := LoadGob(fastFile)
     if database == nil {

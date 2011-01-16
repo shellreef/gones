@@ -102,7 +102,6 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
 
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
-    /*
     matches := cartdb.Identify(cartdb.Load(), deck.InsertedCartridge)
     if len(matches) != 0 {
         fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
@@ -110,7 +109,7 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
     for i, match := range matches {
         fmt.Printf("%d. ", i)
         cartdb.DumpMatch(match)
-    }*/
+    }
     // TODO: use info here, to display title/image, or use mapper
 
 
