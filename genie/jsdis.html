@@ -240,11 +240,13 @@ function parseHex(inputString) {
                 }
                 bytes.push(octet);
             } else {
-                // TODO: accept one-digit input?
-                throw("Incomplete hex at " +
-                        i + ", first digit '" + hexString + 
-                        "' is OK but second is non-hex '" +
-                        ch + "'");
+                // One-digit hex
+                var octet = parseInt(hexString, 16);
+                if (isNaN(octet) || octet === undefined || octet === null) {
+                    console.log("Ignored 1-digit invalid hex: " + hexString);
+                    continue;
+                }
+                bytes.push(octet);
             }
         } else {
             // ignore non-hex
