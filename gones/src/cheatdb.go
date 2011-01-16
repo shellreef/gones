@@ -12,8 +12,7 @@ import ("fmt"
 
         "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
         //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
-        
-        "sqlite3" // https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
+            // there are also other implementations, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
         
         "gamegenie"
         )
@@ -119,42 +118,29 @@ func (db *Database) exec(sql string, args ...interface{}) {
     }
 }
 
-// Based on https://github.com/feyeleanor/gosqlite3/blob/master/helpers_test.go runQuery()
-func (db *Database) query(sql string, params ...interface{}) {
-    statement, err := db.handle.Prepare(sql, func(statement *sqlite3.Statement) {
-        err, j := statement.Bind(0, params...)
-        if err != nil {
-            panic(fmt.Sprintf("query(%s,%s) fail to bind: %s\n", sql, params, err))
-        }
-    })
-    if err != nil {
-        panic(fmt.Sprintf("query(%s,%s) fail to prepare: %s\n", sql, params, err))
-    }
-    statement.Step(nil)
-    statement.Finalize()
-}
-
 func (db *Database) AllCodes() {
-    rows, err := db.handle.Query("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
+    query, _ := db.handle.Prepare("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
+    err := query.Exec()
     if err != nil {
         panic(fmt.Sprintf("AllCodes() failed: %s", err))
     }
 
-    fmt.Printf("rows=%s\n", rows)
 
-/*
     for query.Next() {
         gameName := new(string)
         effectTitle := new(string)
-        cartID := new(int)
+        cartID := new(string)       // TODO: why can't this be an int? fails with: scan error: arg 2 as int: parsing "": invalid argument
         cpuAddress := new(int)
         value := new(int)
         compare := new(int)
 
-        query.Scan(gameName, effectTitle, cartID, cpuAddress, value, compare)
+        err := query.Scan(gameName, effectTitle, cartID, cpuAddress, value, compare)
+        if err != nil {
+            panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
+        }
         // uh..NULL compare?
-        fmt.Printf("%s(%d): %s: %.4X?%.2X:%.2X\n", *gameName, *cartID, *effectTitle, *cpuAddress, *compare, *value)
-    }*/
+        fmt.Printf("%s(%s): %s: %.4X?%.2X:%.2X\n", *gameName, *cartID, *effectTitle, *cpuAddress, *compare, *value)
+    }
 }
 
 // Import GoNES XML cheat database 
