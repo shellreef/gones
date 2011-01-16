@@ -132,11 +132,7 @@ function hex(x, width, bare) {
 function disasm(data, start) {
     var instructions = [];
 
-    if (start === undefined) {
-        start = 0;
-    }
-
-    var i = start;
+    var i = data.baseAddress;
     while (data[i] !== undefined) {
         var startOffset = i;
 
@@ -268,6 +264,8 @@ function array2Object(arr, baseAddress) {
     for (var i = 0; i < arr.length; i += 1) {
         obj[i + baseAddress] = arr[i];
     }
+
+    obj.baseAddress = baseAddress;
 
 
     return obj;
@@ -426,8 +424,8 @@ function update() {
     }
     var before, after, stats1, stats2;
 
-    before = disasm(ROM_DATA, 0x1000);
-    after = disasm(applyPatch(ROM_DATA), 0x1000);
+    before = disasm(ROM_DATA);
+    after = disasm(applyPatch(ROM_DATA));
     
     stats1 = showInstructions(before, "disasm-before", after);
     stats2 = showInstructions(after, "disasm-after", before);
