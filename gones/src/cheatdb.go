@@ -141,21 +141,25 @@ func (db *Database) AllCarts() {
             panic(fmt.Sprintf("AllCarts() scan error: %s\n", err))
         }
 
-        fmt.Printf("%s(%s) = %s\n", gameName, cartName, cartFilename)
+        fmt.Printf("\n%s(%s) = %s\n", gameName, cartName, cartFilename)
+
+        db.CodesFor(gameID)
     }
 }
 
-// TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
-func (db *Database) AllCodes() {
-    query, _ := db.handle.Prepare("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
-    err := query.Exec()
+//TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
+func (db *Database) CodesFor(gameID int) {
+    query, err := db.handle.Prepare("SELECT effect.title,code.cart_id,cpu_address,value,compare FROM effect,code WHERE code.effect_id=effect.id AND effect.game_id=?")
     if err != nil {
-        panic(fmt.Sprintf("AllCodes() failed: %s", err))
+        panic(fmt.Sprintf("AllCodes() prepare failed: %s", err))
+    }
+    err = query.Exec(gameID)
+    if err != nil {
+        panic(fmt.Sprintf("AllCodes() exec failed: %s", err))
     }
 
 
     for query.Next() {
-        var gameName string
         var effectTitle string
         var cartID string    // TODO: why can't this be an int? fails with: scan error: arg 2 as int: parsing "": invalid argument
         var cpuAddress int
@@ -191,11 +195,11 @@ func (db *Database) AllCodes() {
 +                       }
 */
 
-        err := query.Scan(&gameName, &effectTitle, &cartID, &cpuAddress, &value, &compare)
+        err := query.Scan(&effectTitle, &cartID, &cpuAddress, &value, &compare)
         if err != nil {
             panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
         }
-        fmt.Printf("%s(%s): %s: ", gameName, cartID, effectTitle)
+        fmt.Printf("%s: ", effectTitle)
         if compare != nil {
             fmt.Printf("%.4X?%.2X:%.2X\n", cpuAddress, *compare, value)
         } else {
