@@ -377,7 +377,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                 // Some other bank is loaded currently
                 fmt.Printf("This is NOT the ROM address: %.6X, since it currently contains %.2X, but key is %.2X\n", romAddress, currentValue, code.Key)
             } else {
-                fmt.Printf("Code %s: ROM Address: %.6X, chip: %s", code, romAddress, romChip)
+                fmt.Printf("Code %s: ROM Address: %.6X, chip: %s\n", code, romAddress, romChip)
                 //code.ROMAddress = fmt.Sprintf("%.6X", romAddress)
 
                 // Read bytes before and after the patched address, for context
@@ -395,56 +395,6 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                 // TODO: save it for jsdis, in patch table
             }
         })
-
-        //db.AllCodes()
-        /*
-        for _, game := range cheats.Game {
-            fmt.Printf("\n%s\n", game.Name)
-            for _, effect := range game.Effect {
-                fmt.Printf("%s\n", effect)
-
-                for _, code := range effect.Code {
-                    for _, cart := range game.Cartridge {
-                        path := "../roms/best/" + game.Name + "/" + cart.Filename
-                        if code.Applies == "" || code.Applies == cart.Name {
-                            _, ok := deck.Load(path) 
-                            if !ok {        // Not everything is supported yet
-                                //fmt.Printf("Skipping %s: %s", path, err)
-                                continue
-                            }
-
-                            patch := gamegenie.Decode(code.Genie)
-                            romAddress, romChip := deck.CPU.Address2ROM(patch.CPUAddress())    
-
-                            // TODO: refactor 'code' command below that also checks key
-                            currentValue := deck.InsertedCartridge.Prg[romAddress]
-                            if patch.HasKey && currentValue != patch.Key {
-                                // Some other bank is loaded currently
-                                fmt.Printf("This is NOT the ROM address: %.6X, since it currently contains %.2X, but key is %.2X\n", romAddress, currentValue, patch.Key)
-                            } else {
-                                fmt.Printf("Code %s: ROM Address: %.6X, chip: %s", patch, romAddress, romChip)
-                                code.ROMAddress = fmt.Sprintf("%.6X", romAddress)
-
-                                // Read bytes before and after the patched address, for context
-                                romBefore := ""
-                                romAfter := ""
-                                for i := uint32(0); i < 16; i += 1 {
-                                    romAfter += fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress + i])
-                                    romBefore = fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress - i + 1]) + romBefore
-                                }
-                                fmt.Printf("ROM context: %s | %s\n", romBefore, romAfter)
-
-                                code.ROMBefore = romBefore
-                                code.ROMAfter = romAfter
-
-                                // TODO: save it for jsdis
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
-
 
     // cheat code
     case "c", "code": 
