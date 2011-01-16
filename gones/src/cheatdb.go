@@ -15,7 +15,6 @@ import ("fmt"
             // there are also other implementations, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
         
         "gamegenie"
-        _ "cartridge"
         )
 
 type Cheats struct {
@@ -121,7 +120,7 @@ func (db *Database) exec(sql string, args ...interface{}) {
 
 
 // Get all cartridges recognized in the cheat database
-func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool)) {
+func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool), analyzeCode func(code gamegenie.GameGenieCode)) {
     query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.sha1,cart.id FROM game,cart WHERE cart.game_id=game.id")
     err := query.Exec()
     if err != nil {
@@ -148,12 +147,12 @@ func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool)) {
         }
 
 
-        db.CodesFor(gameID)
+        db.CodesFor(gameID, analyzeCode)
     }
 }
 
 //TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
-func (db *Database) CodesFor(gameID int) {
+func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGenieCode)) {
     query, err := db.handle.Prepare("SELECT effect.title,code.cart_id,cpu_address,value,compare FROM effect,code WHERE code.effect_id=effect.id AND effect.game_id=?")
     if err != nil {
         panic(fmt.Sprintf("AllCodes() prepare failed: %s", err))
@@ -205,11 +204,21 @@ func (db *Database) CodesFor(gameID int) {
             panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
         }
         fmt.Printf("%s: ", effectTitle)
+
+        var code gamegenie.GameGenieCode
+        code.Address = uint16(cpuAddress) & 0x7fff
+        code.Value = uint8(value)
         if compare != nil {
             fmt.Printf("%.4X?%.2X:%.2X\n", cpuAddress, *compare, value)
+            code.HasKey = true
+            code.Key = uint8(*compare)
         } else {
             fmt.Printf("%.4X:%.2X\n", cpuAddress, value)
+            code.HasKey = false
         }
+
+        
+        analyzeCode(code)
     }
 }
 
