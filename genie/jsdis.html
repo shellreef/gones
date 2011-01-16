@@ -249,6 +249,22 @@ function parseHex(inputString) {
     return bytes;
 }
 
+// Convert an array to an associative array object with element starting at baseAddress
+// Useful because the resulting "array" can be heavily sparse, at arbitrary offsets
+function array2Object(arr, baseAddress) {
+    var obj = {};
+
+    if (baseAddress === undefined) {
+        baseAddress = 0;
+    }
+
+    for (var i = 0; i < arr.length; i += 1) {
+        obj[i + baseAddress] = arr[i];
+    }
+
+    return obj;
+}
+
 // Generate an associative array keyed by memory address of the known contents
 // of ROM around the given romAddress (romAfterString is a hex dump of memory
 // beginning at (and including) romAddress; romBeforeString is before).
@@ -399,6 +415,7 @@ function update() {
     if (!ROM_USE_FILE) {
         var inputString = dojo.byId("in").value;
         ROM_DATA = parseHex(inputString);
+        console.log(array2Object(ROM_DATA));
     }
     var before, after, stats1, stats2;
 
