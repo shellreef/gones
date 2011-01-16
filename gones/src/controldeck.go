@@ -32,6 +32,8 @@ type ControlDeck struct {
     PPU *ppu2c02.PPU
     IO *io2a03.IO
 
+    InsertedCartridge *cartridge.Cartridge
+
     ShowGui bool
 }
 
@@ -96,12 +98,12 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
     }()
 
 
-    cart := cartridge.LoadFile(filename)
+    deck.InsertedCartridge = cartridge.LoadFile(filename)
 
     // Check ROM against known hashes
     // TODO: maybe this should be in nesfile, or in controldeck?
     /*
-    matches := cartdb.Identify(cartdb.Load(), cart)
+    matches := cartdb.Identify(cartdb.Load(), deck.InsertedCartridge)
     if len(matches) != 0 {
         fmt.Printf("cartdb: found %d matching cartridges:\n", len(matches))
     }
@@ -112,11 +114,11 @@ func (deck *ControlDeck) Load(filename string) (err string, success bool) {
     // TODO: use info here, to display title/image, or use mapper
 
 
-    cart.LoadPRG(deck.CPU)
-    cart.LoadCHR(deck.PPU)
+    deck.InsertedCartridge.LoadPRG(deck.CPU)
+    deck.InsertedCartridge.LoadCHR(deck.PPU)
 
     // nestest.nes (TODO: better way to have local additions to cartdb!)
-    hash := cartdb.CartHash(cart)
+    hash := cartdb.CartHash(deck.InsertedCartridge)
     if hash == "4131307F0F69F2A5C54B7D438328C5B2A5ED0820" {
         // TODO: only do this when running in automated mode, still want GUI mode unaffected
         fmt.Printf("Identified nestest; mapping for automation\n")
@@ -370,13 +372,30 @@ func (deck *ControlDeck) RunCommand(cmd string) {
 
                             patch := gamegenie.Decode(code.Genie)
                             romAddress, romChip := deck.CPU.Address2ROM(patch.CPUAddress())    
-                            // TODO: check key, refactor 'code' command below that does it
 
-                            fmt.Printf("ROM Address: %.6X\n", romAddress)
-                            fmt.Printf("ROM Chip: %s\n", romChip)
+                            // TODO: refactor 'code' command below that also checks key
+                            currentValue := deck.InsertedCartridge.Prg[romAddress]
+                            if patch.HasKey && currentValue != patch.Key {
+                                // Some other bank is loaded currently
+                                fmt.Printf("This is NOT the ROM address: %.6X, since it currently contains %.2X, but key is %.2X\n", romAddress, currentValue, patch.Key)
+                            } else {
+                                fmt.Printf("Code %s: ROM Address: %.6X, chip: %s", patch, romAddress, romChip)
+                                code.ROMAddress = fmt.Sprintf("%.6X", romAddress)
 
-                            // TODO: read +/- 16 bytes around romAddress for context, romBefore, romAfter
-                            // TODO: save it for jsdis
+                                // Read bytes before and after the patched address, for context
+                                romBefore := ""
+                                romAfter := ""
+                                for i := uint32(0); i < 16; i += 1 {
+                                    romAfter += fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress + i])
+                                    romBefore = fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress - i + 1]) + romBefore
+                                }
+                                fmt.Printf("ROM context: %s | %s\n", romBefore, romAfter)
+
+                                code.ROMBefore = romBefore
+                                code.ROMAfter = romAfter
+
+                                // TODO: save it for jsdis
+                            }
                         }
                     }
                 }

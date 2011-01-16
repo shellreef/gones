@@ -8,6 +8,8 @@ package cheatdb
 import ("fmt"
         "xml"
         "os"
+
+        "gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
         )
 
 type Cheats struct {
@@ -40,6 +42,9 @@ type Effect struct {
 type Code struct {
     Genie string "attr"
     Applies string "attr"       // refers to a Cartridge.Name
+    ROMAddress string "attr"
+    ROMBefore string "attr"
+    ROMAfter string "attr"
 }
 
 // Stringify an effect to how it appears in the Game Genie manual, i.e.:
@@ -88,4 +93,9 @@ func Load() (Cheats) {
     return cheats
 }
 
+/* TODO: save. Not currently possible because there is no xml.Marshal(). XML isn't that great for this purpose anyways. TODO: use sqlite
+func (cheats Cheats) Save() {
+    xml.Marshal()
+}
+*/
 
