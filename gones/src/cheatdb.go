@@ -384,16 +384,17 @@ func (db *Database) CreateTables() {
         )`)
 }
 
-
 // Web interface
 func (db *Database) Serve() {
-    web.Get("/(.*)", func(val string) (html string) {
-
+    web.Get("/patches.json", func(w *web.Context) { // TODO: accept arguments to filter
         query, _ := db.handle.Prepare("SELECT rom_address,rom_before,rom_after FROM patch")  // TODO: get code,effect,game,cart
         err := query.Exec()
         if err != nil {
             panic(fmt.Sprintf("AllCarts() failed: %s", err))
         }
+
+        w.SetHeader("Content-Type", "application/json", false)
+        w.WriteString("[\n")
 
         for query.Next() {
             var romAddress int
@@ -403,11 +404,10 @@ func (db *Database) Serve() {
             if err != nil {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
-            html += fmt.Sprintf("%.6X: %s | %s<br>", romAddress, romBefore, romAfter)
+            // TODO: use JSON module, avoid XSS
+            w.WriteString(fmt.Sprintf("[0x%.6X, '%s', '%s],\n", romAddress, romBefore, romAfter))
         }
-
-       
-        return html
-        })
+        w.WriteString("]\n")
+    })
     web.Run("0.0.0.0:9999")
 }
