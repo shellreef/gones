@@ -25,8 +25,8 @@ type Cheats struct {
 
 type Game struct {
     Name string "attr"
-    Galoob_id string "attr"
-    Galoob_name string "attr"
+    GaloobID string "attr"
+    GaloobName string "attr"
     Cartridge []Cartridge 
     Effect []Effect
 }
@@ -118,6 +118,17 @@ func (db *Database) exec(sql string, args ...interface{}) {
     }
 }
 
+func (db *Database) AllCodes() {
+    query, _ := db.handle.Prepare("SELECT * FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
+    err := query.Exec()
+    if err != nil {
+        panic(fmt.Sprintf("AllCodes() failed: %s", err))
+    }
+
+    for query.Next() {
+    }
+}
+
 // Import GoNES XML cheat database 
 // TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
 // TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
@@ -142,7 +153,7 @@ func (db *Database) ImportXML(filename string) {
 
     // Insert into database
     for _, game := range cheats.Game {
-        db.exec("INSERT INTO game(name,galoob_id,galoob_name) VALUES(?,?,?)", game.Name, game.Galoob_id, game.Galoob_name)
+        db.exec("INSERT INTO game(name,galoob_id,galoob_name) VALUES(?,?,?)", game.Name, game.GaloobID, game.GaloobName)
         // LastInsertedRowID() requires gosqlite patch at http://code.google.com/p/gosqlite/issues/detail?id=7
         // or for https://github.com/kless/go-sqlite, add to end of connection.go:
         /*

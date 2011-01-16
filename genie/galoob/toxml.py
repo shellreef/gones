@@ -139,8 +139,8 @@ root = doc.createElement("cheat-codes")
 for game in game_order:
     lines = game_lines[game]
     game_node = doc.createElement("game")
-    game_node.setAttribute("galoob-name", game)
-    game_node.setAttribute("galoob-id", game2id[game])
+    game_node.setAttribute("galoobname", game)
+    game_node.setAttribute("galoobid", game2id[game])
     game_node.setAttribute("name", game2gn[game])
 
     # Cartridge info
