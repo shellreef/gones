@@ -15,6 +15,7 @@ import ("fmt"
             // there are also other implementations, like https://github.com/feyeleanor/gosqlite3/blob/master/database.go 
         
         "gamegenie"
+        _ "cartridge"
         )
 
 type Cheats struct {
@@ -118,6 +119,19 @@ func (db *Database) exec(sql string, args ...interface{}) {
     }
 }
 
+// TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
+
+func (db *Database) AllCarts() {
+    query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.id FROM game,cart WHERE cart.game_id=game.id")
+    err := query.Exec()
+    if err != nil {
+        panic(fmt.Sprintf("AllCarts() failed: %s", err))
+    }
+
+    for query.Next() {
+    }
+}
+
 func (db *Database) AllCodes() {
     query, _ := db.handle.Prepare("SELECT game.name,effect.title,code.cart_id,cpu_address,value,compare FROM game,effect,code WHERE effect.game_id=game.id AND code.effect_id=effect.id")
     err := query.Exec()
@@ -127,12 +141,12 @@ func (db *Database) AllCodes() {
 
 
     for query.Next() {
-        gameName := new(string)
-        effectTitle := new(string)
-        cartID := new(string)       // TODO: why can't this be an int? fails with: scan error: arg 2 as int: parsing "": invalid argument
-        cpuAddress := new(int)
-        value := new(int)
-        compare := new(int)
+        var gameName string
+        var effectTitle string
+        var cartID string    // TODO: why can't this be an int? fails with: scan error: arg 2 as int: parsing "": invalid argument
+        var cpuAddress int
+        var value int
+        var compare *int = new(int)
 
         // Requires patch to support **int in Scan() argument, in order to read NULLs:
 /*
@@ -163,15 +177,15 @@ func (db *Database) AllCodes() {
 +                       }
 */
 
-        err := query.Scan(gameName, effectTitle, cartID, cpuAddress, value, &compare)
+        err := query.Scan(&gameName, &effectTitle, &cartID, &cpuAddress, &value, &compare)
         if err != nil {
             panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
         }
-        fmt.Printf("%s(%s): %s: ", *gameName, *cartID, *effectTitle)
+        fmt.Printf("%s(%s): %s: ", gameName, cartID, effectTitle)
         if compare != nil {
-            fmt.Printf("%.4X?%.2X:%.2X\n", *cpuAddress, *compare, *value)
+            fmt.Printf("%.4X?%.2X:%.2X\n", cpuAddress, *compare, value)
         } else {
-            fmt.Printf("%.4X:%.2X\n", *cpuAddress, *value)
+            fmt.Printf("%.4X:%.2X\n", cpuAddress, value)
         }
     }
 }
