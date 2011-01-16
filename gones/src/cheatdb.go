@@ -93,9 +93,14 @@ func Load() (Cheats) {
     return cheats
 }
 
-/* TODO: save. Not currently possible because there is no xml.Marshal(). XML isn't that great for this purpose anyways. TODO: use sqlite
 func (cheats Cheats) Save() {
-    xml.Marshal()
-}
-*/
+    db, err := sqlite.Open("/tmp/foo.db")
+    if err != nil {
+        panic(fmt.Sprintf("cheatdb.Save(): failed to save"))
+    }
 
+    db.Exec("CREATE TABLE game(id, name, galoob_id, galoob_name)")
+    db.Exec("CREATE TABLE cart(id, game_id, sha1, name)")
+    db.Exec("CREATE TABLE code(id, cart_id, cpu_addr, value, compare, rom_addr, rom_before, rom_after)")
+    os.Exit(0)
+}
