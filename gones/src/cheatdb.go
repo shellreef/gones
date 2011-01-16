@@ -8,6 +8,7 @@ package cheatdb
 import ("fmt"
         "xml"
         "os"
+        "path"
 
         "gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
         
@@ -86,15 +87,23 @@ type Database struct {
 
 func Open() (db *Database) {
     db = new(Database)
+
+    root, _ := path.Split(os.Args[0])
+    filename := path.Join(root, "data/cheats.sqlite")
+    _, err := os.Stat(filename)
+    if err != nil {
+        // Does not exist, so initialize it before returning
+        defer func() {
+            db.CreateTables()
+        }()
+    }
     
-    handle, err := sqlite.Open("/tmp/foo.db")
+    handle, err := sqlite.Open(filename)
     if err != nil {
         panic(fmt.Sprintf("failed to open: %s", err))
     }
 
     db.handle = handle
-
-    db.CreateTables()   // TODO: only if needed
 
     return db
 }
@@ -121,7 +130,7 @@ func (db *Database) ImportXML(filename string) {
 
     xml.Unmarshal(r, &cheats)
 
-    db.exec("INSERT INTO user(fullname) VALUES(?)", "Galoob")
+    db.exec("INSERT INTO user(fullname) VALUES(?)", "Galoob")   // TODO: pass as argument, search for existing, and stop hardcoding
     userID := db.handle.LastInsertRowID()
 
     gamesInserted := 0
