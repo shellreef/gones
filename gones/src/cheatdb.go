@@ -10,6 +10,8 @@ import ("fmt"
         "os"
 
         "gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
+        
+        "gamegenie"
         )
 
 type Cheats struct {
@@ -19,9 +21,9 @@ type Cheats struct {
 }
 
 type Game struct {
+    Name string "attr"
     Galoob_id string "attr"
     Galoob_name string "attr"
-    Name string "attr"
     Cartridge []Cartridge 
     Effect []Effect
 }
@@ -89,76 +91,119 @@ func Open() (db *Database) {
     if err != nil {
         panic(fmt.Sprintf("failed to open: %s", err))
     }
-    // TODO: Init()
 
     db.handle = handle
+
+    db.CreateTables()   // TODO: only if needed
 
     return db
 }
 
 // Execute a SQL statement, checking for error
-func (db *Database) Exec(sql string) {  // TODO: bind parameters
-    err := db.handle.Exec(sql)
+func (db *Database) exec(sql string, args ...interface{}) { 
+    err := db.handle.Exec(sql, args...)
     if err != nil {
-        panic(fmt.Sprintf("%s\ncheatdb Exec failed: %s", sql, err))
+        panic(fmt.Sprintf("failed: %s %s\ncheatdb exec failed: %s", sql, args, err))
     }
 }
 
-// TODO: func (db *Database) ImportXML() {
-func Load() (Cheats) {
+func (db *Database) ImportXML() {
     filename := "../genie/galoob/galoob.xml"
     r, err := os.Open(filename, os.O_RDONLY, 0)
     if r == nil {
         panic(fmt.Sprintf("cannot open %s: %s", filename, err))
     }
 
-    // TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
-    // TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
     cheats := Cheats{}
 
     xml.Unmarshal(r, &cheats)
 
-    // TODO: insert into database
-    return cheats
-}
+    db.exec("INSERT INTO user(fullname) VALUES(?)", "Galoob")
+    userID := db.handle.LastInsertRowID()
 
-// Create tables
-func (db *Database) Init() {
+    // Insert into database
+    for _, game := range cheats.Game {
+        db.exec("INSERT INTO game(name,galoob_id,galoob_name) VALUES(?,?,?)", game.Name, game.Galoob_id, game.Galoob_name)
+        // LastInsertedRowID() requires gosqlite patch at http://code.google.com/p/gosqlite/issues/detail?id=7
+        gameID := db.handle.LastInsertRowID()
+
+        cartName2ID := make(map[string]int64)
+
+        for _, cart := range game.Cartridge {
+            db.exec("INSERT INTO cart(game_id,sha1,name,filename) VALUES(?,?,?,?)", gameID, cart.SHA1, cart.Name, cart.Filename)
+            cartName2ID[cart.Name] = db.handle.LastInsertRowID()
+        }
+
+        for _, effect := range game.Effect {
+            db.exec("INSERT INTO effect(game_id,number,source,title,hacker_id,create_date) VALUES(?,?,?,?,?,?)", 
+                gameID, effect.Number, effect.Source, effect.Title, userID, "1994")
+            effectID := db.handle.LastInsertRowID()
+
+            for _, code := range effect.Code {
+                func() {
+                    defer func() {
+                        r := recover(); if r != nil {
+                            fmt.Printf("Bad code for %s: %s: %s\n", game.Name, code.Genie, r)
+                        }
+                    }()
+
+                    decoded := gamegenie.Decode(code.Genie)
+                    db.exec("INSERT INTO code(cart_id,effect_id,cpu_address,value,compare) VALUES(?,?,?,?,?)",
+                        cartName2ID[code.Applies],
+                        effectID, 
+                        decoded.CPUAddress(),
+                        decoded.Value,
+                        decoded.Key)
+                }()
+            }
+        }
+    }
+}
+// TODO: read Nestopia's NstCheat files, like those found on http://www.mightymo.net/downloads.html
+// TODO: read Nesticle .pat files, [+]<code> [<name>] per line, raw format. http://www.zophar.net/faq/nitrofaq/nesticle.readme.txt and some at http://jeff.tk:81/consoles/
+
+func (db *Database) CreateTables() {
     // Code info
-    db.Exec(`CREATE TABLE game(     -- an abstract "game", has ≥1 carts
+    db.exec(`CREATE TABLE game(     -- an abstract "game", has ≥1 carts
         id INTEGER PRIMARY KEY, 
         name TEXT NOT NULL, 
         galoob_id TEXT NULL, 
         galoob_name TEXT NULL
         )`)
-    db.Exec(`CREATE TABLE cart(     -- a physical cartridge, possibly different versions
+    db.exec(`CREATE TABLE cart(     -- a physical cartridge, possibly different versions
         id INTEGER PRIMARY KEY, 
         game_id INTEGER NOT NULL, 
         sha1 TEXT NOT NULL, 
+        filename TEXT NOT NULL,
         name TEXT NULL,             -- PRG0, PRG1, etc. if multiple versions, otherwise NULL
 
         FOREIGN KEY(game_id) REFERENCES game(id)
         )`)
-    db.Exec(`CREATE TABLE effect(
+    db.exec(`CREATE TABLE effect(
         id INTEGER PRIMARY KEY,
-        cart_id INTEGER NOT NULL,  
+        game_id INTEGER NOT NULL,
         title TEXT NOT NULL,
         hacker_id INTEGER NOT NULL,
         create_date DATETIME NOT NULL,
+        
+        number INTEGER,
+        source TEXT,
 
-        FOREIGN KEY(hacker_id) REFERENCES user(id),
-        FOREIGN KEY(cart_id) REFERENCES cart(id)
+        FOREIGN KEY(game_id) REFERENCES game(id),
+        FOREIGN KEY(hacker_id) REFERENCES user(id)
         )`)
-    db.Exec(`CREATE TABLE code(     -- a decoded Game Genie code, has ≥0 patches
+    db.exec(`CREATE TABLE code(     -- a decoded Game Genie code, has ≥0 patches
         id INTEGER PRIMARY KEY, 
+        cart_id INTEGER NOT NULL,  
         effect_id INTEGER NOT NULL,
         cpu_address INTEGER NOT NULL, -- the address referred to, $8000-FFFF
         value INTEGER NOT NULL, 
         compare INTEGER NULL,       -- compare byte if 8-letter code, or NULL for 6-letter
 
+        FOREIGN KEY(cart_id) REFERENCES cart(id),
         FOREIGN KEY(effect_id) REFERENCES effect(id)
         )`)
-    db.Exec(`CREATE TABLE patch(    -- an actual known modification to ROM
+    db.exec(`CREATE TABLE patch(    -- an actual known modification to ROM
         id INTEGER PRIMARY KEY,
         code_id INTEGER NOT NULL,
         rom_address INTEGER NOT NULL,
@@ -169,11 +214,11 @@ func (db *Database) Init() {
         )`)
 
     // Extra info
-    db.Exec(`CREATE TABLE user(     -- someone that created codes or commented on them
+    db.exec(`CREATE TABLE user(     -- someone that created codes or commented on them
         id INTEGER PRIMARY KEY,
-        fullname TEXT NOT NULL
+        fullname TEXT NOT NULL UNIQUE
         )`)
-    db.Exec(`CREATE TABLE comment(  -- user commentary on an effect
+    db.exec(`CREATE TABLE comment(  -- user commentary on an effect
         id INTEGER PRIMARY KEY,
         effect_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,

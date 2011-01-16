@@ -354,8 +354,10 @@ func (deck *ControlDeck) RunCommand(cmd string) {
         deck.CPU.ExecuteInstruction()
         deck.CPU.DumpRegisters()
     case "load-cheats":
-        cheats := cheatdb.Load()
-        _ = cheatdb.Open()  // TODO
+        //cheats := cheatdb.Load()
+        db := cheatdb.Open()
+        db.ImportXML()
+        /*
         for _, game := range cheats.Game {
             fmt.Printf("\n%s\n", game.Name)
             for _, effect := range game.Effect {
@@ -401,7 +403,7 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                     }
                 }
             }
-        }
+        }*/
 
 
     // cheat code
