@@ -368,8 +368,8 @@ func (deck *ControlDeck) RunCommand(cmd string) {
             return true
         },
       
-        func(code gamegenie.GameGenieCode) {
-             romAddress, romChip := deck.CPU.Address2ROM(code.CPUAddress())    
+        func(code gamegenie.GameGenieCode) (found bool, romAddress uint32, romChip string, romBefore string, romAfter string) {
+             romAddress, romChip = deck.CPU.Address2ROM(code.CPUAddress())    
 
             // TODO: refactor 'code' command below that also checks key
             currentValue := deck.InsertedCartridge.Prg[romAddress]
@@ -377,23 +377,20 @@ func (deck *ControlDeck) RunCommand(cmd string) {
                 // Some other bank is loaded currently
                 fmt.Printf("This is NOT the ROM address: %.6X, since it currently contains %.2X, but key is %.2X\n", romAddress, currentValue, code.Key)
             } else {
-                fmt.Printf("Code %s: ROM Address: %.6X, chip: %s\n", code, romAddress, romChip)
-                //code.ROMAddress = fmt.Sprintf("%.6X", romAddress)
-
                 // Read bytes before and after the patched address, for context
-                romBefore := ""
-                romAfter := ""
                 for i := uint32(0); i < 16; i += 1 {
                     romAfter += fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress + i])
                     romBefore = fmt.Sprintf("%.2X ", deck.InsertedCartridge.Prg[romAddress - i + 1]) + romBefore
                 }
-                fmt.Printf("ROM context: %s | %s\n", romBefore, romAfter)
 
                 //code.ROMBefore = romBefore
                 //code.ROMAfter = romAfter
 
                 // TODO: save it for jsdis, in patch table
+                return true, romAddress, romChip, romBefore, romAfter
             }
+            // Not found
+            return false, romAddress, romChip, romBefore, romAfter
         })
 
     // cheat code

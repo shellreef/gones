@@ -47,9 +47,7 @@ type Effect struct {
 type Code struct {
     Genie string "attr"
     Applies string "attr"       // refers to a Cartridge.Name
-    ROMAddress string "attr"
-    ROMBefore string "attr"
-    ROMAfter string "attr"
+    // TODO: have ROM patches
 }
 
 // Stringify an effect to how it appears in the Game Genie manual, i.e.:
@@ -120,7 +118,7 @@ func (db *Database) exec(sql string, args ...interface{}) {
 
 
 // Get all cartridges recognized in the cheat database
-func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool), analyzeCode func(code gamegenie.GameGenieCode)) {
+func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool), analyzeCode func(code gamegenie.GameGenieCode)(bool,uint32,string,string,string)) {
     query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.sha1,cart.id FROM game,cart WHERE cart.game_id=game.id")
     err := query.Exec()
     if err != nil {
@@ -152,8 +150,8 @@ func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool), analyzeCod
 }
 
 //TODO: func (db *Database) CodesFor(cart *cartridge.Cartridge) {
-func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGenieCode)) {
-    query, err := db.handle.Prepare("SELECT effect.title,code.cart_id,cpu_address,value,compare FROM effect,code WHERE code.effect_id=effect.id AND effect.game_id=?")
+func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGenieCode)(bool,uint32,string,string,string)) {
+    query, err := db.handle.Prepare("SELECT effect.title,code.cart_id,code.id,cpu_address,value,compare FROM effect,code WHERE code.effect_id=effect.id AND effect.game_id=?")
     if err != nil {
         panic(fmt.Sprintf("AllCodes() prepare failed: %s", err))
     }
@@ -166,6 +164,7 @@ func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGen
     for query.Next() {
         var effectTitle string
         var cartID string    // TODO: why can't this be an int? fails with: scan error: arg 2 as int: parsing "": invalid argument
+        var codeID int
         var cpuAddress int
         var value int
         var compare *int = new(int)
@@ -199,7 +198,7 @@ func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGen
 +                       }
 */
 
-        err := query.Scan(&effectTitle, &cartID, &cpuAddress, &value, &compare)
+        err := query.Scan(&effectTitle, &cartID, &codeID, &cpuAddress, &value, &compare)
         if err != nil {
             panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
         }
@@ -217,8 +216,16 @@ func (db *Database) CodesFor(gameID int, analyzeCode func(code gamegenie.GameGen
             code.HasKey = false
         }
 
-        
-        analyzeCode(code)
+        found, romAddress, romChip, romBefore, romAfter := analyzeCode(code)
+        // Add patch in database
+        if found {
+            fmt.Printf("Code %s: ROM Address: %.6X (%s)\n", code, romAddress, romChip)
+            fmt.Printf("ROM context: %s | %s\n", romBefore, romAfter)
+
+            db.exec("INSERT INTO patch(code_id,rom_address,rom_before,rom_after) VALUES(?,?,?,?)", codeID, romAddress, romBefore, romAfter)
+            patchID := db.handle.LastInsertRowID()
+            fmt.Printf("%d\n", patchID)
+        }
     }
 }
 
