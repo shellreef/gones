@@ -134,12 +134,45 @@ func (db *Database) AllCodes() {
         value := new(int)
         compare := new(int)
 
-        err := query.Scan(gameName, effectTitle, cartID, cpuAddress, value, compare)
+        // Requires patch to support **int in Scan() argument, in order to read NULLs:
+/*
+--- a/sqlite/statement.go
++++ b/sqlite/statement.go
+@@ -70,6 +70,7 @@ func (s *Stmt) Scan(args ...interface{}) os.Error {
+        for i, v := range args {
+                n := C.sqlite3_column_bytes(s.stmt, C.int(i))
+                p := C.sqlite3_column_blob(s.stmt, C.int(i))
++                t := C.sqlite3_column_type(s.stmt, C.int(i))
+                if p == nil && n > 0 {
+                        return os.NewError("got nil blob")
+                }
+@@ -91,6 +92,17 @@ func (s *Stmt) Scan(args ...interface{}) os.Error {
+                                        err.String())
+                        }
+                        *v = x
++                case **int:
++                       if t == C.SQLITE_NULL {
++                               *v = nil
++                        } else {
++                               x, err := strconv.Atoi(string(data))
++                               if err != nil {
++                                       return os.NewError("arg " + strconv.Itoa(i) + " as int: " +
++                                               err.String())
++                               }
++                               **v = x
++                       }
+*/
+
+        err := query.Scan(gameName, effectTitle, cartID, cpuAddress, value, &compare)
         if err != nil {
             panic(fmt.Sprintf("AllCodes() scan error: %s\n", err))
         }
-        // uh..NULL compare?
-        fmt.Printf("%s(%s): %s: %.4X?%.2X:%.2X\n", *gameName, *cartID, *effectTitle, *cpuAddress, *compare, *value)
+        fmt.Printf("%s(%s): %s: ", *gameName, *cartID, *effectTitle)
+        if compare != nil {
+            fmt.Printf("%.4X?%.2X:%.2X\n", *cpuAddress, *compare, *value)
+        } else {
+            fmt.Printf("%.4X:%.2X\n", *cpuAddress, *value)
+        }
     }
 }
 
@@ -201,13 +234,17 @@ func (c *Connection) LastInsertRowID() (int64) {
                     }()
 
                     decoded := gamegenie.Decode(code.Genie)
-                    db.exec("INSERT INTO code(effect_id,cpu_address,value,compare) VALUES(?,?,?,?)",
+                    db.exec("INSERT INTO code(effect_id,cpu_address,value) VALUES(?,?,?)",
                         effectID, 
                         decoded.CPUAddress(),
-                        decoded.Value,
-                        decoded.Key)
+                        decoded.Value)
                     codeID := db.handle.LastInsertRowID()
                     codesInserted += 1
+
+                    // Only set if has a compare value, otherwise leave NULL
+                    if decoded.HasKey {
+                        db.exec("UPDATE code SET compare=? WHERE id=?", decoded.Key, codeID)
+                    }
 
                     // If code only applies to a specific cart, set it; otherwise, leave NULL to apply to all
                     if code.Applies != "" {
