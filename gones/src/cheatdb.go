@@ -9,6 +9,7 @@ import ("fmt"
         "xml"
         "os"
         "path"
+        "io"
 
         "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
         //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
@@ -422,12 +423,7 @@ func (db *Database) Serve() {
             panic(fmt.Sprintf("failed to open %s: %s", filename, err))
         }
 
-        var b [100000]byte
-        n, err2 := f.Read(b[:])
-        if err2 != nil {
-            panic(fmt.Sprintf("failed to read %d of %s: %s", n, filename, err2))
-        }
-        w.Write(b[:])
+        io.Copy(w, f)
     })
 
 
