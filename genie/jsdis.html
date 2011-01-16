@@ -353,7 +353,7 @@ function showInstructions(instructions, elementName, compareInstructions) {
             }
         }
 
-        line += hl(hex(instr.offset, 4, true), "offset") + "    ";
+        line += hl(hex(instr.offset, 6, true), "offset") + "    ";
 
         // Opcode and operand bytes in hex, aligned properly
         line += hl(hex(instr.opcodeByte, 2, true), "opcodeByte") + " ";
@@ -422,12 +422,12 @@ function applyPatch(bytes) {
 function update() {
     if (!ROM_USE_FILE) {
         var inputString = dojo.byId("in").value;
-        ROM_DATA = array2Object(parseHex(inputString), 0);
+        ROM_DATA = array2Object(parseHex(inputString), 0x1000);
     }
     var before, after, stats1, stats2;
 
-    before = disasm(ROM_DATA);
-    after = disasm(applyPatch(ROM_DATA));
+    before = disasm(ROM_DATA, 0x1000);
+    after = disasm(applyPatch(ROM_DATA), 0x1000);
     
     stats1 = showInstructions(before, "disasm-before", after);
     stats2 = showInstructions(after, "disasm-after", before);
