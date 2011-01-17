@@ -1,0 +1,126 @@
+Super Mario Bros. Codes
+JC20110116
+
+
+Mostly about falling through holes
+
+from smbdis.asm:
+3179 PlayerHole:lda Player_Y_HighPos[b5]    ;check player's vertical high byte
+317b            cmp #$02                    ;for below the screen
+PAYUGP act as if died immediately on level start: play music, no scrolling, but you're stuck on the same screen
+317c:01 cmp #$01
+317c:03, 04 still die if fall down hole just takes longer
+                bmi ExitCtrl                ;branch to leave if not that far down
+317f            ldx #$01
+{AEALAP} can still scroll the screen after you die falling down a hole (disable scroll lock)
+3180:00 ldx #$00
+
+3181            stx ScrollLock[0723]        ;set scroll lock
+{SUALZP + AEALLP} fall from top of screen when falling down holes, and keep playing (without music) - but dying by enemy hit loops forever - use with an invincibility code
+SUALZP 3182:b5 STX #$xxb5
+AEALLP 3183:00 STX #$00xx
+store #$01 in Player_Y_HighPos
+try to store #$01 in Player_Y_HighPos, but hangs
+shorter version of PEALIP + SUALYP + AEALAP
+
+3184            ldy #$04
+3186            sty $07                     ;set value here
+
+{PEALIP + SUALYP + AEALAP} fall from top of screen when falling down holes, and keep playing (without music)
+PEALIP + SUALYP fall from top of screen when falling down hole - but disables scroll lock so can't keep playing (fixed above)
+PEALIP 3185:01 LDY #$01
+SUALYP 3187:b5 STY Player_Y_HighPos
+still plays music when falling down, and stops playing music after
+AVAUAP 3188:60 RTS (+ above) don't affect music when falling down, but still disables scroll lock so can't keep playing
+
+note: http://www.gshi.org/?s=v2&sys=5&gid=905 has an existing code:
+"Falling Doesn't Kill You       OKNLOYIV        You just appear from above. Be warned that you won't be able to get out of the cloud bonus      megaman_exe"
+it works similarly - but doesn't interrupt music. what about cloud bonus?
+
+                ldx #$00                    ;use X as flag, and clear for cloud level
+                ldy GameTimerExpiredFlag    ;check game timer expiration flag
+318d            bne HoleDie                 ;if set, branch
+AVAUIP do not die when falling down a hole (but you can't continue playing either)
+318d:60 RTS
+
+318f            ldy CloudTypeOverride       ;check for cloud type override [coin/bonus level, I think]
+KEAUYO no effect 318f:8c STY
+
+3192            bne ChkHoleX                ;skip to last part if found
+ENPLZP go to coin level when die - not a good code, still gets stuck on level 1-2 in bricks
+3192:f0 BEQ
+
+3194 HoleDie:   inx                         ;set flag in X for player death
+OEPLGO go to underground coin world when falling down hole instead of dying
+3194:89 INX+LDY -> DOP #$A4 + ASL $0BC0 (nops out the GameEngineSubroutine call)
+works well on level 1-1, but on level 1-2 you get stuck in the wall - better code see ZELLYP
+
+                ldy GameEngineSubroutine[0E]
+3197            cpy #$0b                    ;check for some other routine running [PlayerDeath]
+AEPUAP no effect 3198:00
+
+3199            beq ChkHoleX                ;if so, branch ahead
+{ESPUPP} fast restart when dying by falling down a hole (no death music and no wait)
+sound effect plays twice when getting hit by an enemy
+3199:f0 BNE
+                ldy DeathMusicLoaded[0712]  ;check value here
+319e            bne HoleBottom              ;if already set, branch to next part
+ENPUTP 319e:d0 BEQ
+
+31a0            iny
+EEZLAO play end-of-game music forever when dying falling down a hole
+31a0:88 DEY
+                sty EventMusicQueue[FC]     ;otherwise play death music
+KSZLAO no death music when falling down hole, although it still waits a while (better is ESPUPP)
+31a0:dc TOP
+
+                sty DeathMusicLoaded        ;and set value here
+    HoleBottom: ldy #$06
+                sty $07                     ;change value here
+    ChkHoleX:   cmp $07                     ;compare vertical high byte with value set here
+                bmi ExitCtrl                ;if less, branch to leave
+                dex                         ;otherwise decrement flag in X
+                bmi CloudExit               ;if flag was clear, branch to set modes and other values
+                ldy EventMusicBuffer        ;check to see if music is still playing
+                bne ExitCtrl                ;branch to leave if so
+317b            lda #$06                    ;otherwise set to run lose life routine [PlayerLoseLife]
+
+IELLYP glitch into playing end level routine, and jerkily scrolling, when die falling down a hole. scrolls past flagpole
+31b7:05 PlayerEndLevel
+
+PELLYP when fall down hole and die, go to coin world and climb up vine (gets stuck in bricks at level 1-1)
+31b7:01 Vine_AutoClimb
+
+{ZELLYP} don't die when falling down a hole - instead, come up as if in a pipe (in coin world/shortcut if applicable) + infinite lives
+31b7:02 SideExitPipeEntry
+works better than OEPLGO, doesn't get stuck on levels 1-1 or 1-2, and no loss of life
+death music still plays, but the game continues, with your current timer. 
+this is a good code - makes the game much easier, and is not very glitchy
+when dying in castles, jump to get out of the bricks
+unfortunately, appears to hang after dying on world 4
+and don't let your time run out
+
+                sta GameEngineSubroutine    ;on next frame
+
+GameRoutines:
+      lda GameEngineSubroutine  ;run routine based on number (a few of these routines are   
+      jsr JumpEngine            ;merely placeholders as conditions for other routines)
+
+      .dw Entrance_GameTimerSetup ; 00
+      .dw Vine_AutoClimb        ; 01
+      .dw SideExitPipeEntry     ; 02
+      .dw VerticalPipeEntry     ; 03
+      .dw FlagpoleSlide         ; 04
+      .dw PlayerEndLevel        ; 05   
+      .dw PlayerLoseLife        ; 06 
+      .dw PlayerEntrance        ; 07
+      .dw PlayerCtrlRoutine     ; 08
+      .dw PlayerChangeSize      ; 09
+      .dw PlayerInjuryBlink     ; 0a
+      .dw PlayerDeath           ; 0b
+      .dw PlayerFireFlower      ; 0c
+
+
+
+
+    ExitCtrl:   rts                         ;leave
