@@ -278,6 +278,8 @@ function array2Object(arr, baseAddress) {
 function contextMemoryMap(romAddress, romBeforeString, romAfterString) {
     var romBefore, romAfter, i;
     var memory = {};
+
+    dojo.byId("in").value = romBeforeString + romAfterString;
     
     romBefore = parseHex(romBeforeString);
     romAfter = parseHex(romAfterString);
@@ -288,6 +290,7 @@ function contextMemoryMap(romAddress, romBeforeString, romAfterString) {
     for (i = 0; i < romBefore.length; i += 1) {
         memory[romAddress - i - 1] = romBefore[i];
     }
+    memory.baseAddress = romAddress - romBefore.length;
 
     return memory;
 }
@@ -420,7 +423,7 @@ function applyPatch(bytes) {
 function update() {
     if (!ROM_USE_FILE) {
         var inputString = dojo.byId("in").value;
-        ROM_DATA = array2Object(parseHex(inputString), 0x1000);
+        ROM_DATA = array2Object(parseHex(inputString), 0x3152);
     }
     var before, after, stats1, stats2;
 
@@ -565,6 +568,21 @@ function parseNesFile(data) {
     update();
 }
 
+// Load a known ROM patch from the database
+function loadPatch(i) {
+    var patch = PATCHES[i];
+
+    ROM_DATA = contextMemoryMap(patch.romAddress, patch.romBefore, patch.romAfter);
+    dojo.byId("romBase").value = hex(ROM_DATA.baseAddress, 6, true);
+    ROM_USE_FILE = true; // to avoid updating from user input TODO: better than this hack
+
+    // TODO: deuglify
+    dojo.byId("patchOffset").value = hex(patch.cpuAddress & 0x7fff, 4, true);
+    dojo.byId("patchValue").value = hex(patch.value, 2, true);
+
+    update();
+}
+
 function init() {
     document.onkeyup = update;
 
@@ -574,7 +592,7 @@ function init() {
 </head>
 <body onload="init()">
 <input id="patchOffset" value="0000" size="4">: <!-- offset within the disassembly, not the CPU address! -->
-<input id="patchValue" value="01" size="2" maxlength="2"> 
+<input id="patchValue" value="01" size="2" maxlength="2">
 <span id="encoded"></span><br> <!-- TODO: user-editable -->
 <!-- example codes for below:
 0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
@@ -584,6 +602,8 @@ function init() {
 0002:00 changes opcode and size 2->1, TODO: fix overzealous highlighting
  TODO: 
 -->
+<p>ROM data at <input id="romBase" value="000000" size="6" maxlength="6">:
+<br>
 <textarea id="in" rows="25" cols="50" onchange="ROM_USE_FILE = false;">
 78
 d8
@@ -596,7 +616,8 @@ ad 02 20
 10 fb
 ff ff ff
 f2
-</textarea><br>
+</textarea>
+<br>
 <!-- <input type=file id=f1> --> <!-- TODO: file element, can't seem to access locally directly -->
 <input id="filename" size="50" value="http://localhost/magic/smb3.nes"><button onclick="loadNesFile()">Load file</button><br>
 <button accesskey="d" onclick="update()">Disassemble</button>

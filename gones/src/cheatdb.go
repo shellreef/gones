@@ -426,6 +426,11 @@ func (db *Database) Serve() {
         io.Copy(w, f)
     })
 
+    web.Get("/favicon.ico", func(w *web.Context) {
+        // TODO: real favicon
+        w.SetHeader("Content-Type", "image/png", false)
+    })
+
 
     web.Run("0.0.0.0:9999")
 }
