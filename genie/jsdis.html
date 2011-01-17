@@ -12,7 +12,6 @@ span.changed { background-color: yellow; }
 <!-- <script src="dojo.xd.js"></script> -->
 <script>
 var ROM_DATA = null;  // Data of ROM
-var ROM_USE_FILE;     // Load data from file instead of raw bytes
 
 // Addressing modes
 var Imd = "Imd";      // Immediate 
@@ -421,10 +420,8 @@ function applyPatch(bytes) {
 }
 
 function update() {
-    if (!ROM_USE_FILE) {
-        var inputString = dojo.byId("in").value;
-        ROM_DATA = array2Object(parseHex(inputString), 0x3152);
-    }
+    var inputString = dojo.byId("in").value;
+    ROM_DATA = array2Object(parseHex(inputString), parseInt(dojo.byId("romBase").value, 16));
     var before, after, stats1, stats2;
 
     before = disasm(ROM_DATA);
@@ -521,6 +518,10 @@ function encodeGG(c) {
 }
 
 // Load ROM data from a .nes file
+// TODO: accept file uploads! but not to server; use HTML5: https://developer.mozilla.org/en/DOM/FileReader 
+// drag and drop local file..sweet. Just what I need. Much better than either
+// using XHR to download a file (since it can only come from the same server) or even
+// worse, having to paste a hex dump. HTML5 drag-and-drop is what I need. http://code.google.com/p/html5uploader/
 function loadNesFile() {
     var url, req;
 
@@ -563,7 +564,6 @@ function parseNesFile(data) {
             // Binary data from XHR has to be masked to 8 bits
             return x.charCodeAt(0) & 0xff; 
     }));
-    ROM_USE_FILE = true;
 
     update();
 }
@@ -572,9 +572,10 @@ function parseNesFile(data) {
 function loadPatch(i) {
     var patch = PATCHES[i];
 
+    // TODO: better model/view/controller architecture.  Want to show this in the textarea.
     ROM_DATA = contextMemoryMap(patch.romAddress, patch.romBefore, patch.romAfter);
+    // TODO: fix: this is broken, because update() will write ROM_DATA from 'in'. We need to set 'in'.
     dojo.byId("romBase").value = hex(ROM_DATA.baseAddress, 6, true);
-    ROM_USE_FILE = true; // to avoid updating from user input TODO: better than this hack
 
     // TODO: deuglify
     dojo.byId("patchOffset").value = hex(patch.cpuAddress & 0x7fff, 4, true);
@@ -604,7 +605,7 @@ function init() {
 -->
 <p>ROM data at <input id="romBase" value="000000" size="6" maxlength="6">:
 <br>
-<textarea id="in" rows="25" cols="50" onchange="ROM_USE_FILE = false;">
+<textarea id="in" rows="25" cols="50">
 78
 d8
 a9
@@ -618,8 +619,6 @@ ff ff ff
 f2
 </textarea>
 <br>
-<!-- <input type=file id=f1> --> <!-- TODO: file element, can't seem to access locally directly -->
-<input id="filename" size="50" value="http://localhost/magic/smb3.nes"><button onclick="loadNesFile()">Load file</button><br>
 <button accesskey="d" onclick="update()">Disassemble</button>
 <div style="width: 40%; margin: auto">
 <pre id="disasm-before" style="float: left"></pre>
