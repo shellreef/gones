@@ -517,31 +517,6 @@ function encodeGG(c) {
     return s;
 }
 
-// Load ROM data from a .nes file
-// TODO: accept file uploads! but not to server; use HTML5: https://developer.mozilla.org/en/DOM/FileReader 
-// drag and drop local file..sweet. Just what I need. Much better than either
-// using XHR to download a file (since it can only come from the same server) or even
-// worse, having to paste a hex dump. HTML5 drag-and-drop is what I need. http://code.google.com/p/html5uploader/
-function loadNesFile() {
-    var url, req;
-
-    url = dojo.byId(filename).value;
-
-    req = new XMLHttpRequest();
-    req.open("GET", url, false);
-
-    // Binary data transfer. Using request manually because dojo doesn't
-    // seem to support this, but it is required to not mangle UTF-8.
-    req.overrideMimeType("text/plain; charset=x-user-defined");
-    req.send(null);
-
-    if (req.status !== 200) {
-        throw "Failed to GET URL: " + url + ", status = " + status;
-    }
-
-    parseNesFile(req.responseText);
-}
-
 // Read an iNES file (.nes)
 function parseNesFile(data) {
     var header, prg, chr;
@@ -551,7 +526,8 @@ function parseNesFile(data) {
     signature = header.substring(0, 4);
 
     if (signature !== "NES\x1a") {
-        throw "Invalid .nes file signature: " + signature;
+        //throw "Invalid .nes file signature: " + signature;
+        return false;
     }
     prgCount = header.substring(5, 6).charCodeAt(0);
     // Other header info not read yet
@@ -560,12 +536,20 @@ function parseNesFile(data) {
     prg = data.substring(0x10, 0x10 + prgCount * 16384);
     console.log("PRG",prgCount,prg.length);
 
+    /* TODO: use this, it is more direct. why convert to hex string only to convert it back again?
     ROM_DATA = array2Object(prg.split("").map(function(x) { 
             // Binary data from XHR has to be masked to 8 bits
             return x.charCodeAt(0) & 0xff; 
     }));
+    */
+
+    // Convert binary data to hex string for display in and parsing from textarea
+    var prgString = prg.split("").map(function(x) { return hex(x.charCodeAt(0) & 0xff, 2, true); }).join(" ");
+    dojo.byId("in").value = prgString;
 
     update();
+
+    return true;
 }
 
 // Load a known ROM patch from the database
@@ -585,6 +569,69 @@ function loadPatch(i) {
 }
 
 function init() {
+    // https://developer.mozilla.org/en/Using_files_from_web_applications
+    var target = dojo.byId("in");
+    // Make it a valid drop target
+    target.addEventListener("dragover", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        }, false);
+    // Visually indicate you can drop here
+    target.addEventListener("dragenter", function(e) { 
+        e.stopPropagation();
+        e.preventDefault();
+        target.style.border = "2px dashed black";
+        }, false);
+    target.addEventListener("dragleave", function(e) {
+        target.style.border = "";
+        }, false);
+    // Accept files
+    target.addEventListener("drop", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        console.log("Got files",files);
+        
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+            // Safari 5.0.3 doesn't have FileReader
+            // Firefox 3.6.13 does, but has "File" instead of Blob
+            // Firefox 4.0b9 supports the correct API
+            alert("Sorry, your browser doesn't support HTML5 file APIs");
+            return;
+        }
+
+        if (files.length != 1) {
+            alert("Sorry, you dropped " + files.length + " files, but I expected only one");
+            return;
+        }
+
+        var file = files[0];
+        var reader = new FileReader();
+
+        // See https://developer.mozilla.org/en/DOM/FileReader 
+        // and http://www.html5rocks.com/tutorials/file/dndfiles/
+        reader.onloadend = function(e) {
+            if (e.target.readyState === FileReader.DONE) {
+                var data = e.target.result;
+
+                target.style.border = "2px solid black";   // indicate we're loading a file
+
+                //alert("Got " + data.length + " bytes");
+                if (parseNesFile(data)) {
+                    target.style.border = "2px solid green";
+                } else {
+                    target.style.border = "2px solid red";
+                }
+            }
+        };
+
+        reader.readAsBinaryString(file);
+
+        }, false);
+
     document.onkeyup = update;
 
     update();
@@ -619,7 +666,6 @@ ff ff ff
 f2
 </textarea>
 <br>
-<button accesskey="d" onclick="update()">Disassemble</button>
 <div style="width: 40%; margin: auto">
 <pre id="disasm-before" style="float: left"></pre>
 <pre id="disasm-after" style="float: right"></pre>
