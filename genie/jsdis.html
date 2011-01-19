@@ -567,8 +567,14 @@ function loadPatch(i) {
     dojo.byId("romBase").value = hex(ROM_DATA.baseAddress, 6, true);
 
     // TODO: deuglify
-    dojo.byId("patchOffset").value = hex(patch.cpuAddress & 0x7fff, 4, true);
+    // TODO: must differentiate between CPU and ROM address. Generate GG code from CPU, but show disassembly from ROM.
+    // See Infinite lives from Balloon Fight, SUNNIZVI, loadPatch(70) doesn't find patch! CPU F2FD, ROM 32FD
+    dojo.byId("patchOffset").value = hex(patch.cpuAddress & 0x7fff, 4, true);   
+    console.log("CPU " + hex(patch.cpuAddress,4,true) + ", ROM " + hex(patch.romAddress,4,true));
     dojo.byId("patchValue").value = hex(patch.value, 2, true);
+    // TODO: must have 'compare' value to generate accurate GG code
+
+    dojo.byId("title").textContent = patch.title;
 
     update();
 }
@@ -646,7 +652,9 @@ function init() {
 <body onload="init()">
 <input id="patchOffset" value="0000" size="4">: <!-- offset within the disassembly, not the CPU address! -->
 <input id="patchValue" value="01" size="2" maxlength="2">
-<span id="encoded"></span><br> <!-- TODO: user-editable -->
+<span id="encoded"></span> <!-- TODO: user-editable -->
+<span id="title"></span>
+<br>
 <!-- example codes for below:
 0000:00 changes opcode only; same size 1->1, SEI -> BRK, affects 1 total
 0000:01 changes opcode and size 1->2, SEI -> LDA, consumes 2-1=1 extra bytes
