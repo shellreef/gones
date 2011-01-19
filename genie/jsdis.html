@@ -568,13 +568,13 @@ function loadPatch(i) {
 
     // TODO: deuglify
     // TODO: must differentiate between CPU and ROM address. Generate GG code from CPU, but show disassembly from ROM.
-    // See Infinite lives from Balloon Fight, SUNNIZVI, loadPatch(70) doesn't find patch! CPU F2FD, ROM 32FD
-    dojo.byId("patchOffset").value = hex(patch.cpuAddress & 0x7fff, 4, true);   
+    // See Infinite lives from Balloon Fight, SUNNIZVI, loadPatch(70) wouldn't find patch if used CPU only: CPU F2FD, ROM 32FD
+    dojo.byId("patchOffset").value = hex(patch.romAddress, 4, true);   
     console.log("CPU " + hex(patch.cpuAddress,4,true) + ", ROM " + hex(patch.romAddress,4,true));
     dojo.byId("patchValue").value = hex(patch.value, 2, true);
     // TODO: must have 'compare' value to generate accurate GG code
 
-    dojo.byId("title").textContent = patch.title;
+    dojo.byId("title").textContent = patch.game + ": " + patch.title;
 
     update();
 }
