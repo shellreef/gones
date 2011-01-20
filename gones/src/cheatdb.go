@@ -10,6 +10,7 @@ import ("fmt"
         "os"
         "path"
         "io"
+        "json"
 
         "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
         //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
@@ -409,21 +410,32 @@ func (db *Database) Serve() {
         w.WriteString("var PATCHES = [\n")
 
         for query.Next() {
-            var romAddress int
-            var romBefore string
-            var romAfter string
-            var cpuAddress int
-            var value int
-            var compare *int = new(int)
-            var title string
-            var gameName string
+            var r struct {
+                RomAddress int "romAddress"
+                RomBefore string "romBefore"
+                RomAfter string "romAfter"
+                CpuAddress int "cpuAddress"
+                Value int "value"
+                Compare *int "compare"
+                Title string "title"
+                GameName string "gameName"
+            }
 
-            err := query.Scan(&romAddress, &romBefore, &romAfter, &cpuAddress, &value, &compare, &title, &gameName)
+            r.Compare = new(int)
+
+            err := query.Scan(&r.RomAddress, &r.RomBefore, &r.RomAfter, &r.CpuAddress, &r.Value, &r.Compare, &r.Title, &r.GameName)
             if err != nil {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
             // TODO: use JSON module, avoid XSS
-            w.WriteString(fmt.Sprintf("{romAddress:0x%.6X, romBefore:'%s', romAfter:'%s', cpuAddress:0x%.4X, value:0x%.2X, title:\"%s\", game:\"%s\"},\n", romAddress, romBefore, romAfter, cpuAddress, value, title, gameName))
+            html, err2 := json.MarshalForHTML(r)
+
+            if err2 != nil {
+                panic(fmt.Sprintf("failed to marshal: %s", err2))
+            }
+
+            w.Write(html)
+            w.WriteString(",\n")
         }
         w.WriteString("]\n")
     })
@@ -434,16 +446,25 @@ func (db *Database) Serve() {
 
         query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY COUNT(effect.id) DESC;")
         for query.Next() {
-            var gameID int
-            var gameName, gameGaloob, gameGaloobID string
-            var effectCount int
+            var r struct {
+                GameID int "gameID"
+                GameName string "gameName"
+                GameGaloob string "gameGaloob"
+                GameGaloobID string "gameGaloobID"
+                EffectCount int "effectCount"
+            }
 
-            err := query.Scan(&gameID, &gameName, &gameGaloob, &gameGaloobID, &effectCount)
+            err := query.Scan(&r.GameID, &r.GameName, &r.GameGaloob, &r.GameGaloobID, &r.EffectCount)
             if err != nil {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
-            // TODO: JSON
-            w.WriteString(fmt.Sprintf(" {id:%d, gameName:\"%s\", gameGaloobName:\"%s\", gameGaloobID:\"%s\", effectCount:%d},\n", gameID, gameName, gameGaloob, gameGaloobID, effectCount)) 
+
+            html, err2 := json.MarshalForHTML(r)
+            if err2 != nil {
+                panic(fmt.Sprintf("failed to marshal: %s", err2))
+            }
+            w.Write(html)
+            w.WriteString(",\n")
         }
         w.WriteString("]\n")
     })
