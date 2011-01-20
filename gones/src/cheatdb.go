@@ -122,6 +122,21 @@ func (db *Database) exec(sql string, args ...interface{}) {
 }
 
 
+// Prepare a SQL statement, then execute it and return the query, checking for error
+// Like exec(), but you can receive the results of the query
+func (db *Database) query(sql string, args ...interface{}) (*sqlite.Stmt) {
+    query, err := db.handle.Prepare(sql)
+    if err != nil {
+        panic(fmt.Sprintf("failed to prepare: %s", sql))
+    }
+    err = query.Exec(args...)
+    if err != nil {
+        panic(fmt.Sprintf("failed to exec %s %s", sql, args))
+    }
+    return query
+}
+
+
 // Get all cartridges recognized in the cheat database
 func (db *Database) AllCarts(analyzeCart func(cartPath string)(bool), analyzeCode func(code gamegenie.GameGenieCode)(bool,uint32,string,string,string)) {
     query, _ := db.handle.Prepare("SELECT game.name,game.id,cart.filename,cart.name,cart.sha1,cart.id FROM game,cart WHERE cart.game_id=game.id")
@@ -388,11 +403,7 @@ func (db *Database) CreateTables() {
 // Web interface
 func (db *Database) Serve() {
     web.Get("/patches.js", func(w *web.Context) { // TODO: accept arguments to filter
-        query, _ := db.handle.Prepare("SELECT rom_address,rom_before,rom_after, cpu_address,value,compare, title,game.name FROM patch,code,effect,game WHERE patch.code_id=code.id AND code.effect_id=effect.id AND effect.game_id=game.id;") // TODO: get effect,game,cart
-        err := query.Exec()
-        if err != nil {
-            panic(fmt.Sprintf("AllCarts() failed: %s", err))
-        }
+        query := db.query("SELECT rom_address,rom_before,rom_after, cpu_address,value,compare, title,game.name FROM patch,code,effect,game WHERE patch.code_id=code.id AND code.effect_id=effect.id AND effect.game_id=game.id;") // TODO: get effect,game,cart
 
         w.SetHeader("Content-Type", "text/javascript", false)
         w.WriteString("var PATCHES = [\n")
@@ -417,7 +428,7 @@ func (db *Database) Serve() {
         w.WriteString("]\n")
     })
 
-    web.Get("/", func(w *web.Context) {
+    web.Get("/code", func(w *web.Context) {
         root, _ := path.Split(os.Args[0])
         filename := path.Join(root, "..", "genie", "jsdis.html")
         f, err := os.Open(filename, os.O_RDONLY, 0)
@@ -426,6 +437,10 @@ func (db *Database) Serve() {
         }
 
         io.Copy(w, f)
+    })
+
+    web.Get("/", func(w *web.Context) {
+        //query, err := db.handle.Prepare
     })
 
     web.Get("/favicon.ico", func(w *web.Context) {
