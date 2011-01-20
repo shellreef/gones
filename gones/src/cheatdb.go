@@ -428,18 +428,10 @@ func (db *Database) Serve() {
         w.WriteString("]\n")
     })
 
-    web.Get("/code", func(w *web.Context) {
-        root, _ := path.Split(os.Args[0])
-        filename := path.Join(root, "..", "genie", "jsdis.html")
-        f, err := os.Open(filename, os.O_RDONLY, 0)
-        if err != nil {
-            panic(fmt.Sprintf("failed to open %s: %s", filename, err))
-        }
+    web.Get("/games.js", func(w *web.Context) {
+        w.SetHeader("Content-Type", "text/javascript", false)
+        w.WriteString("[\n")
 
-        io.Copy(w, f)
-    })
-
-    web.Get("/", func(w *web.Context) {
         query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY COUNT(effect.id) DESC;")
         for query.Next() {
             var gameID int
@@ -450,9 +442,23 @@ func (db *Database) Serve() {
             if err != nil {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
-            w.WriteString(fmt.Sprintf("%s: %d<br>", gameName, effectCount)) // TODO
+            // TODO: JSON
+            w.WriteString(fmt.Sprintf(" {id:%d, gameName:\"%s\", gameGaloobName:\"%s\", gameGaloobID:\"%s\", effectCount:%d},\n", gameID, gameName, gameGaloob, gameGaloobID, effectCount)) 
         }
+        w.WriteString("]\n")
     })
+
+    web.Get("/", func(w *web.Context) {
+        root, _ := path.Split(os.Args[0])
+        filename := path.Join(root, "..", "genie", "jsdis.html")
+        f, err := os.Open(filename, os.O_RDONLY, 0)
+        if err != nil {
+            panic(fmt.Sprintf("failed to open %s: %s", filename, err))
+        }
+
+        io.Copy(w, f)
+    })
+
 
     web.Get("/favicon.ico", func(w *web.Context) {
         // TODO: real favicon
