@@ -440,18 +440,17 @@ func (db *Database) Serve() {
     })
 
     web.Get("/", func(w *web.Context) {
-        query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, cart.id,cart.name,cart.sha1,cart.filename FROM game,cart WHERE cart.game_id=game.id;")
+        query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY COUNT(effect.id) DESC;")
         for query.Next() {
             var gameID int
             var gameName, gameGaloob, gameGaloobID string
-            var cartID int
-            var cartVersion, cartHash, cartFilename string
+            var effectCount int
 
-            err := query.Scan(&gameID, &gameName, &gameGaloob, &gameGaloobID, &cartID, &cartVersion, &cartHash, &cartFilename)
+            err := query.Scan(&gameID, &gameName, &gameGaloob, &gameGaloobID, &effectCount)
             if err != nil {
                 panic(fmt.Sprintf("failed to Scan: %s", err))
             }
-            w.WriteString(fmt.Sprintf("%s(%s): %s<br>", gameName, cartVersion, cartFilename))   // TODO
+            w.WriteString(fmt.Sprintf("%s: %d<br>", gameName, effectCount)) // TODO
         }
     })
 
