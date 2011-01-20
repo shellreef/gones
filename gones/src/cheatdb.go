@@ -440,7 +440,19 @@ func (db *Database) Serve() {
     })
 
     web.Get("/", func(w *web.Context) {
-        //query, err := db.handle.Prepare
+        query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, cart.id,cart.name,cart.sha1,cart.filename FROM game,cart WHERE cart.game_id=game.id;")
+        for query.Next() {
+            var gameID int
+            var gameName, gameGaloob, gameGaloobID string
+            var cartID int
+            var cartVersion, cartHash, cartFilename string
+
+            err := query.Scan(&gameID, &gameName, &gameGaloob, &gameGaloobID, &cartID, &cartVersion, &cartHash, &cartFilename)
+            if err != nil {
+                panic(fmt.Sprintf("failed to Scan: %s", err))
+            }
+            w.WriteString(fmt.Sprintf("%s(%s): %s<br>", gameName, cartVersion, cartFilename))   // TODO
+        }
     })
 
     web.Get("/favicon.ico", func(w *web.Context) {
