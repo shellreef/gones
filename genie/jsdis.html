@@ -579,7 +579,25 @@ function loadPatch(i) {
     update();
 }
 
+function loadGames() {
+    var list = dojo.byId("gamelist");
+
+    dojo.xhrGet({url: "/games.js", handleAs: "json",
+        load:function(games) {
+            for (var i = 0; i < games.length; i += 1) {
+                var game = games[i];
+
+                console.log(game.name, game.effectCount);
+
+                var option = dojo.create("option", {value:game.id}, list);
+                option.textContent = game.name;
+            }
+        }});
+}
+
 function init() {
+    loadGames();
+
     // https://developer.mozilla.org/en/Using_files_from_web_applications
     var target = dojo.byId("in");
     // Make it a valid drop target
@@ -650,6 +668,8 @@ function init() {
 </script>
 </head>
 <body onload="init()">
+
+<div id="codeview">
 <input id="patchOffset" value="0000" size="4">: <!-- offset within the disassembly, not the CPU address! -->
 <input id="patchValue" value="01" size="2" maxlength="2">
 <span id="encoded"></span> <!-- TODO: user-editable -->
@@ -682,6 +702,12 @@ f2
 <div style="width: 40%; margin: auto">
 <pre id="disasm-before" style="float: left"></pre>
 <pre id="disasm-after" style="float: right"></pre>
+</div>
+</div>
+
+<br clear="all">
+<div id="gameview">
+<select id="gamelist"></select>
 </div>
 
 </body>

@@ -444,13 +444,14 @@ func (db *Database) Serve() {
         w.SetHeader("Content-Type", "text/javascript", false)
         w.WriteString("[\n")
 
-        query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY COUNT(effect.id) DESC;")
+        //query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY COUNT(effect.id) DESC;")
+        query := db.query("SELECT game.id,game.name,game.galoob_name,game.galoob_id, COUNT(effect.id) FROM game,effect WHERE effect.game_id=game.id GROUP BY game.id ORDER BY game.name;")
         for query.Next() {
             var r struct {
-                GameID int "gameID"
-                GameName string "gameName"
-                GameGaloob string "gameGaloob"
-                GameGaloobID string "gameGaloobID"
+                GameID int "id"
+                GameName string "name"
+                GameGaloob string "galoob"
+                GameGaloobID string "galoobID"
                 EffectCount int "effectCount"
             }
 
