@@ -35,6 +35,9 @@ function expandValue(node, value) {
 
         // Remove the template node
         node.parentNode.removeChild(node);
+    } else if (value === null) {
+        // Remove node
+        node.parentNode.removeChild(node);
     } else { 
         node.textContent = value;
     }

@@ -4,7 +4,7 @@
 <script src="ambrosia.js"></script>
 <script>
 function init() {
-    expand(document, {main_header: "Hello, world", item:[1,2,3], inject_test:"<script>alert(1)<\/script>"});
+    expand(document, {main_header: "Hello, world", item:[1,2,3], inject_test:"<script>alert(1)<\/script>", that:null});
 }
 </script>
 </head>
@@ -12,10 +12,18 @@ function init() {
 <h1 id="main_header"></h1>
 <p>A list:
 <ul>
- <li id="item">
+ <li id="item">dummy item
 </ul>
 <p> This should not execute: 
 <p id="inject_test">
+
+<p>Which one will survive? <span id="this">this</span> or <span id="that">that</span>?
+
+<p>Nested list:
+<ul>
+ <li id="item2"><span id="first">foo</span> - <span id="second">bar</span>
+</ul>
+
 
 </body>
 </html>
