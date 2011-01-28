@@ -11,6 +11,7 @@ import ("fmt"
         "path"
         "io"
         "json"
+        "strconv"
 
         "github.com/kless/go-sqlite/sqlite" // https://github.com/kless/go-sqlite/tree/master/sqlite
         //"gosqlite.googlecode.com/hg/sqlite"    // http://code.google.com/p/gosqlite/
@@ -468,6 +469,19 @@ func (db *Database) Serve() {
             w.WriteString(",\n")
         }
         w.WriteString("]\n")
+    })
+
+    web.Get("/effects/(.*)", func(w *web.Context, gameIDstring string) {
+        gameID, err := strconv.Atoi(gameIDstring)
+        if err != nil {
+            w.WriteString("Invalid game")
+            return
+        }
+   
+        // TODO: get game, all carts, and all codes for all carts
+        //query := db.query("SELECT * FROM effect,cart,code WHERE effect.game_id=1 AND cart.game_id=effect.game_id AND code.cart_id=cart.id")
+
+        w.WriteString(fmt.Sprintf("id=%d\n", gameID))
     })
 
     web.Get("/", func(w *web.Context) {

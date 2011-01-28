@@ -582,17 +582,26 @@ function loadPatch(i) {
 function loadGames() {
     var list = dojo.byId("gamelist");
 
+    // TODO: full, tabular list instead of a <select>
+
     dojo.xhrGet({url: "/games.js", handleAs: "json",
         load:function(games) {
             for (var i = 0; i < games.length; i += 1) {
                 var game = games[i];
 
-                console.log(game.name, game.effectCount);
+                //console.log(game.name, game.effectCount);
 
                 var option = dojo.create("option", {value:game.id}, list);
                 option.textContent = game.name;
             }
         }});
+
+
+    list.onchange = function() {
+        var game_id = this.value;
+
+        // TODO: load codes
+    };
 }
 
 function init() {
