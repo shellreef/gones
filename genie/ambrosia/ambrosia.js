@@ -10,26 +10,33 @@
 function expand(template, data) {
     for (var id in data) {
         if (data.hasOwnProperty(id)) {
-            var element = template.getElementById(id);
-            if (!element) {
-                throw "no such element id: " + id;
+            var node = template.getElementById(id);
+            if (!node) {
+                throw "no such node id: " + id;
             }
 
             var value = data[id];
 
-            expandValue(element, value);
+            expandValue(node, value);
         }
     }
 }
 
-function expandValue(element, value) {
-    /* TODO if (value instanceof Array) {
+function expandValue(node, value) {
+    if (value instanceof Array) {
+        // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
-            var new_node = expandValue(value[i]);
+            var new_node = node.cloneNode();
 
-            element.parentNode.insertBefore(new_node, element)
+            node.parentNode.insertBefore(new_node, node)
+
+            expandValue(new_node, value[i]);
         }
-    } else { */
-        element.textContent = value;
-    //}
+
+        // Remove the template node
+        node.parentNode.removeChild(node);
+    } else { 
+        node.textContent = value;
+    }
+    // TODO: attributes
 }
