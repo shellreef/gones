@@ -41,5 +41,6 @@ function expandValue(node, value) {
     } else { 
         node.textContent = value;
     }
-    // TODO: attributes
+    // TODO: nesting, very important
+    // TODO: attributes, probably through a special object
 }
