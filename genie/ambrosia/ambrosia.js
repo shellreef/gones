@@ -41,7 +41,7 @@ function ambrosia(node, value) {
             }
         }
 
-        ambrosia(node, value.value);
+        ambrosia(node, value.content);
     } else if (typeof value === "object") {
         // Nested
         for (var id in value) {
@@ -59,17 +59,17 @@ function ambrosia(node, value) {
     }
 }
 
-function A(attributes, value) {
+function A(attributes, content) {
     if (typeof attributes === "string" || typeof attributes === "number") {
         // Also accept reversed order of parameters, sometimes more convenient
-        return new AmbrosiaAttrList(value, attributes);
+        return new AmbrosiaAttrList(content, attributes);
     }
 
-    return new AmbrosiaAttrList(attributes, value);
+    return new AmbrosiaAttrList(attributes, content);
 }
 
-function AmbrosiaAttrList(attributes, value) {
+function AmbrosiaAttrList(attributes, content) {
     this.attributes = attributes;
-    this.value = value;
+    this.content = content;
     return this;
 }

@@ -40,16 +40,36 @@ def expand_node(node, value)
         node.remove
     when NilClass
         node.remove
+    when AmbrosiaAttrList
+        value.attributes.each do |attribute_name, attribute_value|
+            node[attribute_name.to_s] = attribute_value 
+        end
+        expand_node(node, value.content)
     else
         throw "expand_node(#{node}, #{value}): unsupported data type: #{value.class}"
     end
 end
 
-puts expand(<<HTML, {:x => "Hello, <script>world", :item => [1,2,3], :dead => nil})
+def A(attributes, content)
+    # TODO: support reverse order too
+    return AmbrosiaAttrList.new(attributes, content)
+end
+
+class AmbrosiaAttrList
+    attr_accessor :attributes, :content
+    def initialize(attributes, content)
+        @attributes = attributes
+        @content = content
+    end
+end
+
+puts expand(<<HTML, {:x => "Hello, <script>world", :item => [1,2,3], :dead => nil, :link => A({:href => "http://example.com/"}, "example link")})
 <p id=x></p>
 <ul>
 <li id="item">
 </ul>
 <span id="dead">This will not appear</span>
+
+<a id="link"></a>
 HTML
 
