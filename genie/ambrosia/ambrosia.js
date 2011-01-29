@@ -12,7 +12,8 @@ function expand(root, data) {
         if (data.hasOwnProperty(id)) {
             var node = root.querySelector("#" + id);
             if (!node) {
-                throw "no such node id: " + id;
+                console.log(root);
+                throw "no such node id: " + id + ", from " + root;
             }
 
             var value = data[id];
@@ -26,7 +27,8 @@ function expandValue(node, value) {
     if (value instanceof Array) {
         // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
-            var new_node = node.cloneNode();    // TODO: what about their id?
+            var new_node = node.cloneNode(true); 
+            // TODO: make id unique
 
             node.parentNode.insertBefore(new_node, node)
 

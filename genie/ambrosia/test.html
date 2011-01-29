@@ -5,7 +5,12 @@
 <script>
 function init() {
     expand(document, {main_header: "Hello, world", item:[1,2,3], inject_test:"<script>alert(1)<\/script>", that:null,
-        item2: {first:1, second:2}
+        item2: {first:1, second:2},
+        row: [
+            {type: "Scalar", purpose:"Insert text, automatically safe from XSS (can't inject <script> etc.)"},
+            {type: "Array", purpose:"Clone node for each element"},
+            {type: "Object", purpose:"Nesting"},
+            ]
     });
 }
 </script>
@@ -21,11 +26,22 @@ function init() {
 
 <p>Which one will survive? (<span id="this">this</span>) or (<span id="that">that</span>)?
 
-<p>Nested list:
+<p>Nesting:
 <ul>
  <li id="item2"><span id="first">foo</span> - <span id="second">bar</span>
 </ul>
 
+<p>Nested list:
+<table border="1">
+ <tr>
+  <th>Type</th>
+  <th>Purpose</th>
+ </tr>
+ <tr id="row">
+  <td id="type"></td>
+  <td id="purpose"></td>
+ </tr>
+</table>
 
 </body>
 </html>
