@@ -4,12 +4,13 @@
 <script src="ambrosia.js"></script>
 <script>
 function init() {
-    expand(document, {main_header: "Hello, world", item:[1,2,3], inject_test:"<script>alert(1)<\/script>", that:null,
+    ambrosia(document, {main_header: "Hello, world", item:[1,2,3], that:null,
         item2: {first:1, second:2},
         row: [
-            {type: "Scalar", purpose:"Insert text, automatically safe from XSS (can't inject <script> etc.)"},
-            {type: "Array", purpose:"Clone node for each element"},
-            {type: "Object", purpose:"Nesting"},
+            {syntax: "{}", purpose:"Key is id of elements to modify, value is new data (any type). Can be nested."},
+            {syntax: '""', purpose:"Set text, automatically safe from XSS (can't inject <script> etc.)"},
+            {syntax: "[]", purpose:"Clone node for each element, for lists"},
+            {syntax: "A()", purpose:"Set attributes"},
             ],
         link: A({href:"http://example.com/"}, "example link"),
         link2: A("another one", {href:"http://example.com/"})
@@ -23,7 +24,6 @@ function init() {
 <ul>
  <li id="item">dummy item
 </ul>
-<p> This should not execute: <em id="inject_test"></em>
 
 <p>Which one will survive? (<span id="this">this</span>) or (<span id="that">that</span>)?
 
@@ -32,11 +32,11 @@ function init() {
 <p>Nested list:
 <table border="1">
  <tr>
-  <th>Type</th>
+  <th>Syntax</th>
   <th>Purpose</th>
  </tr>
  <tr id="row">
-  <td id="type"></td>
+  <td id="syntax"></td>
   <td id="purpose"></td>
  </tr>
 </table>

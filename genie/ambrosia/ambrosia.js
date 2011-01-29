@@ -7,7 +7,7 @@
 // other systems like HTML::Steamstress http://www.perlmonks.org/?node_id=674225
 // and for theory http://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf
 
-function expand(node, value) {
+function ambrosia(node, value) {
     if (value instanceof Array) {
         // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
@@ -16,7 +16,7 @@ function expand(node, value) {
 
             node.parentNode.insertBefore(new_node, node)
 
-            expand(new_node, value[i]);
+            ambrosia(new_node, value[i]);
         }
 
         // Remove the template node
@@ -36,7 +36,7 @@ function expand(node, value) {
             }
         }
 
-        expand(node, value.value);
+        ambrosia(node, value.value);
     } else if (typeof value === "object") {
         // Nested
         for (var id in value) {
@@ -46,14 +46,14 @@ function expand(node, value) {
                     throw "no such node id: " + id + ", from " + next_node;
                 }
 
-                expand(next_node, value[id]);
+                ambrosia(next_node, value[id]);
             }
         }
 
     // TODO: nesting, very important
     // TODO: attributes, probably through a special object
     } else {
-        throw "expand(" + node + ", " + value + "): unsupported data type: " + typeof value;
+        throw "ambrosia(" + node + ", " + value + "): unsupported data type: " + typeof value;
     }
 }
 
