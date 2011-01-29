@@ -12,7 +12,7 @@ function ambrosia(node, value) {
         // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
             var new_node = node.cloneNode(true); 
-            // TODO: make id unique
+            // TODO: make id unique. or should we use classes for everything instead?
 
             node.parentNode.insertBefore(new_node, node)
 
