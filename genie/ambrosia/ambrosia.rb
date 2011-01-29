@@ -8,10 +8,10 @@ require 'rubygems'
 require 'nokogiri'
 
 
-def expand(html, data)
+def ambrosia(html, data)
     root = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    expand_node(root, data)
+    root.ambrosia(data)
 
     return root.to_html
 end
@@ -24,7 +24,7 @@ def expand_node(node, value)
             if next_node.nil? 
                 throw "expand_node(#{node}, #{value}): no such id: #{key}"
             end
-            expand_node(next_node, next_value)
+            next_node.ambrosia(next_value)
         end
     when String
         node.content = value
@@ -35,7 +35,7 @@ def expand_node(node, value)
             new_node = node.clone       # TODO: uniquify id
             node.parent.add_child(new_node)
 
-            expand_node(new_node, item)
+            new_node.ambrosia(item)
         end
         node.remove
     when NilClass, FalseClass
@@ -46,14 +46,18 @@ def expand_node(node, value)
         value.attributes.each do |attribute_name, attribute_value|
             node[attribute_name.to_s] = attribute_value 
         end
-        expand_node(node, value.content)
+        node.ambrosia(value.content)
     else
         throw "expand_node(#{node}, #{value}): unsupported data type: #{value.class}"
     end
 end
 
-def A(attributes, content)
-    # TODO: support reverse order too
+def A(attributes, content=true)
+    if attributes.class == String || attributes.class == Fixnum
+        # reversed order
+        return AmbrosiaAttrList.new(content, attributes)
+    end
+
     return AmbrosiaAttrList.new(attributes, content)
 end
 
@@ -65,21 +69,41 @@ class AmbrosiaAttrList
     end
 end
 
+
+# Convenience methods to make it more OO
+class Nokogiri::HTML::DocumentFragment
+    def ambrosia(value)
+        expand_node(self, value)
+    end
+end
+
+class Nokogiri::XML::Element
+    def ambrosia(value)
+        expand_node(self, value)
+    end
+end
+
+
 data = {
     :x => "Hello, <script>world", 
     :item => [1,2,3], 
     :dead => nil, 
     :dead2 => false,
     :alive => true,
-    :link => A({:href => "http://example.com/"}, "example link")
+    :link => A({:href => "http://example.com/"}, "example link"),
+    :link2 => A("another link", {:href => "http://example.com/"}),
+    :logo => A({:src => "http://upload.wikimedia.org/wikipedia/commons/3/3c/Ambrosia_salad.jpg"}),
     }
-puts expand(<<HTML, data)
+
+puts ambrosia(<<HTML, data)
 <p id=x></p>
 <ul>
 <li id="item">
 </ul>
 <span id="dead">This will not appear</span><span id="dead2">This either</span><span id="alive">But this will</span>
 
-<a id="link"></a>
+<a id="link"></a>, <a id="link2"></a>
+
+<img id="logo">
 HTML
 
