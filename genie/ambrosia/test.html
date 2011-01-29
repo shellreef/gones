@@ -13,7 +13,8 @@ function init() {
             {syntax: "A()", purpose:"Set attributes"},
             ],
         link: A({href:"http://example.com/"}, "example link"),
-        link2: A("another one", {href:"http://example.com/"})
+        link2: A("another one", {href:"http://example.com/"}),
+        logo: A({src:"http://upload.wikimedia.org/wikipedia/commons/3/3c/Ambrosia_salad.jpg"})
     });
 }
 </script>
@@ -42,6 +43,8 @@ function init() {
 </table>
 
 <p>Setting attributes: <a id="link">word</a>, <a id="link2"></a>
+
+<p>with no content: <img id="logo">
 
 </body>
 </html>

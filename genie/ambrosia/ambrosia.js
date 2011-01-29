@@ -24,8 +24,11 @@ function ambrosia(node, value) {
     } else if (value === null) {
         // Remove node
         node.parentNode.removeChild(node);
+    } else if (value === undefined) {
+        // No operation
+
     // https://developer.mozilla.org/en/JavaScript/Reference/Operators/Special_Operators/typeof_Operator
-    // TODO: undefined, boolean, function, xml
+    // TODO: boolean, function, xml
     } else if (typeof value === "string" || typeof value === "number") {
         // Scalar text value
         node.textContent = value;
