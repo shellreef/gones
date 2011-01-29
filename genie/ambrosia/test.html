@@ -12,6 +12,7 @@ function init() {
             {type: "Object", purpose:"Nesting"},
             ],
         link: A({href:"http://example.com/"}, "example link"),
+        link2: A("another one", {href:"http://example.com/"})
     });
 }
 </script>
@@ -26,10 +27,7 @@ function init() {
 
 <p>Which one will survive? (<span id="this">this</span>) or (<span id="that">that</span>)?
 
-<p>Nesting:
-<ul>
- <li id="item2"><span id="first">foo</span> - <span id="second">bar</span>
-</ul>
+<p>Nesting: <b id="item2"><span id="first">foo</span> - <span id="second">bar</span></b>
 
 <p>Nested list:
 <table border="1">
@@ -43,7 +41,7 @@ function init() {
  </tr>
 </table>
 
-<p>Setting attributes: <a id="link">word</a>
+<p>Setting attributes: <a id="link">word</a>, <a id="link2"></a>
 
 </body>
 </html>

@@ -64,6 +64,11 @@ function expandValue(node, value) {
 }
 
 function A(attributes, value) {
+    if (typeof attributes === "string" || typeof attributes === "number") {
+        // Also accept reversed order of parameters, sometimes more convenient
+        return new AmbrosiaAttrList(value, attributes);
+    }
+
     return new AmbrosiaAttrList(attributes, value);
 }
 
