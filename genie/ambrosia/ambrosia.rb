@@ -37,11 +37,19 @@ def expand_node(node, value)
 
             expand_node(new_node, item)
         end
+        node.remove
+    when NilClass
+        node.remove
     else
         throw "expand_node(#{node}, #{value}): unsupported data type: #{value.class}"
     end
 end
 
-puts expand("<p id=x></p>", {:x => "Hello, <script>world"})
+puts expand(<<HTML, {:x => "Hello, <script>world", :item => [1,2,3], :dead => nil})
+<p id=x></p>
+<ul>
+<li id="item">
+</ul>
+<span id="dead">This will not appear</span>
+HTML
 
-puts expand("<li id=x>", {:x => [1,2,3]})
