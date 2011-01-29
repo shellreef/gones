@@ -4,17 +4,20 @@
 <script src="ambrosia.js"></script>
 <script>
 function init() {
-    ambrosia(document, {main_header: "Hello, world", item:[1,2,3], that:null,
+    ambrosia(document, {main_header: "Hello, world", item:[1,2,3], that:null, 
         item2: {first:1, second:2},
         row: [
-            {syntax: "{}", purpose:"Key is id of elements to modify, value is new data (any type). Can be nested."},
-            {syntax: '""', purpose:"Set text, automatically safe from XSS (can't inject <script> etc.)"},
-            {syntax: "[]", purpose:"Clone node for each element, for lists"},
-            {syntax: "A()", purpose:"Set attributes"},
+            {code: "{}", purpose:"Key is id of elements to modify, value is new data (any type). Can be nested."},
+            {code: '""', purpose:"Set node text content, automatically safe from XSS (can't inject <script> etc.) & entities"},
+            {code: "[]", purpose:"Clone node for each element, for lists"},
+            {code: "A()", purpose:"Set attributes and content of node"},
+            {code: "null", purpose:"Remove node"},
+            {code: "undefined", purpose:"No operation"},
             ],
         link: A({href:"http://example.com/"}, "example link"),
         link2: A("another one", {href:"http://example.com/"}),
-        logo: A({src:"http://upload.wikimedia.org/wikipedia/commons/3/3c/Ambrosia_salad.jpg"})
+        logo: A({src:"http://upload.wikimedia.org/wikipedia/commons/3/3c/Ambrosia_salad.jpg"}),
+        sum: function() { return 1 + 2 }
     });
 }
 </script>
@@ -33,18 +36,20 @@ function init() {
 <p>Nested list:
 <table border="1">
  <tr>
-  <th>Syntax</th>
+  <th>Code</th>
   <th>Purpose</th>
  </tr>
  <tr id="row">
-  <td id="syntax"></td>
+  <td id="code"></td>
   <td id="purpose"></td>
  </tr>
 </table>
 
 <p>Setting attributes: <a id="link">word</a>, <a id="link2"></a>
 
-<p>with no content: <img id="logo">
+<p>with no content: <br clear="all"> <img id="logo">
+
+<p>Function: <span id="sum"></span>
 
 </body>
 </html>

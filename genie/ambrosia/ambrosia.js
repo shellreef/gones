@@ -28,10 +28,12 @@ function ambrosia(node, value) {
         // No operation
 
     // https://developer.mozilla.org/en/JavaScript/Reference/Operators/Special_Operators/typeof_Operator
-    // TODO: boolean, function, xml
+    // TODO: boolean, xml
     } else if (typeof value === "string" || typeof value === "number") {
         // Scalar text value
         node.textContent = value;
+    } else if (typeof value === "function") {
+        ambrosia(node, value.call());
     } else if (value instanceof AmbrosiaAttrList) {
         for (attr in value.attributes) { 
             if (value.attributes.hasOwnProperty(attr)) {
@@ -52,9 +54,6 @@ function ambrosia(node, value) {
                 ambrosia(next_node, value[id]);
             }
         }
-
-    // TODO: nesting, very important
-    // TODO: attributes, probably through a special object
     } else {
         throw "ambrosia(" + node + ", " + value + "): unsupported data type: " + typeof value;
     }
