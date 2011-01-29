@@ -38,8 +38,10 @@ def expand_node(node, value)
             expand_node(new_node, item)
         end
         node.remove
-    when NilClass
+    when NilClass, FalseClass
         node.remove
+    when TrueClass
+        # no operation
     when AmbrosiaAttrList
         value.attributes.each do |attribute_name, attribute_value|
             node[attribute_name.to_s] = attribute_value 
@@ -63,12 +65,20 @@ class AmbrosiaAttrList
     end
 end
 
-puts expand(<<HTML, {:x => "Hello, <script>world", :item => [1,2,3], :dead => nil, :link => A({:href => "http://example.com/"}, "example link")})
+data = {
+    :x => "Hello, <script>world", 
+    :item => [1,2,3], 
+    :dead => nil, 
+    :dead2 => false,
+    :alive => true,
+    :link => A({:href => "http://example.com/"}, "example link")
+    }
+puts expand(<<HTML, data)
 <p id=x></p>
 <ul>
 <li id="item">
 </ul>
-<span id="dead">This will not appear</span>
+<span id="dead">This will not appear</span><span id="dead2">This either</span><span id="alive">But this will</span>
 
 <a id="link"></a>
 HTML
