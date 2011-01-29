@@ -10,7 +10,8 @@ function init() {
             {type: "Scalar", purpose:"Insert text, automatically safe from XSS (can't inject <script> etc.)"},
             {type: "Array", purpose:"Clone node for each element"},
             {type: "Object", purpose:"Nesting"},
-            ]
+            ],
+        link: A({href:"http://example.com/"}, "example link"),
     });
 }
 </script>
@@ -21,8 +22,7 @@ function init() {
 <ul>
  <li id="item">dummy item
 </ul>
-<p> This should not execute: 
-<p id="inject_test">
+<p> This should not execute: <em id="inject_test"></em>
 
 <p>Which one will survive? (<span id="this">this</span>) or (<span id="that">that</span>)?
 
@@ -42,6 +42,8 @@ function init() {
   <td id="purpose"></td>
  </tr>
 </table>
+
+<p>Setting attributes: <a id="link">word</a>
 
 </body>
 </html>

@@ -45,6 +45,14 @@ function expandValue(node, value) {
     } else if (typeof value === "string" || typeof value === "number") {
         // Scalar text value
         node.textContent = value;
+    } else if (value instanceof AmbrosiaAttrList) {
+        for (attr in value.attributes) { 
+            if (value.attributes.hasOwnProperty(attr)) {
+                node.setAttribute(attr, value.attributes[attr]);
+            }
+        }
+
+        expandValue(node, value.value);
     } else if (typeof value === "object") {
         // Nested
         expand(node, value);
@@ -53,4 +61,14 @@ function expandValue(node, value) {
     } else {
         throw "expandValue(" + node + ", " + value + "): unsupported data type: " + typeof value;
     }
+}
+
+function A(attributes, value) {
+    return new AmbrosiaAttrList(attributes, value);
+}
+
+function AmbrosiaAttrList(attributes, value) {
+    this.attributes = attributes;
+    this.value = value;
+    return this;
 }
