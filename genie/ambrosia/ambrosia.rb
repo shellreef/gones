@@ -11,26 +11,37 @@ require 'nokogiri'
 def expand(html, data)
     root = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    expandNode(root, data)
+    expand_node(root, data)
 
     return root.to_html
 end
 
-def expandNode(node, value)
+def expand_node(node, value)
     case value
     when Hash
         value.each do |key, next_value|
             next_node = node.at_css("\##{key}")
             if next_node.nil? 
-                throw "expandNode(#{node}, #{value}): no such id: #{key}"
+                throw "expand_node(#{node}, #{value}): no such id: #{key}"
             end
-            expandNode(next_node, next_value)
+            expand_node(next_node, next_value)
         end
     when String
         node.content = value
+    when Fixnum
+        node.content = value.to_s
+    when Array
+        value.each do |item|
+            new_node = node.clone       # TODO: uniquify id
+            node.parent.add_child(new_node)
+
+            expand_node(new_node, item)
+        end
     else
-        throw "expandNode(#{node}, #{value}): unsupported data type: #{value.class}"
+        throw "expand_node(#{node}, #{value}): unsupported data type: #{value.class}"
     end
 end
 
 puts expand("<p id=x></p>", {:x => "Hello, <script>world"})
+
+puts expand("<li id=x>", {:x => [1,2,3]})
