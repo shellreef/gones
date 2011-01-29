@@ -7,10 +7,10 @@
 // other systems like HTML::Steamstress http://www.perlmonks.org/?node_id=674225
 // and for theory http://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf
 
-function expand(template, data) {
+function expand(root, data) {
     for (var id in data) {
         if (data.hasOwnProperty(id)) {
-            var node = template.getElementById(id);
+            var node = root.querySelector("#" + id);
             if (!node) {
                 throw "no such node id: " + id;
             }
@@ -26,7 +26,7 @@ function expandValue(node, value) {
     if (value instanceof Array) {
         // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
-            var new_node = node.cloneNode();
+            var new_node = node.cloneNode();    // TODO: what about their id?
 
             node.parentNode.insertBefore(new_node, node)
 
@@ -38,9 +38,17 @@ function expandValue(node, value) {
     } else if (value === null) {
         // Remove node
         node.parentNode.removeChild(node);
-    } else { 
+    // https://developer.mozilla.org/en/JavaScript/Reference/Operators/Special_Operators/typeof_Operator
+    // TODO: undefined, boolean, function, xml
+    } else if (typeof value === "string" || typeof value === "number") {
+        // Scalar text value
         node.textContent = value;
-    }
+    } else if (typeof value === "object") {
+        // Nested
+        expand(node, value);
     // TODO: nesting, very important
     // TODO: attributes, probably through a special object
+    } else {
+        throw "expandValue(" + node + ", " + value + "): unsupported data type: " + typeof value;
+    }
 }
