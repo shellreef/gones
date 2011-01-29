@@ -7,23 +7,7 @@
 // other systems like HTML::Steamstress http://www.perlmonks.org/?node_id=674225
 // and for theory http://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf
 
-function expand(root, data) {
-    for (var id in data) {
-        if (data.hasOwnProperty(id)) {
-            var node = root.querySelector("#" + id);
-            if (!node) {
-                console.log(root);
-                throw "no such node id: " + id + ", from " + root;
-            }
-
-            var value = data[id];
-
-            expandValue(node, value);
-        }
-    }
-}
-
-function expandValue(node, value) {
+function expand(node, value) {
     if (value instanceof Array) {
         // Clone node for each element of array
         for (var i = 0; i < value.length; i += 1) {
@@ -32,7 +16,7 @@ function expandValue(node, value) {
 
             node.parentNode.insertBefore(new_node, node)
 
-            expandValue(new_node, value[i]);
+            expand(new_node, value[i]);
         }
 
         // Remove the template node
@@ -52,14 +36,24 @@ function expandValue(node, value) {
             }
         }
 
-        expandValue(node, value.value);
+        expand(node, value.value);
     } else if (typeof value === "object") {
         // Nested
-        expand(node, value);
+        for (var id in value) {
+            if (value.hasOwnProperty(id)) {
+                var next_node = node.querySelector("#" + id);
+                if (!next_node) {
+                    throw "no such node id: " + id + ", from " + next_node;
+                }
+
+                expand(next_node, value[id]);
+            }
+        }
+
     // TODO: nesting, very important
     // TODO: attributes, probably through a special object
     } else {
-        throw "expandValue(" + node + ", " + value + "): unsupported data type: " + typeof value;
+        throw "expand(" + node + ", " + value + "): unsupported data type: " + typeof value;
     }
 }
 
