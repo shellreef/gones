@@ -1,6 +1,20 @@
 #!/usr/bin/ruby
 require 'ambrosia'
 
+class Person
+    attr_accessor :first, :last, :aka
+
+    def initialize(first, last, aka)
+        @first = first
+        @last = last
+        @aka = aka
+    end
+
+    def to_s
+        return "#{last}, #{first} (also known as: #{aka.join(' / ')})"
+    end
+end
+
 data = {
     :x => "Hello, <script>world", 
     :item => [1,2,3], 
@@ -10,6 +24,7 @@ data = {
     :link => A({:href => "http://example.com/"}, "example link"),
     :link2 => A("another link", {:href => "http://example.com/"}),
     :logo => A({:src => "http://upload.wikimedia.org/wikipedia/commons/3/3c/Ambrosia_salad.jpg"}),
+    :person => Person.new("Yukihiro", "Matsumoto", ["Matz", "松本行弘", "まつもとゆきひろ"]),
     }
 
 puts ambrosia(<<HTML, data)
@@ -22,5 +37,10 @@ puts ambrosia(<<HTML, data)
 <a id="link"></a>, <a id="link2"></a>
 
 <img id="logo">
+
+<hr>
+
+<p>Ruby was created by <u id="person"></u>
+
 HTML
 
